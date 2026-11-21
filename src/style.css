@@ -1,0 +1,79 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: #111214;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+#stage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: #ffffff;
+  cursor: grab;
+  outline: none;
+}
+
+#stage.is-hovering {
+  cursor: pointer;
+}
+
+#stage.is-dragging {
+  cursor: grabbing;
+}
+
+.specimen-meta {
+  position: fixed;
+  top: clamp(24px, 3.6vw, 44px);
+  left: clamp(26px, 3.8vw, 48px);
+  z-index: 10;
+  pointer-events: none;
+  font-family: 'Helvetica Neue', 'SF Pro Display', 'Inter', 'Hiragino Kaku Gothic ProN', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.specimen-meta .maker {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  line-height: 1.3;
+  color: #6e7075;
+}
+
+.specimen-meta .model {
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.08;
+  color: #111214;
+  margin-top: 2px;
+}
+
+.specimen-meta .release {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+  color: #8b8d93;
+  margin-top: 4px;
+}
