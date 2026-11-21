@@ -64,11 +64,11 @@
     ]
   },
   "summary": {
-    "totalComponents": 596,
-    "uniqueMPNs": 117,
-    "totalNets": 426,
+    "totalComponents": 662,
+    "uniqueMPNs": 126,
+    "totalNets": 452,
     "totalRoutes": 81,
-    "mainBoardParts": 441,
+    "mainBoardParts": 507,
     "mezzBoardParts": 140,
     "cameraModParts": 15
   },
@@ -100,10 +100,13 @@
         "VDD_VDENC": "VDD_VDENC_S0",
         "VDD_DDR": "VDD_DDR_S0",
         "VDD2_DDR": "VDD2_DDR_S3",
+        "VDD2L_DDR": "VDD2L_0V9_DDR_S3",
         "VDDQ_DDR": "VDDQ_DDR_S0",
+        "VDDQ_DDR_CKE": "VDDQ_DDR_CKE_S3",
+        "VDDA_DDR_PLL": "VDDA_DDR_PLL_S0",
         "VDD_0V75_S3": "VDD_0V75_S3",
         "VDD_0V75_S0": "VDD_0V75_S0",
-        "VDD_0V85_S0": "VDD_0V85_S0",
+        "VDD_0V75_PLL": "VDD_0V75_S0_PLL",
         "AVDD_0V85_S0": "AVDD_0V85_S0",
         "VDD_BIG_MEM": "VDD_CPU_BIG_MEM_S0",
         "VCC_1V8_S3": "VCC_1V8_S3",
@@ -118,7 +121,11 @@
         "XIN_OSC": "CLK_24M_IN",
         "XOUT_OSC": "CLK_24M_OUT_R",
         "CLK32K_IN": "CLK_32K_RTC",
+        "RTC_INT": "RTC_INT_L",
         "NPOR_U": "PMIC_RESETB",
+        "TSADC_SHUT": "TSADC_SHUT_ORG",
+        "PMIC_SLEEP1": "PMIC_SLEEP1",
+        "PMIC_SLEEP2": "PMIC_SLEEP2",
         "SARADC_IN0": "SARADC_IN0_RECOVERY",
         "SARADC_IN1": "BOARD_ID_ADC",
         "SARADC_IN2": "BAT_NTC_ADC",
@@ -130,18 +137,23 @@
         "SWDIO": "JTAG_SWDIO",
         "SWCLK": "JTAG_SWCLK",
         "SPI2_CS0": "PMIC_SPI_CS0",
-        "SPI2_CLK": "PMIC_SPI_CLK",
-        "SPI2_MOSI": "PMIC_SPI_MOSI",
+        "SPI2_CLK": "PMIC_SPI_CLK_SOC",
+        "SPI2_MOSI": "PMIC_SPI_MOSI_SOC",
         "SPI2_MISO": "PMIC_SPI_MISO",
         "PMIC_INT": "PMIC_INT_L",
         "DDR_CH0_DQ": "LPDDR5X_CH0_DQ",
         "DDR_CH0_CA": "LPDDR5X_CH0_CA",
         "DDR_CH0_CK_P": "LPDDR5X_CH0_CK_P",
         "DDR_CH0_CK_N": "LPDDR5X_CH0_CK_N",
+        "DDR_CH0_WCK_P": "LPDDR5X_CH0_WCK_P",
+        "DDR_CH0_WCK_N": "LPDDR5X_CH0_WCK_N",
         "DDR_CH1_DQ": "LPDDR5X_CH1_DQ",
         "DDR_CH1_CA": "LPDDR5X_CH1_CA",
         "DDR_CH1_CK_P": "LPDDR5X_CH1_CK_P",
         "DDR_CH1_CK_N": "LPDDR5X_CH1_CK_N",
+        "DDR_CH1_WCK_P": "LPDDR5X_CH1_WCK_P",
+        "DDR_CH1_WCK_N": "LPDDR5X_CH1_WCK_N",
+        "DDR_RESET": "DDR_RESET_N",
         "EMMC_CLK": "EMMC_CLK_SOC",
         "EMMC_CMD": "EMMC_CMD",
         "EMMC_D0_D7": "EMMC_D0_D7",
@@ -427,6 +439,7 @@
         "OSCI": "RTC_32K_XI",
         "OSCO": "RTC_32K_XO",
         "CLKOUT": "CLK_32K_RTC",
+        "INT": "RTC_INT_L",
         "SCL": "I2C6_SCL",
         "SDA": "I2C6_SDA",
         "VDD": "VCC_RTC_3V3",
@@ -497,6 +510,50 @@
       "pins": {
         "1": "RTC_32K_XO",
         "2": "GND"
+      }
+    },
+    {
+      "ref": "R106",
+      "mpn": "RC0201FR-0747KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "47K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -2,
+      "y": 34,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Clocks",
+      "pins": {
+        "1": "CLK_32K_RTC",
+        "2": "VCC_1V8_PMU_S3"
+      }
+    },
+    {
+      "ref": "R107",
+      "mpn": "RC0201FR-0710KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "10K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -1,
+      "y": 34,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Clocks",
+      "pins": {
+        "1": "RTC_INT_L",
+        "2": "VCC_1V8_PMU_S3"
       }
     },
     {
@@ -589,6 +646,28 @@
       }
     },
     {
+      "ref": "R108",
+      "mpn": "RC0201FR-070RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "0R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 0,
+      "y": 34,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Boot",
+      "pins": {
+        "1": "TSADC_SHUT_ORG",
+        "2": "PMIC_RESETB"
+      }
+    },
+    {
       "ref": "R104",
       "mpn": "RC0201FR-0710KL",
       "manufacturer": "Yageo",
@@ -607,7 +686,7 @@
       "subsystem": "Boot",
       "pins": {
         "1": "SARADC_IN0_RECOVERY",
-        "2": "VCC_1V8_S3"
+        "2": "AVCC_1V8_S0"
       }
     },
     {
@@ -630,6 +709,50 @@
       "pins": {
         "1": "SARADC_IN0_RECOVERY",
         "2": "KEY_VOL_UP_REC"
+      }
+    },
+    {
+      "ref": "C107",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1nF 25V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 1,
+      "y": 34,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Boot",
+      "pins": {
+        "1": "SARADC_IN0_RECOVERY",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "D102",
+      "mpn": "ESD5451N",
+      "manufacturer": "WillSemi/TI",
+      "category": "ESD/TVS",
+      "kind": "esd",
+      "value": "ESD 5V Recovery Key",
+      "pkg": "DFN1006",
+      "board": "main",
+      "side": "bot",
+      "x": 2.2,
+      "y": 34,
+      "w": 1,
+      "h": 0.6,
+      "t": 0.4,
+      "rot": 0,
+      "subsystem": "Boot",
+      "pins": {
+        "1": "KEY_VOL_UP_REC",
+        "2": "GND"
       }
     },
     {
@@ -974,7 +1097,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDDQ_DDR_S0",
+        "1": "VDD2L_0V9_DDR_S3",
         "2": "GND"
       }
     },
@@ -996,7 +1119,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDD_0V75_S3",
+        "1": "VDDQ_DDR_S0",
         "2": "GND"
       }
     },
@@ -1018,7 +1141,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDD_0V85_S0",
+        "1": "VDD_0V75_S3",
         "2": "GND"
       }
     },
@@ -1150,7 +1273,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDDQ_DDR_S0",
+        "1": "VDD2L_0V9_DDR_S3",
         "2": "GND"
       }
     },
@@ -1172,7 +1295,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDD_0V75_S3",
+        "1": "VDDQ_DDR_S0",
         "2": "GND"
       }
     },
@@ -1194,7 +1317,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDD_0V85_S0",
+        "1": "VDD_0V75_S3",
         "2": "GND"
       }
     },
@@ -1216,7 +1339,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VCC_1V8_S3",
+        "1": "VDDA_DDR_PLL_S0",
         "2": "GND"
       }
     },
@@ -1238,7 +1361,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VCC_1V8_S0",
+        "1": "VCC_1V8_S3",
         "2": "GND"
       }
     },
@@ -1260,7 +1383,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "AVCC_1V8_S0",
+        "1": "VCC_1V8_S0",
         "2": "GND"
       }
     },
@@ -1282,7 +1405,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VCC_3V3_S3",
+        "1": "AVCC_1V8_S0",
         "2": "GND"
       }
     },
@@ -1326,7 +1449,7 @@
       "rot": 90,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDDQ_DDR_S0",
+        "1": "VDD2L_0V9_DDR_S3",
         "2": "GND"
       }
     },
@@ -1348,7 +1471,7 @@
       "rot": 90,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDD_0V75_S3",
+        "1": "VDDQ_DDR_S0",
         "2": "GND"
       }
     },
@@ -1370,7 +1493,7 @@
       "rot": 90,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDD_0V85_S0",
+        "1": "VDD_0V75_S3",
         "2": "GND"
       }
     },
@@ -1392,7 +1515,7 @@
       "rot": 90,
       "subsystem": "SoC",
       "pins": {
-        "1": "VCC_1V8_S3",
+        "1": "VDDA_DDR_PLL_S0",
         "2": "GND"
       }
     },
@@ -1414,7 +1537,7 @@
       "rot": 90,
       "subsystem": "SoC",
       "pins": {
-        "1": "VCC_1V8_S0",
+        "1": "VCC_1V8_S3",
         "2": "GND"
       }
     },
@@ -1436,7 +1559,7 @@
       "rot": 90,
       "subsystem": "SoC",
       "pins": {
-        "1": "AVCC_1V8_S0",
+        "1": "VCC_1V8_S0",
         "2": "GND"
       }
     },
@@ -1458,7 +1581,7 @@
       "rot": 90,
       "subsystem": "SoC",
       "pins": {
-        "1": "VCC_3V3_S3",
+        "1": "AVCC_1V8_S0",
         "2": "GND"
       }
     },
@@ -1722,7 +1845,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDDQ_DDR_S0",
+        "1": "VDD2L_0V9_DDR_S3",
         "2": "GND"
       }
     },
@@ -1744,7 +1867,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDD_0V75_S3",
+        "1": "VDDQ_DDR_S0",
         "2": "GND"
       }
     },
@@ -1766,7 +1889,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VDD_0V85_S0",
+        "1": "VDD_0V75_S3",
         "2": "GND"
       }
     },
@@ -1788,7 +1911,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VCC_1V8_S3",
+        "1": "VDDA_DDR_PLL_S0",
         "2": "GND"
       }
     },
@@ -1810,7 +1933,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VCC_1V8_S0",
+        "1": "VCC_1V8_S3",
         "2": "GND"
       }
     },
@@ -1832,7 +1955,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "AVCC_1V8_S0",
+        "1": "VCC_1V8_S0",
         "2": "GND"
       }
     },
@@ -1854,7 +1977,7 @@
       "rot": 0,
       "subsystem": "SoC",
       "pins": {
-        "1": "VCC_3V3_S3",
+        "1": "AVCC_1V8_S0",
         "2": "GND"
       }
     },
@@ -2055,33 +2178,35 @@
         "VSYS_IN": "VSYS_3V87",
         "GND": "GND",
         "SW1": "SW_BUCK1",
-        "VOUT1": "VDD_GPU_S0",
+        "VOUT1": "VDD_GPU_S0_FB",
         "SW2": "SW_BUCK2",
-        "VOUT2": "VDD_CPU_LIT_S0",
+        "VOUT2": "VDD_CPU_LIT_S0_FB",
         "SW3": "SW_BUCK3",
-        "VOUT3": "VDD_LOG_S0",
+        "VOUT3": "VDD_LOG_S0_FB",
         "SW4": "SW_BUCK4",
-        "VOUT4": "VDD_VDENC_S0",
+        "VOUT4": "VDD_VDENC_S0_FB",
         "SW5": "SW_BUCK5",
-        "VOUT5": "VDD_DDR_S0",
+        "VOUT5": "VDD_DDR_S0_FB",
         "SW6": "SW_BUCK6",
-        "VOUT6": "VDD2_DDR_S3",
+        "FB6": "PMIC_FB6",
         "SW7": "SW_BUCK7",
         "VOUT7": "VCC_2V0_PLDO_S3",
         "SW8": "SW_BUCK8",
         "VOUT8": "VCC_3V3_S3",
         "SW9": "SW_BUCK9",
-        "VOUT9": "VDDQ_DDR_S0",
+        "FB9": "PMIC_FB9",
         "SW10": "SW_BUCK10",
         "VOUT10": "VCC_1V8_S3",
         "VCC_PLDO": "VCC_2V0_PLDO_S3",
+        "VCC_PLDO_HI": "VSYS_3V87",
+        "VCC_NLDO": "VCC_1V1_NLDO_S3",
         "NLDO1": "VDD_0V75_S3",
-        "NLDO2": "VDD_0V85_S0",
+        "NLDO2": "VDDA_DDR_PLL_S0",
         "NLDO3": "VDD_0V75_S0",
         "NLDO4": "AVDD_0V85_S0",
-        "NLDO5": "VDD_CPU_BIG_MEM_S0",
-        "PLDO1": "VCC_1V8_S0",
-        "PLDO2": "AVCC_1V8_S0",
+        "NLDO5": "VDD_0V75_S0_PLL",
+        "PLDO1": "AVCC_1V8_S0",
+        "PLDO2": "VCC_1V8_S0",
         "PLDO3": "AVDD_1V2_S0",
         "PLDO4": "AVDD_3V3_S0",
         "PLDO5": "VCCIO_SD_S0",
@@ -2090,6 +2215,9 @@
         "CLK": "PMIC_SPI_CLK",
         "MOSI": "PMIC_SPI_MOSI",
         "MISO": "PMIC_SPI_MISO",
+        "PWRCTRL1": "PMIC_SLEEP1",
+        "PWRCTRL2": "PMIC_SLEEP2",
+        "PWRCTRL3": "GND",
         "INT": "PMIC_INT_L",
         "PWRON": "PMIC_PWRON_L",
         "RESETB": "PMIC_RESETB",
@@ -2459,9 +2587,9 @@
       "value": "22uF 6.3V X5R",
       "pkg": "0402",
       "board": "main",
-      "side": "top",
-      "x": 0.5,
-      "y": 3.15,
+      "side": "bot",
+      "x": 0.45,
+      "y": 4.8,
       "w": 1,
       "h": 0.5,
       "t": 0.38,
@@ -2481,9 +2609,9 @@
       "value": "22uF 6.3V X5R",
       "pkg": "0402",
       "board": "main",
-      "side": "top",
-      "x": 1.5,
-      "y": 3.15,
+      "side": "bot",
+      "x": 1.55,
+      "y": 4.8,
       "w": 1,
       "h": 0.5,
       "t": 0.38,
@@ -2525,9 +2653,9 @@
       "value": "22uF 6.3V X5R",
       "pkg": "0402",
       "board": "main",
-      "side": "top",
-      "x": 2.9,
-      "y": 3.15,
+      "side": "bot",
+      "x": 2.85,
+      "y": 4.8,
       "w": 1,
       "h": 0.5,
       "t": 0.38,
@@ -2547,9 +2675,9 @@
       "value": "22uF 6.3V X5R",
       "pkg": "0402",
       "board": "main",
-      "side": "top",
-      "x": 3.9,
-      "y": 3.15,
+      "side": "bot",
+      "x": 3.95,
+      "y": 4.8,
       "w": 1,
       "h": 0.5,
       "t": 0.38,
@@ -2591,9 +2719,9 @@
       "value": "22uF 6.3V X5R",
       "pkg": "0402",
       "board": "main",
-      "side": "top",
-      "x": 5.3,
-      "y": 3.15,
+      "side": "bot",
+      "x": 5.25,
+      "y": 4.8,
       "w": 1,
       "h": 0.5,
       "t": 0.38,
@@ -2613,9 +2741,9 @@
       "value": "22uF 6.3V X5R",
       "pkg": "0402",
       "board": "main",
-      "side": "top",
-      "x": 6.3,
-      "y": 3.15,
+      "side": "bot",
+      "x": 6.35,
+      "y": 4.8,
       "w": 1,
       "h": 0.5,
       "t": 0.38,
@@ -2825,7 +2953,761 @@
       }
     },
     {
+      "ref": "R215",
+      "mpn": "RC0201FR-07110KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "110K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 0.4,
+      "y": 12.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "PMIC_FB6"
+      }
+    },
+    {
+      "ref": "R216",
+      "mpn": "RC0201FR-07100KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 1.4,
+      "y": 12.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "PMIC_FB6",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C215",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 50V C0G",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 2.4,
+      "y": 12.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "PMIC_FB6"
+      }
+    },
+    {
+      "ref": "R217",
+      "mpn": "RC0201FR-070RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "0R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 3.4,
+      "y": 12.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDDQ_DDR_S0",
+        "2": "PMIC_FB9"
+      }
+    },
+    {
+      "ref": "C216",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 50V C0G",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 4.4,
+      "y": 12.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDDQ_DDR_S0",
+        "2": "PMIC_FB9"
+      }
+    },
+    {
+      "ref": "R218",
+      "mpn": "RC0201FR-07100RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 0.4,
+      "y": 11.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_GPU_S0",
+        "2": "VDD_GPU_S0_FB"
+      }
+    },
+    {
+      "ref": "R219",
+      "mpn": "RC0201FR-07100RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 1.4,
+      "y": 11.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_CPU_LIT_S0",
+        "2": "VDD_CPU_LIT_S0_FB"
+      }
+    },
+    {
+      "ref": "R220",
+      "mpn": "RC0201FR-07100RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 2.4,
+      "y": 11.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_LOG_S0",
+        "2": "VDD_LOG_S0_FB"
+      }
+    },
+    {
+      "ref": "R221",
+      "mpn": "RC0201FR-07100RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 3.4,
+      "y": 11.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_VDENC_S0",
+        "2": "VDD_VDENC_S0_FB"
+      }
+    },
+    {
+      "ref": "R222",
+      "mpn": "RC0201FR-07100RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 4.4,
+      "y": 11.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_DDR_S0",
+        "2": "VDD_DDR_S0_FB"
+      }
+    },
+    {
+      "ref": "R226",
+      "mpn": "RC0201FR-0722RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "22R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 5.4,
+      "y": 12.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "PMIC_SPI_CLK_SOC",
+        "2": "PMIC_SPI_CLK"
+      }
+    },
+    {
+      "ref": "R227",
+      "mpn": "RC0201FR-0722RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "22R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 6.4,
+      "y": 12.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "PMIC_SPI_MOSI_SOC",
+        "2": "PMIC_SPI_MOSI"
+      }
+    },
+    {
+      "ref": "R228",
+      "mpn": "RC0201FR-07100KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 5.4,
+      "y": 11.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "PMIC_SPI_CS0",
+        "2": "VCC_1V8_PMU_S3"
+      }
+    },
+    {
+      "ref": "R229",
+      "mpn": "RC0201FR-07100KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 6.4,
+      "y": 11.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "PMIC_SPI_MOSI",
+        "2": "VCC_1V8_PMU_S3"
+      }
+    },
+    {
+      "ref": "R230",
+      "mpn": "RC0201FR-0710KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "10K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 7.4,
+      "y": 11.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "PMIC_INT_L",
+        "2": "VCC_1V8_PMU_S3"
+      }
+    },
+    {
+      "ref": "D201",
+      "mpn": "AZ5825-01F",
+      "manufacturer": "WillSemi/TI",
+      "category": "ESD/TVS",
+      "kind": "esd",
+      "value": "ESD 5V PWRON Key",
+      "pkg": "DFN1006",
+      "board": "main",
+      "side": "bot",
+      "x": 7.4,
+      "y": 12.2,
+      "w": 1,
+      "h": 0.6,
+      "t": 0.4,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "PMIC_PWRON_L",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "FB201",
+      "mpn": "BLM03AG121SN1D",
+      "manufacturer": "Murata",
+      "category": "Ferrite Bead",
+      "kind": "res",
+      "value": "120R@100MHz",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 8.6,
+      "y": 34,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_CPU_BIG1_S0",
+        "2": "VDD_CPU_BIG_MEM_S0"
+      }
+    },
+    {
       "ref": "C1082",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 9.8,
+      "y": 34,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_CPU_BIG_MEM_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "U211",
+      "mpn": "SY8089AAAC",
+      "manufacturer": "Silergy",
+      "category": "Buck-2A",
+      "kind": "ic",
+      "value": "2A 1.5MHz Buck VDD2L_0V9_DDR_S3 (0.90V S3)",
+      "pkg": "SOT23-5",
+      "board": "main",
+      "side": "bot",
+      "x": 10.6,
+      "y": 14.2,
+      "w": 2.9,
+      "h": 1.6,
+      "t": 0.72,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "EN": "VCC_1V8_S3",
+        "GND": "GND",
+        "LX": "SW_VDD2L",
+        "VIN": "VSYS_3V87",
+        "FB": "FB_VDD2L"
+      }
+    },
+    {
+      "ref": "L225",
+      "mpn": "DFE201610E-2R2M=P2",
+      "manufacturer": "Murata/TDK",
+      "category": "Inductor",
+      "kind": "inductor",
+      "value": "2.2uH 3A",
+      "pkg": "IND_2016",
+      "board": "main",
+      "side": "bot",
+      "x": 13.8,
+      "y": 14.2,
+      "w": 2,
+      "h": 1.6,
+      "t": 0.85,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "SW_VDD2L",
+        "2": "VDD2L_0V9_DDR_S3"
+      }
+    },
+    {
+      "ref": "R211",
+      "mpn": "RC0201FR-0756KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "56K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 10,
+      "y": 12.6,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "FB_VDD2L"
+      }
+    },
+    {
+      "ref": "R212",
+      "mpn": "RC0201FR-07100KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 11,
+      "y": 12.6,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "FB_VDD2L",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C211",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10nF 25V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 12,
+      "y": 12.6,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "FB_VDD2L"
+      }
+    },
+    {
+      "ref": "C1083",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 10V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 8.6,
+      "y": 14.2,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VSYS_3V87",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1084",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 13.4,
+      "y": 12.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1085",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 14.8,
+      "y": 12.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "U212",
+      "mpn": "SY8089AAAC",
+      "manufacturer": "Silergy",
+      "category": "Buck-2A",
+      "kind": "ic",
+      "value": "2A 1.5MHz Buck VCC_1V1_NLDO_S3 (1.10V S3)",
+      "pkg": "SOT23-5",
+      "board": "main",
+      "side": "bot",
+      "x": 10.6,
+      "y": 8.2,
+      "w": 2.9,
+      "h": 1.6,
+      "t": 0.72,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "EN": "PMIC_EXT_EN",
+        "GND": "GND",
+        "LX": "SW_1V1_NLDO",
+        "VIN": "VSYS_3V87",
+        "FB": "FB_1V1_NLDO"
+      }
+    },
+    {
+      "ref": "L226",
+      "mpn": "DFE201610E-2R2M=P2",
+      "manufacturer": "Murata/TDK",
+      "category": "Inductor",
+      "kind": "inductor",
+      "value": "2.2uH 3A",
+      "pkg": "IND_2016",
+      "board": "main",
+      "side": "bot",
+      "x": 13.8,
+      "y": 8.2,
+      "w": 2,
+      "h": 1.6,
+      "t": 0.85,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "SW_1V1_NLDO",
+        "2": "VCC_1V1_NLDO_S3"
+      }
+    },
+    {
+      "ref": "R213",
+      "mpn": "RC0201FR-07100KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 10,
+      "y": 6.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V1_NLDO_S3",
+        "2": "FB_1V1_NLDO"
+      }
+    },
+    {
+      "ref": "R214",
+      "mpn": "RC0201FR-07120KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "120K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 11,
+      "y": 6.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "FB_1V1_NLDO",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C212",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 50V C0G",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 12,
+      "y": 6.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V1_NLDO_S3",
+        "2": "FB_1V1_NLDO"
+      }
+    },
+    {
+      "ref": "C1086",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 10V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 8.6,
+      "y": 8.2,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VSYS_3V87",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1087",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 13.4,
+      "y": 6.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V1_NLDO_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1088",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 10V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 14.8,
+      "y": 6.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V1_NLDO_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1089",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -2847,7 +3729,7 @@
       }
     },
     {
-      "ref": "C1083",
+      "ref": "C1090",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -2864,12 +3746,12 @@
       "rot": 0,
       "subsystem": "Power",
       "pins": {
-        "1": "VDD_0V85_S0",
+        "1": "VDDA_DDR_PLL_S0",
         "2": "GND"
       }
     },
     {
-      "ref": "C1084",
+      "ref": "C1091",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -2891,7 +3773,7 @@
       }
     },
     {
-      "ref": "C1085",
+      "ref": "C1092",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -2913,7 +3795,7 @@
       }
     },
     {
-      "ref": "C1086",
+      "ref": "C1093",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -2930,12 +3812,12 @@
       "rot": 0,
       "subsystem": "Power",
       "pins": {
-        "1": "VDD_CPU_BIG_MEM_S0",
+        "1": "VDD_0V75_S0_PLL",
         "2": "GND"
       }
     },
     {
-      "ref": "C1087",
+      "ref": "C1094",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -2952,12 +3834,12 @@
       "rot": 0,
       "subsystem": "Power",
       "pins": {
-        "1": "VCC_1V8_S0",
+        "1": "AVCC_1V8_S0",
         "2": "GND"
       }
     },
     {
-      "ref": "C1088",
+      "ref": "C1095",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -2974,12 +3856,12 @@
       "rot": 0,
       "subsystem": "Power",
       "pins": {
-        "1": "AVCC_1V8_S0",
+        "1": "VCC_1V8_S0",
         "2": "GND"
       }
     },
     {
-      "ref": "C1089",
+      "ref": "C1096",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3001,7 +3883,7 @@
       }
     },
     {
-      "ref": "C1090",
+      "ref": "C1097",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3023,7 +3905,7 @@
       }
     },
     {
-      "ref": "C1091",
+      "ref": "C1098",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3045,7 +3927,7 @@
       }
     },
     {
-      "ref": "C1092",
+      "ref": "C1099",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3067,7 +3949,7 @@
       }
     },
     {
-      "ref": "C1093",
+      "ref": "C1100",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3089,7 +3971,7 @@
       }
     },
     {
-      "ref": "C1094",
+      "ref": "C1101",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3111,7 +3993,7 @@
       }
     },
     {
-      "ref": "C1095",
+      "ref": "C1102",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3133,7 +4015,7 @@
       }
     },
     {
-      "ref": "C1096",
+      "ref": "C1103",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3155,7 +4037,7 @@
       }
     },
     {
-      "ref": "C1097",
+      "ref": "C1104",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3177,7 +4059,7 @@
       }
     },
     {
-      "ref": "C1098",
+      "ref": "C1105",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3195,6 +4077,50 @@
       "subsystem": "Power",
       "pins": {
         "1": "VSYS_3V87",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1106",
+      "mpn": "GRM188R61E226ME15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "47uF 6.3V X5R",
+      "pkg": "0603",
+      "board": "main",
+      "side": "bot",
+      "x": 1.2,
+      "y": 16.4,
+      "w": 1.6,
+      "h": 0.8,
+      "t": 0.52,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_GPU_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1107",
+      "mpn": "GRM188R61E226ME15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "47uF 6.3V X5R",
+      "pkg": "0603",
+      "board": "main",
+      "side": "bot",
+      "x": 3.4,
+      "y": 16.4,
+      "w": 1.6,
+      "h": 0.8,
+      "t": 0.52,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_GPU_S0",
         "2": "GND"
       }
     },
@@ -3218,8 +4144,9 @@
       "pins": {
         "VIN": "VSYS_3V87",
         "SW": "SW_U207",
-        "VOUT": "VDD_CPU_BIG0_S0",
+        "VOUT": "VDD_CPU_BIG0_S0_FB",
         "EN": "PMIC_EXT_EN",
+        "VSEL": "VCC_1V8_S3",
         "SCL": "I2C0_SCL",
         "SDA": "I2C0_SDA",
         "GND": "GND"
@@ -3248,7 +4175,29 @@
       }
     },
     {
-      "ref": "C1099",
+      "ref": "R223",
+      "mpn": "RC0201FR-07100RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 10.6,
+      "y": 42.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_CPU_BIG0_S0",
+        "2": "VDD_CPU_BIG0_S0_FB"
+      }
+    },
+    {
+      "ref": "C1108",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3270,7 +4219,7 @@
       }
     },
     {
-      "ref": "C1100",
+      "ref": "C1109",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3292,7 +4241,7 @@
       }
     },
     {
-      "ref": "C1101",
+      "ref": "C1110",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3314,7 +4263,7 @@
       }
     },
     {
-      "ref": "C1102",
+      "ref": "C1111",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3325,6 +4274,50 @@
       "side": "top",
       "x": 14.5,
       "y": 43.7,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_CPU_BIG0_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1112",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 12.2,
+      "y": 42.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_CPU_BIG0_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1113",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 13.6,
+      "y": 42.4,
       "w": 1,
       "h": 0.5,
       "t": 0.38,
@@ -3355,8 +4348,9 @@
       "pins": {
         "VIN": "VSYS_3V87",
         "SW": "SW_U208",
-        "VOUT": "VDD_CPU_BIG1_S0",
+        "VOUT": "VDD_CPU_BIG1_S0_FB",
         "EN": "PMIC_EXT_EN",
+        "VSEL": "VCC_1V8_S3",
         "SCL": "I2C0_SCL",
         "SDA": "I2C0_SDA",
         "GND": "GND"
@@ -3385,7 +4379,29 @@
       }
     },
     {
-      "ref": "C1103",
+      "ref": "R224",
+      "mpn": "RC0201FR-07100RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 10.6,
+      "y": 40.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_CPU_BIG1_S0",
+        "2": "VDD_CPU_BIG1_S0_FB"
+      }
+    },
+    {
+      "ref": "C1114",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3407,7 +4423,7 @@
       }
     },
     {
-      "ref": "C1104",
+      "ref": "C1115",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3429,7 +4445,7 @@
       }
     },
     {
-      "ref": "C1105",
+      "ref": "C1116",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3451,7 +4467,7 @@
       }
     },
     {
-      "ref": "C1106",
+      "ref": "C1117",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3462,6 +4478,50 @@
       "side": "top",
       "x": 14.5,
       "y": 39.7,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_CPU_BIG1_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1118",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 12.2,
+      "y": 40.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_CPU_BIG1_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1119",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 13.6,
+      "y": 40.4,
       "w": 1,
       "h": 0.5,
       "t": 0.38,
@@ -3492,8 +4552,9 @@
       "pins": {
         "VIN": "VSYS_3V87",
         "SW": "SW_U209",
-        "VOUT": "VDD_NPU_S0",
+        "VOUT": "VDD_NPU_S0_FB",
         "EN": "PMIC_EXT_EN",
+        "VSEL": "VCC_1V8_S3",
         "SCL": "I2C1_SCL",
         "SDA": "I2C1_SDA",
         "GND": "GND"
@@ -3522,7 +4583,29 @@
       }
     },
     {
-      "ref": "C1107",
+      "ref": "R225",
+      "mpn": "RC0201FR-07100RL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100R 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 10.6,
+      "y": 38.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_NPU_S0",
+        "2": "VDD_NPU_S0_FB"
+      }
+    },
+    {
+      "ref": "C1120",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3544,7 +4627,7 @@
       }
     },
     {
-      "ref": "C1108",
+      "ref": "C1121",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3566,7 +4649,7 @@
       }
     },
     {
-      "ref": "C1109",
+      "ref": "C1122",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3588,7 +4671,7 @@
       }
     },
     {
-      "ref": "C1110",
+      "ref": "C1123",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3610,6 +4693,50 @@
       }
     },
     {
+      "ref": "C1124",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 12.2,
+      "y": 38.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_NPU_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1125",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 13.6,
+      "y": 38.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VDD_NPU_S0",
+        "2": "GND"
+      }
+    },
+    {
       "ref": "J201",
       "mpn": "BM25-4S/2-V(51)",
       "manufacturer": "Hirose",
@@ -3619,7 +4746,7 @@
       "pkg": "BTB-8P-PWR",
       "board": "main",
       "side": "top",
-      "x": 9.2,
+      "x": 9.4,
       "y": -2,
       "w": 2.2,
       "h": 6.2,
@@ -3732,7 +4859,7 @@
       }
     },
     {
-      "ref": "C1111",
+      "ref": "C1126",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3763,7 +4890,7 @@
       "pkg": "WQFN-24 (4x4mm)",
       "board": "main",
       "side": "top",
-      "x": 12,
+      "x": 11.4,
       "y": -7.4,
       "w": 4,
       "h": 4,
@@ -3796,7 +4923,7 @@
       "pkg": "IND_2520",
       "board": "main",
       "side": "top",
-      "x": 15.3,
+      "x": 14.8,
       "y": -7.4,
       "w": 2.5,
       "h": 2,
@@ -3884,12 +5011,12 @@
       "pkg": "0603",
       "board": "main",
       "side": "top",
-      "x": 8.8,
-      "y": -9,
+      "x": 8.9,
+      "y": -9.2,
       "w": 1.6,
       "h": 0.8,
       "t": 0.52,
-      "rot": 0,
+      "rot": 90,
       "subsystem": "Charging",
       "pins": {
         "1": "CHG_PMID",
@@ -3906,7 +5033,7 @@
       "pkg": "0402",
       "board": "main",
       "side": "top",
-      "x": 15,
+      "x": 14.8,
       "y": -9.8,
       "w": 1,
       "h": 0.5,
@@ -3971,7 +5098,7 @@
       }
     },
     {
-      "ref": "C1112",
+      "ref": "C1127",
       "mpn": "GRM188R61E226ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -3993,7 +5120,7 @@
       }
     },
     {
-      "ref": "C1113",
+      "ref": "C1128",
       "mpn": "GRM188R61E226ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4015,7 +5142,7 @@
       }
     },
     {
-      "ref": "C1114",
+      "ref": "C1129",
       "mpn": "GRM188R61E226ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4037,7 +5164,7 @@
       }
     },
     {
-      "ref": "C1115",
+      "ref": "C1130",
       "mpn": "GRM188R61E226ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4046,7 +5173,7 @@
       "pkg": "0603",
       "board": "main",
       "side": "top",
-      "x": 8.8,
+      "x": 8.9,
       "y": -13,
       "w": 1.6,
       "h": 0.8,
@@ -4089,7 +5216,7 @@
       }
     },
     {
-      "ref": "C1116",
+      "ref": "C1131",
       "mpn": "GRM188R61E226ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4111,7 +5238,7 @@
       }
     },
     {
-      "ref": "C1117",
+      "ref": "C1132",
       "mpn": "GRM188R61E226ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4133,7 +5260,7 @@
       }
     },
     {
-      "ref": "C1118",
+      "ref": "C1133",
       "mpn": "GRM188R61E226ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4155,7 +5282,7 @@
       }
     },
     {
-      "ref": "C1119",
+      "ref": "C1134",
       "mpn": "GRM188R61E226ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4164,7 +5291,7 @@
       "pkg": "0603",
       "board": "main",
       "side": "top",
-      "x": 8.8,
+      "x": 8.9,
       "y": -17.8,
       "w": 1.6,
       "h": 0.8,
@@ -4275,7 +5402,7 @@
       "pkg": "WLCSP-52 (3.2x3.5mm)",
       "board": "main",
       "side": "top",
-      "x": 11.4,
+      "x": 11.6,
       "y": -25.4,
       "w": 3.2,
       "h": 3.5,
@@ -4302,7 +5429,7 @@
       "pkg": "PAD-2P",
       "board": "main",
       "side": "top",
-      "x": 8.8,
+      "x": 9,
       "y": -25.4,
       "w": 1.2,
       "h": 2.8,
@@ -4315,7 +5442,7 @@
       }
     },
     {
-      "ref": "C1120",
+      "ref": "C1135",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4337,7 +5464,7 @@
       }
     },
     {
-      "ref": "C1121",
+      "ref": "C1136",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4359,7 +5486,7 @@
       }
     },
     {
-      "ref": "C1122",
+      "ref": "C1137",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4381,7 +5508,7 @@
       }
     },
     {
-      "ref": "C1123",
+      "ref": "C1138",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4403,7 +5530,7 @@
       }
     },
     {
-      "ref": "C1124",
+      "ref": "C1139",
       "mpn": "GRM188R61E226ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4472,7 +5599,7 @@
       }
     },
     {
-      "ref": "C1125",
+      "ref": "C1140",
       "mpn": "GRM155R60J226ME11D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4499,7 +5626,7 @@
       "manufacturer": "Samsung",
       "category": "DRAM",
       "kind": "dram",
-      "value": "16GB LPDDR5X-6400 64-bit",
+      "value": "16GB LPDDR5X-6400 64-bit Quad-Ch",
       "pkg": "315-FBGA (12.4x15.0mm)",
       "board": "main",
       "side": "top",
@@ -4515,14 +5642,20 @@
         "CH0_CA": "LPDDR5X_CH0_CA",
         "CH0_CK_P": "LPDDR5X_CH0_CK_P",
         "CH0_CK_N": "LPDDR5X_CH0_CK_N",
+        "CH0_WCK_P": "LPDDR5X_CH0_WCK_P",
+        "CH0_WCK_N": "LPDDR5X_CH0_WCK_N",
         "CH1_DQ": "LPDDR5X_CH1_DQ",
         "CH1_CA": "LPDDR5X_CH1_CA",
         "CH1_CK_P": "LPDDR5X_CH1_CK_P",
         "CH1_CK_N": "LPDDR5X_CH1_CK_N",
+        "CH1_WCK_P": "LPDDR5X_CH1_WCK_P",
+        "CH1_WCK_N": "LPDDR5X_CH1_WCK_N",
+        "RESET_N": "DDR_RESET_N",
         "VDD1": "VCC_1V8_S3",
         "VDD2H": "VDD2_DDR_S3",
-        "VDD2L": "VDD_DDR_S0",
+        "VDD2L": "VDD2L_0V9_DDR_S3",
         "VDDQ": "VDDQ_DDR_S0",
+        "VDDQ_CKE": "VDDQ_DDR_CKE_S3",
         "ZQ_A": "DDR_ZQ_A",
         "ZQ_B": "DDR_ZQ_B",
         "VSS": "GND"
@@ -4573,7 +5706,29 @@
       }
     },
     {
-      "ref": "C1126",
+      "ref": "FB301",
+      "mpn": "BLM03AG121SN1D",
+      "manufacturer": "Murata",
+      "category": "Ferrite Bead",
+      "kind": "res",
+      "value": "120R@100MHz",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -15.6,
+      "y": 34,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "VDDQ_DDR_CKE_S3"
+      }
+    },
+    {
+      "ref": "C1141",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4595,7 +5750,7 @@
       }
     },
     {
-      "ref": "C1127",
+      "ref": "C1142",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4612,12 +5767,12 @@
       "rot": 0,
       "subsystem": "Memory",
       "pins": {
-        "1": "VDDQ_DDR_S0",
+        "1": "VDD2L_0V9_DDR_S3",
         "2": "GND"
       }
     },
     {
-      "ref": "C1128",
+      "ref": "C1143",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4634,12 +5789,12 @@
       "rot": 0,
       "subsystem": "Memory",
       "pins": {
-        "1": "VDD_DDR_S0",
+        "1": "VDDQ_DDR_S0",
         "2": "GND"
       }
     },
     {
-      "ref": "C1129",
+      "ref": "C1144",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4661,7 +5816,7 @@
       }
     },
     {
-      "ref": "C1130",
+      "ref": "C1145",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4683,7 +5838,7 @@
       }
     },
     {
-      "ref": "C1131",
+      "ref": "C1146",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4700,12 +5855,12 @@
       "rot": 0,
       "subsystem": "Memory",
       "pins": {
-        "1": "VDDQ_DDR_S0",
+        "1": "VDD2L_0V9_DDR_S3",
         "2": "GND"
       }
     },
     {
-      "ref": "C1132",
+      "ref": "C1147",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4722,12 +5877,12 @@
       "rot": 0,
       "subsystem": "Memory",
       "pins": {
-        "1": "VDD_DDR_S0",
+        "1": "VDDQ_DDR_S0",
         "2": "GND"
       }
     },
     {
-      "ref": "C1133",
+      "ref": "C1148",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -4749,336 +5904,6 @@
       }
     },
     {
-      "ref": "C1134",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -14.8,
-      "y": 19.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDD2_DDR_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1135",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -12,
-      "y": 19.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDDQ_DDR_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1136",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -9.2,
-      "y": 19.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDD_DDR_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1137",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -6.4,
-      "y": 19.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1138",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -14.8,
-      "y": 22.7,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDDQ_DDR_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1139",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -12,
-      "y": 22.7,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDD_DDR_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1140",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -9.2,
-      "y": 22.7,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1141",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -6.4,
-      "y": 22.7,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDD2_DDR_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1142",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -14.8,
-      "y": 26.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDD_DDR_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1143",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -12,
-      "y": 26.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1144",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -9.2,
-      "y": 26.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDD2_DDR_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1145",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -6.4,
-      "y": 26.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDDQ_DDR_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1146",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -14.8,
-      "y": 29.7,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1147",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -12,
-      "y": 29.7,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDD2_DDR_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1148",
-      "mpn": "GRM022R60J104ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "01005",
-      "board": "main",
-      "side": "bot",
-      "x": -9.2,
-      "y": 29.7,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "Memory",
-      "pins": {
-        "1": "VDDQ_DDR_S0",
-        "2": "GND"
-      }
-    },
-    {
       "ref": "C1149",
       "mpn": "GRM022R60J104ME15",
       "manufacturer": "Murata",
@@ -5088,6 +5913,336 @@
       "pkg": "01005",
       "board": "main",
       "side": "bot",
+      "x": -14.8,
+      "y": 19.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1150",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -12,
+      "y": 19.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1151",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -9.2,
+      "y": 19.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDDQ_DDR_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1152",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -6.4,
+      "y": 19.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1153",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -14.8,
+      "y": 22.7,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1154",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -12,
+      "y": 22.7,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDDQ_DDR_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1155",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -9.2,
+      "y": 22.7,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1156",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -6.4,
+      "y": 22.7,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1157",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -14.8,
+      "y": 26.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDDQ_DDR_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1158",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -12,
+      "y": 26.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1159",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -9.2,
+      "y": 26.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1160",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -6.4,
+      "y": 26.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1161",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -14.8,
+      "y": 29.7,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1162",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -12,
+      "y": 29.7,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1163",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
+      "x": -9.2,
+      "y": 29.7,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1164",
+      "mpn": "GRM022R60J104ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "01005",
+      "board": "main",
+      "side": "bot",
       "x": -6.4,
       "y": 29.7,
       "w": 0.4,
@@ -5096,7 +6251,271 @@
       "rot": 0,
       "subsystem": "Memory",
       "pins": {
-        "1": "VDD_DDR_S0",
+        "1": "VDDQ_DDR_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1165",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": -14,
+      "y": 32.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1166",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": -12.85,
+      "y": 32.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1167",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": -11.7,
+      "y": 32.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDDQ_DDR_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1168",
+      "mpn": "GRM155R60J226ME11D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "22uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": -10.55,
+      "y": 32.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1169",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": -9.4,
+      "y": 32.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1170",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": -8.25,
+      "y": 32.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1171",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": -7.1,
+      "y": 32.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDDQ_DDR_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1172",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": -5.95,
+      "y": 32.4,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1173",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -4.8,
+      "y": 32.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1174",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -3.65,
+      "y": 32.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDD2L_0V9_DDR_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1175",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -2.5,
+      "y": 32.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VDDQ_DDR_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1176",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -1.35,
+      "y": 32.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Memory",
+      "pins": {
+        "1": "VCC_1V8_S3",
         "2": "GND"
       }
     },
@@ -5218,12 +6637,34 @@
       }
     },
     {
+      "ref": "R307",
+      "mpn": "RC0201FR-0710KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "10K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -4.2,
+      "y": 13.8,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Storage",
+      "pins": {
+        "1": "EMMC_D0_D7",
+        "2": "VCC_1V8_S3"
+      }
+    },
+    {
       "ref": "C301",
-      "mpn": "GRM033R60J105MEA2D",
+      "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
       "kind": "cap",
-      "value": "1uF 6.3V X5R",
+      "value": "2.2uF 6.3V X5R",
       "pkg": "0201",
       "board": "main",
       "side": "bot",
@@ -5240,7 +6681,7 @@
       }
     },
     {
-      "ref": "C1150",
+      "ref": "C1177",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5262,7 +6703,7 @@
       }
     },
     {
-      "ref": "C1151",
+      "ref": "C1178",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5276,6 +6717,50 @@
       "w": 1,
       "h": 0.5,
       "t": 0.38,
+      "rot": 0,
+      "subsystem": "Storage",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1179",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -3.2,
+      "y": 7.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Storage",
+      "pins": {
+        "1": "VCC_3V3_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1180",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": -3.2,
+      "y": 6.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
       "rot": 0,
       "subsystem": "Storage",
       "pins": {
@@ -5309,7 +6794,7 @@
       }
     },
     {
-      "ref": "C1152",
+      "ref": "C1181",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5385,7 +6870,7 @@
       }
     },
     {
-      "ref": "C1153",
+      "ref": "C1182",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5407,7 +6892,7 @@
       }
     },
     {
-      "ref": "C1154",
+      "ref": "C1183",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5429,7 +6914,7 @@
       }
     },
     {
-      "ref": "C1155",
+      "ref": "C1184",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5451,7 +6936,7 @@
       }
     },
     {
-      "ref": "C1156",
+      "ref": "C1185",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5473,7 +6958,7 @@
       }
     },
     {
-      "ref": "C1157",
+      "ref": "C1186",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5495,7 +6980,7 @@
       }
     },
     {
-      "ref": "C1158",
+      "ref": "C1187",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5517,7 +7002,7 @@
       }
     },
     {
-      "ref": "C1159",
+      "ref": "C1188",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5571,7 +7056,7 @@
       }
     },
     {
-      "ref": "C1160",
+      "ref": "C1189",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5593,7 +7078,7 @@
       }
     },
     {
-      "ref": "C1161",
+      "ref": "C1190",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5615,7 +7100,7 @@
       }
     },
     {
-      "ref": "C1162",
+      "ref": "C1191",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5637,7 +7122,7 @@
       }
     },
     {
-      "ref": "C1163",
+      "ref": "C1192",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5659,7 +7144,7 @@
       }
     },
     {
-      "ref": "C1164",
+      "ref": "C1193",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5681,7 +7166,7 @@
       }
     },
     {
-      "ref": "C1165",
+      "ref": "C1194",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5703,7 +7188,7 @@
       }
     },
     {
-      "ref": "C1166",
+      "ref": "C1195",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -5776,7 +7261,7 @@
       }
     },
     {
-      "ref": "C1167",
+      "ref": "C1196",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -6243,7 +7728,7 @@
       }
     },
     {
-      "ref": "C1168",
+      "ref": "C1197",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -6265,7 +7750,7 @@
       }
     },
     {
-      "ref": "C1169",
+      "ref": "C1198",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -6287,7 +7772,7 @@
       }
     },
     {
-      "ref": "C1170",
+      "ref": "C1199",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -6333,7 +7818,7 @@
       }
     },
     {
-      "ref": "C1171",
+      "ref": "C1200",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -6547,7 +8032,7 @@
       }
     },
     {
-      "ref": "C1172",
+      "ref": "C1201",
       "mpn": "GRM033R60J225ME15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -6667,7 +8152,7 @@
       "pkg": "0201",
       "board": "main",
       "side": "top",
-      "x": 8.6,
+      "x": 8.8,
       "y": -55.2,
       "w": 0.6,
       "h": 0.3,
@@ -6689,7 +8174,7 @@
       "pkg": "0201",
       "board": "main",
       "side": "top",
-      "x": 9.6,
+      "x": 9.8,
       "y": -55.2,
       "w": 0.6,
       "h": 0.3,
@@ -6702,7 +8187,7 @@
       }
     },
     {
-      "ref": "C1173",
+      "ref": "C1202",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -6711,7 +8196,7 @@
       "pkg": "0201",
       "board": "main",
       "side": "top",
-      "x": 10.6,
+      "x": 10.8,
       "y": -55.2,
       "w": 0.6,
       "h": 0.3,
@@ -6913,7 +8398,7 @@
       "pkg": "SOD-123FL",
       "board": "main",
       "side": "top",
-      "x": 14.8,
+      "x": 14.5,
       "y": -60.4,
       "w": 2.6,
       "h": 1.6,
@@ -7007,7 +8492,7 @@
       }
     },
     {
-      "ref": "C1174",
+      "ref": "C1203",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -7029,7 +8514,7 @@
       }
     },
     {
-      "ref": "C1175",
+      "ref": "C1204",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -7076,7 +8561,7 @@
       }
     },
     {
-      "ref": "C1176",
+      "ref": "C1205",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -7152,7 +8637,7 @@
       }
     },
     {
-      "ref": "C1177",
+      "ref": "C1206",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -7161,7 +8646,7 @@
       "pkg": "0402",
       "board": "main",
       "side": "top",
-      "x": 8.8,
+      "x": 8.9,
       "y": -43,
       "w": 1,
       "h": 0.5,
@@ -7228,7 +8713,7 @@
       }
     },
     {
-      "ref": "C1178",
+      "ref": "C1207",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -7237,7 +8722,7 @@
       "pkg": "0402",
       "board": "main",
       "side": "top",
-      "x": 8.8,
+      "x": 8.9,
       "y": -46.8,
       "w": 1,
       "h": 0.5,
@@ -7299,7 +8784,7 @@
       }
     },
     {
-      "ref": "C1179",
+      "ref": "C1208",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -7424,7 +8909,7 @@
       }
     },
     {
-      "ref": "C1180",
+      "ref": "C1209",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -7446,7 +8931,7 @@
       }
     },
     {
-      "ref": "C1181",
+      "ref": "C1210",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -7516,7 +9001,7 @@
       }
     },
     {
-      "ref": "C1182",
+      "ref": "C1211",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -7547,7 +9032,7 @@
       "pkg": "BTB-6P",
       "board": "main",
       "side": "top",
-      "x": 15.6,
+      "x": 15.3,
       "y": 18,
       "w": 1.2,
       "h": 4.2,
@@ -7571,7 +9056,7 @@
       "pkg": "0201",
       "board": "main",
       "side": "top",
-      "x": 14.4,
+      "x": 14.3,
       "y": 19.2,
       "w": 0.6,
       "h": 0.3,
@@ -7593,7 +9078,7 @@
       "pkg": "0201",
       "board": "main",
       "side": "top",
-      "x": 14.4,
+      "x": 14.3,
       "y": 18,
       "w": 0.6,
       "h": 0.3,
@@ -7615,7 +9100,7 @@
       "pkg": "0201",
       "board": "main",
       "side": "top",
-      "x": 14.4,
+      "x": 14.3,
       "y": 16.8,
       "w": 0.6,
       "h": 0.3,
@@ -7637,7 +9122,7 @@
       "pkg": "DFN2510",
       "board": "main",
       "side": "top",
-      "x": 15.2,
+      "x": 14.8,
       "y": 14.6,
       "w": 2,
       "h": 1.2,
@@ -8297,7 +9782,7 @@
       }
     },
     {
-      "ref": "C1183",
+      "ref": "C1212",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8341,7 +9826,7 @@
       }
     },
     {
-      "ref": "C1184",
+      "ref": "C1213",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8385,7 +9870,7 @@
       }
     },
     {
-      "ref": "C1185",
+      "ref": "C1214",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8429,7 +9914,7 @@
       }
     },
     {
-      "ref": "C1186",
+      "ref": "C1215",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8499,7 +9984,7 @@
       }
     },
     {
-      "ref": "C1187",
+      "ref": "C1216",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8763,7 +10248,7 @@
       }
     },
     {
-      "ref": "C1188",
+      "ref": "C1217",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8807,7 +10292,7 @@
       }
     },
     {
-      "ref": "C1189",
+      "ref": "C1218",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8851,7 +10336,7 @@
       }
     },
     {
-      "ref": "C1190",
+      "ref": "C1219",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8895,7 +10380,7 @@
       }
     },
     {
-      "ref": "C1191",
+      "ref": "C1220",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8939,7 +10424,7 @@
       }
     },
     {
-      "ref": "C1192",
+      "ref": "C1221",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -8983,7 +10468,7 @@
       }
     },
     {
-      "ref": "C1193",
+      "ref": "C1222",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -9241,7 +10726,7 @@
       }
     },
     {
-      "ref": "C1194",
+      "ref": "C1223",
       "mpn": "GRM0335C1H120JA01D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -9263,7 +10748,7 @@
       }
     },
     {
-      "ref": "C1195",
+      "ref": "C1224",
       "mpn": "GRM0335C1H120JA01D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -9329,7 +10814,7 @@
       }
     },
     {
-      "ref": "C1196",
+      "ref": "C1225",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -9351,7 +10836,7 @@
       }
     },
     {
-      "ref": "C1197",
+      "ref": "C1226",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -9395,684 +10880,46 @@
       }
     },
     {
-      "ref": "C1198",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "4.7uF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": -11.8,
-      "y": 36.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VSYS_3V87",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1199",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": -9.2,
-      "y": 36.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1200",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": -6.6,
-      "y": 36.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VCC_3V3_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1201",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100pF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": -4,
-      "y": 36.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_MODEM_CX_0V8",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1202",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "4.7uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": -1.4,
-      "y": 36.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_MODEM_MX_0V85",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1203",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 1.2,
-      "y": 36.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_RF1_1V0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1204",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100pF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": 3.8,
-      "y": 36.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_RF2_1V8",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1205",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 6.4,
-      "y": 36.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VPA_ET_OUT",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1206",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "4.7uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 9,
-      "y": 36.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VSYS_3V87",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1207",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100pF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": 11.2,
-      "y": 36.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1208",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 0.2,
-      "y": 33.4,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VCC_3V3_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1209",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 2.4,
-      "y": 33.4,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_MODEM_CX_0V8",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1210",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "4.7uF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": 4.6,
-      "y": 33.4,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_MODEM_MX_0V85",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1211",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 6.8,
-      "y": 33.4,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_RF1_1V0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1212",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 9,
-      "y": 33.4,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_RF2_1V8",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1213",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100pF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": 11.2,
-      "y": 33.4,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VPA_ET_OUT",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1214",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "4.7uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 0.2,
-      "y": 29.8,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VSYS_3V87",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1215",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 2.4,
-      "y": 29.8,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1216",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100pF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": 4.6,
-      "y": 29.8,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VCC_3V3_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1217",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 6.8,
-      "y": 29.8,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_MODEM_CX_0V8",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1218",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "4.7uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 9,
-      "y": 29.8,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_MODEM_MX_0V85",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1219",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100pF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": 11.2,
-      "y": 29.8,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_RF1_1V0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1220",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": -11.8,
-      "y": 26.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_RF2_1V8",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1221",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": -9.2,
-      "y": 26.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VPA_ET_OUT",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1222",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "4.7uF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": -6.6,
-      "y": 26.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VSYS_3V87",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1223",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": -4,
-      "y": 26.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1224",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": -1.4,
-      "y": 26.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VCC_3V3_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1225",
-      "mpn": "GRM022R60J103ME15",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100pF 6.3V C0G",
-      "pkg": "01005",
-      "board": "mezz",
-      "side": "bot",
-      "x": 1.2,
-      "y": 26.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_MODEM_CX_0V8",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1226",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "4.7uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "mezz",
-      "side": "bot",
-      "x": 3.8,
-      "y": 26.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "5G-RF",
-      "pins": {
-        "1": "VDD_MODEM_MX_0V85",
-        "2": "GND"
-      }
-    },
-    {
       "ref": "C1227",
-      "mpn": "GRM033R61A104KE15D",
+      "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
       "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
+      "value": "4.7uF 6.3V C0G",
+      "pkg": "01005",
       "board": "mezz",
       "side": "bot",
-      "x": 6.4,
-      "y": 26.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
+      "x": -11.8,
+      "y": 36.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
       "rot": 0,
       "subsystem": "5G-RF",
       "pins": {
-        "1": "VDD_RF1_1V0",
+        "1": "VSYS_3V87",
         "2": "GND"
       }
     },
     {
       "ref": "C1228",
-      "mpn": "GRM022R60J103ME15",
+      "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
       "kind": "cap",
-      "value": "100pF 6.3V C0G",
-      "pkg": "01005",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
       "board": "mezz",
       "side": "bot",
-      "x": 9,
-      "y": 26.2,
-      "w": 0.4,
-      "h": 0.2,
-      "t": 0.18,
+      "x": -9.2,
+      "y": 36.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
       "rot": 0,
       "subsystem": "5G-RF",
       "pins": {
-        "1": "VDD_RF2_1V8",
+        "1": "VCC_1V8_S3",
         "2": "GND"
       }
     },
@@ -10086,6 +10933,644 @@
       "pkg": "0201",
       "board": "mezz",
       "side": "bot",
+      "x": -6.6,
+      "y": 36.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VCC_3V3_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1230",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": -4,
+      "y": 36.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_MODEM_CX_0V8",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1231",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "4.7uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": -1.4,
+      "y": 36.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_MODEM_MX_0V85",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1232",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 1.2,
+      "y": 36.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_RF1_1V0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1233",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": 3.8,
+      "y": 36.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_RF2_1V8",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1234",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 6.4,
+      "y": 36.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VPA_ET_OUT",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1235",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "4.7uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 9,
+      "y": 36.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VSYS_3V87",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1236",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": 11.2,
+      "y": 36.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1237",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 0.2,
+      "y": 33.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VCC_3V3_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1238",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 2.4,
+      "y": 33.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_MODEM_CX_0V8",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1239",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "4.7uF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": 4.6,
+      "y": 33.4,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_MODEM_MX_0V85",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1240",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 6.8,
+      "y": 33.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_RF1_1V0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1241",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 9,
+      "y": 33.4,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_RF2_1V8",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1242",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": 11.2,
+      "y": 33.4,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VPA_ET_OUT",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1243",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "4.7uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 0.2,
+      "y": 29.8,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VSYS_3V87",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1244",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 2.4,
+      "y": 29.8,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1245",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": 4.6,
+      "y": 29.8,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VCC_3V3_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1246",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 6.8,
+      "y": 29.8,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_MODEM_CX_0V8",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1247",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "4.7uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 9,
+      "y": 29.8,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_MODEM_MX_0V85",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1248",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": 11.2,
+      "y": 29.8,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_RF1_1V0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1249",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": -11.8,
+      "y": 26.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_RF2_1V8",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1250",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": -9.2,
+      "y": 26.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VPA_ET_OUT",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1251",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "4.7uF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": -6.6,
+      "y": 26.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VSYS_3V87",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1252",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": -4,
+      "y": 26.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1253",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": -1.4,
+      "y": 26.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VCC_3V3_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1254",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": 1.2,
+      "y": 26.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_MODEM_CX_0V8",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1255",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "4.7uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 3.8,
+      "y": 26.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_MODEM_MX_0V85",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1256",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
+      "x": 6.4,
+      "y": 26.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_RF1_1V0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1257",
+      "mpn": "GRM022R60J103ME15",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100pF 6.3V C0G",
+      "pkg": "01005",
+      "board": "mezz",
+      "side": "bot",
+      "x": 9,
+      "y": 26.2,
+      "w": 0.4,
+      "h": 0.2,
+      "t": 0.18,
+      "rot": 0,
+      "subsystem": "5G-RF",
+      "pins": {
+        "1": "VDD_RF2_1V8",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1258",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "mezz",
+      "side": "bot",
       "x": 11.2,
       "y": 26.2,
       "w": 0.6,
@@ -10099,7 +11584,7 @@
       }
     },
     {
-      "ref": "C1230",
+      "ref": "C1259",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10121,7 +11606,7 @@
       }
     },
     {
-      "ref": "C1231",
+      "ref": "C1260",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10143,7 +11628,7 @@
       }
     },
     {
-      "ref": "C1232",
+      "ref": "C1261",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10165,7 +11650,7 @@
       }
     },
     {
-      "ref": "C1233",
+      "ref": "C1262",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10187,7 +11672,7 @@
       }
     },
     {
-      "ref": "C1234",
+      "ref": "C1263",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10209,7 +11694,7 @@
       }
     },
     {
-      "ref": "C1235",
+      "ref": "C1264",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10231,7 +11716,7 @@
       }
     },
     {
-      "ref": "C1236",
+      "ref": "C1265",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10253,7 +11738,7 @@
       }
     },
     {
-      "ref": "C1237",
+      "ref": "C1266",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10275,7 +11760,7 @@
       }
     },
     {
-      "ref": "C1238",
+      "ref": "C1267",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10297,7 +11782,7 @@
       }
     },
     {
-      "ref": "C1239",
+      "ref": "C1268",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10319,7 +11804,7 @@
       }
     },
     {
-      "ref": "C1240",
+      "ref": "C1269",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10341,7 +11826,7 @@
       }
     },
     {
-      "ref": "C1241",
+      "ref": "C1270",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10363,7 +11848,7 @@
       }
     },
     {
-      "ref": "C1242",
+      "ref": "C1271",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10385,7 +11870,7 @@
       }
     },
     {
-      "ref": "C1243",
+      "ref": "C1272",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10407,7 +11892,7 @@
       }
     },
     {
-      "ref": "C1244",
+      "ref": "C1273",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10429,7 +11914,7 @@
       }
     },
     {
-      "ref": "C1245",
+      "ref": "C1274",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10451,7 +11936,7 @@
       }
     },
     {
-      "ref": "C1246",
+      "ref": "C1275",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10473,7 +11958,7 @@
       }
     },
     {
-      "ref": "C1247",
+      "ref": "C1276",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10495,7 +11980,7 @@
       }
     },
     {
-      "ref": "C1248",
+      "ref": "C1277",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10517,7 +12002,7 @@
       }
     },
     {
-      "ref": "C1249",
+      "ref": "C1278",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10539,7 +12024,7 @@
       }
     },
     {
-      "ref": "C1250",
+      "ref": "C1279",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10561,7 +12046,7 @@
       }
     },
     {
-      "ref": "C1251",
+      "ref": "C1280",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10583,7 +12068,7 @@
       }
     },
     {
-      "ref": "C1252",
+      "ref": "C1281",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10605,7 +12090,7 @@
       }
     },
     {
-      "ref": "C1253",
+      "ref": "C1282",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10627,7 +12112,7 @@
       }
     },
     {
-      "ref": "C1254",
+      "ref": "C1283",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10649,7 +12134,7 @@
       }
     },
     {
-      "ref": "C1255",
+      "ref": "C1284",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10671,7 +12156,7 @@
       }
     },
     {
-      "ref": "C1256",
+      "ref": "C1285",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10693,7 +12178,7 @@
       }
     },
     {
-      "ref": "C1257",
+      "ref": "C1286",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10715,7 +12200,7 @@
       }
     },
     {
-      "ref": "C1258",
+      "ref": "C1287",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10737,7 +12222,7 @@
       }
     },
     {
-      "ref": "C1259",
+      "ref": "C1288",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10781,7 +12266,7 @@
       }
     },
     {
-      "ref": "C1260",
+      "ref": "C1289",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -10825,7 +12310,7 @@
       }
     },
     {
-      "ref": "C1261",
+      "ref": "C1290",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11334,7 +12819,7 @@
       }
     },
     {
-      "ref": "C1262",
+      "ref": "C1291",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11400,7 +12885,7 @@
       }
     },
     {
-      "ref": "C1263",
+      "ref": "C1292",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11466,7 +12951,7 @@
       }
     },
     {
-      "ref": "C1264",
+      "ref": "C1293",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11532,7 +13017,7 @@
       }
     },
     {
-      "ref": "C1265",
+      "ref": "C1294",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11576,7 +13061,7 @@
       }
     },
     {
-      "ref": "C1266",
+      "ref": "C1295",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11620,7 +13105,7 @@
       }
     },
     {
-      "ref": "C1267",
+      "ref": "C1296",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11664,7 +13149,7 @@
       }
     },
     {
-      "ref": "C1268",
+      "ref": "C1297",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11708,7 +13193,7 @@
       }
     },
     {
-      "ref": "C1269",
+      "ref": "C1298",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11752,7 +13237,7 @@
       }
     },
     {
-      "ref": "C1270",
+      "ref": "C1299",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11796,7 +13281,7 @@
       }
     },
     {
-      "ref": "C1271",
+      "ref": "C1300",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11840,7 +13325,7 @@
       }
     },
     {
-      "ref": "C1272",
+      "ref": "C1301",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11884,7 +13369,7 @@
       }
     },
     {
-      "ref": "C1273",
+      "ref": "C1302",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11928,7 +13413,7 @@
       }
     },
     {
-      "ref": "C1274",
+      "ref": "C1303",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11972,7 +13457,7 @@
       }
     },
     {
-      "ref": "C1275",
+      "ref": "C1304",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -11994,7 +13479,7 @@
       }
     },
     {
-      "ref": "C1276",
+      "ref": "C1305",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12016,7 +13501,7 @@
       }
     },
     {
-      "ref": "C1277",
+      "ref": "C1306",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12060,7 +13545,7 @@
       }
     },
     {
-      "ref": "C1278",
+      "ref": "C1307",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12082,7 +13567,7 @@
       }
     },
     {
-      "ref": "C1279",
+      "ref": "C1308",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12104,7 +13589,7 @@
       }
     },
     {
-      "ref": "C1280",
+      "ref": "C1309",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12148,7 +13633,7 @@
       }
     },
     {
-      "ref": "C1281",
+      "ref": "C1310",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12170,7 +13655,7 @@
       }
     },
     {
-      "ref": "C1282",
+      "ref": "C1311",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12192,7 +13677,7 @@
       }
     },
     {
-      "ref": "C1283",
+      "ref": "C1312",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12236,7 +13721,7 @@
       }
     },
     {
-      "ref": "C1284",
+      "ref": "C1313",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12258,7 +13743,7 @@
       }
     },
     {
-      "ref": "C1285",
+      "ref": "C1314",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12280,7 +13765,7 @@
       }
     },
     {
-      "ref": "C1286",
+      "ref": "C1315",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12324,7 +13809,7 @@
       }
     },
     {
-      "ref": "C1287",
+      "ref": "C1316",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12346,7 +13831,7 @@
       }
     },
     {
-      "ref": "C1288",
+      "ref": "C1317",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12368,7 +13853,7 @@
       }
     },
     {
-      "ref": "C1289",
+      "ref": "C1318",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12412,7 +13897,7 @@
       }
     },
     {
-      "ref": "C1290",
+      "ref": "C1319",
       "mpn": "GRM155R61A475MEAA",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12434,7 +13919,7 @@
       }
     },
     {
-      "ref": "C1291",
+      "ref": "C1320",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12456,7 +13941,7 @@
       }
     },
     {
-      "ref": "C1292",
+      "ref": "C1321",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12522,7 +14007,7 @@
       }
     },
     {
-      "ref": "C1293",
+      "ref": "C1322",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12544,7 +14029,7 @@
       }
     },
     {
-      "ref": "C1294",
+      "ref": "C1323",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12633,7 +14118,7 @@
       }
     },
     {
-      "ref": "C1295",
+      "ref": "C1324",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12655,7 +14140,7 @@
       }
     },
     {
-      "ref": "C1296",
+      "ref": "C1325",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12722,7 +14207,7 @@
       }
     },
     {
-      "ref": "C1297",
+      "ref": "C1326",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12766,7 +14251,7 @@
       }
     },
     {
-      "ref": "C1298",
+      "ref": "C1327",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12858,7 +14343,7 @@
       }
     },
     {
-      "ref": "C1299",
+      "ref": "C1328",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12902,7 +14387,7 @@
       }
     },
     {
-      "ref": "C1300",
+      "ref": "C1329",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12946,7 +14431,7 @@
       }
     },
     {
-      "ref": "C1301",
+      "ref": "C1330",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -12990,7 +14475,7 @@
       }
     },
     {
-      "ref": "C1302",
+      "ref": "C1331",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13034,7 +14519,7 @@
       }
     },
     {
-      "ref": "C1303",
+      "ref": "C1332",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13078,7 +14563,7 @@
       }
     },
     {
-      "ref": "C1304",
+      "ref": "C1333",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13122,7 +14607,7 @@
       }
     },
     {
-      "ref": "C1305",
+      "ref": "C1334",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13166,7 +14651,7 @@
       }
     },
     {
-      "ref": "C1306",
+      "ref": "C1335",
       "mpn": "GRM022R60J103ME15",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13188,667 +14673,667 @@
       }
     },
     {
-      "ref": "C1307",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 9,
-      "y": -2,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VSYS_3V87",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1308",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 11.1,
-      "y": -2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VBAT_6000MAH",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1309",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 13.2,
-      "y": -2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VBUS_OVP_OUT",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1310",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 15.3,
-      "y": -2,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_3V3_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1311",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 9,
-      "y": -5.5,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1312",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 11.1,
-      "y": -5.5,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_1V8_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1313",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 13.2,
-      "y": -5.5,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "OLED_ELVDD_4V6",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1314",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 15.3,
-      "y": -5.5,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "AVDD_3V3_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1315",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 9,
-      "y": -9,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VSYS_3V87",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1316",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 11.1,
-      "y": -9,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VBAT_6000MAH",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1317",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 13.2,
-      "y": -9,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VBUS_OVP_OUT",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1318",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 15.3,
-      "y": -9,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_3V3_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1319",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 9,
-      "y": -12.5,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1320",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 11.1,
-      "y": -12.5,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_1V8_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1321",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 13.2,
-      "y": -12.5,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "OLED_ELVDD_4V6",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1322",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 15.3,
-      "y": -12.5,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "AVDD_3V3_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1323",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 9,
-      "y": -16,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VSYS_3V87",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1324",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 11.1,
-      "y": -16,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VBAT_6000MAH",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1325",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 13.2,
-      "y": -16,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VBUS_OVP_OUT",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1326",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 15.3,
-      "y": -16,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_3V3_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1327",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 9,
-      "y": -19.5,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1328",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 11.1,
-      "y": -19.5,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_1V8_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1329",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 13.2,
-      "y": -19.5,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "OLED_ELVDD_4V6",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1330",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 15.3,
-      "y": -19.5,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "AVDD_3V3_S0",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1331",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 9,
-      "y": -22.2,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VSYS_3V87",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1332",
-      "mpn": "GRM033R61A104KE15D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 11.1,
-      "y": -22.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VBAT_6000MAH",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1333",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 13.2,
-      "y": -22.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VBUS_OVP_OUT",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1334",
-      "mpn": "GRM155R61A106ME44D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "10uF 6.3V X5R",
-      "pkg": "0402",
-      "board": "main",
-      "side": "bot",
-      "x": 15.3,
-      "y": -22.2,
-      "w": 1,
-      "h": 0.5,
-      "t": 0.38,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_3V3_S3",
-        "2": "GND"
-      }
-    },
-    {
-      "ref": "C1335",
-      "mpn": "GRM033R60J105MEA2D",
-      "manufacturer": "Murata",
-      "category": "Capacitor",
-      "kind": "cap",
-      "value": "1uF 6.3V X5R",
-      "pkg": "0201",
-      "board": "main",
-      "side": "bot",
-      "x": 9,
-      "y": -50.8,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Power",
-      "pins": {
-        "1": "VCC_1V8_S3",
-        "2": "GND"
-      }
-    },
-    {
       "ref": "C1336",
-      "mpn": "GRM033R61A104KE15D",
+      "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
       "kind": "cap",
-      "value": "100nF 6.3V X5R",
-      "pkg": "0201",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
       "board": "main",
       "side": "bot",
-      "x": 11.1,
-      "y": -50.8,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
+      "x": 9,
+      "y": -2,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
       "rot": 0,
       "subsystem": "Power",
       "pins": {
-        "1": "VCC_1V8_S0",
+        "1": "VSYS_3V87",
         "2": "GND"
       }
     },
     {
       "ref": "C1337",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 11.1,
+      "y": -2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VBAT_6000MAH",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1338",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 13.2,
+      "y": -2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VBUS_OVP_OUT",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1339",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 15.3,
+      "y": -2,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_3V3_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1340",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 9,
+      "y": -5.5,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1341",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 11.1,
+      "y": -5.5,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V8_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1342",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 13.2,
+      "y": -5.5,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "OLED_ELVDD_4V6",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1343",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 15.3,
+      "y": -5.5,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "AVDD_3V3_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1344",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 9,
+      "y": -9,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VSYS_3V87",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1345",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 11.1,
+      "y": -9,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VBAT_6000MAH",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1346",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 13.2,
+      "y": -9,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VBUS_OVP_OUT",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1347",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 15.3,
+      "y": -9,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_3V3_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1348",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 9,
+      "y": -12.5,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1349",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 11.1,
+      "y": -12.5,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V8_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1350",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 13.2,
+      "y": -12.5,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "OLED_ELVDD_4V6",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1351",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 15.3,
+      "y": -12.5,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "AVDD_3V3_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1352",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 9,
+      "y": -16,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VSYS_3V87",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1353",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 11.1,
+      "y": -16,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VBAT_6000MAH",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1354",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 13.2,
+      "y": -16,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VBUS_OVP_OUT",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1355",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 15.3,
+      "y": -16,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_3V3_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1356",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 9,
+      "y": -19.5,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1357",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 11.1,
+      "y": -19.5,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V8_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1358",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 13.2,
+      "y": -19.5,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "OLED_ELVDD_4V6",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1359",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 15.3,
+      "y": -19.5,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "AVDD_3V3_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1360",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 9,
+      "y": -22.2,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VSYS_3V87",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1361",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 11.1,
+      "y": -22.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VBAT_6000MAH",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1362",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 13.2,
+      "y": -22.2,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VBUS_OVP_OUT",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1363",
+      "mpn": "GRM155R61A106ME44D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "10uF 6.3V X5R",
+      "pkg": "0402",
+      "board": "main",
+      "side": "bot",
+      "x": 15.3,
+      "y": -22.2,
+      "w": 1,
+      "h": 0.5,
+      "t": 0.38,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_3V3_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1364",
+      "mpn": "GRM033R60J105MEA2D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "1uF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 9,
+      "y": -50.8,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V8_S3",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1365",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 6.3V X5R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "bot",
+      "x": 11.1,
+      "y": -50.8,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Power",
+      "pins": {
+        "1": "VCC_1V8_S0",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "C1366",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13870,7 +15355,7 @@
       }
     },
     {
-      "ref": "C1338",
+      "ref": "C1367",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13892,7 +15377,7 @@
       }
     },
     {
-      "ref": "C1339",
+      "ref": "C1368",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13914,7 +15399,7 @@
       }
     },
     {
-      "ref": "C1340",
+      "ref": "C1369",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13936,7 +15421,7 @@
       }
     },
     {
-      "ref": "C1341",
+      "ref": "C1370",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13958,7 +15443,7 @@
       }
     },
     {
-      "ref": "C1342",
+      "ref": "C1371",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -13980,7 +15465,7 @@
       }
     },
     {
-      "ref": "C1343",
+      "ref": "C1372",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -14002,7 +15487,7 @@
       }
     },
     {
-      "ref": "C1344",
+      "ref": "C1373",
       "mpn": "GRM033R61A104KE15D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -14024,7 +15509,7 @@
       }
     },
     {
-      "ref": "C1345",
+      "ref": "C1374",
       "mpn": "GRM033R60J105MEA2D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -14046,7 +15531,7 @@
       }
     },
     {
-      "ref": "C1346",
+      "ref": "C1375",
       "mpn": "GRM155R61A106ME44D",
       "manufacturer": "Murata",
       "category": "Capacitor",
@@ -14119,11 +15604,13 @@
       "C1033.1",
       "C1035.1",
       "C1051.1",
-      "U207.VOUT",
       "L221.2",
-      "C1100.1",
-      "C1101.1",
-      "C1102.1"
+      "R223.1",
+      "C1109.1",
+      "C1110.1",
+      "C1111.1",
+      "C1112.1",
+      "C1113.1"
     ],
     "VDD_CPU_BIG1_S0": [
       "U101.VDD_CPU_BIG1",
@@ -14131,22 +15618,25 @@
       "C1034.1",
       "C1036.1",
       "C1052.1",
-      "U208.VOUT",
+      "FB201.1",
       "L222.2",
-      "C1104.1",
-      "C1105.1",
-      "C1106.1"
+      "R224.1",
+      "C1115.1",
+      "C1116.1",
+      "C1117.1",
+      "C1118.1",
+      "C1119.1"
     ],
     "VDD_CPU_LIT_S0": [
       "U101.VDD_CPU_LIT",
       "C1003.1",
       "C1037.1",
       "C1053.1",
-      "U206.VOUT2",
       "L212.2",
       "C1062.1",
       "C1063.1",
       "C1064.1",
+      "R219.1",
       "R1003.1"
     ],
     "VDD_GPU_S0": [
@@ -14154,11 +15644,13 @@
       "C1004.1",
       "C1038.1",
       "C1054.1",
-      "U206.VOUT1",
       "L211.2",
       "C1059.1",
       "C1060.1",
       "C1061.1",
+      "R218.1",
+      "C1106.1",
+      "C1107.1",
       "R1002.1"
     ],
     "VDD_NPU_S0": [
@@ -14167,11 +15659,13 @@
       "C1013.1",
       "C1039.1",
       "C1055.1",
-      "U209.VOUT",
       "L223.2",
-      "C1108.1",
-      "C1109.1",
-      "C1110.1"
+      "R225.1",
+      "C1121.1",
+      "C1122.1",
+      "C1123.1",
+      "C1124.1",
+      "C1125.1"
     ],
     "VDD_LOG_S0": [
       "U101.VDD_LOGIC",
@@ -14179,11 +15673,11 @@
       "C1014.1",
       "C1040.1",
       "C1056.1",
-      "U206.VOUT3",
       "L213.2",
       "C1065.1",
       "C1066.1",
-      "C1067.1"
+      "C1067.1",
+      "R220.1"
     ],
     "VDD_VDENC_S0": [
       "U101.VDD_VDENC",
@@ -14191,10 +15685,10 @@
       "C1015.1",
       "C1041.1",
       "C1057.1",
-      "U206.VOUT4",
       "L214.2",
       "C1068.1",
-      "C1069.1"
+      "C1069.1",
+      "R221.1"
     ],
     "VDD_DDR_S0": [
       "U101.VDD_DDR",
@@ -14202,17 +15696,10 @@
       "C1016.1",
       "C1042.1",
       "C1058.1",
-      "U206.VOUT5",
       "L215.2",
       "C1070.1",
       "C1071.1",
-      "U301.VDD2L",
-      "C1128.1",
-      "C1132.1",
-      "C1136.1",
-      "C1139.1",
-      "C1142.1",
-      "C1149.1",
+      "R222.1",
       "R1004.1"
     ],
     "VDD2_DDR_S3": [
@@ -14221,98 +15708,146 @@
       "C1017.1",
       "C1025.1",
       "C1043.1",
-      "U206.VOUT6",
       "L216.2",
       "C1072.1",
       "C1073.1",
+      "R215.1",
+      "C215.1",
       "U301.VDD2H",
-      "C1126.1",
-      "C1130.1",
-      "C1134.1",
+      "FB301.1",
       "C1141.1",
-      "C1144.1",
-      "C1147.1",
+      "C1145.1",
+      "C1149.1",
+      "C1156.1",
+      "C1159.1",
+      "C1162.1",
+      "C1165.1",
+      "C1169.1",
+      "C1173.1",
       "R1005.1"
     ],
-    "VDDQ_DDR_S0": [
-      "U101.VDDQ_DDR",
+    "VDD2L_0V9_DDR_S3": [
+      "U101.VDD2L_DDR",
       "C1010.1",
       "C1018.1",
       "C1026.1",
       "C1044.1",
-      "U206.VOUT9",
-      "L219.2",
-      "C1078.1",
-      "C1079.1",
-      "U301.VDDQ",
-      "R301.2",
-      "R302.2",
-      "C1127.1",
-      "C1131.1",
-      "C1135.1",
-      "C1138.1",
-      "C1145.1",
-      "C1148.1",
-      "R1006.1"
+      "L225.2",
+      "R211.1",
+      "C211.1",
+      "C1084.1",
+      "C1085.1",
+      "U301.VDD2L",
+      "C1142.1",
+      "C1146.1",
+      "C1150.1",
+      "C1153.1",
+      "C1160.1",
+      "C1163.1",
+      "C1166.1",
+      "C1170.1",
+      "C1174.1"
     ],
-    "VDD_0V75_S3": [
-      "U101.VDD_0V75_S3",
+    "VDDQ_DDR_S0": [
+      "U101.VDDQ_DDR",
       "C1011.1",
       "C1019.1",
       "C1027.1",
       "C1045.1",
-      "U206.NLDO1",
-      "C1082.1"
+      "L219.2",
+      "C1078.1",
+      "C1079.1",
+      "R217.1",
+      "C216.1",
+      "U301.VDDQ",
+      "R301.2",
+      "R302.2",
+      "C1143.1",
+      "C1147.1",
+      "C1151.1",
+      "C1154.1",
+      "C1157.1",
+      "C1164.1",
+      "C1167.1",
+      "C1171.1",
+      "C1175.1",
+      "R1006.1"
     ],
-    "VDD_0V75_S0": [
-      "U101.VDD_0V75_S0",
-      "U206.NLDO3",
-      "C1084.1"
+    "VDDQ_DDR_CKE_S3": [
+      "U101.VDDQ_DDR_CKE",
+      "U301.VDDQ_CKE",
+      "FB301.2"
     ],
-    "VDD_0V85_S0": [
-      "U101.VDD_0V85_S0",
+    "VDDA_DDR_PLL_S0": [
+      "U101.VDDA_DDR_PLL",
+      "C1021.1",
+      "C1029.1",
+      "C1047.1",
+      "U206.NLDO2",
+      "C1090.1"
+    ],
+    "VDD_0V75_S3": [
+      "U101.VDD_0V75_S3",
       "C1012.1",
       "C1020.1",
       "C1028.1",
       "C1046.1",
-      "U206.NLDO2",
-      "C1083.1"
+      "U206.NLDO1",
+      "C1089.1"
+    ],
+    "VDD_0V75_S0": [
+      "U101.VDD_0V75_S0",
+      "U206.NLDO3",
+      "C1091.1"
+    ],
+    "VDD_0V75_S0_PLL": [
+      "U101.VDD_0V75_PLL",
+      "U206.NLDO5",
+      "C1093.1"
     ],
     "AVDD_0V85_S0": [
       "U101.AVDD_0V85_S0",
       "U206.NLDO4",
-      "C1085.1"
+      "C1092.1"
     ],
     "VDD_CPU_BIG_MEM_S0": [
       "U101.VDD_BIG_MEM",
-      "U206.NLDO5",
-      "C1086.1"
+      "FB201.2",
+      "C1082.1"
     ],
     "VCC_1V8_S3": [
       "U101.VCC_1V8_S3",
-      "R104.2",
-      "C1021.1",
-      "C1029.1",
-      "C1047.1",
+      "C1022.1",
+      "C1030.1",
+      "C1048.1",
       "U206.VOUT10",
       "L220.2",
       "C1080.1",
       "C1081.1",
+      "U211.EN",
+      "U207.VSEL",
+      "U208.VSEL",
+      "U209.VSEL",
       "R201.2",
       "R204.2",
       "U301.VDD1",
-      "C1129.1",
-      "C1133.1",
-      "C1137.1",
-      "C1140.1",
-      "C1143.1",
-      "C1146.1",
+      "C1144.1",
+      "C1148.1",
+      "C1152.1",
+      "C1155.1",
+      "C1158.1",
+      "C1161.1",
+      "C1168.1",
+      "C1172.1",
+      "C1176.1",
       "U302.VCCQ",
       "R305.2",
       "R306.2",
-      "C1151.1",
+      "R307.2",
+      "C1178.1",
+      "C1180.1",
       "U303.VCC",
-      "C1152.1",
+      "C1181.1",
       "R1001.2",
       "U401.VIN2",
       "U403.VIN2",
@@ -14323,10 +15858,10 @@
       "U807.VDD",
       "U807.VDDIO",
       "U809.VCC",
-      "C1180.1",
-      "C1181.1",
+      "C1209.1",
+      "C1210.1",
       "U810.VDD",
-      "C1182.1",
+      "C1211.1",
       "R901.2",
       "R902.2",
       "R911.2",
@@ -14348,121 +15883,125 @@
       "U707.VDDIO",
       "U709.VCC",
       "U710.VDDIO",
-      "C1199.1",
-      "C1207.1",
-      "C1215.1",
-      "C1223.1",
-      "C1231.1",
-      "C1239.1",
-      "C1247.1",
-      "C1255.1",
+      "C1228.1",
+      "C1236.1",
+      "C1244.1",
+      "C1252.1",
+      "C1260.1",
+      "C1268.1",
+      "C1276.1",
+      "C1284.1",
       "R131.2",
       "R132.2",
       "R133.2",
       "R110.2",
       "R1014.2",
-      "C1311.1",
-      "C1319.1",
-      "C1327.1",
-      "C1335.1",
-      "C1343.1"
+      "C1340.1",
+      "C1348.1",
+      "C1356.1",
+      "C1364.1",
+      "C1372.1"
     ],
     "VCC_1V8_S0": [
       "U101.VCC_1V8_S0",
-      "C1022.1",
-      "C1030.1",
-      "C1048.1",
-      "U206.PLDO1",
-      "C1087.1",
-      "U503.EN",
-      "J501.VDDIO",
-      "U502.EN",
-      "U801.DVDD",
-      "C1175.1",
-      "MK801.VDD",
-      "MK801.SELECT",
-      "C1176.1",
-      "U802.IOVDD",
-      "U803.IOVDD",
-      "C1312.1",
-      "C1320.1",
-      "C1328.1",
-      "C1336.1",
-      "C1344.1"
-    ],
-    "VCC_1V8_PMU_S3": [
-      "U101.VCC_1V8_PMU",
-      "R103.2",
-      "U206.PLDO6",
-      "C1092.1"
-    ],
-    "AVCC_1V8_S0": [
-      "U101.AVCC_1V8_S0",
       "C1023.1",
       "C1031.1",
       "C1049.1",
       "U206.PLDO2",
-      "C1088.1"
+      "C1095.1",
+      "U503.EN",
+      "J501.VDDIO",
+      "U502.EN",
+      "U801.DVDD",
+      "C1204.1",
+      "MK801.VDD",
+      "MK801.SELECT",
+      "C1205.1",
+      "U802.IOVDD",
+      "U803.IOVDD",
+      "C1341.1",
+      "C1349.1",
+      "C1357.1",
+      "C1365.1",
+      "C1373.1"
+    ],
+    "VCC_1V8_PMU_S3": [
+      "U101.VCC_1V8_PMU",
+      "R106.2",
+      "R107.2",
+      "R103.2",
+      "U206.PLDO6",
+      "R228.2",
+      "R229.2",
+      "R230.2",
+      "C1099.1"
+    ],
+    "AVCC_1V8_S0": [
+      "U101.AVCC_1V8_S0",
+      "R104.2",
+      "C1024.1",
+      "C1032.1",
+      "C1050.1",
+      "U206.PLDO1",
+      "C1094.1"
     ],
     "AVDD_1V2_S0": [
       "U101.AVDD_1V2_S0",
       "U206.PLDO3",
-      "C1089.1"
+      "C1096.1"
     ],
     "VCC_3V3_S3": [
       "U101.VCC_3V3_S3",
       "D101.A1",
-      "C1024.1",
-      "C1032.1",
-      "C1050.1",
       "U206.VOUT8",
       "L218.2",
       "C1076.1",
       "C1077.1",
       "U302.VCC",
-      "C1150.1",
+      "C1177.1",
+      "C1179.1",
       "J501.TP_VDD",
       "U603.VPWR",
       "U601.VDD",
-      "C1173.1",
+      "C1202.1",
       "U602.VCC",
       "D802.A",
       "J901.V3V3",
       "U715.VDD",
       "U708.VCC",
-      "C1200.1",
-      "C1208.1",
-      "C1216.1",
-      "C1224.1",
-      "C1232.1",
-      "C1240.1",
-      "C1248.1",
-      "C1256.1",
+      "C1229.1",
+      "C1237.1",
+      "C1245.1",
+      "C1253.1",
+      "C1261.1",
+      "C1269.1",
+      "C1277.1",
+      "C1285.1",
       "FB1002.1",
-      "C1310.1",
-      "C1318.1",
-      "C1326.1",
-      "C1334.1",
-      "C1342.1"
+      "C1339.1",
+      "C1347.1",
+      "C1355.1",
+      "C1363.1",
+      "C1371.1"
     ],
     "AVDD_3V3_S0": [
       "U101.AVDD_3V3_S0",
       "U206.PLDO4",
-      "C1090.1",
+      "C1097.1",
       "U801.AVDD",
-      "C1174.1",
+      "C1203.1",
       "R1011.2",
       "R1012.2",
-      "C1314.1",
-      "C1322.1",
-      "C1330.1",
-      "C1338.1",
-      "C1346.1"
+      "C1343.1",
+      "C1351.1",
+      "C1359.1",
+      "C1367.1",
+      "C1375.1"
     ],
     "VCCIO_SD_S0": [
       "U101.VCCIO_SD",
       "U206.PLDO5",
-      "C1091.1"
+      "C1098.1"
     ],
     "GND": [
       "U101.VSS",
@@ -14475,6 +16014,8 @@
       "C105.2",
       "C103.2",
       "C106.2",
+      "C107.2",
+      "D102.2",
       "TP102.1",
       "C1001.2",
       "C1002.2",
@@ -14535,6 +16076,7 @@
       "C1057.2",
       "C1058.2",
       "U206.GND",
+      "U206.PWRCTRL3",
       "C1059.2",
       "C1060.2",
       "C1061.2",
@@ -14558,10 +16100,16 @@
       "C1079.2",
       "C1080.2",
       "C1081.2",
+      "R216.2",
+      "D201.2",
       "C1082.2",
+      "U211.GND",
+      "R212.2",
       "C1083.2",
       "C1084.2",
       "C1085.2",
+      "U212.GND",
+      "R214.2",
       "C1086.2",
       "C1087.2",
       "C1088.2",
@@ -14575,24 +16123,39 @@
       "C1096.2",
       "C1097.2",
       "C1098.2",
-      "U207.GND",
       "C1099.2",
       "C1100.2",
       "C1101.2",
       "C1102.2",
-      "U208.GND",
       "C1103.2",
       "C1104.2",
       "C1105.2",
       "C1106.2",
-      "U209.GND",
       "C1107.2",
+      "U207.GND",
       "C1108.2",
       "C1109.2",
       "C1110.2",
+      "C1111.2",
+      "C1112.2",
+      "C1113.2",
+      "U208.GND",
+      "C1114.2",
+      "C1115.2",
+      "C1116.2",
+      "C1117.2",
+      "C1118.2",
+      "C1119.2",
+      "U209.GND",
+      "C1120.2",
+      "C1121.2",
+      "C1122.2",
+      "C1123.2",
+      "C1124.2",
+      "C1125.2",
       "R202.I2",
       "U201.GND",
-      "C1111.2",
+      "C1126.2",
       "U202.PGND",
       "C202.2",
       "R203.2",
@@ -14603,25 +16166,10 @@
       "U204.GND",
       "R206.2",
       "U205.GND",
-      "C1124.2",
-      "U210.GND",
-      "C1125.2",
-      "U301.VSS",
-      "C1126.2",
-      "C1127.2",
-      "C1128.2",
-      "C1129.2",
-      "C1130.2",
-      "C1131.2",
-      "C1132.2",
-      "C1133.2",
-      "C1134.2",
-      "C1135.2",
-      "C1136.2",
-      "C1137.2",
-      "C1138.2",
       "C1139.2",
+      "U210.GND",
       "C1140.2",
+      "U301.VSS",
       "C1141.2",
       "C1142.2",
       "C1143.2",
@@ -14631,14 +16179,9 @@
       "C1147.2",
       "C1148.2",
       "C1149.2",
-      "U302.VSS",
-      "R304.2",
-      "C301.2",
       "C1150.2",
       "C1151.2",
-      "U303.GND",
       "C1152.2",
-      "U401.GND",
       "C1153.2",
       "C1154.2",
       "C1155.2",
@@ -14646,7 +16189,6 @@
       "C1157.2",
       "C1158.2",
       "C1159.2",
-      "U403.GND",
       "C1160.2",
       "C1161.2",
       "C1162.2",
@@ -14654,8 +16196,43 @@
       "C1164.2",
       "C1165.2",
       "C1166.2",
-      "U402.GND",
       "C1167.2",
+      "C1168.2",
+      "C1169.2",
+      "C1170.2",
+      "C1171.2",
+      "C1172.2",
+      "C1173.2",
+      "C1174.2",
+      "C1175.2",
+      "C1176.2",
+      "U302.VSS",
+      "R304.2",
+      "C301.2",
+      "C1177.2",
+      "C1178.2",
+      "C1179.2",
+      "C1180.2",
+      "U303.GND",
+      "C1181.2",
+      "U401.GND",
+      "C1182.2",
+      "C1183.2",
+      "C1184.2",
+      "C1185.2",
+      "C1186.2",
+      "C1187.2",
+      "C1188.2",
+      "U403.GND",
+      "C1189.2",
+      "C1190.2",
+      "C1191.2",
+      "C1192.2",
+      "C1193.2",
+      "C1194.2",
+      "C1195.2",
+      "U402.GND",
+      "C1196.2",
       "J401.GND",
       "D401.GND",
       "D402.GND",
@@ -14668,56 +16245,56 @@
       "D406.GND",
       "D407.GND",
       "U501.GND",
-      "C1168.2",
-      "C1169.2",
-      "C1170.2",
+      "C1197.2",
+      "C1198.2",
+      "C1199.2",
       "U503.GND",
-      "C1171.2",
+      "C1200.2",
       "J501.GND",
       "U502.GND",
-      "C1172.2",
+      "C1201.2",
       "J502.GND",
       "U603.GND",
       "U601.GND",
       "C601.2",
       "C602.2",
-      "C1173.2",
+      "C1202.2",
       "U602.GND",
       "D601.GND",
       "D602.GND",
       "D603.A",
       "J601.GND",
       "U801.GND",
-      "C1174.2",
-      "C1175.2",
+      "C1203.2",
+      "C1204.2",
       "MK801.GND",
-      "C1176.2",
+      "C1205.2",
       "U802.GND",
-      "C1177.2",
+      "C1206.2",
       "U803.GND",
-      "C1178.2",
+      "C1207.2",
       "U804.GND",
-      "C1179.2",
+      "C1208.2",
       "U805.GND",
       "U806.GND",
       "U807.GND",
       "U809.GND",
-      "C1180.2",
-      "C1181.2",
+      "C1209.2",
+      "C1210.2",
       "U810.GND",
-      "C1182.2",
+      "C1211.2",
       "J801.GND",
       "D801.GND",
       "J901.GND",
       "U701.GND",
       "Y702.GND",
       "U711.GND",
-      "C1183.2",
-      "C1184.2",
-      "C1185.2",
-      "C1186.2",
+      "C1212.2",
+      "C1213.2",
+      "C1214.2",
+      "C1215.2",
       "U712.GND",
-      "C1187.2",
+      "C1216.2",
       "U702.GND",
       "U703.GND",
       "U713.GND",
@@ -14727,17 +16304,17 @@
       "U715.GND",
       "U716.GND",
       "J701.GND",
-      "C1188.2",
+      "C1217.2",
       "J702.GND",
-      "C1189.2",
+      "C1218.2",
       "J703.GND",
-      "C1190.2",
+      "C1219.2",
       "J704.GND",
-      "C1191.2",
+      "C1220.2",
       "J709.GND",
-      "C1192.2",
+      "C1221.2",
       "J710.GND",
-      "C1193.2",
+      "C1222.2",
       "U707.GND",
       "J705.GND",
       "J706.GND",
@@ -14748,35 +16325,6 @@
       "U710.GND",
       "Y701.2",
       "Y701.4",
-      "C1194.2",
-      "C1195.2",
-      "C1196.2",
-      "C1197.2",
-      "C1198.2",
-      "C1199.2",
-      "C1200.2",
-      "C1201.2",
-      "C1202.2",
-      "C1203.2",
-      "C1204.2",
-      "C1205.2",
-      "C1206.2",
-      "C1207.2",
-      "C1208.2",
-      "C1209.2",
-      "C1210.2",
-      "C1211.2",
-      "C1212.2",
-      "C1213.2",
-      "C1214.2",
-      "C1215.2",
-      "C1216.2",
-      "C1217.2",
-      "C1218.2",
-      "C1219.2",
-      "C1220.2",
-      "C1221.2",
-      "C1222.2",
       "C1223.2",
       "C1224.2",
       "C1225.2",
@@ -14816,29 +16364,9 @@
       "C1259.2",
       "C1260.2",
       "C1261.2",
-      "CAM_U1.GND",
-      "CAM_U2.GND",
-      "CAM_U3.GND",
-      "CAM_U4.GND",
-      "CAM_H1.GND",
-      "CAM_H2.GND",
-      "CAM_H3.GND",
-      "CAM_U5.GND",
-      "CAM_U6.GND",
-      "CAM_U9.GND",
-      "CAM_U7.GND",
-      "CAM_U8.GND",
-      "CAM_D1.K",
-      "CAM_D2.K",
-      "CAM_MK1.SELECT",
-      "CAM_MK1.GND",
-      "RT101.2",
       "C1262.2",
-      "RT201.2",
       "C1263.2",
-      "RT701.2",
       "C1264.2",
-      "R111.2",
       "C1265.2",
       "C1266.2",
       "C1267.2",
@@ -14865,31 +16393,41 @@
       "C1288.2",
       "C1289.2",
       "C1290.2",
+      "CAM_U1.GND",
+      "CAM_U2.GND",
+      "CAM_U3.GND",
+      "CAM_U4.GND",
+      "CAM_H1.GND",
+      "CAM_H2.GND",
+      "CAM_H3.GND",
+      "CAM_U5.GND",
+      "CAM_U6.GND",
+      "CAM_U9.GND",
+      "CAM_U7.GND",
+      "CAM_U8.GND",
+      "CAM_D1.K",
+      "CAM_D2.K",
+      "CAM_MK1.SELECT",
+      "CAM_MK1.GND",
+      "RT101.2",
       "C1291.2",
+      "RT201.2",
       "C1292.2",
+      "RT701.2",
       "C1293.2",
+      "R111.2",
       "C1294.2",
-      "D1001.GND",
       "C1295.2",
       "C1296.2",
-      "D1002.GND",
       "C1297.2",
       "C1298.2",
-      "D701.GND",
       "C1299.2",
-      "L1001.2",
       "C1300.2",
-      "L1002.2",
       "C1301.2",
-      "L1003.2",
       "C1302.2",
-      "L1004.2",
       "C1303.2",
-      "L1005.2",
       "C1304.2",
-      "L1006.2",
       "C1305.2",
-      "L1007.2",
       "C1306.2",
       "C1307.2",
       "C1308.2",
@@ -14908,17 +16446,27 @@
       "C1321.2",
       "C1322.2",
       "C1323.2",
+      "D1001.GND",
       "C1324.2",
       "C1325.2",
+      "D1002.GND",
       "C1326.2",
       "C1327.2",
+      "D701.GND",
       "C1328.2",
+      "L1001.2",
       "C1329.2",
+      "L1002.2",
       "C1330.2",
+      "L1003.2",
       "C1331.2",
+      "L1004.2",
       "C1332.2",
+      "L1005.2",
       "C1333.2",
+      "L1006.2",
       "C1334.2",
+      "L1007.2",
       "C1335.2",
       "C1336.2",
       "C1337.2",
@@ -14930,7 +16478,36 @@
       "C1343.2",
       "C1344.2",
       "C1345.2",
-      "C1346.2"
+      "C1346.2",
+      "C1347.2",
+      "C1348.2",
+      "C1349.2",
+      "C1350.2",
+      "C1351.2",
+      "C1352.2",
+      "C1353.2",
+      "C1354.2",
+      "C1355.2",
+      "C1356.2",
+      "C1357.2",
+      "C1358.2",
+      "C1359.2",
+      "C1360.2",
+      "C1361.2",
+      "C1362.2",
+      "C1363.2",
+      "C1364.2",
+      "C1365.2",
+      "C1366.2",
+      "C1367.2",
+      "C1368.2",
+      "C1369.2",
+      "C1370.2",
+      "C1371.2",
+      "C1372.2",
+      "C1373.2",
+      "C1374.2",
+      "C1375.2"
     ],
     "CLK_24M_IN": [
       "U101.XIN_OSC",
@@ -14945,27 +16522,47 @@
     "CLK_32K_RTC": [
       "U101.CLK32K_IN",
       "U102.CLKOUT",
+      "R106.1",
       "U206.CLK32K",
       "J901.CLK32K",
       "U711.CLK32K",
       "U707.CLK32K"
     ],
+    "RTC_INT_L": [
+      "U101.RTC_INT",
+      "U102.INT",
+      "R107.1"
+    ],
     "PMIC_RESETB": [
       "U101.NPOR_U",
       "R103.1",
       "C106.1",
+      "R108.2",
       "U206.RESETB"
+    ],
+    "TSADC_SHUT_ORG": [
+      "U101.TSADC_SHUT",
+      "R108.1"
+    ],
+    "PMIC_SLEEP1": [
+      "U101.PMIC_SLEEP1",
+      "U206.PWRCTRL1"
+    ],
+    "PMIC_SLEEP2": [
+      "U101.PMIC_SLEEP2",
+      "U206.PWRCTRL2"
     ],
     "SARADC_IN0_RECOVERY": [
       "U101.SARADC_IN0",
       "R104.1",
-      "R105.1"
+      "R105.1",
+      "C107.1"
     ],
     "BOARD_ID_ADC": [
       "U101.SARADC_IN1",
       "R110.1",
       "R111.1",
-      "C1265.1"
+      "C1294.1"
     ],
     "BAT_NTC_ADC": [
       "U101.SARADC_IN2",
@@ -14978,20 +16575,20 @@
       "U101.SARADC_IN3",
       "RT101.1",
       "R131.1",
-      "C1262.1"
+      "C1291.1"
     ],
     "THERM_CHG_ADC": [
       "U101.SARADC_IN4",
       "RT201.1",
       "R132.1",
-      "C1263.1"
+      "C1292.1"
     ],
     "THERM_RFPA_ADC": [
       "U101.SARADC_IN5",
       "J901.THERM_RFPA",
       "RT701.1",
       "R133.1",
-      "C1264.1"
+      "C1293.1"
     ],
     "UART2_DBG_TX": [
       "U101.UART2_TX_M0",
@@ -15012,17 +16609,16 @@
     "PMIC_SPI_CS0": [
       "U101.SPI2_CS0",
       "U206.CS",
+      "R228.1",
       "R1007.1"
     ],
-    "PMIC_SPI_CLK": [
+    "PMIC_SPI_CLK_SOC": [
       "U101.SPI2_CLK",
-      "U206.CLK",
-      "R1008.1"
+      "R226.1"
     ],
-    "PMIC_SPI_MOSI": [
+    "PMIC_SPI_MOSI_SOC": [
       "U101.SPI2_MOSI",
-      "U206.MOSI",
-      "R1009.1"
+      "R227.1"
     ],
     "PMIC_SPI_MISO": [
       "U101.SPI2_MISO",
@@ -15032,6 +16628,7 @@
     "PMIC_INT_L": [
       "U101.PMIC_INT",
       "U206.INT",
+      "R230.1",
       "U202.INT"
     ],
     "LPDDR5X_CH0_DQ": [
@@ -15050,6 +16647,14 @@
       "U101.DDR_CH0_CK_N",
       "U301.CH0_CK_N"
     ],
+    "LPDDR5X_CH0_WCK_P": [
+      "U101.DDR_CH0_WCK_P",
+      "U301.CH0_WCK_P"
+    ],
+    "LPDDR5X_CH0_WCK_N": [
+      "U101.DDR_CH0_WCK_N",
+      "U301.CH0_WCK_N"
+    ],
     "LPDDR5X_CH1_DQ": [
       "U101.DDR_CH1_DQ",
       "U301.CH1_DQ"
@@ -15066,6 +16671,18 @@
       "U101.DDR_CH1_CK_N",
       "U301.CH1_CK_N"
     ],
+    "LPDDR5X_CH1_WCK_P": [
+      "U101.DDR_CH1_WCK_P",
+      "U301.CH1_WCK_P"
+    ],
+    "LPDDR5X_CH1_WCK_N": [
+      "U101.DDR_CH1_WCK_N",
+      "U301.CH1_WCK_N"
+    ],
+    "DDR_RESET_N": [
+      "U101.DDR_RESET",
+      "U301.RESET_N"
+    ],
     "EMMC_CLK_SOC": [
       "U101.EMMC_CLK",
       "R303.1"
@@ -15077,7 +16694,8 @@
     ],
     "EMMC_D0_D7": [
       "U101.EMMC_D0_D7",
-      "U302.D0_D7"
+      "U302.D0_D7",
+      "R307.1"
     ],
     "EMMC_DATA_STROBE": [
       "U101.EMMC_DS",
@@ -15884,19 +17502,20 @@
       "J201.P1",
       "J201.P2",
       "U201.BAT",
-      "C1111.1",
+      "C1126.1",
       "U202.BAT",
       "C205.1",
       "U203.VOUT",
       "U204.VOUT",
-      "C1308.1",
-      "C1316.1",
-      "C1324.1",
-      "C1332.1",
-      "C1340.1"
+      "C1337.1",
+      "C1345.1",
+      "C1353.1",
+      "C1361.1",
+      "C1369.1"
     ],
     "KEY_VOL_UP_REC": [
       "R105.2",
+      "D102.1",
       "R811.2"
     ],
     "EMMC_CLK_LINE": [
@@ -15906,18 +17525,23 @@
     ],
     "VSYS_3V87": [
       "U206.VSYS_IN",
-      "C1093.1",
-      "C1094.1",
-      "C1095.1",
-      "C1096.1",
-      "C1097.1",
-      "C1098.1",
-      "U207.VIN",
-      "C1099.1",
-      "U208.VIN",
+      "U206.VCC_PLDO_HI",
+      "U211.VIN",
+      "C1083.1",
+      "U212.VIN",
+      "C1086.1",
+      "C1100.1",
+      "C1101.1",
+      "C1102.1",
       "C1103.1",
+      "C1104.1",
+      "C1105.1",
+      "U207.VIN",
+      "C1108.1",
+      "U208.VIN",
+      "C1114.1",
       "U209.VIN",
-      "C1107.1",
+      "C1120.1",
       "U202.SYS",
       "L201.2",
       "C204.1",
@@ -15933,12 +17557,12 @@
       "U502.IN",
       "U802.VBAT",
       "L801.1",
-      "C1177.1",
+      "C1206.1",
       "U803.VBAT",
       "L802.1",
-      "C1178.1",
+      "C1207.1",
       "U804.VDD",
-      "C1179.1",
+      "C1208.1",
       "J901.VSYS",
       "U701.VBAT_RF",
       "U711.VIN",
@@ -15948,44 +17572,76 @@
       "U704.VBAT",
       "U707.VBAT",
       "U710.VBAT",
-      "C1198.1",
-      "C1206.1",
-      "C1214.1",
-      "C1222.1",
-      "C1230.1",
-      "C1238.1",
-      "C1246.1",
-      "C1254.1",
+      "C1227.1",
+      "C1235.1",
+      "C1243.1",
+      "C1251.1",
+      "C1259.1",
+      "C1267.1",
+      "C1275.1",
+      "C1283.1",
       "FB1001.1",
-      "C1307.1",
-      "C1315.1",
-      "C1323.1",
-      "C1331.1",
-      "C1339.1"
+      "C1336.1",
+      "C1344.1",
+      "C1352.1",
+      "C1360.1",
+      "C1368.1"
     ],
     "SW_BUCK1": [
       "U206.SW1",
       "L211.1"
     ],
+    "VDD_GPU_S0_FB": [
+      "U206.VOUT1",
+      "R218.2",
+      "R1002.2",
+      "C1295.1"
+    ],
     "SW_BUCK2": [
       "U206.SW2",
       "L212.1"
+    ],
+    "VDD_CPU_LIT_S0_FB": [
+      "U206.VOUT2",
+      "R219.2",
+      "R1003.2",
+      "C1296.1"
     ],
     "SW_BUCK3": [
       "U206.SW3",
       "L213.1"
     ],
+    "VDD_LOG_S0_FB": [
+      "U206.VOUT3",
+      "R220.2"
+    ],
     "SW_BUCK4": [
       "U206.SW4",
       "L214.1"
+    ],
+    "VDD_VDENC_S0_FB": [
+      "U206.VOUT4",
+      "R221.2"
     ],
     "SW_BUCK5": [
       "U206.SW5",
       "L215.1"
     ],
+    "VDD_DDR_S0_FB": [
+      "U206.VOUT5",
+      "R222.2",
+      "R1004.2",
+      "C1297.1"
+    ],
     "SW_BUCK6": [
       "U206.SW6",
       "L216.1"
+    ],
+    "PMIC_FB6": [
+      "U206.FB6",
+      "R215.2",
+      "R216.1",
+      "C215.2"
     ],
     "SW_BUCK7": [
       "U206.SW7",
@@ -16006,16 +17662,42 @@
       "U206.SW9",
       "L219.1"
     ],
+    "PMIC_FB9": [
+      "U206.FB9",
+      "R217.2",
+      "C216.2"
+    ],
     "SW_BUCK10": [
       "U206.SW10",
       "L220.1"
     ],
+    "VCC_1V1_NLDO_S3": [
+      "U206.VCC_NLDO",
+      "L226.2",
+      "R213.1",
+      "C212.1",
+      "C1087.1",
+      "C1088.1"
+    ],
+    "PMIC_SPI_CLK": [
+      "U206.CLK",
+      "R226.2",
+      "R1008.1"
+    ],
+    "PMIC_SPI_MOSI": [
+      "U206.MOSI",
+      "R227.2",
+      "R229.1",
+      "R1009.1"
+    ],
     "PMIC_PWRON_L": [
       "U206.PWRON",
+      "D201.1",
       "R810.2"
     ],
     "PMIC_EXT_EN": [
       "U206.EXT_EN",
+      "U212.EN",
       "U207.EN",
       "U208.EN",
       "U209.EN",
@@ -16026,17 +17708,49 @@
       "R205.2",
       "R206.1"
     ],
+    "SW_VDD2L": [
+      "U211.LX",
+      "L225.1"
+    ],
+    "FB_VDD2L": [
+      "U211.FB",
+      "R211.2",
+      "R212.1",
+      "C211.2"
+    ],
+    "SW_1V1_NLDO": [
+      "U212.LX",
+      "L226.1"
+    ],
+    "FB_1V1_NLDO": [
+      "U212.FB",
+      "R213.2",
+      "R214.1",
+      "C212.2"
+    ],
     "SW_U207": [
       "U207.SW",
       "L221.1"
+    ],
+    "VDD_CPU_BIG0_S0_FB": [
+      "U207.VOUT",
+      "R223.2"
     ],
     "SW_U208": [
       "U208.SW",
       "L222.1"
     ],
+    "VDD_CPU_BIG1_S0_FB": [
+      "U208.VOUT",
+      "R224.2"
+    ],
     "SW_U209": [
       "U209.SW",
       "L223.1"
+    ],
+    "VDD_NPU_S0_FB": [
+      "U209.VOUT",
+      "R225.2"
     ],
     "VBAT_NEG_PACK": [
       "J201.N1",
@@ -16062,11 +17776,11 @@
       "Q201.S",
       "R205.1",
       "U205.VOUT",
-      "C1309.1",
-      "C1317.1",
-      "C1325.1",
-      "C1333.1",
-      "C1341.1"
+      "C1338.1",
+      "C1346.1",
+      "C1354.1",
+      "C1362.1",
+      "C1370.1"
     ],
     "CHG_PMID": [
       "U202.PMID",
@@ -16101,43 +17815,43 @@
     ],
     "CP1_CF1P": [
       "U203.CFLY1P",
-      "C1112.1",
-      "C1113.1"
+      "C1127.1",
+      "C1128.1"
     ],
     "CP1_CF1N": [
       "U203.CFLY1N",
-      "C1112.2",
-      "C1113.2"
+      "C1127.2",
+      "C1128.2"
     ],
     "CP1_CF2P": [
       "U203.CFLY2P",
-      "C1114.1",
-      "C1115.1"
+      "C1129.1",
+      "C1130.1"
     ],
     "CP1_CF2N": [
       "U203.CFLY2N",
-      "C1114.2",
-      "C1115.2"
+      "C1129.2",
+      "C1130.2"
     ],
     "CP2_CF1P": [
       "U204.CFLY1P",
-      "C1116.1",
-      "C1117.1"
+      "C1131.1",
+      "C1132.1"
     ],
     "CP2_CF1N": [
       "U204.CFLY1N",
-      "C1116.2",
-      "C1117.2"
+      "C1131.2",
+      "C1132.2"
     ],
     "CP2_CF2P": [
       "U204.CFLY2P",
-      "C1118.1",
-      "C1119.1"
+      "C1133.1",
+      "C1134.1"
     ],
     "CP2_CF2N": [
       "U204.CFLY2N",
-      "C1118.2",
-      "C1119.2"
+      "C1133.2",
+      "C1134.2"
     ],
     "VBUS_OVP_GATE": [
       "Q201.G",
@@ -16145,27 +17859,27 @@
     ],
     "WPC_AC1": [
       "U205.AC1",
-      "C1120.2",
-      "C1121.2"
+      "C1135.2",
+      "C1136.2"
     ],
     "WPC_AC2": [
       "U205.AC2",
-      "C1122.2",
-      "C1123.2"
+      "C1137.2",
+      "C1138.2"
     ],
     "WPC_VRECT": [
       "U205.VRECT",
-      "C1124.1"
+      "C1139.1"
     ],
     "WPC_COIL_1": [
       "J202.1",
-      "C1120.1",
-      "C1121.1"
+      "C1135.1",
+      "C1136.1"
     ],
     "WPC_COIL_2": [
       "J202.2",
-      "C1122.1",
-      "C1123.1"
+      "C1137.1",
+      "C1138.1"
     ],
     "SW_OTG5V": [
       "U210.SW",
@@ -16173,7 +17887,7 @@
     ],
     "VCC5V0_OTG_HOST": [
       "U210.VOUT",
-      "C1125.1",
+      "C1140.1",
       "U601.VCONN"
     ],
     "DDR_ZQ_A": [
@@ -16190,48 +17904,48 @@
     ],
     "CAM0_DVDD_1V05": [
       "U401.LDO1",
-      "C1153.1",
+      "C1182.1",
       "J401.DVDD",
       "CAM_U1.DVDD",
       "FB1004.1"
     ],
     "CAM1_DVDD_1V2": [
       "U401.LDO2",
-      "C1154.1",
+      "C1183.1",
       "J402.DVDD",
       "CAM_U5.DVDD"
     ],
     "CAM0_AVDD_2V8": [
       "U401.LDO3",
-      "C1155.1",
+      "C1184.1",
       "J401.AVDD",
       "CAM_U1.AVDD",
       "FB1003.1"
     ],
     "CAM0_AFVDD_2V8": [
       "U401.LDO4",
-      "C1156.1",
+      "C1185.1",
       "J401.AFVDD",
       "CAM_U3.VDDM",
       "FB1005.1"
     ],
     "CAM1_AVDD_2V8": [
       "U401.LDO5",
-      "C1157.1",
+      "C1186.1",
       "J402.AVDD",
       "CAM_U5.AVDD",
       "FB1007.1"
     ],
     "CAM2_AVDD_2V8": [
       "U401.LDO6",
-      "C1158.1",
+      "C1187.1",
       "J403.AVDD",
       "CAM_U9.AVDD",
       "FB1008.1"
     ],
     "CAM_IOVDD_1V8": [
       "U401.LDO7",
-      "C1159.1",
+      "C1188.1",
       "J401.IOVDD",
       "J402.IOVDD",
       "J404.MIC_VDD",
@@ -16246,19 +17960,19 @@
     ],
     "CAM0_PREISP_0V9": [
       "U403.LDO1",
-      "C1160.1",
+      "C1189.1",
       "J401.PREISP_VDD",
       "CAM_U2.VDD_CORE"
     ],
     "CAM2_DVDD_1V1": [
       "U403.LDO2",
-      "C1161.1",
+      "C1190.1",
       "J403.DVDD",
       "CAM_U9.DVDD"
     ],
     "CAM0_OIS_2V8": [
       "U403.LDO3",
-      "C1162.1",
+      "C1191.1",
       "J401.OISVDD",
       "CAM_U3.VDDA",
       "CAM_H1.VDD",
@@ -16268,25 +17982,25 @@
     ],
     "CAM_TOF_AVDD_2V8": [
       "U403.LDO4",
-      "C1163.1",
+      "C1192.1",
       "J404.TOF_AVDD",
       "CAM_U7.AVDD"
     ],
     "CAM1_AFVDD_2V8": [
       "U403.LDO5",
-      "C1164.1",
+      "C1193.1",
       "J402.AFVDD",
       "CAM_U6.VDD"
     ],
     "CAM_FLICKER_1V8": [
       "U403.LDO6",
-      "C1165.1",
+      "C1194.1",
       "J404.FLICK_VDD",
       "CAM_U8.VDD"
     ],
     "CAM_EEPROM_1V8": [
       "U403.LDO7",
-      "C1166.1",
+      "C1195.1",
       "J401.EEPROM_VDD",
       "CAM_U4.VCC"
     ],
@@ -16296,7 +18010,7 @@
     ],
     "FLASH_VOUT": [
       "U402.OUT",
-      "C1167.1"
+      "C1196.1"
     ],
     "FLASH_LED_WARM": [
       "U402.LED1",
@@ -16350,27 +18064,27 @@
     ],
     "OLED_ELVDD_4V6": [
       "U501.ELVDD",
-      "C1168.1",
+      "C1197.1",
       "J501.ELVDD",
-      "C1313.1",
-      "C1321.1",
-      "C1329.1",
-      "C1337.1",
-      "C1345.1"
+      "C1342.1",
+      "C1350.1",
+      "C1358.1",
+      "C1366.1",
+      "C1374.1"
     ],
     "OLED_ELVSS_M2V4": [
       "U501.ELVSS",
-      "C1169.1",
+      "C1198.1",
       "J501.ELVSS"
     ],
     "OLED_AVDD_7V2": [
       "U501.AVDD",
-      "C1170.1",
+      "C1199.1",
       "J501.AVDD"
     ],
     "OLED_VCI_3V0": [
       "U503.OUT",
-      "C1171.1",
+      "C1200.1",
       "J501.VCI"
     ],
     "DSI0_F_D0_P": [
@@ -16415,7 +18129,7 @@
     ],
     "FP_VDD_3V3": [
       "U502.OUT",
-      "C1172.1",
+      "C1201.1",
       "J502.VDD"
     ],
     "USB_CC1_EXT": [
@@ -16530,13 +18244,13 @@
       "J601.MIC1_P",
       "U801.MIC1P",
       "R1011.1",
-      "C1297.1"
+      "C1326.1"
     ],
     "MIC1_BOT_N": [
       "J601.MIC1_N",
       "U801.MIC1N",
       "R1012.1",
-      "C1298.1"
+      "C1327.1"
     ],
     "USIM1_VCC": [
       "J601.SIM1_VCC",
@@ -16545,7 +18259,7 @@
       "U711.LDO_SIM1",
       "D701.I1",
       "R1013.2",
-      "C1299.1"
+      "C1328.1"
     ],
     "USIM1_CLK": [
       "J601.SIM1_CLK",
@@ -16614,29 +18328,29 @@
       "U701.VDD_CX",
       "U711.VOUT1",
       "L711.2",
-      "C1183.1",
-      "C1201.1",
-      "C1209.1",
-      "C1217.1",
-      "C1225.1",
-      "C1233.1",
-      "C1241.1",
-      "C1249.1",
-      "C1257.1"
+      "C1212.1",
+      "C1230.1",
+      "C1238.1",
+      "C1246.1",
+      "C1254.1",
+      "C1262.1",
+      "C1270.1",
+      "C1278.1",
+      "C1286.1"
     ],
     "VDD_MODEM_MX_0V85": [
       "U701.VDD_MX",
       "U711.VOUT2",
       "L712.2",
-      "C1184.1",
-      "C1202.1",
-      "C1210.1",
-      "C1218.1",
-      "C1226.1",
-      "C1234.1",
-      "C1242.1",
-      "C1250.1",
-      "C1258.1"
+      "C1213.1",
+      "C1231.1",
+      "C1239.1",
+      "C1247.1",
+      "C1255.1",
+      "C1263.1",
+      "C1271.1",
+      "C1279.1",
+      "C1287.1"
     ],
     "PCIE_MODEM_TX_AC_P": [
       "U701.PCIE_TXP",
@@ -16724,17 +18438,17 @@
       "Y702.VCC",
       "U711.VOUT4",
       "L714.2",
-      "C1186.1",
+      "C1215.1",
       "U702.VDD2",
       "U705.VDD",
       "U714.VDD",
-      "C1204.1",
-      "C1212.1",
-      "C1220.1",
-      "C1228.1",
-      "C1236.1",
-      "C1244.1",
-      "C1252.1",
+      "C1233.1",
+      "C1241.1",
+      "C1249.1",
+      "C1257.1",
+      "C1265.1",
+      "C1273.1",
+      "C1281.1",
       "R1015.2",
       "R1016.2"
     ],
@@ -16753,16 +18467,16 @@
     "VDD_RF1_1V0": [
       "U711.VOUT3",
       "L713.2",
-      "C1185.1",
+      "C1214.1",
       "U702.VDD1",
-      "C1203.1",
-      "C1211.1",
-      "C1219.1",
-      "C1227.1",
-      "C1235.1",
-      "C1243.1",
-      "C1251.1",
-      "C1259.1"
+      "C1232.1",
+      "C1240.1",
+      "C1248.1",
+      "C1256.1",
+      "C1264.1",
+      "C1272.1",
+      "C1280.1",
+      "C1288.1"
     ],
     "SW_RF2": [
       "U711.SW4",
@@ -16775,17 +18489,17 @@
     "VPA_ET_OUT": [
       "U712.VPA",
       "L715.2",
-      "C1187.1",
+      "C1216.1",
       "U703.VPA",
       "U713.VPA",
       "U704.VPA",
-      "C1205.1",
-      "C1213.1",
-      "C1221.1",
-      "C1229.1",
-      "C1237.1",
-      "C1245.1",
-      "C1253.1"
+      "C1234.1",
+      "C1242.1",
+      "C1250.1",
+      "C1258.1",
+      "C1266.1",
+      "C1274.1",
+      "C1282.1"
     ],
     "RF_PATH_LB": [
       "U702.RF_LB",
@@ -16806,44 +18520,44 @@
     "MMW0_IF_50": [
       "U702.IF_MMW0",
       "J709.SIG",
-      "C1192.1"
+      "C1221.1"
     ],
     "MMW1_IF_50": [
       "U702.IF_MMW1",
       "J710.SIG",
-      "C1193.1"
+      "C1222.1"
     ],
     "RF_ANT_MAIN_50": [
       "U703.ANT1",
       "U713.ANT1",
       "U715.CS0",
       "J701.SIG",
-      "C1188.1",
+      "C1217.1",
       "L1001.1",
-      "C1300.1"
+      "C1329.1"
     ],
     "RF_ANT_DIV_50": [
       "U703.ANT2",
       "U705.OUT",
       "J702.SIG",
-      "C1189.1",
+      "C1218.1",
       "L1002.1",
-      "C1301.1"
+      "C1330.1"
     ],
     "RF_ANT_UHB0_50": [
       "U704.ANT1",
       "U715.CS1",
       "J703.SIG",
-      "C1190.1",
+      "C1219.1",
       "L1003.1",
-      "C1302.1"
+      "C1331.1"
     ],
     "RF_ANT_UHB1_50": [
       "U704.ANT2",
       "J704.SIG",
-      "C1191.1",
+      "C1220.1",
       "L1004.1",
-      "C1303.1"
+      "C1332.1"
     ],
     "RF_DRX_LNA_IN": [
       "U705.IN",
@@ -16857,13 +18571,13 @@
       "U707.ANT0",
       "J705.SIG",
       "L1005.1",
-      "C1304.1"
+      "C1333.1"
     ],
     "WIFI_ANT1_50": [
       "U707.ANT1",
       "J706.SIG",
       "L1006.1",
-      "C1305.1"
+      "C1334.1"
     ],
     "GNSS_LNA_OUT": [
       "U708.RF_IN",
@@ -16877,17 +18591,17 @@
       "FL701.IN",
       "J707.SIG",
       "L1007.1",
-      "C1306.1"
+      "C1335.1"
     ],
     "NFC_27M_XI": [
       "U710.XTAL1",
       "Y701.1",
-      "C1194.1"
+      "C1223.1"
     ],
     "NFC_27M_XO": [
       "U710.XTAL2",
       "Y701.3",
-      "C1195.1"
+      "C1224.1"
     ],
     "NFC_TX1": [
       "U710.TX1",
@@ -16899,21 +18613,21 @@
     ],
     "NFC_ANT_P": [
       "L701.2",
-      "C1196.1",
+      "C1225.1",
       "J708.P"
     ],
     "NFC_ANT_N": [
       "L702.2",
-      "C1197.1",
+      "C1226.1",
       "J708.N"
     ],
     "VSYS_3V87_WIFI": [
       "FB1001.2",
-      "C1260.1"
+      "C1289.1"
     ],
     "VCC_3V3_GNSS": [
       "FB1002.2",
-      "C1261.1"
+      "C1290.1"
     ],
     "CAM0_RAW_D0_P": [
       "CAM_U1.D0P",
@@ -16991,96 +18705,84 @@
       "CAM_U3.AF_N",
       "CAM_H3.COIL_N"
     ],
-    "VDD_GPU_S0_FB": [
-      "R1002.2",
-      "C1266.1"
-    ],
-    "VDD_CPU_LIT_S0_FB": [
-      "R1003.2",
-      "C1267.1"
-    ],
-    "VDD_DDR_S0_FB": [
-      "R1004.2",
-      "C1268.1"
-    ],
     "VDD2_DDR_S3_FB": [
       "R1005.2",
-      "C1269.1"
+      "C1298.1"
     ],
     "VDDQ_DDR_S0_FB": [
       "R1006.2",
-      "C1270.1"
+      "C1299.1"
     ],
     "PMIC_SPI_CS0_FILT": [
       "R1007.2",
-      "C1271.1"
+      "C1300.1"
     ],
     "PMIC_SPI_CLK_FILT": [
       "R1008.2",
-      "C1272.1"
+      "C1301.1"
     ],
     "PMIC_SPI_MOSI_FILT": [
       "R1009.2",
-      "C1273.1"
+      "C1302.1"
     ],
     "PMIC_SPI_MISO_FILT": [
       "R1010.2",
-      "C1274.1"
+      "C1303.1"
     ],
     "CAM0_AVDD_2V8_FILT": [
       "FB1003.2",
-      "C1275.1",
-      "C1276.1",
-      "C1277.1"
+      "C1304.1",
+      "C1305.1",
+      "C1306.1"
     ],
     "CAM0_DVDD_1V05_FILT": [
       "FB1004.2",
-      "C1278.1",
-      "C1279.1",
-      "C1280.1"
+      "C1307.1",
+      "C1308.1",
+      "C1309.1"
     ],
     "CAM0_AFVDD_2V8_FILT": [
       "FB1005.2",
-      "C1281.1",
-      "C1282.1",
-      "C1283.1"
+      "C1310.1",
+      "C1311.1",
+      "C1312.1"
     ],
     "CAM0_OIS_2V8_FILT": [
       "FB1006.2",
-      "C1284.1",
-      "C1285.1",
-      "C1286.1"
+      "C1313.1",
+      "C1314.1",
+      "C1315.1"
     ],
     "CAM1_AVDD_2V8_FILT": [
       "FB1007.2",
-      "C1287.1",
-      "C1288.1",
-      "C1289.1"
+      "C1316.1",
+      "C1317.1",
+      "C1318.1"
     ],
     "CAM2_AVDD_2V8_FILT": [
       "FB1008.2",
-      "C1290.1",
-      "C1291.1",
-      "C1292.1"
+      "C1319.1",
+      "C1320.1",
+      "C1321.1"
     ],
     "SPK_BOT_OUT_P_EMI": [
       "FB1009.2",
-      "C1293.1",
+      "C1322.1",
       "D1001.I1"
     ],
     "SPK_BOT_OUT_N_EMI": [
       "FB1010.2",
-      "C1294.1",
+      "C1323.1",
       "D1001.I2"
     ],
     "SPK_TOP_OUT_P_EMI": [
       "FB1011.2",
-      "C1295.1",
+      "C1324.1",
       "D1002.I1"
     ],
     "SPK_TOP_OUT_N_EMI": [
       "FB1012.2",
-      "C1296.1",
+      "C1325.1",
       "D1002.I2"
     ]
   },

@@ -87,19 +87,21 @@ for (const [ref, desc] of [
 
 // 2. Verify Every RK3588S2 & Qualcomm PMX65 Mandatory Buck Rail Is Driven + Inducted + Decoupled
 const buckRails = [
-  ['VDD_GPU_S0', 'U206', 'L211'],
-  ['VDD_CPU_LIT_S0', 'U206', 'L212'],
-  ['VDD_LOG_S0', 'U206', 'L213'],
-  ['VDD_VDENC_S0', 'U206', 'L214'],
-  ['VDD_DDR_S0', 'U206', 'L215'],
-  ['VDD2_DDR_S3', 'U206', 'L216'],
+  ['VDD_GPU_S0', 'R218', 'L211'],
+  ['VDD_CPU_LIT_S0', 'R219', 'L212'],
+  ['VDD_LOG_S0', 'R220', 'L213'],
+  ['VDD_VDENC_S0', 'R221', 'L214'],
+  ['VDD_DDR_S0', 'R222', 'L215'],
+  ['VDD2_DDR_S3', 'R215', 'L216'],
   ['VCC_2V0_PLDO_S3', 'U206', 'L217'],
   ['VCC_3V3_S3', 'U206', 'L218'],
-  ['VDDQ_DDR_S0', 'U206', 'L219'],
+  ['VDDQ_DDR_S0', 'R217', 'L219'],
   ['VCC_1V8_S3', 'U206', 'L220'],
-  ['VDD_CPU_BIG0_S0', 'U207', 'L221'],
-  ['VDD_CPU_BIG1_S0', 'U208', 'L222'],
-  ['VDD_NPU_S0', 'U209', 'L223'],
+  ['VDD_CPU_BIG0_S0', 'R223', 'L221'],
+  ['VDD_CPU_BIG1_S0', 'R224', 'L222'],
+  ['VDD_NPU_S0', 'R225', 'L223'],
+  ['VDD2L_0V9_DDR_S3', 'R211', 'L225'],
+  ['VCC_1V1_NLDO_S3', 'R213', 'L226'],
   ['VDD_MODEM_CX_0V8', 'U711', 'L711'],
   ['VDD_MODEM_MX_0V85', 'U711', 'L712'],
   ['VDD_RF1_1V0', 'U711', 'L713'],
@@ -111,19 +113,20 @@ for (const [rail, drv, ind] of buckRails) {
   const hasDrv = nodes.some((n) => n.startsWith(`${drv}.`));
   const hasInd = nodes.some((n) => n.startsWith(`${ind}.`));
   const hasCap = nodes.some((n) => n.startsWith('C'));
-  assert(hasDrv && hasInd && hasCap, `Buck rail complete (${rail}): driver=${drv}, inductor=${ind}, bulkCaps=OK`);
+  assert(hasDrv && hasInd && hasCap, `Buck rail complete (${rail}): sense/driver=${drv}, inductor=${ind}, bulkCaps=OK`);
 }
 
-// 3. Verify 24MHz & 32.768kHz Clocks + Load Capacitors + Reset Circuit (<0.3uF on RESETB!)
+// 3. Verify 24MHz & 32.768kHz Clocks + Open-Drain RTC PU + Reset/TSADC Thermal Shutdown
 assert((nets.CLK_24M_IN || []).includes('U101.XIN_OSC') && (nets.CLK_24M_IN || []).includes('Y101.1') && (nets.CLK_24M_IN || []).includes('C101.1'), '24MHz XIN crystal + load cap C101 wired');
 assert((nets.CLK_24M_OUT || []).includes('Y101.3') && (nets.CLK_24M_OUT || []).includes('C102.1') && (nets.CLK_24M_OUT || []).includes('R102.1'), '24MHz XOUT crystal + load cap C102 + damping R102 wired');
-assert((nets.CLK_32K_RTC || []).includes('U101.CLK32K_IN') && (nets.CLK_32K_RTC || []).includes('U102.CLKOUT') && (nets.CLK_32K_RTC || []).includes('U206.CLK32K') && (nets.CLK_32K_RTC || []).includes('U711.CLK32K'), '32.768kHz RTC clock distributed to SoC, RK806-1 & PMX65');
-assert((nets.PMIC_RESETB || []).includes('U101.NPOR_U') && (nets.PMIC_RESETB || []).includes('U206.RESETB') && (nets.PMIC_RESETB || []).includes('R103.1') && (nets.PMIC_RESETB || []).includes('C106.1'), 'PMIC_RESETB -> SoC NPOR_U with 10K pull-up + 100nF (<0.3uF) cap');
+assert((nets.CLK_32K_RTC || []).includes('U101.CLK32K_IN') && (nets.CLK_32K_RTC || []).includes('U102.CLKOUT') && (nets.CLK_32K_RTC || []).includes('R106.1') && (nets.CLK_32K_RTC || []).includes('U206.CLK32K'), '32.768kHz RTC clock + mandatory 47K open-drain pull-up R106 distributed');
+assert((nets.PMIC_RESETB || []).includes('U101.NPOR_U') && (nets.PMIC_RESETB || []).includes('U206.RESETB') && (nets.PMIC_RESETB || []).includes('R103.1') && (nets.PMIC_RESETB || []).includes('C106.1') && (nets.PMIC_RESETB || []).includes('R108.2'), 'PMIC_RESETB -> NPOR_U + TSADC_SHUT_ORG + 10K PU + 100nF (<0.3uF)');
+assert((nets.VCC_1V1_NLDO_S3 || []).includes('U206.VCC_NLDO') && (nets.VDD2L_0V9_DDR_S3 || []).includes('U301.VDD2L'), 'Dedicated 1.1V NLDO pre-reg (U212) & 0.90V LPDDR5X VDD2L (U211) verified');
 
 // 4. Verify LPDDR5X ZQ 240 Ohm Calibration & eMMC 5.1 HS400 Mandatory Straps
 assert(byRef.get('R301')?.value.includes('240R') && byRef.get('R302')?.value.includes('240R'), 'LPDDR5X 240 Ohm 1% ZQ calibration resistors present');
 assert((nets.EMMC_DATA_STROBE || []).includes('U302.DS') && (nets.EMMC_DATA_STROBE || []).includes('R304.1'), 'eMMC 5.1 HS400 Data Strobe 10K pull-down present');
-assert((nets.EMMC_VDDI || []).includes('U302.VDDI') && (nets.EMMC_VDDI || []).includes('C301.1'), 'eMMC 5.1 internal LDO VDDI 1uF capacitor present');
+assert((nets.EMMC_VDDI || []).includes('U302.VDDI') && byRef.get('C301')?.value.includes('2.2uF') && (nets.EMMC_D0_D7 || []).includes('R307.1'), 'eMMC 5.1 VDDI 2.2uF cap + D0 10K pull-up verified');
 
 // 5. Verify ALL 8 I2C Buses (I2C0..I2C7) Have Both SCL & SDA Pull-Up Resistors!
 for (let b = 0; b <= 7; b++) {

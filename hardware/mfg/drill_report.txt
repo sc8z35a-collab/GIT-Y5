@@ -1,0 +1,36 @@
+Drill report for rk_t4_mainboard.kicad_pcb
+Created on 2026-11-21T18:23:46+0000
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  GND                       in1
+    L3 :  In2.Cu                    in2
+    L4 :  In3.Cu                    in3
+    L5 :  In4.Cu                    in4
+    L6 :  In5.Cu                    in5
+    L7 :  In6.Cu                    in6
+    L8 :  In7.Cu                    in7
+    L9 :  In8.Cu                    in8
+    L10:  In9.Cu                    in9
+    L11:  In10.Cu                   in10
+    L12:  In11.Cu                   in11
+    L13:  In12.Cu                   in12
+    L14:  VSYS_3V87                 in13
+    L15:  VCC_1V8_S3                in14
+    L16:  B.Cu                      back
+
+
+Drill file 'rk_t4_mainboard.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.150mm  0.0059"  (1515 holes)
+
+    Total plated holes count 1515
+
+
+Not plated through holes are merged with plated holes
+    unplated through holes:
+    =============================================================
+
+    Total unplated holes count 0

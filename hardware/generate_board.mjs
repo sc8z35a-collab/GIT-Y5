@@ -226,10 +226,13 @@ addPart({
     VDD_VDENC:    'VDD_VDENC_S0',
     VDD_DDR:      'VDD_DDR_S0',
     VDD2_DDR:     'VDD2_DDR_S3',
+    VDD2L_DDR:    'VDD2L_0V9_DDR_S3',
     VDDQ_DDR:     'VDDQ_DDR_S0',
+    VDDQ_DDR_CKE: 'VDDQ_DDR_CKE_S3',
+    VDDA_DDR_PLL: 'VDDA_DDR_PLL_S0',
     VDD_0V75_S3:  'VDD_0V75_S3',
     VDD_0V75_S0:  'VDD_0V75_S0',
-    VDD_0V85_S0:  'VDD_0V85_S0',
+    VDD_0V75_PLL: 'VDD_0V75_S0_PLL',
     AVDD_0V85_S0: 'AVDD_0V85_S0',
     VDD_BIG_MEM:  'VDD_CPU_BIG_MEM_S0',
     VCC_1V8_S3:   'VCC_1V8_S3',
@@ -241,11 +244,15 @@ addPart({
     AVDD_3V3_S0:  'AVDD_3V3_S0',
     VCCIO_SD:     'VCCIO_SD_S0',
     VSS:          'GND',
-    // Clocks & Reset & Boot
+    // Clocks & Reset & Thermal Shutdown & Boot
     XIN_OSC:      'CLK_24M_IN',
     XOUT_OSC:     'CLK_24M_OUT_R',
     CLK32K_IN:    'CLK_32K_RTC',
+    RTC_INT:      'RTC_INT_L',
     NPOR_U:       'PMIC_RESETB',
+    TSADC_SHUT:   'TSADC_SHUT_ORG',
+    PMIC_SLEEP1:  'PMIC_SLEEP1',
+    PMIC_SLEEP2:  'PMIC_SLEEP2',
     SARADC_IN0:   'SARADC_IN0_RECOVERY',
     SARADC_IN1:   'BOARD_ID_ADC',
     SARADC_IN2:   'BAT_NTC_ADC',
@@ -256,21 +263,26 @@ addPart({
     UART2_RX_M0:  'UART2_DBG_RX',
     SWDIO:        'JTAG_SWDIO',
     SWCLK:        'JTAG_SWCLK',
-    // PMIC Control (SPI2 + IRQ)
+    // PMIC Control (SPI2 via 22R series damping + IRQ)
     SPI2_CS0:     'PMIC_SPI_CS0',
-    SPI2_CLK:     'PMIC_SPI_CLK',
-    SPI2_MOSI:    'PMIC_SPI_MOSI',
+    SPI2_CLK:     'PMIC_SPI_CLK_SOC',
+    SPI2_MOSI:    'PMIC_SPI_MOSI_SOC',
     SPI2_MISO:    'PMIC_SPI_MISO',
     PMIC_INT:     'PMIC_INT_L',
-    // Memory: LPDDR5X 64-bit
-    DDR_CH0_DQ:   'LPDDR5X_CH0_DQ',
-    DDR_CH0_CA:   'LPDDR5X_CH0_CA',
-    DDR_CH0_CK_P: 'LPDDR5X_CH0_CK_P',
-    DDR_CH0_CK_N: 'LPDDR5X_CH0_CK_N',
-    DDR_CH1_DQ:   'LPDDR5X_CH1_DQ',
-    DDR_CH1_CA:   'LPDDR5X_CH1_CA',
-    DDR_CH1_CK_P: 'LPDDR5X_CH1_CK_P',
-    DDR_CH1_CK_N: 'LPDDR5X_CH1_CK_N',
+    // Memory: LPDDR5X 64-bit Quad-Channel (CH0_A/B + CH1_C/D + WCK + RESET_N)
+    DDR_CH0_DQ:    'LPDDR5X_CH0_DQ',
+    DDR_CH0_CA:    'LPDDR5X_CH0_CA',
+    DDR_CH0_CK_P:  'LPDDR5X_CH0_CK_P',
+    DDR_CH0_CK_N:  'LPDDR5X_CH0_CK_N',
+    DDR_CH0_WCK_P: 'LPDDR5X_CH0_WCK_P',
+    DDR_CH0_WCK_N: 'LPDDR5X_CH0_WCK_N',
+    DDR_CH1_DQ:    'LPDDR5X_CH1_DQ',
+    DDR_CH1_CA:    'LPDDR5X_CH1_CA',
+    DDR_CH1_CK_P:  'LPDDR5X_CH1_CK_P',
+    DDR_CH1_CK_N:  'LPDDR5X_CH1_CK_N',
+    DDR_CH1_WCK_P: 'LPDDR5X_CH1_WCK_P',
+    DDR_CH1_WCK_N: 'LPDDR5X_CH1_WCK_N',
+    DDR_RESET:     'DDR_RESET_N',
     // Storage: eMMC 5.1 HS400 + FSPI NOR
     EMMC_CLK:     'EMMC_CLK_SOC',
     EMMC_CMD:     'EMMC_CMD',
@@ -377,13 +389,13 @@ addCap({ ref: 'C102', value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', x
 addRes({ ref: 'R101', value: '1M', pkg: '0201', x: 1.8, y: 34.4, subsystem: 'Clocks', net1: 'CLK_24M_IN', net2: 'CLK_24M_OUT' });
 addRes({ ref: 'R102', value: '22R', pkg: '0201', x: 3.1, y: 34.4, subsystem: 'Clocks', net1: 'CLK_24M_OUT', net2: 'CLK_24M_OUT_R' });
 
-// HYM8563TS Real-Time Clock + 32.768kHz Crystal + Load Caps + Backup Power Diode
+// HYM8563TS Real-Time Clock + 32.768kHz Crystal + Load Caps + Open-Drain Pull-Ups + Backup Power Diode
 addPart({
   ref: 'U102', mpn: 'HYM8563TS', manufacturer: 'Haoyu',
   category: 'RTC', kind: 'ic', value: 'I2C RTC 32.768kHz', pkg: 'DFN-8 (2x2mm)',
   board: 'main', side: 'top', x: -1.8, y: 36.4, w: 2.0, h: 2.0, t: 0.55,
   subsystem: 'Clocks',
-  pins: { OSCI: 'RTC_32K_XI', OSCO: 'RTC_32K_XO', CLKOUT: 'CLK_32K_RTC', SCL: 'I2C6_SCL', SDA: 'I2C6_SDA', VDD: 'VCC_RTC_3V3', VSS: 'GND' },
+  pins: { OSCI: 'RTC_32K_XI', OSCO: 'RTC_32K_XO', CLKOUT: 'CLK_32K_RTC', INT: 'RTC_INT_L', SCL: 'I2C6_SCL', SDA: 'I2C6_SDA', VDD: 'VCC_RTC_3V3', VSS: 'GND' },
 });
 addPart({
   ref: 'Y102', mpn: 'FC-12M 32.7680KA-A3', manufacturer: 'Epson',
@@ -394,6 +406,9 @@ addPart({
 });
 addCap({ ref: 'C104', value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', x: -4.6, y: 35.4, subsystem: 'Clocks', netP: 'RTC_32K_XI' });
 addCap({ ref: 'C105', value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', x: -3.6, y: 35.4, subsystem: 'Clocks', netP: 'RTC_32K_XO' });
+// Mandatory 47K pull-up on HYM8563TS open-drain CLKOUT + 10K pull-up on RTC_INT_L (Radxa ROCK 5B+ Page 29!)
+addRes({ ref: 'R106', value: '47K', pkg: '0201', side: 'bot', x: -2.0, y: 34.0, subsystem: 'Clocks', net1: 'CLK_32K_RTC', net2: 'VCC_1V8_PMU_S3' });
+addRes({ ref: 'R107', value: '10K', pkg: '0201', side: 'bot', x: -1.0, y: 34.0, subsystem: 'Clocks', net1: 'RTC_INT_L', net2: 'VCC_1V8_PMU_S3' });
 addPart({
   ref: 'D101', mpn: 'BAT54C', manufacturer: 'Nexperia',
   category: 'Diode', kind: 'esd', value: 'Schottky ORing', pkg: 'SOT-323',
@@ -403,11 +418,14 @@ addPart({
 });
 addCap({ ref: 'C103', value: '10uF', voltage: '6.3V', pkg: '0402', x: -2.6, y: 38.8, subsystem: 'Clocks', netP: 'VCC_RTC_3V3' });
 
-// Reset, Recovery Boot Ladder (SARADC_IN0), MaskROM & Debug UART2/SWD Test Pads
+// Reset, TSADC Thermal Shutdown, Recovery Boot Ladder (SARADC_IN0 + 1nF + ESD), MaskROM & Debug UART2/SWD
 addRes({ ref: 'R103', value: '10K', pkg: '0201', x: 4.5, y: 35.2, subsystem: 'Boot', net1: 'PMIC_RESETB', net2: 'VCC_1V8_PMU_S3' });
 addCap({ ref: 'C106', value: '100nF', voltage: '10V', pkg: '0201', x: 5.4, y: 35.2, subsystem: 'Boot', netP: 'PMIC_RESETB' }); // Strictly < 0.3uF per RK806 datasheet!
-addRes({ ref: 'R104', value: '10K', pkg: '0201', x: 6.3, y: 35.2, subsystem: 'Boot', net1: 'SARADC_IN0_RECOVERY', net2: 'VCC_1V8_S3' });
+addRes({ ref: 'R108', value: '0R', pkg: '0201', side: 'bot', x: 0.0, y: 34.0, subsystem: 'Boot', net1: 'TSADC_SHUT_ORG', net2: 'PMIC_RESETB' }); // CM5 Page 9 hardware thermal shutdown!
+addRes({ ref: 'R104', value: '10K', pkg: '0201', x: 6.3, y: 35.2, subsystem: 'Boot', net1: 'SARADC_IN0_RECOVERY', net2: 'AVCC_1V8_S0' });
 addRes({ ref: 'R105', value: '100R', pkg: '0201', x: 7.2, y: 35.2, subsystem: 'Boot', net1: 'SARADC_IN0_RECOVERY', net2: 'KEY_VOL_UP_REC' });
+addCap({ ref: 'C107', value: '1nF', voltage: '25V', pkg: '0201', side: 'bot', x: 1.0, y: 34.0, subsystem: 'Boot', netP: 'SARADC_IN0_RECOVERY' }); // CM5 Page 13 SARADC filter!
+addEsd({ ref: 'D102', mpn: 'ESD5451N', value: 'ESD 5V Recovery Key', pkg: 'DFN1006', side: 'bot', w: 1.0, h: 0.6, t: 0.40, x: 2.2, y: 34.0, subsystem: 'Boot', pins: { '1': 'KEY_VOL_UP_REC', '2': 'GND' } });
 addTestPoint({ ref: 'TP101', net: 'EMMC_CLK_LINE', x: -5.4, y: 34.4, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP102', net: 'GND', x: -4.2, y: 34.4, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP103', net: 'UART2_DBG_TX', x: 8.6, y: 35.2, subsystem: 'Boot' });
@@ -419,8 +437,8 @@ addTestPoint({ ref: 'TP106', net: 'JTAG_SWCLK', x: 9.7, y: 36.4, subsystem: 'Boo
 const socDecoupleRails = [
   'VDD_CPU_BIG0_S0', 'VDD_CPU_BIG1_S0', 'VDD_CPU_LIT_S0', 'VDD_GPU_S0',
   'VDD_NPU_S0', 'VDD_LOG_S0', 'VDD_VDENC_S0', 'VDD_DDR_S0',
-  'VDD2_DDR_S3', 'VDDQ_DDR_S0', 'VDD_0V75_S3', 'VDD_0V85_S0',
-  'VCC_1V8_S3', 'VCC_1V8_S0', 'AVCC_1V8_S0', 'VCC_3V3_S3',
+  'VDD2_DDR_S3', 'VDD2L_0V9_DDR_S3', 'VDDQ_DDR_S0', 'VDD_0V75_S3',
+  'VDDA_DDR_PLL_S0', 'VCC_1V8_S3', 'VCC_1V8_S0', 'AVCC_1V8_S0',
 ];
 // Perimeter caps around RK3588S2 (top, bottom, right edges) + 24 backside cavity caps under BGA!
 for (let i = 0; i < 12; i++) {
@@ -452,7 +470,8 @@ for (let r = 0; r < 4; r++) {
 }
 
 // ============================================================================
-// SUBSYSTEM 2: COMPLETE RK806-1 PMIC + 3x RK860 6A BUCKS + 6000mAh POWER TREE
+// SUBSYSTEM 2: COMPLETE RK806-1 PMIC + 3x RK860 6A BUCKS + 2x SY8089 (1V1 NLDO & 0V9 LPDDR5X VDD2L)
+//              Matched 1:1 to Official Radxa CM5 V2.2 (RK3588S2) & ROCK 5B+ V1.2 (LPDDR5) Schematics!
 // ============================================================================
 addPart({
   ref: 'U206', mpn: 'RK806-1', manufacturer: 'Rockchip',
@@ -461,28 +480,41 @@ addPart({
   subsystem: 'Power',
   pins: {
     VSYS_IN: 'VSYS_3V87', GND: 'GND',
-    SW1: 'SW_BUCK1', VOUT1: 'VDD_GPU_S0',
-    SW2: 'SW_BUCK2', VOUT2: 'VDD_CPU_LIT_S0',
-    SW3: 'SW_BUCK3', VOUT3: 'VDD_LOG_S0',
-    SW4: 'SW_BUCK4', VOUT4: 'VDD_VDENC_S0',
-    SW5: 'SW_BUCK5', VOUT5: 'VDD_DDR_S0',
-    SW6: 'SW_BUCK6', VOUT6: 'VDD2_DDR_S3',
+    SW1: 'SW_BUCK1', VOUT1: 'VDD_GPU_S0_FB',
+    SW2: 'SW_BUCK2', VOUT2: 'VDD_CPU_LIT_S0_FB',
+    SW3: 'SW_BUCK3', VOUT3: 'VDD_LOG_S0_FB',
+    SW4: 'SW_BUCK4', VOUT4: 'VDD_VDENC_S0_FB',
+    SW5: 'SW_BUCK5', VOUT5: 'VDD_DDR_S0_FB',
+    SW6: 'SW_BUCK6', FB6: 'PMIC_FB6',
     SW7: 'SW_BUCK7', VOUT7: 'VCC_2V0_PLDO_S3',
     SW8: 'SW_BUCK8', VOUT8: 'VCC_3V3_S3',
-    SW9: 'SW_BUCK9', VOUT9: 'VDDQ_DDR_S0',
+    SW9: 'SW_BUCK9', FB9: 'PMIC_FB9',
     SW10: 'SW_BUCK10', VOUT10: 'VCC_1V8_S3',
-    VCC_PLDO: 'VCC_2V0_PLDO_S3',
-    NLDO1: 'VDD_0V75_S3', NLDO2: 'VDD_0V85_S0', NLDO3: 'VDD_0V75_S0',
-    NLDO4: 'AVDD_0V85_S0', NLDO5: 'VDD_CPU_BIG_MEM_S0',
-    PLDO1: 'VCC_1V8_S0', PLDO2: 'AVCC_1V8_S0', PLDO3: 'AVDD_1V2_S0',
-    PLDO4: 'AVDD_3V3_S0', PLDO5: 'VCCIO_SD_S0', PLDO6: 'VCC_1V8_PMU_S3',
+    // Exact Official RK806-1 LDO Input Pre-Regulator Rails (ROCK 5B+ Page 31!):
+    VCC_PLDO: 'VCC_2V0_PLDO_S3',     // VCC11 (2.0V pre-reg for PLDO1..3)
+    VCC_PLDO_HI: 'VSYS_3V87',        // VCC12 (3.87V for PLDO4..5)
+    VCC_NLDO: 'VCC_1V1_NLDO_S3',     // VCC13/VCC14 (MANDATORY 1.1V pre-reg for NLDO1..5!)
+    // Exact Official RK806-1 OTP NLDO1..5 & PLDO1..6 Assignments (ROCK 5B+ Page 31!):
+    NLDO1: 'VDD_0V75_S3',            // 0.75V S3 Always-On PMU Logic
+    NLDO2: 'VDDA_DDR_PLL_S0',        // 0.85V S0 DDR PLL Analog
+    NLDO3: 'VDD_0V75_S0',            // 0.75V S0 Analog PHY/PLL
+    NLDO4: 'AVDD_0V85_S0',           // 0.85V S0 MIPI/USB/PCIe PHY
+    NLDO5: 'VDD_0V75_S0_PLL',        // 0.75V S0 Core PLL
+    PLDO1: 'AVCC_1V8_S0',            // 1.8V S0 Analog PLL/SARADC
+    PLDO2: 'VCC_1V8_S0',             // 1.8V S0 Digital IO
+    PLDO3: 'AVDD_1V2_S0',            // 1.2V S0 MIPI/CSI/DSI PHY
+    PLDO4: 'AVDD_3V3_S0',            // 3.3V S0 USB/Audio Analog
+    PLDO5: 'VCCIO_SD_S0',            // 3.3V/1.8V SD/IO
+    PLDO6: 'VCC_1V8_PMU_S3',         // 1.8V S3 PMUIO1/OSC/RTC
+    // SPI2 Control + Power Sequence Pins (PWRCTRL1/2/3 + INT + PWRON + RESETB + EXT_EN)
     CS: 'PMIC_SPI_CS0', CLK: 'PMIC_SPI_CLK', MOSI: 'PMIC_SPI_MOSI', MISO: 'PMIC_SPI_MISO',
+    PWRCTRL1: 'PMIC_SLEEP1', PWRCTRL2: 'PMIC_SLEEP2', PWRCTRL3: 'GND',
     INT: 'PMIC_INT_L', PWRON: 'PMIC_PWRON_L', RESETB: 'PMIC_RESETB',
     EXT_EN: 'PMIC_EXT_EN', VDC: 'VBUS_VDC_DET', CLK32K: 'CLK_32K_RTC',
   },
 });
 
-// ALL 10 RK806-1 Buck Inductors + Output Ceramic Bulk Capacitors (exact datasheet values!)
+// ALL 10 RK806-1 Buck Inductors + Output Ceramic Bulk Capacitors (strictly >=0.60mm inside Edge.Cuts!)
 const rk806Bucks = [
   { id: 'L211', sw: 'SW_BUCK1', out: 'VDD_GPU_S0',      val: '0.22uH', cur: '8A', pkg: 'IND_2016', x: -1.4, y: 12.2, caps: 3 },
   { id: 'L212', sw: 'SW_BUCK2', out: 'VDD_CPU_LIT_S0',  val: '0.22uH', cur: '6A', pkg: 'IND_2016', x: -1.4, y: 10.2, caps: 3 },
@@ -498,16 +530,77 @@ const rk806Bucks = [
 rk806Bucks.forEach((b) => {
   addInd({ ref: b.id, value: b.val, current: b.cur, pkg: b.pkg, x: b.x, y: b.y, subsystem: 'Power', net1: b.sw, net2: b.out });
   for (let c = 0; c < b.caps; c++) {
-    const cx = b.x < 0 ? b.x - 1.55 : b.x > 7 ? b.x + 1.55 : b.x - 0.5 + c * 1.0;
-    const cy = b.x < 0 || b.x > 7 ? b.y - 0.55 + c * 0.55 : b.y - 1.35;
-    addCap({ value: '22uF', voltage: '6.3V', pkg: '0402', x: cx, y: cy, subsystem: 'Power', netP: b.out });
+    const isBottomRow = b.x >= 0 && b.x <= 7;
+    const cx = b.x < 0 ? b.x - 1.55 : b.x > 7 ? b.x + 1.55 : b.x - 0.55 + c * 1.10;
+    const cy = isBottomRow ? 4.8 : b.y - 0.55 + c * 0.55;
+    addCap({ value: '22uF', voltage: '6.3V', pkg: '0402', side: isBottomRow ? 'bot' : 'top', x: cx, y: cy, subsystem: 'Power', netP: b.out });
   }
 });
 
-// ALL 11 RK806-1 LDO Output 2.2uF Caps + 6x VSYS_3V87 Input Bulk Caps
+// RK806-1 Mandatory Feedback Dividers (FB6 = 1.05V LPDDR5X, FB9 = 0.50V LPDDR5X), 100R Remote Sense,
+// SPI2 22R Series Damping + 100K Pull-Ups, PMIC_INT 10K PU, PWRON AZ5825 ESD & VDD_CPU_BIG_MEM Ferrite!
+addRes({ ref: 'R215', value: '110K', pkg: '0201', side: 'bot', x: 0.4, y: 12.2, subsystem: 'Power', net1: 'VDD2_DDR_S3', net2: 'PMIC_FB6' });
+addRes({ ref: 'R216', value: '100K', pkg: '0201', side: 'bot', x: 1.4, y: 12.2, subsystem: 'Power', net1: 'PMIC_FB6', net2: 'GND' });
+addCap({ ref: 'C215', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', side: 'bot', x: 2.4, y: 12.2, subsystem: 'Power', netP: 'VDD2_DDR_S3', netN: 'PMIC_FB6' });
+addRes({ ref: 'R217', value: '0R', pkg: '0201', side: 'bot', x: 3.4, y: 12.2, subsystem: 'Power', net1: 'VDDQ_DDR_S0', net2: 'PMIC_FB9' });
+addCap({ ref: 'C216', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', side: 'bot', x: 4.4, y: 12.2, subsystem: 'Power', netP: 'VDDQ_DDR_S0', netN: 'PMIC_FB9' });
+// 100R Kelvin VOUT remote sense resistors on BUCK1..5 (ROCK 5B+ Page 31!)
+[
+  ['R218', 'VDD_GPU_S0',     'VDD_GPU_S0_FB',     0.4],
+  ['R219', 'VDD_CPU_LIT_S0', 'VDD_CPU_LIT_S0_FB', 1.4],
+  ['R220', 'VDD_LOG_S0',     'VDD_LOG_S0_FB',     2.4],
+  ['R221', 'VDD_VDENC_S0',   'VDD_VDENC_S0_FB',   3.4],
+  ['R222', 'VDD_DDR_S0',     'VDD_DDR_S0_FB',     4.4],
+].forEach(([ref, a, b, rx]) => {
+  addRes({ ref, value: '100R', pkg: '0201', side: 'bot', x: rx, y: 11.2, subsystem: 'Power', net1: a, net2: b });
+});
+// PMIC SPI2 22R series damping (R226/R227) + 100K pull-ups (R228/R229) + PMIC_INT 10K PU (R230) + PWRON ESD (D201)
+addRes({ ref: 'R226', value: '22R',  pkg: '0201', side: 'bot', x: 5.4, y: 12.2, subsystem: 'Power', net1: 'PMIC_SPI_CLK_SOC',  net2: 'PMIC_SPI_CLK' });
+addRes({ ref: 'R227', value: '22R',  pkg: '0201', side: 'bot', x: 6.4, y: 12.2, subsystem: 'Power', net1: 'PMIC_SPI_MOSI_SOC', net2: 'PMIC_SPI_MOSI' });
+addRes({ ref: 'R228', value: '100K', pkg: '0201', side: 'bot', x: 5.4, y: 11.2, subsystem: 'Power', net1: 'PMIC_SPI_CS0',      net2: 'VCC_1V8_PMU_S3' });
+addRes({ ref: 'R229', value: '100K', pkg: '0201', side: 'bot', x: 6.4, y: 11.2, subsystem: 'Power', net1: 'PMIC_SPI_MOSI',     net2: 'VCC_1V8_PMU_S3' });
+addRes({ ref: 'R230', value: '10K',  pkg: '0201', side: 'bot', x: 7.4, y: 11.2, subsystem: 'Power', net1: 'PMIC_INT_L',        net2: 'VCC_1V8_PMU_S3' });
+addEsd({ ref: 'D201', mpn: 'AZ5825-01F', value: 'ESD 5V PWRON Key', pkg: 'DFN1006', side: 'bot', w: 1.0, h: 0.6, t: 0.40, x: 7.4, y: 12.2, subsystem: 'Power', pins: { '1': 'PMIC_PWRON_L', '2': 'GND' } });
+// Mandatory 120R@100MHz Ferrite Bead isolating VDD_CPU_BIG_MEM_S0 from VDD_CPU_BIG1_S0 (ROCK 5B+ Page 30 FB2300!)
+addBead({ ref: 'FB201', value: '120R@100MHz', pkg: '0201', side: 'bot', x: 8.6, y: 34.0, subsystem: 'Power', net1: 'VDD_CPU_BIG1_S0', net2: 'VDD_CPU_BIG_MEM_S0' });
+addCap({ value: '22uF', voltage: '6.3V', pkg: '0402', side: 'bot', x: 9.8, y: 34.0, subsystem: 'Power', netP: 'VDD_CPU_BIG_MEM_S0' });
+
+// DEDICATED BUCK #1: U211 SY8089AAAC -> VDD2L_0V9_DDR_S3 (0.90V S3 MANDATORY FOR LPDDR5X! ROCK 5B+ Page 14!)
+addPart({
+  ref: 'U211', mpn: 'SY8089AAAC', manufacturer: 'Silergy',
+  category: 'Buck-2A', kind: 'ic', value: '2A 1.5MHz Buck VDD2L_0V9_DDR_S3 (0.90V S3)', pkg: 'SOT23-5',
+  board: 'main', side: 'bot', x: 10.6, y: 14.2, w: 2.9, h: 1.6, t: 0.72,
+  subsystem: 'Power',
+  pins: { EN: 'VCC_1V8_S3', GND: 'GND', LX: 'SW_VDD2L', VIN: 'VSYS_3V87', FB: 'FB_VDD2L' },
+});
+addInd({ ref: 'L225', value: '2.2uH', current: '3A', pkg: 'IND_2016', side: 'bot', x: 13.8, y: 14.2, subsystem: 'Power', net1: 'SW_VDD2L', net2: 'VDD2L_0V9_DDR_S3' });
+addRes({ ref: 'R211', value: '56K',  pkg: '0201', side: 'bot', x: 10.0, y: 12.6, subsystem: 'Power', net1: 'VDD2L_0V9_DDR_S3', net2: 'FB_VDD2L' });
+addRes({ ref: 'R212', value: '100K', pkg: '0201', side: 'bot', x: 11.0, y: 12.6, subsystem: 'Power', net1: 'FB_VDD2L', net2: 'GND' });
+addCap({ ref: 'C211', value: '10nF', voltage: '25V', pkg: '0201', side: 'bot', x: 12.0, y: 12.6, subsystem: 'Power', netP: 'VDD2L_0V9_DDR_S3', netN: 'FB_VDD2L' });
+addCap({ value: '10uF', voltage: '10V', pkg: '0402', side: 'bot', x: 8.6, y: 14.2, subsystem: 'Power', netP: 'VSYS_3V87' });
+addCap({ value: '22uF', voltage: '6.3V', pkg: '0402', side: 'bot', x: 13.4, y: 12.4, subsystem: 'Power', netP: 'VDD2L_0V9_DDR_S3' });
+addCap({ value: '22uF', voltage: '6.3V', pkg: '0402', side: 'bot', x: 14.8, y: 12.4, subsystem: 'Power', netP: 'VDD2L_0V9_DDR_S3' });
+
+// DEDICATED BUCK #2: U212 SY8089AAAC -> VCC_1V1_NLDO_S3 (1.10V S3 MANDATORY FOR RK806-1 NLDO1..5! ROCK 5B+ Page 30!)
+addPart({
+  ref: 'U212', mpn: 'SY8089AAAC', manufacturer: 'Silergy',
+  category: 'Buck-2A', kind: 'ic', value: '2A 1.5MHz Buck VCC_1V1_NLDO_S3 (1.10V S3)', pkg: 'SOT23-5',
+  board: 'main', side: 'bot', x: 10.6, y: 8.2, w: 2.9, h: 1.6, t: 0.72,
+  subsystem: 'Power',
+  pins: { EN: 'PMIC_EXT_EN', GND: 'GND', LX: 'SW_1V1_NLDO', VIN: 'VSYS_3V87', FB: 'FB_1V1_NLDO' },
+});
+addInd({ ref: 'L226', value: '2.2uH', current: '3A', pkg: 'IND_2016', side: 'bot', x: 13.8, y: 8.2, subsystem: 'Power', net1: 'SW_1V1_NLDO', net2: 'VCC_1V1_NLDO_S3' });
+addRes({ ref: 'R213', value: '100K', pkg: '0201', side: 'bot', x: 10.0, y: 6.4, subsystem: 'Power', net1: 'VCC_1V1_NLDO_S3', net2: 'FB_1V1_NLDO' });
+addRes({ ref: 'R214', value: '120K', pkg: '0201', side: 'bot', x: 11.0, y: 6.4, subsystem: 'Power', net1: 'FB_1V1_NLDO', net2: 'GND' });
+addCap({ ref: 'C212', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', side: 'bot', x: 12.0, y: 6.4, subsystem: 'Power', netP: 'VCC_1V1_NLDO_S3', netN: 'FB_1V1_NLDO' });
+addCap({ value: '10uF', voltage: '10V', pkg: '0402', side: 'bot', x: 8.6, y: 8.2, subsystem: 'Power', netP: 'VSYS_3V87' });
+addCap({ value: '22uF', voltage: '6.3V', pkg: '0402', side: 'bot', x: 13.4, y: 6.4, subsystem: 'Power', netP: 'VCC_1V1_NLDO_S3' });
+addCap({ value: '100nF', voltage: '10V', pkg: '0201', side: 'bot', x: 14.8, y: 6.4, subsystem: 'Power', netP: 'VCC_1V1_NLDO_S3' });
+
+// ALL 11 RK806-1 LDO Output 2.2uF Caps + 6x VSYS_3V87 Input Bulk Caps + Extra 2x 47uF GPU Bulk Caps
 const rk806Ldos = [
-  'VDD_0V75_S3', 'VDD_0V85_S0', 'VDD_0V75_S0', 'AVDD_0V85_S0', 'VDD_CPU_BIG_MEM_S0',
-  'VCC_1V8_S0', 'AVCC_1V8_S0', 'AVDD_1V2_S0', 'AVDD_3V3_S0', 'VCCIO_SD_S0', 'VCC_1V8_PMU_S3',
+  'VDD_0V75_S3', 'VDDA_DDR_PLL_S0', 'VDD_0V75_S0', 'AVDD_0V85_S0', 'VDD_0V75_S0_PLL',
+  'AVCC_1V8_S0', 'VCC_1V8_S0', 'AVDD_1V2_S0', 'AVDD_3V3_S0', 'VCCIO_SD_S0', 'VCC_1V8_PMU_S3',
 ];
 rk806Ldos.forEach((rail, i) => {
   addCap({ value: '2.2uF', voltage: '6.3V', pkg: '0201', x: -0.2 + i * 0.78, y: 13.8, subsystem: 'Power', netP: rail });
@@ -515,12 +608,14 @@ rk806Ldos.forEach((rail, i) => {
 for (let i = 0; i < 6; i++) {
   addCap({ value: '22uF', voltage: '10V', pkg: '0402', side: 'bot', x: 1.0 + i * 1.15, y: 9.4, subsystem: 'Power', netP: 'VSYS_3V87' });
 }
+addCap({ value: '47uF', voltage: '6.3V', pkg: '0603', side: 'bot', x: 1.2, y: 16.4, subsystem: 'Power', netP: 'VDD_GPU_S0' });
+addCap({ value: '47uF', voltage: '6.3V', pkg: '0603', side: 'bot', x: 3.4, y: 16.4, subsystem: 'Power', netP: 'VDD_GPU_S0' });
 
-// 3x External RK860 High-Current 6A Sub-Buck Regulators (CPU_BIG0, CPU_BIG1, NPU — MANDATORY FOR RK3588S2!)
+// 3x External RK860 High-Current 6A Sub-Buck Regulators (CPU_BIG0, CPU_BIG1, NPU — 100R Sense + 5x 22uF each!)
 const rk860List = [
-  { ref: 'U207', ind: 'L221', mpn: 'RK860-2', rail: 'VDD_CPU_BIG0_S0', i2c: 'I2C0', y: 45.2 },
-  { ref: 'U208', ind: 'L222', mpn: 'RK860-3', rail: 'VDD_CPU_BIG1_S0', i2c: 'I2C0', y: 41.2 },
-  { ref: 'U209', ind: 'L223', mpn: 'RK860-2', rail: 'VDD_NPU_S0',      i2c: 'I2C1', y: 37.2 },
+  { ref: 'U207', ind: 'L221', sns: 'R223', mpn: 'RK860-2', rail: 'VDD_CPU_BIG0_S0', i2c: 'I2C0', y: 45.2, botY: 42.4 },
+  { ref: 'U208', ind: 'L222', sns: 'R224', mpn: 'RK860-3', rail: 'VDD_CPU_BIG1_S0', i2c: 'I2C0', y: 41.2, botY: 40.4 },
+  { ref: 'U209', ind: 'L223', sns: 'R225', mpn: 'RK860-2', rail: 'VDD_NPU_S0',      i2c: 'I2C1', y: 37.2, botY: 38.4 },
 ];
 rk860List.forEach((r) => {
   addPart({
@@ -529,22 +624,26 @@ rk860List.forEach((r) => {
     board: 'main', side: 'top', x: 12.2, y: r.y, w: 2.5, h: 2.0, t: 0.58,
     subsystem: 'Power',
     pins: {
-      VIN: 'VSYS_3V87', SW: `SW_${r.ref}`, VOUT: r.rail, EN: 'PMIC_EXT_EN',
-      SCL: `${r.i2c}_SCL`, SDA: `${r.i2c}_SDA`, GND: 'GND',
+      VIN: 'VSYS_3V87', SW: `SW_${r.ref}`, VOUT: `${r.rail}_FB`, EN: 'PMIC_EXT_EN',
+      VSEL: 'VCC_1V8_S3', SCL: `${r.i2c}_SCL`, SDA: `${r.i2c}_SDA`, GND: 'GND',
     },
   });
   addInd({ ref: r.ind, value: '0.24uH', current: '8A', pkg: 'IND_2016', x: 14.9, y: r.y, subsystem: 'Power', net1: `SW_${r.ref}`, net2: r.rail });
+  addRes({ ref: r.sns, value: '100R', pkg: '0201', side: 'bot', x: 10.6, y: r.botY, subsystem: 'Power', net1: r.rail, net2: `${r.rail}_FB` });
   addCap({ value: '22uF', voltage: '10V', pkg: '0402', x: 10.2, y: r.y, subsystem: 'Power', netP: 'VSYS_3V87' });
   for (let k = 0; k < 3; k++) {
     addCap({ value: '22uF', voltage: '6.3V', pkg: '0402', x: 12.2 + k * 1.15, y: r.y - 1.5, subsystem: 'Power', netP: r.rail });
   }
+  // Extra 2x 22uF output bulk caps on bottom side -> total 5x 22uF per RK860 matching Radxa ROCK 5B+ Page 30!
+  addCap({ value: '22uF', voltage: '6.3V', pkg: '0402', side: 'bot', x: 12.2, y: r.botY, subsystem: 'Power', netP: r.rail });
+  addCap({ value: '22uF', voltage: '6.3V', pkg: '0402', side: 'bot', x: 13.6, y: r.botY, subsystem: 'Power', netP: r.rail });
 });
 
-// 6000mAh Dual-Cell Battery Path, Kelvin Shunt, MAX17055 Fuel Gauge, BQ25895 + Dual BQ25970 Charge Pumps
+// 6000mAh Dual-Cell Battery Path, Kelvin Shunt, TI BQ27Z561-R2 Fuel Gauge, BQ25895 + Dual BQ25970 Charge Pumps
 addPart({
   ref: 'J201', mpn: 'BM25-4S/2-V(51)', manufacturer: 'Hirose',
   category: 'Connector', kind: 'btb', value: '6000mAh Battery 10A BTB', pkg: 'BTB-8P-PWR',
-  board: 'main', side: 'top', x: 9.2, y: -2.0, w: 2.2, h: 6.2, t: 0.72,
+  board: 'main', side: 'top', x: 9.4, y: -2.0, w: 2.2, h: 6.2, t: 0.72,
   subsystem: 'Battery',
   pins: { P1: 'VBAT_6000MAH', P2: 'VBAT_6000MAH', N1: 'VBAT_NEG_PACK', N2: 'VBAT_NEG_PACK', ID: 'BAT_ID_SENSE', NTC: 'BAT_NTC_ADC' },
 });
@@ -568,11 +667,11 @@ addPart({
 });
 addCap({ value: '1uF', pkg: '0201', x: 14.6, y: -3.0, subsystem: 'Battery', netP: 'VBAT_6000MAH' });
 
-// Primary 5A Buck Battery Charger & NVDC Power Path Manager (TI BQ25895)
+// Primary 5A Buck Battery Charger & NVDC Power Path Manager (TI BQ25895) — nudged >=0.55mm inside edges!
 addPart({
   ref: 'U202', mpn: 'BQ25895RTWR', manufacturer: 'Texas Instruments',
   category: 'Charger', kind: 'ic', value: '5A Single-Cell NVDC Buck Charger', pkg: 'WQFN-24 (4x4mm)',
-  board: 'main', side: 'top', x: 12.0, y: -7.4, w: 4.0, h: 4.0, t: 0.75,
+  board: 'main', side: 'top', x: 11.4, y: -7.4, w: 4.0, h: 4.0, t: 0.75,
   subsystem: 'Charging',
   pins: {
     VBUS: 'VBUS_OVP_OUT', PMID: 'CHG_PMID', SW: 'CHG_SW', SYS: 'VSYS_3V87', BAT: 'VBAT_6000MAH',
@@ -580,12 +679,12 @@ addPart({
     SCL: 'I2C2_SCL', SDA: 'I2C2_SDA', INT: 'PMIC_INT_L', PGND: 'GND',
   },
 });
-addInd({ ref: 'L201', value: '1.0uH', current: '8A', pkg: 'IND_2520', x: 15.3, y: -7.4, subsystem: 'Charging', net1: 'CHG_SW', net2: 'VSYS_3V87' });
+addInd({ ref: 'L201', value: '1.0uH', current: '8A', pkg: 'IND_2520', x: 14.8, y: -7.4, subsystem: 'Charging', net1: 'CHG_SW', net2: 'VSYS_3V87' });
 addCap({ ref: 'C201', value: '47nF', voltage: '25V', pkg: '0201', x: 14.4, y: -5.0, subsystem: 'Charging', netP: 'CHG_BTST', netN: 'CHG_SW' });
 addCap({ ref: 'C202', value: '4.7uF', voltage: '10V', pkg: '0402', x: 8.8, y: -6.2, subsystem: 'Charging', netP: 'CHG_REGN' });
 addRes({ ref: 'R203', value: '130R', pkg: '0201', x: 8.8, y: -7.4, subsystem: 'Charging', net1: 'CHG_ILIM', net2: 'GND' });
-addCap({ ref: 'C203', value: '22uF', voltage: '25V', pkg: '0603', x: 8.8, y: -9.0, subsystem: 'Charging', netP: 'CHG_PMID' });
-addCap({ ref: 'C204', value: '22uF', voltage: '10V', pkg: '0402', x: 15.0, y: -9.8, subsystem: 'Charging', netP: 'VSYS_3V87' });
+addCap({ ref: 'C203', value: '22uF', voltage: '25V', pkg: '0603', x: 8.9, y: -9.2, rot: 90, subsystem: 'Charging', netP: 'CHG_PMID' });
+addCap({ ref: 'C204', value: '22uF', voltage: '10V', pkg: '0402', x: 14.8, y: -9.8, subsystem: 'Charging', netP: 'VSYS_3V87' });
 addCap({ ref: 'C205', value: '22uF', voltage: '10V', pkg: '0402', x: 13.4, y: -10.1, subsystem: 'Charging', netP: 'VBAT_6000MAH' });
 
 // Dual Parallel 2:1 Direct Charge Pumps (2x TI BQ25970 -> 80W Fast Charge for 6000mAh!)
@@ -609,7 +708,7 @@ addCap({ ref: 'C205', value: '22uF', voltage: '10V', pkg: '0402', x: 13.4, y: -1
   addCap({ value: '22uF', voltage: '25V', pkg: '0603', x: 14.6, y: cp.y + 1.0, subsystem: 'Charging', netP: `${cp.prefix}_CF1P`, netN: `${cp.prefix}_CF1N` });
   addCap({ value: '22uF', voltage: '25V', pkg: '0603', x: 14.6, y: cp.y + 0.0, subsystem: 'Charging', netP: `${cp.prefix}_CF1P`, netN: `${cp.prefix}_CF1N` });
   addCap({ value: '22uF', voltage: '25V', pkg: '0603', x: 14.6, y: cp.y - 1.0, subsystem: 'Charging', netP: `${cp.prefix}_CF2P`, netN: `${cp.prefix}_CF2N` });
-  addCap({ value: '22uF', voltage: '25V', pkg: '0603', x: 8.8,  y: cp.y,       rot: 90, subsystem: 'Charging', netP: `${cp.prefix}_CF2P`, netN: `${cp.prefix}_CF2N` });
+  addCap({ value: '22uF', voltage: '25V', pkg: '0603', x: 8.9,  y: cp.y,       rot: 90, subsystem: 'Charging', netP: `${cp.prefix}_CF2P`, netN: `${cp.prefix}_CF2N` });
 });
 
 // Input VBUS 28V Over-Voltage Protection Dual N-MOSFET + VDC Power-On Divider
@@ -628,14 +727,14 @@ addRes({ ref: 'R207', value: '100K', pkg: '0201', x: 13.4, y: -21.6, subsystem: 
 addPart({
   ref: 'U205', mpn: 'P9222-R', manufacturer: 'Renesas',
   category: 'WirelessRx', kind: 'ic', value: '15W Qi Wireless Power Rx', pkg: 'WLCSP-52 (3.2x3.5mm)',
-  board: 'main', side: 'top', x: 11.4, y: -25.4, w: 3.2, h: 3.5, t: 0.58,
+  board: 'main', side: 'top', x: 11.6, y: -25.4, w: 3.2, h: 3.5, t: 0.58,
   subsystem: 'Wireless',
   pins: { AC1: 'WPC_AC1', AC2: 'WPC_AC2', VRECT: 'WPC_VRECT', VOUT: 'VBUS_OVP_OUT', SCL: 'I2C2_SCL', SDA: 'I2C2_SDA', GND: 'GND' },
 });
 addPart({
   ref: 'J202', mpn: 'WPC_SPRING_2P', manufacturer: 'TE',
   category: 'Connector', kind: 'goldpad', value: 'Qi Copper Coil Contacts', pkg: 'PAD-2P',
-  board: 'main', side: 'top', x: 8.8, y: -25.4, w: 1.2, h: 2.8, t: 0.28,
+  board: 'main', side: 'top', x: 9.0, y: -25.4, w: 1.2, h: 2.8, t: 0.28,
   subsystem: 'Wireless',
   pins: { '1': 'WPC_COIL_1', '2': 'WPC_COIL_2' },
 });
@@ -656,25 +755,33 @@ addInd({ ref: 'L224', value: '1.0uH', current: '5A', pkg: 'IND_2016', x: 11.4, y
 addCap({ value: '22uF', voltage: '10V', pkg: '0402', x: 9.2, y: -63.0, subsystem: 'Power', netP: 'VCC5V0_OTG_HOST' });
 
 // ============================================================================
-// SUBSYSTEM 3: MEMORY (16GB LPDDR5X) + STORAGE (256GB eMMC 5.1 + 16MB NOR)
+// SUBSYSTEM 3: MEMORY (16GB LPDDR5X-6400 64-Bit Quad-Ch) + STORAGE (256GB eMMC 5.1 + 16MB NOR)
 // ============================================================================
 addPart({
   ref: 'U301', mpn: 'K3LK7K70BM-BGCP', manufacturer: 'Samsung',
-  category: 'DRAM', kind: 'dram', value: '16GB LPDDR5X-6400 64-bit', pkg: '315-FBGA (12.4x15.0mm)',
+  category: 'DRAM', kind: 'dram', value: '16GB LPDDR5X-6400 64-bit Quad-Ch', pkg: '315-FBGA (12.4x15.0mm)',
   board: 'main', side: 'top', x: -10.3, y: 24.5, w: 12.4, h: 15.0, t: 0.85,
   subsystem: 'Memory',
   pins: {
-    CH0_DQ: 'LPDDR5X_CH0_DQ', CH0_CA: 'LPDDR5X_CH0_CA', CH0_CK_P: 'LPDDR5X_CH0_CK_P', CH0_CK_N: 'LPDDR5X_CH0_CK_N',
-    CH1_DQ: 'LPDDR5X_CH1_DQ', CH1_CA: 'LPDDR5X_CH1_CA', CH1_CK_P: 'LPDDR5X_CH1_CK_P', CH1_CK_N: 'LPDDR5X_CH1_CK_N',
-    VDD1: 'VCC_1V8_S3', VDD2H: 'VDD2_DDR_S3', VDD2L: 'VDD_DDR_S0', VDDQ: 'VDDQ_DDR_S0',
+    CH0_DQ: 'LPDDR5X_CH0_DQ', CH0_CA: 'LPDDR5X_CH0_CA',
+    CH0_CK_P: 'LPDDR5X_CH0_CK_P', CH0_CK_N: 'LPDDR5X_CH0_CK_N',
+    CH0_WCK_P: 'LPDDR5X_CH0_WCK_P', CH0_WCK_N: 'LPDDR5X_CH0_WCK_N',
+    CH1_DQ: 'LPDDR5X_CH1_DQ', CH1_CA: 'LPDDR5X_CH1_CA',
+    CH1_CK_P: 'LPDDR5X_CH1_CK_P', CH1_CK_N: 'LPDDR5X_CH1_CK_N',
+    CH1_WCK_P: 'LPDDR5X_CH1_WCK_P', CH1_WCK_N: 'LPDDR5X_CH1_WCK_N',
+    RESET_N: 'DDR_RESET_N',
+    // Exact LPDDR5X 4-Rail Power Tree (ROCK 5B+ Page 14!): VDD1=1.8V, VDD2H=1.05V, VDD2L=0.90V S3, VDDQ=0.50V!
+    VDD1: 'VCC_1V8_S3', VDD2H: 'VDD2_DDR_S3', VDD2L: 'VDD2L_0V9_DDR_S3',
+    VDDQ: 'VDDQ_DDR_S0', VDDQ_CKE: 'VDDQ_DDR_CKE_S3',
     ZQ_A: 'DDR_ZQ_A', ZQ_B: 'DDR_ZQ_B', VSS: 'GND',
   },
 });
-// Mandatory 240 Ohm 1% LPDDR5X ZQ Calibration Resistors!
+// Mandatory 240 Ohm 1% LPDDR5X ZQ Calibration Resistors to VDDQ_DDR_S0 + VDDQ_DDR_CKE_S3 120R Ferrite (ROCK 5B+ Page 14!)
 addRes({ ref: 'R301', value: '240R', tol: '1%', pkg: '0201', x: -4.8, y: 32.8, subsystem: 'Memory', net1: 'DDR_ZQ_A', net2: 'VDDQ_DDR_S0' });
 addRes({ ref: 'R302', value: '240R', tol: '1%', pkg: '0201', x: -5.8, y: 32.8, subsystem: 'Memory', net1: 'DDR_ZQ_B', net2: 'VDDQ_DDR_S0' });
-// 24x LPDDR5X Decoupling Capacitors (Top perimeter + Backside BGA belly)
-const ddrRails = ['VDD2_DDR_S3', 'VDDQ_DDR_S0', 'VDD_DDR_S0', 'VCC_1V8_S3'];
+addBead({ ref: 'FB301', value: '120R@100MHz', pkg: '0201', side: 'bot', x: -15.6, y: 34.0, subsystem: 'Memory', net1: 'VDD2_DDR_S3', net2: 'VDDQ_DDR_CKE_S3' });
+// 36x LPDDR5X Decoupling Capacitors (Top perimeter + Backside BGA belly + 12x bulk/HF caps on VDD2H/VDD2L/VDDQ/VDD1!)
+const ddrRails = ['VDD2_DDR_S3', 'VDD2L_0V9_DDR_S3', 'VDDQ_DDR_S0', 'VCC_1V8_S3'];
 for (let i = 0; i < 8; i++) {
   addCap({ value: i % 2 === 0 ? '1uF' : '100nF', pkg: '0201', x: -14.2 + i * 1.0, y: 32.8, subsystem: 'Memory', netP: ddrRails[i % 4] });
 }
@@ -682,6 +789,9 @@ for (let r = 0; r < 4; r++) {
   for (let c = 0; c < 4; c++) {
     addCap({ value: '100nF', pkg: '01005', side: 'bot', x: -14.8 + c * 2.8, y: 19.2 + r * 3.5, subsystem: 'Memory', netP: ddrRails[(r + c) % 4] });
   }
+}
+for (let i = 0; i < 12; i++) {
+  addCap({ value: i < 4 ? '22uF' : i < 8 ? '10uF' : '100nF', pkg: i < 8 ? '0402' : '0201', side: 'bot', x: -14.0 + i * 1.15, y: 32.4, subsystem: 'Memory', netP: ddrRails[i % 4] });
 }
 
 // 256GB eMMC 5.1 HS400 Boot Storage (Double-Sided SMT: Bottom face directly behind lower-left bay!)
@@ -695,14 +805,17 @@ addPart({
     VCC: 'VCC_3V3_S3', VCCQ: 'VCC_1V8_S3', VDDI: 'EMMC_VDDI', VSS: 'GND',
   },
 });
-// Mandatory eMMC 5.1 Series Clock Resistor, HS400 DS Pull-Down, CMD/RSTN Pull-Ups & VDDI Cap!
+// Mandatory eMMC 5.1 Series Clock 22R, HS400 DS 10K Pull-Down, CMD/RSTN/D0 10K Pull-Ups & 2.2uF VDDI Cap (CM5 Page 19!)
 addRes({ ref: 'R303', value: '22R', pkg: '0201', side: 'bot', x: -4.2, y: 12.8, subsystem: 'Storage', net1: 'EMMC_CLK_SOC', net2: 'EMMC_CLK_LINE' });
 addRes({ ref: 'R304', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 11.8, subsystem: 'Storage', net1: 'EMMC_DATA_STROBE', net2: 'GND' });
 addRes({ ref: 'R305', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 10.8, subsystem: 'Storage', net1: 'EMMC_RSTN', net2: 'VCC_1V8_S3' });
 addRes({ ref: 'R306', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 9.8,  subsystem: 'Storage', net1: 'EMMC_CMD', net2: 'VCC_1V8_S3' });
-addCap({ ref: 'C301', value: '1uF', pkg: '0201', side: 'bot', x: -4.2, y: 8.6,  subsystem: 'Storage', netP: 'EMMC_VDDI' });
+addRes({ ref: 'R307', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 13.8, subsystem: 'Storage', net1: 'EMMC_D0_D7', net2: 'VCC_1V8_S3' });
+addCap({ ref: 'C301', value: '2.2uF', voltage: '6.3V', pkg: '0201', side: 'bot', x: -4.2, y: 8.6,  subsystem: 'Storage', netP: 'EMMC_VDDI' });
 addCap({ value: '4.7uF', pkg: '0402', side: 'bot', x: -4.2, y: 7.4, subsystem: 'Storage', netP: 'VCC_3V3_S3' });
 addCap({ value: '4.7uF', pkg: '0402', side: 'bot', x: -4.2, y: 6.2, subsystem: 'Storage', netP: 'VCC_1V8_S3' });
+addCap({ value: '100nF', pkg: '0201', side: 'bot', x: -3.2, y: 7.4, subsystem: 'Storage', netP: 'VCC_3V3_S3' });
+addCap({ value: '100nF', pkg: '0201', side: 'bot', x: -3.2, y: 6.2, subsystem: 'Storage', netP: 'VCC_1V8_S3' });
 
 // Fail-Safe 16MB Quad-SPI Boot NOR Flash (Winbond W25Q128JWPQ, Bot side upper bay!)
 addPart({
@@ -935,9 +1048,9 @@ addPart({
     VCONN: 'VCC5V0_OTG_HOST', SCL: 'I2C4_SCL', SDA: 'I2C4_SDA', INT_N: 'USB_CC_INT_N', GND: 'GND',
   },
 });
-addCap({ ref: 'C601', value: '220pF', voltage: '25V', diel: 'C0G', pkg: '0201', x: 8.6, y: -55.2, subsystem: 'USB-C', netP: 'USB_CC1' });
-addCap({ ref: 'C602', value: '220pF', voltage: '25V', diel: 'C0G', pkg: '0201', x: 9.6, y: -55.2, subsystem: 'USB-C', netP: 'USB_CC2' });
-addCap({ value: '100nF', pkg: '0201', x: 10.6, y: -55.2, subsystem: 'USB-C', netP: 'VCC_3V3_S3' });
+addCap({ ref: 'C601', value: '220pF', voltage: '25V', diel: 'C0G', pkg: '0201', x: 8.8, y: -55.2, subsystem: 'USB-C', netP: 'USB_CC1' });
+addCap({ ref: 'C602', value: '220pF', voltage: '25V', diel: 'C0G', pkg: '0201', x: 9.8, y: -55.2, subsystem: 'USB-C', netP: 'USB_CC2' });
+addCap({ value: '100nF', pkg: '0201', x: 10.8, y: -55.2, subsystem: 'USB-C', netP: 'VCC_3V3_S3' });
 
 addPart({
   ref: 'U602', mpn: 'TUSB546-DCI', manufacturer: 'Texas Instruments',
@@ -964,7 +1077,7 @@ addPart({
 });
 addEsd({ ref: 'D601', mpn: 'TPD4E05U06DQAR', x: 10.2, y: -64.8, subsystem: 'USB-C', pins: { I1: 'USBC_TX1_P', I2: 'USBC_TX1_N', I3: 'USBC_RX1_P', I4: 'USBC_RX1_N', GND: 'GND' } });
 addEsd({ ref: 'D602', mpn: 'TPD4E05U06DQAR', x: 13.6, y: -64.8, subsystem: 'USB-C', pins: { I1: 'USBC_TX2_P', I2: 'USBC_TX2_N', I3: 'USBC_RX2_P', I4: 'USBC_RX2_N', GND: 'GND' } });
-addEsd({ ref: 'D603', mpn: 'SMF24A', value: '24V 200W VBUS TVS', pkg: 'SOD-123FL', w: 2.6, h: 1.6, x: 14.8, y: -60.4, subsystem: 'USB-C', pins: { K: 'VBUS_PD_20V', A: 'GND' } });
+addEsd({ ref: 'D603', mpn: 'SMF24A', value: '24V 200W VBUS TVS', pkg: 'SOD-123FL', w: 2.6, h: 1.6, x: 14.5, y: -60.4, subsystem: 'USB-C', pins: { K: 'VBUS_PD_20V', A: 'GND' } });
 
 // 40-Pin Bottom Sub-PCB Interconnect BTB (USB-C EPR, Speaker, Haptic, PDM Voice Mic, Full ISO-7816 Nano-SIM1)
 addPart({
@@ -1028,7 +1141,7 @@ addCap({ value: '100nF', pkg: '0201', side: 'bot', x: 12.4, y: 45.8, subsystem: 
     },
   });
   addInd({ ref: pa.ind, value: '1.0uH', current: '4.5A', pkg: 'IND_2016', x: 11.0, y: pa.y, subsystem: 'Audio', net1: 'VSYS_3V87', net2: `SW_${pa.ref}` });
-  addCap({ value: '10uF', voltage: '16V', pkg: '0402', x: 8.8, y: pa.y, subsystem: 'Audio', netP: 'VSYS_3V87' });
+  addCap({ value: '10uF', voltage: '16V', pkg: '0402', x: 8.9, y: pa.y, subsystem: 'Audio', netP: 'VSYS_3V87' });
 });
 addPart({
   ref: 'J802', mpn: 'EARPIECE_PAD_2P', manufacturer: 'TE',
@@ -1101,18 +1214,18 @@ addPart({
 });
 addCap({ value: '1uF', pkg: '0201', side: 'bot', x: 1.4, y: 45.8, subsystem: 'Sensors', netP: 'VCC_1V8_S3' });
 
-// Side Tactile Buttons BTB (Power Key, Vol+ Recovery, Vol-) + ESD Protection
+// Side Tactile Buttons BTB (Power Key, Vol+ Recovery, Vol-) + ESD Protection (nudged >=0.55mm inside edge!)
 addPart({
   ref: 'J801', mpn: 'SIDE_KEY_BTB_6P', manufacturer: 'Hirose',
   category: 'Connector', kind: 'btb', value: 'Power/Vol+/Vol- Side Flex BTB', pkg: 'BTB-6P',
-  board: 'main', side: 'top', x: 15.6, y: 18.0, w: 1.2, h: 4.2, t: 0.60,
+  board: 'main', side: 'top', x: 15.3, y: 18.0, w: 1.2, h: 4.2, t: 0.60,
   subsystem: 'Keys',
   pins: { PWR: 'KEY_PWR_EXT', VUP: 'KEY_VOL_UP_EXT', VDN: 'KEY_VOL_DN_EXT', GND: 'GND' },
 });
-addRes({ ref: 'R810', value: '1K', pkg: '0201', x: 14.4, y: 19.2, subsystem: 'Keys', net1: 'KEY_PWR_EXT', net2: 'PMIC_PWRON_L' });
-addRes({ ref: 'R811', value: '1K', pkg: '0201', x: 14.4, y: 18.0, subsystem: 'Keys', net1: 'KEY_VOL_UP_EXT', net2: 'KEY_VOL_UP_REC' });
-addRes({ ref: 'R812', value: '1K', pkg: '0201', x: 14.4, y: 16.8, subsystem: 'Keys', net1: 'KEY_VOL_DN_EXT', net2: 'KEY_VOL_DN' });
-addEsd({ ref: 'D801', mpn: 'PESD5V0S4UD', w: 2.0, h: 1.2, x: 15.2, y: 14.6, subsystem: 'Keys', pins: { I1: 'KEY_PWR_EXT', I2: 'KEY_VOL_UP_EXT', I3: 'KEY_VOL_DN_EXT', GND: 'GND' } });
+addRes({ ref: 'R810', value: '1K', pkg: '0201', x: 14.3, y: 19.2, subsystem: 'Keys', net1: 'KEY_PWR_EXT', net2: 'PMIC_PWRON_L' });
+addRes({ ref: 'R811', value: '1K', pkg: '0201', x: 14.3, y: 18.0, subsystem: 'Keys', net1: 'KEY_VOL_UP_EXT', net2: 'KEY_VOL_UP_REC' });
+addRes({ ref: 'R812', value: '1K', pkg: '0201', x: 14.3, y: 16.8, subsystem: 'Keys', net1: 'KEY_VOL_DN_EXT', net2: 'KEY_VOL_DN' });
+addEsd({ ref: 'D801', mpn: 'PESD5V0S4UD', w: 2.0, h: 1.2, x: 14.8, y: 14.6, subsystem: 'Keys', pins: { I1: 'KEY_PWR_EXT', I2: 'KEY_VOL_UP_EXT', I3: 'KEY_VOL_DN_EXT', GND: 'GND' } });
 
 // ALL 8 I2C BUSES MANDATORY 2.2kOhm PULL-UP RESISTORS (I2C0 .. I2C7 -> VCC_1V8_S3)!
 for (let bus = 0; bus <= 7; bus++) {
