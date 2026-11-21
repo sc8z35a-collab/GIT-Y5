@@ -68,7 +68,7 @@ export function buildDisplaySystem(textures) {
   );
   glassGroup.add(coverGlass);
 
-  // Ultra-slim matte obsidian perimeter bezel border printed inside cover glass
+  // Ultra-slim matte obsidian perimeter bezel border printed inside cover glass (strictly above rail Z=+0.376!)
   const bezelShape = createRoundedRectShape(W - 0.03, H - 0.03, R - 0.015);
   bezelShape.holes.push(createRoundedRectHole(W - 0.28, H - 0.28, R - 0.13));
   const matBezelMask = new THREE.MeshStandardMaterial({
@@ -77,16 +77,16 @@ export function buildDisplaySystem(textures) {
     roughness: 0.22,
   });
   const bezelMask = new THREE.Mesh(
-    extrudePlate(bezelShape, 0.008, { bevelSize: 0, bevelThickness: 0 }),
+    extrudePlate(bezelShape, 0.006, { bevelSize: 0, bevelThickness: 0 }),
     matBezelMask
   );
-  bezelMask.position.z = -0.020;
+  bezelMask.position.z = -0.024;
   glassGroup.add(bezelMask);
 
   // Clean subtle punch-hole camera mask ring at top-center
   const punchRingGeo = new THREE.RingGeometry(punchR * 0.82, punchR * 1.18, 36);
   const punchRing = new THREE.Mesh(punchRingGeo, matBezelMask);
-  punchRing.position.set(0, punchY, -0.019);
+  punchRing.position.set(0, punchY, -0.023);
   glassGroup.add(punchRing);
 
   root.add(glassGroup);
@@ -94,18 +94,19 @@ export function buildDisplaySystem(textures) {
 
   // =========================================================================
   // 2. OCA OPTICAL BOND + CAPACITIVE TOUCH DIGITIZER COPPER/ITO MICRO-MESH
+  //    Sized strictly inside CNC titanium rail inner aperture (6.72 x 14.96)
   // =========================================================================
   const touchGroup = new THREE.Group();
   touchGroup.position.z = Z_STACK.DISPLAY_TOUCH - anchorZ;
 
-  const touchShape = createRoundedRectShape(W - 0.18, H - 0.18, R - 0.09);
+  const touchShape = createRoundedRectShape(W - 0.34, H - 0.34, R - 0.16);
   touchShape.holes.push(createCircleHole(punchR * 1.05, 0, punchY));
 
   const matTouchLayer = new THREE.MeshPhysicalMaterial({
     map: textures.touchMesh,
     color: 0xffffff,
     transparent: true,
-    opacity: 0.03, // Optically invisible ITO when closed; emerges clearly on dissection!
+    opacity: 0.03,
     depthWrite: false,
     roughness: 0.14,
     metalness: 0.58,
@@ -113,7 +114,7 @@ export function buildDisplaySystem(textures) {
     side: THREE.DoubleSide,
   });
   const touchMesh = new THREE.Mesh(
-    extrudePlate(touchShape, 0.010, { bevelSize: 0, bevelThickness: 0 }),
+    extrudePlate(touchShape, 0.008, { bevelSize: 0, bevelThickness: 0 }),
     matTouchLayer
   );
   touchGroup.add(touchMesh);
@@ -126,7 +127,7 @@ export function buildDisplaySystem(textures) {
   const polarGroup = new THREE.Group();
   polarGroup.position.z = Z_STACK.DISPLAY_POLAR - anchorZ;
 
-  const polarShape = createRoundedRectShape(W - 0.22, H - 0.22, R - 0.11);
+  const polarShape = createRoundedRectShape(W - 0.36, H - 0.36, R - 0.17);
   polarShape.holes.push(createCircleHole(punchR * 1.05, 0, punchY));
 
   const matPolarizer = new THREE.MeshPhysicalMaterial({
@@ -143,7 +144,7 @@ export function buildDisplaySystem(textures) {
     iridescenceThicknessMaximum: 480,
   });
   const polarMesh = new THREE.Mesh(
-    extrudePlate(polarShape, 0.010, { bevelSize: 0, bevelThickness: 0 }),
+    extrudePlate(polarShape, 0.008, { bevelSize: 0, bevelThickness: 0 }),
     matPolarizer
   );
   polarGroup.add(polarMesh);
@@ -156,7 +157,7 @@ export function buildDisplaySystem(textures) {
   const oledGroup = new THREE.Group();
   oledGroup.position.z = 0;
 
-  const oledShape = createRoundedRectShape(W - 0.24, H - 0.24, R - 0.12);
+  const oledShape = createRoundedRectShape(W - 0.38, H - 0.38, R - 0.18);
   oledShape.holes.push(createCircleHole(punchR * 1.06, 0, punchY));
 
   const matOled = new THREE.MeshPhysicalMaterial({
@@ -169,7 +170,7 @@ export function buildDisplaySystem(textures) {
     iridescence: 0.26,
   });
   const oledMesh = new THREE.Mesh(
-    extrudePlate(oledShape, 0.015, { bevelSize: 0.002, bevelThickness: 0.002 }),
+    extrudePlate(oledShape, 0.012, { bevelSize: 0.002, bevelThickness: 0.002 }),
     matOled
   );
   oledGroup.add(oledMesh);
@@ -182,7 +183,7 @@ export function buildDisplaySystem(textures) {
   const tftGroup = new THREE.Group();
   tftGroup.position.z = Z_STACK.DISPLAY_TFT - anchorZ;
 
-  const tftShape = createRoundedRectShape(W - 0.26, H - 0.26, R - 0.13);
+  const tftShape = createRoundedRectShape(W - 0.40, H - 0.40, R - 0.19);
   tftShape.holes.push(createCircleHole(punchR * 1.12, 0, punchY));
 
   const matTft = new THREE.MeshPhysicalMaterial({
@@ -193,31 +194,30 @@ export function buildDisplaySystem(textures) {
     iridescence: 0.48,
   });
   const tftMesh = new THREE.Mesh(
-    extrudePlate(tftShape, 0.014, { bevelSize: 0, bevelThickness: 0 }),
+    extrudePlate(tftShape, 0.012, { bevelSize: 0, bevelThickness: 0 }),
     matTft
   );
   tftGroup.add(tftMesh);
 
   // Delicate metallic gate/source busbars along left & right edges of TFT glass
   const matBusGold = new THREE.MeshStandardMaterial({ color: 0xcfa452, metalness: 0.94, roughness: 0.22 });
-  const sideBusGeo = new THREE.BoxGeometry(0.08, H - 1.8, 0.018);
+  const sideBusGeo = new THREE.BoxGeometry(0.07, H - 1.8, 0.014);
   const busL = new THREE.Mesh(sideBusGeo, matBusGold);
-  busL.position.set(-(W - 0.44) / 2, 0, 0);
+  busL.position.set(-(W - 0.56) / 2, 0, 0);
   const busR = new THREE.Mesh(sideBusGeo, matBusGold);
-  busR.position.set(+(W - 0.44) / 2, 0, 0);
+  busR.position.set(+(W - 0.56) / 2, 0, 0);
   tftGroup.add(busL, busR);
 
   // Folded COF (Chip-On-Film) Amber-Copper Display Driver Ribbon:
   // Novatek NT37705 LTPO DDIC + Goodix GT9916S 240Hz Touch IC + 40-Pin Hirose BM28 Gold BTB!
   const matCofAmber = new THREE.MeshStandardMaterial({ color: 0xb8732a, metalness: 0.65, roughness: 0.30 });
   const matIcDark = new THREE.MeshStandardMaterial({ color: 0x1a1e25, metalness: 0.38, roughness: 0.44 });
-  const cofFilm = new THREE.Mesh(new THREE.BoxGeometry(3.60, 0.78, 0.012), matCofAmber);
-  cofFilm.position.set(0, -H / 2 + 0.62, -0.012);
+  const cofFilm = new THREE.Mesh(new THREE.BoxGeometry(3.60, 0.78, 0.010), matCofAmber);
+  cofFilm.position.set(0, -H / 2 + 0.68, -0.010);
   tftGroup.add(cofFilm);
 
-  // Mirror-polished elongated Novatek NT37705 LTPO DDIC silicon die mounted on COF
   const ddicChip = new THREE.Mesh(
-    new THREE.BoxGeometry(2.15, 0.18, 0.026),
+    new THREE.BoxGeometry(2.15, 0.18, 0.018),
     new THREE.MeshPhysicalMaterial({
       color: 0x263242,
       metalness: 0.88,
@@ -225,16 +225,15 @@ export function buildDisplaySystem(textures) {
       iridescence: 0.65,
     })
   );
-  ddicChip.position.set(-0.22, -H / 2 + 0.56, -0.024);
+  ddicChip.position.set(-0.22, -H / 2 + 0.62, -0.018);
   tftGroup.add(ddicChip);
 
-  // Goodix GT9916S 240Hz Touch Controller IC + Hirose BM28-40P Gold BTB on COF tail
-  const touchIc = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.46, 0.032), matIcDark);
-  touchIc.position.set(1.24, -H / 2 + 0.58, -0.026);
+  const touchIc = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.46, 0.020), matIcDark);
+  touchIc.position.set(1.24, -H / 2 + 0.64, -0.019);
   tftGroup.add(touchIc);
 
-  const dispBtb = new THREE.Mesh(new THREE.BoxGeometry(0.84, 0.18, 0.038), matBusGold);
-  dispBtb.position.set(0.32, -H / 2 + 0.88, -0.028);
+  const dispBtb = new THREE.Mesh(new THREE.BoxGeometry(0.84, 0.18, 0.022), matBusGold);
+  dispBtb.position.set(0.32, -H / 2 + 0.94, -0.020);
   tftGroup.add(dispBtb);
 
   root.add(tftGroup);
@@ -246,11 +245,9 @@ export function buildDisplaySystem(textures) {
   const shieldGroup = new THREE.Group();
   shieldGroup.position.z = Z_STACK.DISPLAY_SHIELD - anchorZ;
 
-  const foilShape = createRoundedRectShape(W - 0.34, H - 0.42, R - 0.16);
+  const foilShape = createRoundedRectShape(W - 0.44, H - 0.46, R - 0.20);
   foilShape.holes.push(createCircleHole(punchR * 1.3, 0, punchY));
-  // Precision optical aperture cutout for Under-OLED ams OSRAM TCS3701 ALS/Prox + SFH4059 940nm IR!
   foilShape.holes.push(createRoundedRectHole(0.44, 0.24, 0.05, 0.72, punchY + 0.04));
-  // Precision milled window cutout for Under-Display Goodix GM2 Ultrasonic 3D Fingerprint Transducer!
   foilShape.holes.push(createRoundedRectHole(1.16, 1.16, 0.10, 0, fpY));
 
   const matCopperFoil = new THREE.MeshStandardMaterial({
@@ -259,7 +256,7 @@ export function buildDisplaySystem(textures) {
     roughness: 0.28,
   });
   const foilMesh = new THREE.Mesh(
-    extrudePlate(foilShape, 0.016, { bevelSize: 0.002, bevelThickness: 0.002 }),
+    extrudePlate(foilShape, 0.014, { bevelSize: 0.002, bevelThickness: 0.002 }),
     matCopperFoil
   );
   shieldGroup.add(foilMesh);
@@ -268,35 +265,34 @@ export function buildDisplaySystem(textures) {
 
   // Under-OLED ams OSRAM TCS3701 Ambient Light / Call-Proximity + SFH 4059 940nm IR Emitter Module!
   const alsGroup = new THREE.Group();
-  alsGroup.position.set(0.72, punchY + 0.04, Z_STACK.DISPLAY_SHIELD - anchorZ - 0.004);
-  alsGroup.add(new THREE.Mesh(new THREE.BoxGeometry(0.40, 0.20, 0.022), matIcDark));
+  alsGroup.position.set(0.72, punchY + 0.04, Z_STACK.DISPLAY_SHIELD - anchorZ);
+  alsGroup.add(new THREE.Mesh(new THREE.BoxGeometry(0.40, 0.20, 0.016), matIcDark));
   const alsDie = new THREE.Mesh(
-    new THREE.BoxGeometry(0.14, 0.12, 0.014),
+    new THREE.BoxGeometry(0.14, 0.12, 0.012),
     new THREE.MeshPhysicalMaterial({ color: 0x2c4b74, metalness: 0.85, roughness: 0.14, iridescence: 0.8 })
   );
-  alsDie.position.set(-0.08, 0, 0.014);
+  alsDie.position.set(-0.08, 0, 0.010);
   const irEmit = new THREE.Mesh(
-    new THREE.BoxGeometry(0.11, 0.11, 0.014),
+    new THREE.BoxGeometry(0.11, 0.11, 0.012),
     new THREE.MeshPhysicalMaterial({ color: 0x56162c, metalness: 0.55, roughness: 0.12, iridescence: 0.7 })
   );
-  irEmit.position.set(0.09, 0, 0.014);
+  irEmit.position.set(0.09, 0, 0.010);
   alsGroup.add(alsDie, irEmit);
   root.add(alsGroup);
   registerLayer(alsGroup, [0, 0.18, -1.62]);
 
   // Independent Under-Display Goodix GM2 Ultrasonic 3D Fingerprint Sensor Module
   const fpGroup = new THREE.Group();
-  fpGroup.position.set(0, fpY, Z_STACK.DISPLAY_SHIELD - anchorZ - 0.004);
+  fpGroup.position.set(0, fpY, Z_STACK.DISPLAY_SHIELD - anchorZ);
 
   const fpHousing = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(1.06, 1.06, 0.08), 0.024, { bevelSize: 0.004, bevelThickness: 0.004 }),
+    extrudePlate(createRoundedRectShape(1.06, 1.06, 0.08), 0.018, { bevelSize: 0.003, bevelThickness: 0.003 }),
     matIcDark
   );
   fpGroup.add(fpHousing);
 
-  // Gleaming acoustic piezoelectric sensor matrix face (facing +Z through OLED!)
   const fpPiezo = new THREE.Mesh(
-    new THREE.BoxGeometry(0.84, 0.84, 0.012),
+    new THREE.BoxGeometry(0.84, 0.84, 0.010),
     new THREE.MeshPhysicalMaterial({
       color: 0x3a526e,
       metalness: 0.82,
@@ -304,21 +300,19 @@ export function buildDisplaySystem(textures) {
       iridescence: 0.78,
     })
   );
-  fpPiezo.position.z = 0.012;
+  fpPiezo.position.z = 0.010;
   fpGroup.add(fpPiezo);
 
-  // Micro gold concentric ultrasonic transducer rings on face
   for (let r = 0.12; r <= 0.36; r += 0.08) {
     const ring = new THREE.Mesh(new THREE.RingGeometry(r, r + 0.018, 32), matBusGold);
-    ring.position.z = 0.020;
+    ring.position.z = 0.016;
     fpGroup.add(ring);
   }
 
-  // Flex ribbon + 16-pin Hirose gold BTB linking ultrasonic sensor to Motherboard
-  const fpFlex = new THREE.Mesh(new THREE.BoxGeometry(0.24, 1.45, 0.010), matCofAmber);
-  fpFlex.position.set(0, -1.12, -0.008);
-  const fpBtb = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.14, 0.030), matBusGold);
-  fpBtb.position.set(0, -1.80, -0.014);
+  const fpFlex = new THREE.Mesh(new THREE.BoxGeometry(0.24, 1.45, 0.008), matCofAmber);
+  fpFlex.position.set(0, -1.12, -0.006);
+  const fpBtb = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.14, 0.018), matBusGold);
+  fpBtb.position.set(0, -1.80, -0.008);
   fpGroup.add(fpFlex, fpBtb);
 
   root.add(fpGroup);

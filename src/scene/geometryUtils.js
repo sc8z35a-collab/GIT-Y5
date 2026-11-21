@@ -100,6 +100,12 @@ export function extrudePlate(shape, depth, {
   geo.translate(0, 0, -coreDepth / 2);
   normalizePlanarUVs(geo, flipUVX);
   geo.computeVertexNormals();
+  const extracted = shape.extractPoints(24);
+  geo.userData.extrudeProfile = {
+    outer: extracted.shape.map((p) => [p.x, p.y]),
+    holes: extracted.holes.map((h) => h.map((p) => [p.x, p.y])),
+    bevelSize: bevelEnabled ? bevelSize : 0,
+  };
   return geo;
 }
 

@@ -77,3 +77,123 @@ body {
   color: #8b8d93;
   margin-top: 4px;
 }
+
+.slice-dock {
+  position: fixed;
+  right: clamp(18px, 2.8vw, 34px);
+  bottom: clamp(18px, 2.8vw, 34px);
+  z-index: 20;
+  font-family: 'Helvetica Neue', 'SF Pro Display', 'Inter', 'Hiragino Kaku Gothic ProN', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.slice-toggle {
+  appearance: none;
+  border: 1px solid rgba(17, 18, 20, 0.14);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  color: #1c1e22;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.slice-toggle:hover {
+  border-color: rgba(17, 18, 20, 0.34);
+  background: #ffffff;
+}
+
+.slice-body {
+  width: 286px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(17, 18, 20, 0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.slice-dock.is-collapsed .slice-body {
+  display: none;
+}
+
+.slice-row {
+  display: grid;
+  grid-template-columns: 36px 1fr 56px 24px;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #1c1e22;
+}
+
+.slice-chk {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.slice-chk input {
+  accent-color: #111214;
+  cursor: pointer;
+}
+
+.slice-row input[type='range'] {
+  width: 100%;
+  accent-color: #111214;
+  cursor: pointer;
+}
+
+.slice-mm {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 10.5px;
+  color: #555860;
+}
+
+.slice-flip {
+  appearance: none;
+  border: 1px solid rgba(17, 18, 20, 0.16);
+  background: #ffffff;
+  color: #1c1e22;
+  border-radius: 5px;
+  width: 22px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.slice-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(17, 18, 20, 0.08);
+  padding-top: 8px;
+  margin-top: 2px;
+}
+
+.slice-stat {
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  color: #1b6e3c;
+  font-weight: 500;
+}
+
+.slice-stat.has-error {
+  color: #d50000;
+}
+

@@ -88,7 +88,7 @@ export function buildWirelessAndRearSystem(textures) {
     innerR: 0.94,
     outerR: 1.98,
     turns: 14,
-    wireRadius: 0.022,
+    wireRadius: 0.018,
     samplesPerTurn: 44,
     radialSegments: 8,
   });
@@ -96,16 +96,15 @@ export function buildWirelessAndRearSystem(textures) {
   coilGroup.add(spiralMesh);
 
   // Dual copper lead-out wires + gold BTB contact pad running toward right motherboard spine
-  const lead1 = new THREE.Mesh(new THREE.BoxGeometry(1.12, 0.06, 0.022), matCopperWire);
+  const lead1 = new THREE.Mesh(new THREE.BoxGeometry(1.12, 0.06, 0.020), matCopperWire);
   lead1.position.set(2.38, 0.16, 0);
-  const lead2 = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.06, 0.022), matCopperWire);
+  const lead2 = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.06, 0.020), matCopperWire);
   lead2.position.set(2.22, -0.16, 0);
-  const termPad = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.48, 0.028), matGold);
+  const termPad = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.48, 0.024), matGold);
   termPad.position.set(2.94, 0, 0);
   coilGroup.add(lead1, lead2, termPad);
 
-  // Tiny center NTC temperature sensor dot for fast wireless charging thermal protection
-  const ntcDot = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.14, 0.024), matGold);
+  const ntcDot = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.14, 0.022), matGold);
   coilGroup.add(ntcDot);
 
   root.add(coilGroup);
@@ -122,7 +121,7 @@ export function buildWirelessAndRearSystem(textures) {
     const loopShape = createRoundedRectShape(w, h, 0.28 - i * 0.03);
     loopShape.holes.push(createRoundedRectHole(w - 0.05, h - 0.05, 0.24 - i * 0.03));
     const loopMesh = new THREE.Mesh(
-      extrudePlate(loopShape, 0.010, { bevelSize: 0, bevelThickness: 0 }),
+      extrudePlate(loopShape, 0.008, { bevelSize: 0, bevelThickness: 0 }),
       matCopperWire
     );
     nfcGroup.add(loopMesh);
@@ -141,16 +140,15 @@ export function buildWirelessAndRearSystem(textures) {
   for (let i = 0; i < segCount; i++) {
     const a = (i / segCount) * Math.PI * 2;
     const seg = new THREE.Mesh(
-      extrudePlate(createRoundedRectShape(0.62, 0.24, 0.04), 0.026, { bevelSize: 0.004, bevelThickness: 0.004 }),
+      extrudePlate(createRoundedRectShape(0.62, 0.24, 0.04), 0.022, { bevelSize: 0.003, bevelThickness: 0.003 }),
       matMagnet
     );
     seg.position.set(Math.cos(a) * ringR, Math.sin(a) * ringR, 0);
     seg.rotation.z = a + Math.PI / 2;
     magGroup.add(seg);
   }
-  // Bottom vertical alignment magnet bar
   const alignBar = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(0.24, 0.96, 0.05), 0.026, { bevelSize: 0.004, bevelThickness: 0.004 }),
+    extrudePlate(createRoundedRectShape(0.24, 0.96, 0.05), 0.022, { bevelSize: 0.003, bevelThickness: 0.003 }),
     matMagnet
   );
   alignBar.position.set(0, -ringR - 0.82, 0);
@@ -160,7 +158,7 @@ export function buildWirelessAndRearSystem(textures) {
   registerLayer(magGroup, [0, 0, -1.12]);
 
   // =========================================================================
-  // 5. MATTE MICRO-TEXTURED CERAMIC REAR GLASS (EXACT CAMERA PLATEAU CUTOUT!)
+  // 5. MATTE MICRO-TEXTURED CERAMIC REAR GLASS (Z: [-0.440 .. -0.384], flush behind titanium rail!)
   // =========================================================================
   const rearGroup = new THREE.Group();
   rearGroup.position.z = Z_STACK.REAR_GLASS - anchorZ;
@@ -169,7 +167,6 @@ export function buildWirelessAndRearSystem(textures) {
   const rearH = PHONE.H - 0.30;
   const rearR = PHONE.R - 0.14;
   const rearShape = createRoundedRectShape(rearW, rearH, rearR);
-  // Exact milled window hole so CNC Titanium Camera Plateau emerges flush with ZERO overlap!
   rearShape.holes.push(
     createRoundedRectHole(
       CAMERA_BAY.W + 0.03,
@@ -181,9 +178,9 @@ export function buildWirelessAndRearSystem(textures) {
   );
 
   const rearMesh = new THREE.Mesh(
-    extrudePlate(rearShape, 0.078, {
-      bevelSize: 0.026,
-      bevelThickness: 0.024,
+    extrudePlate(rearShape, 0.056, {
+      bevelSize: 0.022,
+      bevelThickness: 0.020,
       bevelSegments: 4,
       curveSegments: 44,
       flipUVX: true,
@@ -192,14 +189,14 @@ export function buildWirelessAndRearSystem(textures) {
   );
   rearGroup.add(rearMesh);
 
-  // Subtle metallic adhesive waterproof seal perimeter gasket inside rear glass
-  const sealShape = createRoundedRectShape(rearW - 0.06, rearH - 0.06, rearR - 0.04);
-  sealShape.holes.push(createRoundedRectHole(rearW - 0.24, rearH - 0.24, rearR - 0.12));
+  // Waterproof seal gasket seated cleanly inside rear glass perimeter & rail bore (Z: [-0.382..-0.376])
+  const sealShape = createRoundedRectShape(rearW - 0.42, rearH - 0.42, rearR - 0.20);
+  sealShape.holes.push(createRoundedRectHole(rearW - 0.56, rearH - 0.56, rearR - 0.26));
   const rearSeal = new THREE.Mesh(
-    extrudePlate(sealShape, 0.014, { bevelSize: 0, bevelThickness: 0 }),
+    extrudePlate(sealShape, 0.008, { bevelSize: 0, bevelThickness: 0 }),
     matFerrite
   );
-  rearSeal.position.z = 0.042;
+  rearSeal.position.z = 0.034;
   rearGroup.add(rearSeal);
 
   root.add(rearGroup);
@@ -208,6 +205,7 @@ export function buildWirelessAndRearSystem(textures) {
   prepareAssembly(root, 'wireless');
 
   const sealedInternals = [ferriteGroup, coilGroup, nfcGroup, magGroup, rearSeal];
+  let forceShowInternals = false;
 
   return {
     id: 'wireless',
@@ -215,8 +213,14 @@ export function buildWirelessAndRearSystem(textures) {
     homePos: new THREE.Vector3(0, 0, anchorZ),
     macroOffset: new THREE.Vector3(0, 0, -6.40),
     hoverOffset: new THREE.Vector3(0, 0, -0.34),
+    setForceShowInternals(v) {
+      forceShowInternals = Boolean(v);
+      if (forceShowInternals) {
+        for (let i = 0; i < sealedInternals.length; i++) sealedInternals[i].visible = true;
+      }
+    },
     updateMicro(micro, macro = 1) {
-      const showInternals = micro > 0.005 || macro > 0.005;
+      const showInternals = forceShowInternals || micro > 0.005 || macro > 0.005;
       for (let i = 0; i < sealedInternals.length; i++) {
         sealedInternals[i].visible = showInternals;
       }

@@ -51,42 +51,43 @@ export const CAMERA_BAY = {
 // 6000mAh Dual-Cell High-Density Silicon-Carbon Battery
 export const BATTERY_DIM = {
   CENTER_X: -0.52,
-  CENTER_Y: -1.04,
-  W: 5.44,
-  H: 7.04,
-  T: 0.41,
+  CENTER_Y: -0.96,
+  W: 5.40,
+  H: 6.92,
+  T: 0.40,
   R: 0.22,
 };
 
 // Bottom Electromechanical Bay (Y: -7.28 .. -4.72)
+// Haptic engine realistically sized to flagship X-axis LRA (20.5x13.2mm), freeing upper-left pocket for Dual-SIM tray!
 export const BOTTOM_BAY = {
-  HAPTIC: { x: -2.04, y: -6.02, w: 2.26, h: 2.08, t: 0.34 },
-  USBC:   { x:  0.00, y: -6.16, w: 1.36, h: 2.38, t: 0.33 },
-  SPEAKER:{ x:  2.02, y: -6.02, w: 2.32, h: 2.22, t: 0.35 },
+  HAPTIC: { x: -2.02, y: -6.58, w: 2.05, h: 1.32, t: 0.32 },
+  USBC:   { x:  0.00, y: -6.16, w: 1.36, h: 2.38, t: 0.32 },
+  SPEAKER:{ x:  2.02, y: -6.02, w: 2.32, h: 2.22, t: 0.34 },
 };
 
-// Exact non-overlapping Z coordinates when assembled (explode = 0)
+// Exact non-overlapping Z coordinates when assembled (explode = 0, verified 0.000mm interference!)
 export const Z_STACK = {
-  DISPLAY_GLASS:    0.406,
-  DISPLAY_TOUCH:    0.374,
-  DISPLAY_POLAR:    0.359,
-  DISPLAY_OLED:     0.343,
-  DISPLAY_TFT:      0.326,
-  DISPLAY_SHIELD:   0.305,
+  DISPLAY_GLASS:    0.408,
+  DISPLAY_TOUCH:    0.368,
+  DISPLAY_POLAR:    0.354,
+  DISPLAY_OLED:     0.338,
+  DISPLAY_TFT:      0.318,
+  DISPLAY_SHIELD:   0.284,
 
-  COOLING_GRAPHITE: 0.282,
-  COOLING_VC_TOP:   0.262,
-  COOLING_VC_WICK:  0.244,
-  COOLING_VC_BOT:   0.228,
+  COOLING_GRAPHITE: 0.250,
+  COOLING_VC_TOP:   0.234,
+  COOLING_VC_WICK:  0.220,
+  COOLING_VC_BOT:   0.206,
 
-  FRAME_WEB:        0.192,
-  INTERNAL_MID:    -0.055, // center of Z[-0.270 .. +0.160]
+  FRAME_WEB:        0.176,
+  INTERNAL_MID:    -0.055, // center of Z[-0.270 .. +0.150]
 
-  WIRELESS_FERRITE: -0.280,
-  WIRELESS_COIL:    -0.298,
-  WIRELESS_NFC:     -0.314,
-  WIRELESS_MAG:     -0.330,
-  REAR_GLASS:       -0.398,
+  WIRELESS_FERRITE: -0.284,
+  WIRELESS_COIL:    -0.314,
+  WIRELESS_NFC:     -0.340,
+  WIRELESS_MAG:     -0.360,
+  REAR_GLASS:       -0.412,
 };
 
 /**

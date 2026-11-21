@@ -85,7 +85,7 @@ export function buildFrameSystem(textures) {
   });
 
   // =========================================================================
-  // 1. CNC GRADE-5 TITANIUM OUTER PERIMETER RAIL
+  // 1. CNC GRADE-5 TITANIUM OUTER PERIMETER RAIL (Z: [-0.376 .. +0.376] flush between front & rear glass!)
   // =========================================================================
   const railShape = createRoundedRectShape(PHONE.W, PHONE.H, PHONE.R);
   railShape.holes.push(
@@ -96,9 +96,9 @@ export function buildFrameSystem(textures) {
     )
   );
   const railMesh = new THREE.Mesh(
-    extrudePlate(railShape, PHONE.T - 0.04, {
-      bevelSize: 0.045,
-      bevelThickness: 0.045,
+    extrudePlate(railShape, 0.752, {
+      bevelSize: 0.036,
+      bevelThickness: 0.036,
       bevelSegments: 5,
       curveSegments: 44,
     }),
@@ -107,8 +107,8 @@ export function buildFrameSystem(textures) {
   root.add(railMesh);
 
   // 6 Insulated PEEK RF Antenna Split Bands inlaid cleanly across the Titanium perimeter
-  const sideBandGeo = new THREE.BoxGeometry(PHONE.RAIL_W + 0.025, 0.11, PHONE.T - 0.06);
-  const topBotBandGeo = new THREE.BoxGeometry(0.11, PHONE.RAIL_W + 0.025, PHONE.T - 0.06);
+  const sideBandGeo = new THREE.BoxGeometry(PHONE.RAIL_W + 0.018, 0.11, 0.71);
+  const topBotBandGeo = new THREE.BoxGeometry(0.11, PHONE.RAIL_W + 0.018, 0.71);
   [
     [-PHONE.W / 2 + PHONE.RAIL_W / 2,  6.20, sideBandGeo],
     [ PHONE.W / 2 - PHONE.RAIL_W / 2,  6.20, sideBandGeo],
@@ -122,23 +122,22 @@ export function buildFrameSystem(textures) {
     root.add(band);
   });
 
-  // CNC Bottom Acoustic Speaker Grille Ports (6 machined capsule slots) + USB-C Cutout Shadow
+  // CNC Bottom Acoustic Speaker Grille Ports (6 machined capsule slots) + Primary Mic Pinhole
   const matDarkPort = new THREE.MeshStandardMaterial({ color: 0x0c0e12, roughness: 0.85, metalness: 0.2 });
   for (let i = 0; i < 6; i++) {
     const hole = new THREE.Mesh(new THREE.CylinderGeometry(0.048, 0.048, 0.08, 12), matDarkPort);
     hole.position.set(1.22 + i * 0.21, -PHONE.H / 2 + 0.02, 0);
     root.add(hole);
   }
-  // Primary mic pinhole on bottom-left
   const botMic = new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.042, 0.08, 12), matDarkPort);
   botMic.position.set(-1.32, -PHONE.H / 2 + 0.02, 0);
   root.add(botMic);
 
   // =========================================================================
-  // 2. INTERNAL CNC-MILLED STRUCTURAL MIDFRAME DECK (Z = +0.192)
+  // 2. INTERNAL CNC-MILLED STRUCTURAL MIDFRAME DECK (Z = +0.176, plate [+0.156..+0.196])
   // =========================================================================
-  const webShape = createRoundedRectShape(PHONE.W - 0.34, PHONE.H - 0.34, PHONE.R - 0.16);
-  // Milled structural relief cutouts matching Camera Bay, Battery Thermal Window & Ultrasonic FP Window
+  const webShape = createRoundedRectShape(PHONE.W - 0.56, PHONE.H - 0.56, PHONE.R - 0.26);
+  // Milled structural relief cutouts matching Camera Bay, Battery Thermal Window, Ultrasonic FP, & Selfie/Earpiece!
   webShape.holes.push(
     createRoundedRectHole(CAMERA_BAY.W - 0.24, CAMERA_BAY.H - 0.24, 0.44, CAMERA_BAY.CENTER_X, CAMERA_BAY.CENTER_Y)
   );
@@ -148,47 +147,51 @@ export function buildFrameSystem(textures) {
   webShape.holes.push(
     createRoundedRectHole(1.18, 1.18, 0.14, 0, DISPLAY_DIM.FP_Y)
   );
+  // Milled cutout for Top Selfie Camera (Sony IMX615), Earpiece Micro-Speaker, Top ANC Mic & ALS/IR bar!
+  webShape.holes.push(
+    createRoundedRectHole(2.74, 0.86, 0.16, 0.16, DISPLAY_DIM.PUNCH_Y + 0.12)
+  );
 
   const webMesh = new THREE.Mesh(
-    extrudePlate(webShape, 0.052, { bevelSize: 0.008, bevelThickness: 0.008 }),
+    extrudePlate(webShape, 0.040, { bevelSize: 0.006, bevelThickness: 0.006 }),
     matMidframeAlloy
   );
   webMesh.position.z = Z_STACK.FRAME_WEB;
   root.add(webMesh);
 
-  // Internal machined compartmental dividing ribs (separating Battery, Camera, Motherboard, Bottom Bay)
+  // Internal machined compartmental dividing ribs (with real CNC pass-through channels for Camera MIPI & Battery FPC!)
   const ribSpecs = [
-    [0.0, -4.64, 6.72, 0.12, 0.32],  // Horizontal rib above bottom electromechanical bay
-    [-0.28, 4.92, 0.10, 4.24, 0.30], // Vertical rib separating Camera bay from Logic board
-    [2.30, -1.04, 0.08, 7.04, 0.28], // Vertical rib separating Battery from Motherboard spine
-    [-0.78, -6.02, 0.08, 2.38, 0.26],// Bottom bay rib: Haptic | USB-C
-    [0.78, -6.02, 0.08, 2.38, 0.26], // Bottom bay rib: USB-C | Speaker
+    [0.0, -4.64, 6.68, 0.12, 0.28],  // Horizontal rib above bottom electromechanical bay
+    [-0.28, 3.92, 0.08, 2.24, 0.26], // Lower vertical rib separating Ultra-Wide bay from Logic board
+    [-0.28, 6.58, 0.08, 0.64, 0.26], // Upper vertical rib boss above 45MP MIPI FPC pass-through slot!
+    [2.30, -1.04, 0.08, 6.72, 0.26], // Vertical rib separating Battery from Motherboard spine
+    [-0.78, -6.02, 0.08, 2.38, 0.24],// Bottom bay rib: Haptic/SIM | USB-C
+    [0.78, -6.02, 0.08, 2.38, 0.24], // Bottom bay rib: USB-C | Speaker
   ];
   ribSpecs.forEach(([rx, ry, rw, rh, rt]) => {
     const rib = new THREE.Mesh(new THREE.BoxGeometry(rw, rh, rt), matMidframeAlloy);
-    rib.position.set(rx, ry, Z_STACK.FRAME_WEB - rt / 2 - 0.01);
+    rib.position.set(rx, ry, Z_STACK.FRAME_WEB - rt / 2 - 0.024);
     root.add(rib);
   });
 
   // 14 Precision Micro-Torx Titanium Screws around perimeter standoffs!
-  const screwHeadGeo = new THREE.CylinderGeometry(0.068, 0.068, 0.028, 12);
+  const screwHeadGeo = new THREE.CylinderGeometry(0.068, 0.068, 0.026, 12);
   screwHeadGeo.rotateX(Math.PI / 2);
   const screwCoords = [
     [-3.18, 6.85], [3.18, 6.85], [3.18, 3.60], [3.18, 0.05],
     [3.18, -3.60], [3.18, -6.95], [-3.18, -6.95], [-3.18, -4.64],
-    [-3.18, 1.80], [-0.28, 6.85], [-0.28, 2.66], [2.30, 2.66],
+    [-3.28, 2.66], [-0.28, 6.85], [-0.28, 2.66], [2.30, 2.66],
     [0.78, -4.64], [-0.78, -4.64],
   ];
   screwCoords.forEach(([sx, sy]) => {
     const scr = new THREE.Mesh(screwHeadGeo, matScrew);
-    scr.position.set(sx, sy, Z_STACK.FRAME_WEB - 0.04);
+    scr.position.set(sx, sy, Z_STACK.FRAME_WEB - 0.026);
     root.add(scr);
   });
 
   // =========================================================================
   // 3. SIDE TACTILE VOLUME ROCKER & POWER BUTTON DISSECTION (+X EDGE)
   // =========================================================================
-  // 3A. External CNC Titanium Keycaps (pull outward +X on dissection!)
   const keycapsGroup = new THREE.Group();
   keycapsGroup.position.set(PHONE.W / 2 + 0.035, 0, 0);
 
@@ -206,7 +209,6 @@ export function buildFrameSystem(textures) {
   powerBtn.position.set(0, 0.42, 0);
   keycapsGroup.add(powerBtn);
 
-  // Subtle machined key-plunger pins on inner side of buttons
   [3.42, 2.28, 0.42].forEach((py) => {
     const pin = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.16, 12), matScrew);
     pin.rotation.z = Math.PI / 2;
@@ -216,7 +218,6 @@ export function buildFrameSystem(textures) {
   root.add(keycapsGroup);
   registerLayer(keycapsGroup, [1.55, 0, 0]);
 
-  // 3B. Waterproof Silicone Dust Boots (middle separation layer!)
   const bootsGroup = new THREE.Group();
   bootsGroup.position.set(PHONE.W / 2 - 0.05, 0, 0);
   [3.42, 2.28, 0.42].forEach((py) => {
@@ -228,12 +229,10 @@ export function buildFrameSystem(textures) {
   root.add(bootsGroup);
   registerLayer(bootsGroup, [0.95, 0, 0]);
 
-  // 3C. Gold-Plated Micro Tactile Dome-Switch Side Flex PCB
   const switchFlexGroup = new THREE.Group();
   switchFlexGroup.position.set(PHONE.W / 2 - 0.18, 1.85, 0);
   const sideFlex = new THREE.Mesh(new THREE.BoxGeometry(0.022, 4.15, 0.24), matFlexDark);
   switchFlexGroup.add(sideFlex);
-  // 3 gleaming gold tactile metal snap domes!
   [1.57, 0.43, -1.43].forEach((dy) => {
     const dome = new THREE.Mesh(new THREE.SphereGeometry(0.075, 16, 10, 0, Math.PI * 2, 0, Math.PI * 0.5), matGold);
     dome.rotation.z = -Math.PI / 2;
@@ -244,34 +243,32 @@ export function buildFrameSystem(textures) {
   registerLayer(switchFlexGroup, [0.46, 0, 0]);
 
   // =========================================================================
-  // 4. DUAL-SIM / eSIM MACHINED TITANIUM TRAY + RED IP68 O-RING (-X EDGE)
+  // 4. DUAL-SIM / eSIM MACHINED TITANIUM TRAY + RED IP68 O-RING (-X LOWER BAY, Y = -5.28)
+  //    Seated cleanly inside dedicated SIM pocket above Haptic Engine & below horizontal rib!
   // =========================================================================
   const simGroup = new THREE.Group();
-  simGroup.position.set(-PHONE.W / 2 - 0.01, -3.55, 0);
+  simGroup.position.set(-PHONE.W / 2 - 0.01, -5.28, 0);
 
-  // Outer flush titanium cap with tiny eject pinhole
   const simCap = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(0.09, 1.38, 0.04), 0.24, { bevelSize: 0.018, bevelThickness: 0.018 }),
+    extrudePlate(createRoundedRectShape(0.09, 1.06, 0.04), 0.22, { bevelSize: 0.016, bevelThickness: 0.016 }),
     matTitanium
   );
   simGroup.add(simCap);
 
-  // Red IP68 silicone waterproof O-ring gasket behind cap
   const simGasket = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(0.04, 1.32, 0.04), 0.22, { bevelSize: 0.008, bevelThickness: 0.008 }),
+    extrudePlate(createRoundedRectShape(0.04, 1.00, 0.03), 0.20, { bevelSize: 0.008, bevelThickness: 0.008 }),
     matRedGasket
   );
   simGasket.position.x = 0.075;
   simGroup.add(simGasket);
 
-  // Internal dual-nano-SIM open metal sled frame
-  const sledShape = createRoundedRectShape(1.55, 1.18, 0.08);
-  sledShape.holes.push(createRoundedRectHole(1.24, 0.92, 0.04));
+  const sledShape = createRoundedRectShape(1.52, 0.96, 0.07);
+  sledShape.holes.push(createRoundedRectHole(1.22, 0.72, 0.04));
   const simSled = new THREE.Mesh(
-    extrudePlate(sledShape, 0.065, { bevelSize: 0.005, bevelThickness: 0.005 }),
+    extrudePlate(sledShape, 0.062, { bevelSize: 0.005, bevelThickness: 0.005 }),
     matMidframeAlloy
   );
-  simSled.position.set(0.86, 0, 0);
+  simSled.position.set(0.88, 0, 0);
   simGroup.add(simSled);
 
   root.add(simGroup);

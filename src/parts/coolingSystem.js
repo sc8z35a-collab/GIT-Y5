@@ -108,7 +108,7 @@ export function buildCoolingSystem(textures) {
   vcWickGroup.add(wickPlate);
 
   // Instanced 3D sintered copper structural micro-pillars inside the vapor cavity
-  const pillarGeo = new THREE.CylinderGeometry(0.052, 0.052, 0.042, 10);
+  const pillarGeo = new THREE.CylinderGeometry(0.052, 0.052, 0.018, 10);
   pillarGeo.rotateX(Math.PI / 2);
   const pillarCoords = [];
   for (let y = -4.0; y <= 4.8; y += 0.62) {
@@ -120,7 +120,7 @@ export function buildCoolingSystem(textures) {
   const pillarInst = new THREE.InstancedMesh(pillarGeo, matCopperShell, pillarCoords.length);
   const dummy = new THREE.Object3D();
   pillarCoords.forEach(([px, py], i) => {
-    dummy.position.set(px, py, 0.014);
+    dummy.position.set(px, py, 0.002);
     dummy.updateMatrix();
     pillarInst.setMatrixAt(i, dummy.matrix);
   });

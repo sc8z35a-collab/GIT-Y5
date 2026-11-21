@@ -16,6 +16,7 @@ import {
   buildSelfieSystem,
 } from './parts/electromechanical.js';
 import { createInteractionController } from './interaction/controller.js';
+import { createInspectionSystem } from './scene/inspection.js';
 
 function init() {
   const canvas = document.getElementById('stage');
@@ -51,9 +52,17 @@ function init() {
     shadowPlane: studio.shadowPlane,
   });
 
+  const inspector = createInspectionSystem({
+    renderer: studio.renderer,
+    scene: studio.scene,
+    phoneGroup,
+    assemblies,
+    controller,
+  });
+
   let paused = false;
 
-  // Expose minimal silent inspection hook (no UI)
+  // Expose inspection hooks for automated Box3 interference audit & cross-section testing
   window.__RKT4 = {
     setPaused: (v) => {
       paused = Boolean(v);
@@ -63,6 +72,20 @@ function init() {
       studio.renderer.render(studio.scene, studio.camera);
     },
     getState: () => controller.getState(),
+    setSlice: (opts) => {
+      inspector.setSlice(opts);
+      studio.renderer.render(studio.scene, studio.camera);
+    },
+    setCollisionHighlight: (v) => {
+      inspector.setCollisionHighlight(v);
+      studio.renderer.render(studio.scene, studio.camera);
+    },
+    auditIntersections: (opts) => {
+      const report = inspector.auditIntersections(opts);
+      inspector.updateStatBadge(report);
+      studio.renderer.render(studio.scene, studio.camera);
+      return report;
+    },
   };
 
   let lastTime = performance.now();

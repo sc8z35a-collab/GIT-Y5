@@ -198,31 +198,31 @@ export function buildBatterySystem(textures) {
     bmsGroup.add(pad);
   });
 
-  // Dual high-current FPC battery connector ribbons leading toward Motherboard (+X, +Y)
+  // Dual high-current FPC battery connector ribbons routing cleanly toward Motherboard spine
   const fpc1 = createFlexRibbon(
     [
-      new THREE.Vector3(1.65, 0.08, -0.02),
-      new THREE.Vector3(2.30, 0.16, -0.05),
-      new THREE.Vector3(2.85, 0.34, -0.02),
-    ],
-    0.26,
-    0.012,
-    matFlex
-  );
-  const fpc2 = createFlexRibbon(
-    [
-      new THREE.Vector3(0.95, 0.10, -0.02),
-      new THREE.Vector3(1.65, 0.38, -0.06),
-      new THREE.Vector3(2.35, 0.56, -0.02),
+      new THREE.Vector3(1.65, 0.04, -0.02),
+      new THREE.Vector3(2.08, 0.08, -0.04),
+      new THREE.Vector3(2.44, 0.14, -0.02),
     ],
     0.22,
     0.012,
     matFlex
   );
-  const btb1 = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.30, 0.04), matGold);
-  btb1.position.set(2.90, 0.34, -0.02);
-  const btb2 = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.26, 0.04), matGold);
-  btb2.position.set(2.40, 0.56, -0.02);
+  const fpc2 = createFlexRibbon(
+    [
+      new THREE.Vector3(0.95, 0.04, -0.02),
+      new THREE.Vector3(1.38, 0.12, -0.04),
+      new THREE.Vector3(1.78, 0.18, -0.02),
+    ],
+    0.18,
+    0.012,
+    matFlex
+  );
+  const btb1 = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.24, 0.036), matGold);
+  btb1.position.set(2.50, 0.14, -0.02);
+  const btb2 = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.20, 0.036), matGold);
+  btb2.position.set(1.84, 0.18, -0.02);
   bmsGroup.add(fpc1, fpc2, btb1, btb2);
 
   root.add(bmsGroup);
