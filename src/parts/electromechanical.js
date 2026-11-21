@@ -67,100 +67,97 @@ export function buildSpeakerSystem(textures) {
     metalness: 0.05,
   });
 
-  // 1A. Upper Sealed Acoustic Enclosure Shell (lifts off toward -Z!)
+  // 1A. Upper Sealed Acoustic Enclosure Shell (local Z: [-0.180..-0.120])
   const topCover = new THREE.Group();
-  topCover.position.z = -0.105;
+  topCover.position.z = -0.150;
   const coverPlate = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(cfg.w, cfg.h, 0.18), 0.11, { bevelSize: 0.018, bevelThickness: 0.018 }),
+    extrudePlate(createRoundedRectShape(cfg.w, cfg.h, 0.16), 0.060, { bevelSize: 0.012, bevelThickness: 0.012 }),
     matComposite
   );
   topCover.add(coverPlate);
-  // Metal acoustic port lip along bottom edge
-  const portLip = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.12, 0.14), matSteel);
-  portLip.position.set(0.15, -cfg.h / 2 - 0.02, 0.02);
+  const portLip = new THREE.Mesh(new THREE.BoxGeometry(1.10, 0.08, 0.060), matSteel);
+  portLip.position.set(0.15, -cfg.h / 2 - 0.01, 0);
   topCover.add(portLip);
   root.add(topCover);
   registerLayer(topCover, [0, 0, -1.65]);
 
-  // 1B. Pleated Suspended Acoustic Diaphragm & Center Dust Dome
+  // 1B. Pleated Suspended Acoustic Diaphragm & Center Dust Dome (local Z: [-0.114..-0.083])
   const diaphragmGroup = new THREE.Group();
-  diaphragmGroup.position.set(0.32, 0.08, -0.025);
+  diaphragmGroup.position.set(0.32, 0.04, -0.095);
   const surround = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(1.18, 1.48, 0.22), 0.036, { bevelSize: 0.012, bevelThickness: 0.012 }),
+    extrudePlate(createRoundedRectShape(1.16, 1.24, 0.20), 0.024, { bevelSize: 0.008, bevelThickness: 0.008 }),
     matDiaphragm
   );
   diaphragmGroup.add(surround);
   const centerDome = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(0.84, 1.12, 0.16), 0.044, { bevelSize: 0.014, bevelThickness: 0.014 }),
+    extrudePlate(createRoundedRectShape(0.82, 0.92, 0.14), 0.020, { bevelSize: 0.006, bevelThickness: 0.006 }),
     matSteel
   );
-  centerDome.position.z = -0.016;
+  centerDome.position.z = -0.008;
   diaphragmGroup.add(centerDome);
   root.add(diaphragmGroup);
   registerLayer(diaphragmGroup, [0, 0, -0.82]);
 
-  // 1C. Rectangular Wound Copper Acoustic Voice Coil
+  // 1C. Rectangular Wound Copper Acoustic Voice Coil (local Z: [-0.076..-0.016])
   const voiceCoilGroup = new THREE.Group();
-  voiceCoilGroup.position.set(0.32, 0.08, 0.02);
-  const vcShape = createRoundedRectShape(0.76, 1.04, 0.14);
-  vcShape.holes.push(createRoundedRectHole(0.62, 0.90, 0.10));
+  voiceCoilGroup.position.set(0.32, 0.04, -0.046);
+  const vcShape = createRoundedRectShape(0.76, 0.86, 0.12);
+  vcShape.holes.push(createRoundedRectHole(0.62, 0.72, 0.08));
   const voiceCoil = new THREE.Mesh(
-    extrudePlate(vcShape, 0.11, { bevelSize: 0.004, bevelThickness: 0.004 }),
+    extrudePlate(vcShape, 0.060, { bevelSize: 0.003, bevelThickness: 0.003 }),
     matCopperCoil
   );
   voiceCoilGroup.add(voiceCoil);
   root.add(voiceCoilGroup);
   registerLayer(voiceCoilGroup, [0, 0, -0.22]);
 
-  // 1D. Neodymium Core Magnet & Precision Steel Magnetic Yoke
+  // 1D. Neodymium Core Magnet & Precision Steel Magnetic Yoke (local Z: [-0.006..+0.110])
   const magnetGroup = new THREE.Group();
-  magnetGroup.position.set(0.32, 0.08, 0.065);
+  magnetGroup.position.set(0.32, 0.04, 0.036);
   const coreMag = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(0.56, 0.84, 0.08), 0.12, { bevelSize: 0.008, bevelThickness: 0.008 }),
+    extrudePlate(createRoundedRectShape(0.56, 0.68, 0.08), 0.084, { bevelSize: 0.006, bevelThickness: 0.006 }),
     matSteel
   );
   magnetGroup.add(coreMag);
   const yokeBase = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(1.06, 1.36, 0.14), 0.036, { bevelSize: 0.005, bevelThickness: 0.005 }),
+    extrudePlate(createRoundedRectShape(1.04, 1.14, 0.14), 0.024, { bevelSize: 0.004, bevelThickness: 0.004 }),
     matComposite
   );
-  yokeBase.position.z = 0.062;
+  yokeBase.position.z = 0.058;
   magnetGroup.add(yokeBase);
   root.add(magnetGroup);
   registerLayer(magnetGroup, [0, 0, 0.42]);
 
-  // 1E. Lower Acoustic Bass Chamber + 42 Micro Acoustic Damping Polymer Spheres (Virtual Volume!)
+  // 1E. Lower Acoustic Bass Chamber + 30 Micro Acoustic Damping Polymer Spheres (local Z: [+0.122..+0.174])
   const chamberGroup = new THREE.Group();
-  chamberGroup.position.z = 0.11;
-  const trayShape = createRoundedRectShape(cfg.w, cfg.h, 0.18);
+  chamberGroup.position.z = 0.148;
+  const trayShape = createRoundedRectShape(cfg.w, cfg.h, 0.16);
   const trayBase = new THREE.Mesh(
-    extrudePlate(trayShape, 0.07, { bevelSize: 0.012, bevelThickness: 0.012 }),
+    extrudePlate(trayShape, 0.050, { bevelSize: 0.010, bevelThickness: 0.010 }),
     matComposite
   );
   chamberGroup.add(trayBase);
 
-  // Rear bass cavity perimeter walls on left half of enclosure
-  const wallShape = createRoundedRectShape(0.84, cfg.h - 0.24, 0.10);
-  wallShape.holes.push(createRoundedRectHole(0.68, cfg.h - 0.40, 0.06));
+  const wallShape = createRoundedRectShape(0.78, cfg.h - 0.24, 0.10);
+  wallShape.holes.push(createRoundedRectHole(0.64, cfg.h - 0.38, 0.06));
   const bassWall = new THREE.Mesh(
-    extrudePlate(wallShape, 0.12, { bevelSize: 0.004, bevelThickness: 0.004 }),
+    extrudePlate(wallShape, 0.10, { bevelSize: 0.003, bevelThickness: 0.003 }),
     matComposite
   );
-  bassWall.position.set(-0.62, 0, -0.075);
+  bassWall.position.set(-0.66, 0, -0.078);
   chamberGroup.add(bassWall);
 
-  // 42 tiny pearlescent acoustic damping micro-beads filling the bass-boost cavity!
-  const beadGeo = new THREE.SphereGeometry(0.056, 10, 10);
-  const beadInst = new THREE.InstancedMesh(beadGeo, matBead, 42);
+  const beadGeo = new THREE.SphereGeometry(0.048, 10, 10);
+  const beadInst = new THREE.InstancedMesh(beadGeo, matBead, 30);
   const dummy = new THREE.Object3D();
   let bIdx = 0;
-  for (let row = 0; row < 7; row++) {
+  for (let row = 0; row < 5; row++) {
     for (let col = 0; col < 3; col++) {
       for (let zLayer = 0; zLayer < 2; zLayer++) {
         dummy.position.set(
-          -0.82 + col * 0.19 + (row % 2) * 0.04,
-          -0.72 + row * 0.24,
-          -0.055 - zLayer * 0.065
+          -0.84 + col * 0.17 + (row % 2) * 0.03,
+          -0.52 + row * 0.25,
+          -0.056 - zLayer * 0.060
         );
         dummy.updateMatrix();
         beadInst.setMatrixAt(bIdx++, dummy.matrix);
@@ -170,10 +167,9 @@ export function buildSpeakerSystem(textures) {
   beadInst.instanceMatrix.needsUpdate = true;
   chamberGroup.add(beadInst);
 
-  // Gold spring contact pads
   [-0.98, -0.98].forEach((gx, idx) => {
-    const pad = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.22, 0.04), matGold);
-    pad.position.set(gx, 0.42 - idx * 0.36, -0.05);
+    const pad = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.20, 0.036), matGold);
+    pad.position.set(gx, 0.36 - idx * 0.32, -0.05);
     chamberGroup.add(pad);
   });
 
@@ -199,8 +195,6 @@ export function buildSpeakerSystem(textures) {
 
 /**
  * 2. X-AXIS LINEAR HAPTIC ENGINE (TAPTIC ACTUATOR) — Internal Electromechanical Dissection
- *    Stamped Stainless Cover -> Heavy Brushed Tungsten Inertial Mass Block ->
- *    Dual Flat Copper Electromagnetic Coils -> Sinusoidal Leaf-Spring Flexures -> Lower Frame.
  */
 export function buildHapticSystem(textures) {
   const root = new THREE.Group();
@@ -249,38 +243,38 @@ export function buildHapticSystem(textures) {
     roughness: 0.18,
   });
 
-  // 2A. Stamped Stainless-Steel Top Actuator Cover (lifts off -Z!)
+  // 2A. Stamped Stainless-Steel Top Actuator Cover (local Z: [-0.172..-0.130])
   const topShell = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(cfg.w, cfg.h, 0.14), 0.055, { bevelSize: 0.012, bevelThickness: 0.012 }),
+    extrudePlate(createRoundedRectShape(cfg.w, cfg.h, 0.12), 0.042, { bevelSize: 0.009, bevelThickness: 0.009 }),
     matSteelShell
   );
-  topShell.position.z = -0.135;
+  topShell.position.z = -0.151;
   root.add(topShell);
   registerLayer(topShell, [0, 0, -1.55]);
 
-  // 2B. Heavy Brushed Tungsten Inertial Mass Block + Suspended Neodymium Core (scaled to 20.5x13.2mm LRA!)
+  // 2B. Heavy Brushed Tungsten Inertial Mass Block + Suspended Neodymium Core (local Z: [-0.115..+0.025])
   const massGroup = new THREE.Group();
-  massGroup.position.z = -0.025;
-  const massShape = createRoundedRectShape(1.32, 0.96, 0.08);
-  massShape.holes.push(createRoundedRectHole(0.76, 0.34, 0.05, 0, 0.22));
-  massShape.holes.push(createRoundedRectHole(0.76, 0.34, 0.05, 0, -0.22));
+  massGroup.position.z = -0.045;
+  const massShape = createRoundedRectShape(1.26, 0.88, 0.07);
+  massShape.holes.push(createRoundedRectHole(0.72, 0.30, 0.04, 0, 0.20));
+  massShape.holes.push(createRoundedRectHole(0.72, 0.30, 0.04, 0, -0.20));
   const tungstenBlock = new THREE.Mesh(
-    extrudePlate(massShape, 0.16, { bevelSize: 0.010, bevelThickness: 0.010 }),
+    extrudePlate(massShape, 0.140, { bevelSize: 0.008, bevelThickness: 0.008 }),
     matTungsten
   );
   massGroup.add(tungstenBlock);
-  [0.22, -0.22].forEach((my) => {
-    const bar = new THREE.Mesh(new THREE.BoxGeometry(0.68, 0.26, 0.14), matSpringTitanium);
+  [0.20, -0.20].forEach((my) => {
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(0.64, 0.24, 0.12), matSpringTitanium);
     bar.position.y = my;
     massGroup.add(bar);
   });
   root.add(massGroup);
   registerLayer(massGroup, [0, 0, -0.58]);
 
-  // 2C. Left & Right Precision Sinusoidal Leaf-Spring Flexures!
+  // 2C. Left & Right Precision Sinusoidal Leaf-Spring Flexures (strictly outside mass X = ±0.64!)
   const springsGroup = new THREE.Group();
-  springsGroup.position.z = -0.02;
-  const springGeo = createLeafSpringGeometry(0.96, 0.14, 0.062, 4.0);
+  springsGroup.position.z = -0.045;
+  const springGeo = createLeafSpringGeometry(0.86, 0.12, 0.056, 4.0);
   const springL = new THREE.Mesh(springGeo, matSpringTitanium);
   springL.position.x = -0.82;
   const springR = new THREE.Mesh(springGeo, matSpringTitanium);
@@ -289,14 +283,14 @@ export function buildHapticSystem(textures) {
   root.add(springsGroup);
   registerLayer(springsGroup, [0, 0, 0.05]);
 
-  // 2D. Dual Flat Copper-Wound Electromagnetic Drive Coils
+  // 2D. Dual Flat Copper-Wound Electromagnetic Drive Coils (local Z: [+0.036..+0.088], strictly clear of mass +0.025!)
   const coilsGroup = new THREE.Group();
-  coilsGroup.position.z = 0.05;
-  [0.28, -0.28].forEach((cy) => {
-    const cShape = createRoundedRectShape(1.14, 0.42, 0.09);
-    cShape.holes.push(createRoundedRectHole(0.70, 0.16, 0.04));
+  coilsGroup.position.z = 0.062;
+  [0.24, -0.24].forEach((cy) => {
+    const cShape = createRoundedRectShape(1.10, 0.38, 0.08);
+    cShape.holes.push(createRoundedRectHole(0.68, 0.14, 0.04));
     const coil = new THREE.Mesh(
-      extrudePlate(cShape, 0.058, { bevelSize: 0.005, bevelThickness: 0.005 }),
+      extrudePlate(cShape, 0.052, { bevelSize: 0.004, bevelThickness: 0.004 }),
       matCopperCoil
     );
     coil.position.y = cy;
@@ -305,16 +299,16 @@ export function buildHapticSystem(textures) {
   root.add(coilsGroup);
   registerLayer(coilsGroup, [0, 0, 0.62]);
 
-  // 2E. Lower Stamped Base Casing + Gold FPC Spring Contacts (tucked safely inside rib X = -0.82!)
+  // 2E. Lower Stamped Base Casing + Gold FPC Spring Contacts (local Z: [+0.106..+0.150])
   const baseGroup = new THREE.Group();
-  baseGroup.position.z = 0.11;
+  baseGroup.position.z = 0.128;
   const botShell = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(cfg.w, cfg.h, 0.12), 0.050, { bevelSize: 0.009, bevelThickness: 0.009 }),
+    extrudePlate(createRoundedRectShape(cfg.w, cfg.h, 0.12), 0.044, { bevelSize: 0.008, bevelThickness: 0.008 }),
     matSteelShell
   );
   baseGroup.add(botShell);
-  const fpcPad = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.42, 0.028), matGold);
-  fpcPad.position.set(cfg.w / 2 + 0.02, 0.22, -0.02);
+  const fpcPad = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.38, 0.024), matGold);
+  fpcPad.position.set(cfg.w / 2 + 0.02, 0.20, 0);
   baseGroup.add(fpcPad);
   root.add(baseGroup);
   registerLayer(baseGroup, [0, 0, 1.25]);
@@ -338,9 +332,6 @@ export function buildHapticSystem(textures) {
 
 /**
  * 3. USB-C 3.2 PORT & CHARGING/AUDIO SUB-PCB DAUGHTERBOARD
- *    Stainless Shielded Shroud -> Red IP68 Silicone O-Ring ->
- *    Central Black Tongue with 24 Individual Gleaming Gold Contact Pins (12 top + 12 bottom!) ->
- *    Bottom Sub-PCB with Gold MEMS Digital Microphone & FPC Interconnect.
  */
 export function buildUsbcSystem(textures) {
   const root = new THREE.Group();
@@ -385,13 +376,13 @@ export function buildUsbcSystem(textures) {
     roughness: 0.46,
   });
 
-  // 3A. Stainless-Steel Shielded USB-C Shroud (seated flush inside bottom titanium rail inner lip Y = -7.50!)
+  // 3A. Stainless-Steel Shielded USB-C Shroud (world Y: [-7.78..-7.24], strictly inside bottom rail -7.86!)
   const shroudGroup = new THREE.Group();
-  shroudGroup.position.set(0, -0.96, 0.03);
+  shroudGroup.position.set(0, -0.65, 0.02);
   const shroudShape = createRoundedRectShape(0.86, 0.28, 0.13);
   shroudShape.holes.push(createRoundedRectHole(0.74, 0.18, 0.08));
   const shroudMesh = new THREE.Mesh(
-    extrudePlate(shroudShape, 0.68, { bevelSize: 0.008, bevelThickness: 0.008 }),
+    extrudePlate(shroudShape, 0.54, { bevelSize: 0.008, bevelThickness: 0.008 }),
     matSteel
   );
   shroudMesh.rotation.x = Math.PI / 2;
@@ -399,13 +390,13 @@ export function buildUsbcSystem(textures) {
   root.add(shroudGroup);
   registerLayer(shroudGroup, [0, -1.55, 0]);
 
-  // 3B. Red IP68 Waterproof Silicone O-Ring Gasket (seated flush against inner port face!)
+  // 3B. Red IP68 Waterproof Silicone O-Ring Gasket (world Y: [-7.84..-7.79], flush in front of shroud!)
   const gasketGroup = new THREE.Group();
-  gasketGroup.position.set(0, -1.26, 0.03);
+  gasketGroup.position.set(0, -0.955, 0.02);
   const gShape = createRoundedRectShape(0.92, 0.34, 0.15);
   gShape.holes.push(createRoundedRectHole(0.82, 0.24, 0.11));
   const gasketMesh = new THREE.Mesh(
-    extrudePlate(gShape, 0.07, { bevelSize: 0.006, bevelThickness: 0.006 }),
+    extrudePlate(gShape, 0.05, { bevelSize: 0.005, bevelThickness: 0.005 }),
     matRedSeal
   );
   gasketMesh.rotation.x = Math.PI / 2;
@@ -413,70 +404,66 @@ export function buildUsbcSystem(textures) {
   root.add(gasketGroup);
   registerLayer(gasketGroup, [0, -2.18, 0]);
 
-  // 3C. Central USB-C Contact Tongue with ALL 24 Individual Gleaming Gold Pins (12 top + 12 bottom)!
+  // 3C. Central USB-C Contact Tongue with ALL 24 Individual Gleaming Gold Pins (strictly inside shroud cavity!)
   const tongueGroup = new THREE.Group();
-  tongueGroup.position.set(0, -0.88, 0.03);
+  tongueGroup.position.set(0, -0.62, 0.02);
 
-  const tongueCore = new THREE.Mesh(new THREE.BoxGeometry(0.64, 0.56, 0.052), matTongue);
+  const tongueCore = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.44, 0.046), matTongue);
   tongueGroup.add(tongueCore);
 
-  const pinGeo = new THREE.BoxGeometry(0.026, 0.50, 0.014);
+  const pinGeo = new THREE.BoxGeometry(0.024, 0.40, 0.012);
   for (let i = 0; i < 12; i++) {
     const px = -0.275 + i * 0.050;
     const pinFront = new THREE.Mesh(pinGeo, matGold);
-    pinFront.position.set(px, 0.01, 0.030);
+    pinFront.position.set(px, 0.01, 0.028);
     const pinRear = new THREE.Mesh(pinGeo, matGold);
-    pinRear.position.set(px, 0.01, -0.030);
+    pinRear.position.set(px, 0.01, -0.028);
     tongueGroup.add(pinFront, pinRear);
   }
   root.add(tongueGroup);
   registerLayer(tongueGroup, [0, -0.58, 0]);
 
-  // 3D. Bottom Charging / Audio Sub-PCB Daughterboard + Gold MEMS Microphone + BTB Headers
+  // 3D. Bottom Charging / Audio Sub-PCB Daughterboard (world Y: [-7.18..-6.06], clears shroud & horizontal rib!)
   const subPcbGroup = new THREE.Group();
-  subPcbGroup.position.set(0, 0.24, 0.04);
+  subPcbGroup.position.set(0, 0.24, 0.03);
 
   const pcbMesh = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(1.30, 1.56, 0.10), 0.068, { bevelSize: 0.006, bevelThickness: 0.006 }),
+    extrudePlate(createRoundedRectShape(1.30, 1.10, 0.09), 0.068, { bevelSize: 0.006, bevelThickness: 0.006 }),
     matPcb
   );
   subPcbGroup.add(pcbMesh);
 
-  // Knowles SPH0655LM4H-1 Bottom Voice Digital PDM MEMS Mic (Gold EMI shield can + acoustic port)
-  const memsMic = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.24, 0.078), matGold);
-  memsMic.position.set(-0.38, -0.46, -0.062);
+  const memsMic = new THREE.Mesh(new THREE.BoxGeometry(0.30, 0.22, 0.072), matGold);
+  memsMic.position.set(-0.38, -0.30, -0.064);
   subPcbGroup.add(memsMic);
-  const micPortHole = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.015, 16).rotateX(Math.PI / 2), matTongue);
-  micPortHole.position.set(-0.38, -0.46, -0.102);
+  const micPortHole = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.014, 16).rotateX(Math.PI / 2), matTongue);
+  micPortHole.position.set(-0.38, -0.30, -0.102);
   subPcbGroup.add(micPortHole);
 
-  // TI TPD4S480 48V EPR OVP/ESD Protector IC + Surge Diodes
-  const pdIc = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.34, 0.048), matTongue);
-  pdIc.position.set(0.28, -0.38, -0.055);
+  const pdIc = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.32, 0.048), matTongue);
+  pdIc.position.set(0.28, -0.24, -0.056);
   subPcbGroup.add(pdIc);
 
-  // Stamped Stainless-Steel Nano-SIM Push-Push Card Cage + 6 Gleaming Gold ISO-7816 Spring Contacts!
   const simCage = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(0.96, 0.64, 0.05), 0.045, { bevelSize: 0.005, bevelThickness: 0.005 }),
+    extrudePlate(createRoundedRectShape(0.96, 0.56, 0.05), 0.044, { bevelSize: 0.004, bevelThickness: 0.004 }),
     matSteel
   );
-  simCage.position.set(-0.04, 0.14, 0.062);
+  simCage.position.set(-0.04, 0.08, 0.062);
   subPcbGroup.add(simCage);
   for (let r = 0; r < 2; r++) {
     for (let c = 0; c < 3; c++) {
-      const contact = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.08, 0.018), matGold);
-      contact.position.set(-0.26 + c * 0.22, 0.02 + r * 0.24, 0.042);
+      const contact = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.07, 0.016), matGold);
+      contact.position.set(-0.26 + c * 0.22, -0.02 + r * 0.20, 0.042);
       subPcbGroup.add(contact);
     }
   }
 
-  // Hirose BM28-40P Gold BTB connector linking up to Motherboard right spine + 50-Ohm RF Spring Fingers
-  const btbTop = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.16, 0.052), matGold);
-  btbTop.position.set(0.18, 0.62, -0.058);
+  const btbTop = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.14, 0.050), matGold);
+  btbTop.position.set(0.18, 0.42, -0.058);
   subPcbGroup.add(btbTop);
   [-0.44, -0.26].forEach((rx) => {
-    const antSpring = new THREE.Mesh(new THREE.BoxGeometry(0.10, 0.18, 0.058), matGold);
-    antSpring.position.set(rx, 0.60, -0.056);
+    const antSpring = new THREE.Mesh(new THREE.BoxGeometry(0.10, 0.16, 0.052), matGold);
+    antSpring.position.set(rx, 0.40, -0.056);
     subPcbGroup.add(antSpring);
   });
 
@@ -502,8 +489,6 @@ export function buildUsbcSystem(textures) {
 
 /**
  * 4. TOP FRONT PUNCH-HOLE SELFIE CAMERA (SONY IMX615 32MP 5P STACK) + EARPIECE + TOP ANC MIC
- *    5P Optical Stack -> Mini Dichroic IR Filter -> Sony IMX615 CMOS Sensor + 24P Flex ->
- *    Top Earpiece Acoustic Micro-Driver, Knowles SPH0655LM4H-1 Top ANC Mic & ams TCS3701 IR Optics.
  */
 export function buildSelfieSystem(textures) {
   const root = new THREE.Group();
@@ -557,75 +542,71 @@ export function buildSelfieSystem(textures) {
   const matGold = new THREE.MeshStandardMaterial({ color: 0xe0b85e, metalness: 0.96, roughness: 0.16 });
   const matFlex = new THREE.MeshStandardMaterial({ color: 0x221b14, metalness: 0.40, roughness: 0.36 });
 
-  // 4A. Sony IMX615 32MP Front Selfie 5P Aspherical Optical Stack (explodes forward along +Z!)
+  // 4A. Sony IMX615 32MP Front Selfie 5P Aspherical Optical Stack (strictly non-overlapping Z strata!)
   const miniLenses = [
-    { z: 0.19, ex: 2.25, r: 0.164, sag: 0.030 },
-    { z: 0.15, ex: 1.76, r: 0.150, sag: -0.022 },
-    { z: 0.11, ex: 1.28, r: 0.146, sag: 0.026 },
-    { z: 0.07, ex: 0.82, r: 0.142, sag: -0.018 },
-    { z: 0.03, ex: 0.40, r: 0.146, sag: 0.020 },
+    { z: 0.214, ex: 2.25, r: 0.164, sag: 0.012 },
+    { z: 0.170, ex: 1.76, r: 0.150, sag: -0.008 },
+    { z: 0.126, ex: 1.28, r: 0.146, sag: 0.010 },
+    { z: 0.082, ex: 0.82, r: 0.142, sag: -0.008 },
+    { z: 0.038, ex: 0.40, r: 0.146, sag: 0.010 },
   ];
   miniLenses.forEach((l) => {
     const grp = new THREE.Group();
     grp.position.z = l.z;
     const lens = new THREE.Mesh(
-      createOpticalLensGeometry({ radius: l.r, edgeThickness: 0.022, frontSag: -l.sag, backSag: l.sag }),
+      createOpticalLensGeometry({ radius: l.r, edgeThickness: 0.014, frontSag: -l.sag, backSag: l.sag }),
       matGlass
     );
-    const ring = new THREE.Mesh(createLensRingGeometry(l.r - 0.008, l.r + 0.032, 0.030, 0.004, 32), matDark);
+    const ring = new THREE.Mesh(createLensRingGeometry(l.r - 0.008, l.r + 0.030, 0.018, 0.003, 32), matDark);
     grp.add(lens, ring);
     root.add(grp);
     registerLayer(grp, [0, 0, l.ex]);
   });
 
-  // Mini AGC Blue-Glass IR-Cut Filter for Sony IMX615
-  const selfieIr = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.36, 0.014), matIr);
-  selfieIr.position.z = 0.002;
+  // Mini AGC Blue-Glass IR-Cut Filter for Sony IMX615 (local [-0.006..+0.006])
+  const selfieIr = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.36, 0.012), matIr);
+  selfieIr.position.z = 0.000;
   root.add(selfieIr);
   registerLayer(selfieIr, [0, 0, 0.06]);
 
-  // Sony IMX615 32MP Quad-Bayer CMOS Sensor Package + Gold Seal Ring + 24P Hirose Flex (routed clear of MB & rib!)
+  // Sony IMX615 32MP Quad-Bayer CMOS Sensor Package + Gold Seal Ring + 24P Hirose Flex
   const selfieSensor = new THREE.Group();
-  selfieSensor.position.z = -0.048;
-  selfieSensor.add(new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.46, 0.050), matDark));
-  const selfieDie = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.32, 0.016), matCmos);
-  selfieDie.position.z = 0.030;
-  const selfieSeal = new THREE.Mesh(createLensRingGeometry(0.18, 0.21, 0.010, 0.002, 24), matGold);
-  selfieSeal.position.z = 0.028;
-  // Short horizontal Kapton flex tail & gold 24P BTB sitting cleanly in the top clearance bay (Y > 71.5mm, above MB!)
+  selfieSensor.position.z = -0.056;
+  selfieSensor.add(new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.46, 0.044), matDark));
+  const selfieDie = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.32, 0.014), matCmos);
+  selfieDie.position.z = 0.028;
+  const selfieSeal = new THREE.Mesh(createLensRingGeometry(0.18, 0.21, 0.008, 0.002, 24), matGold);
+  selfieSeal.position.z = 0.026;
   const selfieFlex = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.16, 0.012), matFlex);
-  selfieFlex.position.set(0.38, 0.22, -0.01);
-  const selfieBtb = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.20, 0.028), matGold);
-  selfieBtb.position.set(0.62, 0.22, -0.012);
+  selfieFlex.position.set(0.38, 0.34, -0.01);
+  const selfieBtb = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.18, 0.026), matGold);
+  selfieBtb.position.set(0.62, 0.34, -0.012);
   selfieSensor.add(selfieDie, selfieSeal, selfieFlex, selfieBtb);
   root.add(selfieSensor);
   registerLayer(selfieSensor, [0, 0, -0.38]);
 
   // 4B. Top Linear Earpiece Micro-Speaker + Knowles SPH0655LM4H-1 Top ANC Mic + ams TCS3701 IR Bar
-  //     Seated strictly inside the milled top midframe cutout (Y: 7.22..7.44 < top rail 7.50!)
   const earCover = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(1.74, 0.18, 0.05), 0.036, { bevelSize: 0.005, bevelThickness: 0.005 }),
+    extrudePlate(createRoundedRectShape(1.74, 0.16, 0.05), 0.032, { bevelSize: 0.004, bevelThickness: 0.004 }),
     matSteel
   );
-  earCover.position.set(0, 0.28, 0.16);
+  earCover.position.set(0, 0.32, 0.17);
   root.add(earCover);
   registerLayer(earCover, [0, 0.42, 1.45]);
 
   const earDriver = new THREE.Group();
-  earDriver.position.set(0, 0.28, 0.06);
-  earDriver.add(new THREE.Mesh(new THREE.BoxGeometry(1.58, 0.14, 0.056), matDark));
-  const earCoil = new THREE.Mesh(new THREE.BoxGeometry(1.08, 0.09, 0.036), matCopper);
+  earDriver.position.set(0, 0.32, 0.07);
+  earDriver.add(new THREE.Mesh(new THREE.BoxGeometry(1.58, 0.13, 0.052), matDark));
+  const earCoil = new THREE.Mesh(new THREE.BoxGeometry(1.08, 0.08, 0.032), matCopper);
   earCoil.position.z = 0.036;
   earDriver.add(earCoil);
-  // Top ANC Digital PDM MEMS Microphone (Knowles SPH0655LM4H-1 gold can) right of earpiece
-  const topAncMic = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.16, 0.058), matGold);
-  topAncMic.position.set(1.08, 0.0, 0.02);
+  const topAncMic = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.15, 0.052), matGold);
+  topAncMic.position.set(1.06, 0.0, 0.02);
   earDriver.add(topAncMic);
-  // Twin ams OSRAM TCS3701 ALS & SFH 4059 940nm IR Call-Proximity optical domes flanking selfie
   [-0.64, 0.64].forEach((px) => {
-    const diode = new THREE.Mesh(new THREE.CylinderGeometry(0.058, 0.058, 0.044, 16), matGlass);
+    const diode = new THREE.Mesh(new THREE.CylinderGeometry(0.056, 0.056, 0.042, 16), matGlass);
     diode.rotation.x = Math.PI / 2;
-    diode.position.set(px, -0.24, 0.05);
+    diode.position.set(px, -0.26, 0.05);
     earDriver.add(diode);
   });
   root.add(earDriver);

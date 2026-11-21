@@ -63,12 +63,12 @@ export function buildDisplaySystem(textures) {
     iridescenceIOR: 1.38,
   });
   const coverGlass = new THREE.Mesh(
-    extrudePlate(coverGlassShape, 0.044, { bevelSize: 0.024, bevelThickness: 0.020, bevelSegments: 4 }),
+    extrudePlate(coverGlassShape, 0.060, { bevelSize: 0.024, bevelThickness: 0.022, bevelSegments: 4 }),
     matCoverGlass
   );
   glassGroup.add(coverGlass);
 
-  // Ultra-slim matte obsidian perimeter bezel border printed inside cover glass (strictly above rail Z=+0.376!)
+  // Ultra-slim matte obsidian perimeter bezel border printed inside cover glass (strictly above rail Z=+0.398!)
   const bezelShape = createRoundedRectShape(W - 0.03, H - 0.03, R - 0.015);
   bezelShape.holes.push(createRoundedRectHole(W - 0.28, H - 0.28, R - 0.13));
   const matBezelMask = new THREE.MeshStandardMaterial({
@@ -80,13 +80,13 @@ export function buildDisplaySystem(textures) {
     extrudePlate(bezelShape, 0.006, { bevelSize: 0, bevelThickness: 0 }),
     matBezelMask
   );
-  bezelMask.position.z = -0.024;
+  bezelMask.position.z = -0.034;
   glassGroup.add(bezelMask);
 
   // Clean subtle punch-hole camera mask ring at top-center
   const punchRingGeo = new THREE.RingGeometry(punchR * 0.82, punchR * 1.18, 36);
   const punchRing = new THREE.Mesh(punchRingGeo, matBezelMask);
-  punchRing.position.set(0, punchY, -0.023);
+  punchRing.position.set(0, punchY, -0.033);
   glassGroup.add(punchRing);
 
   root.add(glassGroup);
@@ -94,12 +94,12 @@ export function buildDisplaySystem(textures) {
 
   // =========================================================================
   // 2. OCA OPTICAL BOND + CAPACITIVE TOUCH DIGITIZER COPPER/ITO MICRO-MESH
-  //    Sized strictly inside CNC titanium rail inner aperture (6.72 x 14.96)
+  //    Sized strictly inside CNC titanium rail inner aperture
   // =========================================================================
   const touchGroup = new THREE.Group();
   touchGroup.position.z = Z_STACK.DISPLAY_TOUCH - anchorZ;
 
-  const touchShape = createRoundedRectShape(W - 0.34, H - 0.34, R - 0.16);
+  const touchShape = createRoundedRectShape(W - 0.36, H - 0.36, R - 0.17);
   touchShape.holes.push(createCircleHole(punchR * 1.05, 0, punchY));
 
   const matTouchLayer = new THREE.MeshPhysicalMaterial({
@@ -127,7 +127,7 @@ export function buildDisplaySystem(textures) {
   const polarGroup = new THREE.Group();
   polarGroup.position.z = Z_STACK.DISPLAY_POLAR - anchorZ;
 
-  const polarShape = createRoundedRectShape(W - 0.36, H - 0.36, R - 0.17);
+  const polarShape = createRoundedRectShape(W - 0.38, H - 0.38, R - 0.18);
   polarShape.holes.push(createCircleHole(punchR * 1.05, 0, punchY));
 
   const matPolarizer = new THREE.MeshPhysicalMaterial({
@@ -157,7 +157,7 @@ export function buildDisplaySystem(textures) {
   const oledGroup = new THREE.Group();
   oledGroup.position.z = 0;
 
-  const oledShape = createRoundedRectShape(W - 0.38, H - 0.38, R - 0.18);
+  const oledShape = createRoundedRectShape(W - 0.40, H - 0.40, R - 0.19);
   oledShape.holes.push(createCircleHole(punchR * 1.06, 0, punchY));
 
   const matOled = new THREE.MeshPhysicalMaterial({
@@ -170,7 +170,7 @@ export function buildDisplaySystem(textures) {
     iridescence: 0.26,
   });
   const oledMesh = new THREE.Mesh(
-    extrudePlate(oledShape, 0.012, { bevelSize: 0.002, bevelThickness: 0.002 }),
+    extrudePlate(oledShape, 0.014, { bevelSize: 0.002, bevelThickness: 0.002 }),
     matOled
   );
   oledGroup.add(oledMesh);
@@ -183,7 +183,7 @@ export function buildDisplaySystem(textures) {
   const tftGroup = new THREE.Group();
   tftGroup.position.z = Z_STACK.DISPLAY_TFT - anchorZ;
 
-  const tftShape = createRoundedRectShape(W - 0.40, H - 0.40, R - 0.19);
+  const tftShape = createRoundedRectShape(W - 0.42, H - 0.42, R - 0.20);
   tftShape.holes.push(createCircleHole(punchR * 1.12, 0, punchY));
 
   const matTft = new THREE.MeshPhysicalMaterial({
@@ -199,25 +199,24 @@ export function buildDisplaySystem(textures) {
   );
   tftGroup.add(tftMesh);
 
-  // Delicate metallic gate/source busbars along left & right edges of TFT glass
   const matBusGold = new THREE.MeshStandardMaterial({ color: 0xcfa452, metalness: 0.94, roughness: 0.22 });
-  const sideBusGeo = new THREE.BoxGeometry(0.07, H - 1.8, 0.014);
+  const sideBusGeo = new THREE.BoxGeometry(0.07, H - 1.8, 0.012);
   const busL = new THREE.Mesh(sideBusGeo, matBusGold);
-  busL.position.set(-(W - 0.56) / 2, 0, 0);
+  busL.position.set(-(W - 0.58) / 2, 0, 0);
   const busR = new THREE.Mesh(sideBusGeo, matBusGold);
-  busR.position.set(+(W - 0.56) / 2, 0, 0);
+  busR.position.set(+(W - 0.58) / 2, 0, 0);
   tftGroup.add(busL, busR);
 
   // Folded COF (Chip-On-Film) Amber-Copper Display Driver Ribbon:
-  // Novatek NT37705 LTPO DDIC + Goodix GT9916S 240Hz Touch IC + 40-Pin Hirose BM28 Gold BTB!
+  // Novatek NT37705 LTPO DDIC + Goodix GT9916S 240Hz Touch IC + 40-Pin Hirose BM28 Gold BTB (Z: +0.319..+0.335, clear of foil +0.315!)
   const matCofAmber = new THREE.MeshStandardMaterial({ color: 0xb8732a, metalness: 0.65, roughness: 0.30 });
   const matIcDark = new THREE.MeshStandardMaterial({ color: 0x1a1e25, metalness: 0.38, roughness: 0.44 });
-  const cofFilm = new THREE.Mesh(new THREE.BoxGeometry(3.60, 0.78, 0.010), matCofAmber);
+  const cofFilm = new THREE.Mesh(new THREE.BoxGeometry(3.60, 0.78, 0.008), matCofAmber);
   cofFilm.position.set(0, -H / 2 + 0.68, -0.010);
   tftGroup.add(cofFilm);
 
   const ddicChip = new THREE.Mesh(
-    new THREE.BoxGeometry(2.15, 0.18, 0.018),
+    new THREE.BoxGeometry(2.15, 0.18, 0.014),
     new THREE.MeshPhysicalMaterial({
       color: 0x263242,
       metalness: 0.88,
@@ -225,15 +224,15 @@ export function buildDisplaySystem(textures) {
       iridescence: 0.65,
     })
   );
-  ddicChip.position.set(-0.22, -H / 2 + 0.62, -0.018);
+  ddicChip.position.set(-0.22, -H / 2 + 0.62, -0.016);
   tftGroup.add(ddicChip);
 
-  const touchIc = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.46, 0.020), matIcDark);
-  touchIc.position.set(1.24, -H / 2 + 0.64, -0.019);
+  const touchIc = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.46, 0.014), matIcDark);
+  touchIc.position.set(1.24, -H / 2 + 0.64, -0.016);
   tftGroup.add(touchIc);
 
-  const dispBtb = new THREE.Mesh(new THREE.BoxGeometry(0.84, 0.18, 0.022), matBusGold);
-  dispBtb.position.set(0.32, -H / 2 + 0.94, -0.020);
+  const dispBtb = new THREE.Mesh(new THREE.BoxGeometry(0.84, 0.18, 0.014), matBusGold);
+  dispBtb.position.set(0.32, -H / 2 + 0.94, -0.016);
   tftGroup.add(dispBtb);
 
   root.add(tftGroup);
@@ -245,10 +244,10 @@ export function buildDisplaySystem(textures) {
   const shieldGroup = new THREE.Group();
   shieldGroup.position.z = Z_STACK.DISPLAY_SHIELD - anchorZ;
 
-  const foilShape = createRoundedRectShape(W - 0.44, H - 0.46, R - 0.20);
+  const foilShape = createRoundedRectShape(W - 0.46, H - 0.48, R - 0.21);
   foilShape.holes.push(createCircleHole(punchR * 1.3, 0, punchY));
-  foilShape.holes.push(createRoundedRectHole(0.44, 0.24, 0.05, 0.72, punchY + 0.04));
-  foilShape.holes.push(createRoundedRectHole(1.16, 1.16, 0.10, 0, fpY));
+  foilShape.holes.push(createRoundedRectHole(0.48, 0.26, 0.05, 0.72, punchY + 0.04));
+  foilShape.holes.push(createRoundedRectHole(1.18, 1.18, 0.10, 0, fpY));
 
   const matCopperFoil = new THREE.MeshStandardMaterial({
     color: 0xc97644,
@@ -266,33 +265,34 @@ export function buildDisplaySystem(textures) {
   // Under-OLED ams OSRAM TCS3701 Ambient Light / Call-Proximity + SFH 4059 940nm IR Emitter Module!
   const alsGroup = new THREE.Group();
   alsGroup.position.set(0.72, punchY + 0.04, Z_STACK.DISPLAY_SHIELD - anchorZ);
-  alsGroup.add(new THREE.Mesh(new THREE.BoxGeometry(0.40, 0.20, 0.016), matIcDark));
+  alsGroup.add(new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.18, 0.014), matIcDark));
   const alsDie = new THREE.Mesh(
-    new THREE.BoxGeometry(0.14, 0.12, 0.012),
+    new THREE.BoxGeometry(0.14, 0.12, 0.010),
     new THREE.MeshPhysicalMaterial({ color: 0x2c4b74, metalness: 0.85, roughness: 0.14, iridescence: 0.8 })
   );
-  alsDie.position.set(-0.08, 0, 0.010);
+  alsDie.position.set(-0.08, 0, 0.009);
   const irEmit = new THREE.Mesh(
-    new THREE.BoxGeometry(0.11, 0.11, 0.012),
+    new THREE.BoxGeometry(0.11, 0.11, 0.010),
     new THREE.MeshPhysicalMaterial({ color: 0x56162c, metalness: 0.55, roughness: 0.12, iridescence: 0.7 })
   );
-  irEmit.position.set(0.09, 0, 0.010);
+  irEmit.position.set(0.09, 0, 0.009);
   alsGroup.add(alsDie, irEmit);
   root.add(alsGroup);
   registerLayer(alsGroup, [0, 0.18, -1.62]);
 
   // Independent Under-Display Goodix GM2 Ultrasonic 3D Fingerprint Sensor Module
+  // Housing sits cleanly inside milled 1.18x1.18 copper window; flex/BTB route on -Z side (Z=+0.290..+0.298, clear of foil +0.301 and graphite +0.286!)
   const fpGroup = new THREE.Group();
   fpGroup.position.set(0, fpY, Z_STACK.DISPLAY_SHIELD - anchorZ);
 
   const fpHousing = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(1.06, 1.06, 0.08), 0.018, { bevelSize: 0.003, bevelThickness: 0.003 }),
+    extrudePlate(createRoundedRectShape(1.04, 1.04, 0.08), 0.016, { bevelSize: 0.002, bevelThickness: 0.002 }),
     matIcDark
   );
   fpGroup.add(fpHousing);
 
   const fpPiezo = new THREE.Mesh(
-    new THREE.BoxGeometry(0.84, 0.84, 0.010),
+    new THREE.BoxGeometry(0.84, 0.84, 0.008),
     new THREE.MeshPhysicalMaterial({
       color: 0x3a526e,
       metalness: 0.82,
@@ -300,19 +300,19 @@ export function buildDisplaySystem(textures) {
       iridescence: 0.78,
     })
   );
-  fpPiezo.position.z = 0.010;
+  fpPiezo.position.z = 0.009;
   fpGroup.add(fpPiezo);
 
   for (let r = 0.12; r <= 0.36; r += 0.08) {
     const ring = new THREE.Mesh(new THREE.RingGeometry(r, r + 0.018, 32), matBusGold);
-    ring.position.z = 0.016;
+    ring.position.z = 0.015;
     fpGroup.add(ring);
   }
 
-  const fpFlex = new THREE.Mesh(new THREE.BoxGeometry(0.24, 1.45, 0.008), matCofAmber);
-  fpFlex.position.set(0, -1.12, -0.006);
-  const fpBtb = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.14, 0.018), matBusGold);
-  fpBtb.position.set(0, -1.80, -0.008);
+  const fpFlex = new THREE.Mesh(new THREE.BoxGeometry(0.24, 1.45, 0.006), matCofAmber);
+  fpFlex.position.set(0, -1.12, -0.012);
+  const fpBtb = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.14, 0.008), matBusGold);
+  fpBtb.position.set(0, -1.80, -0.014);
   fpGroup.add(fpFlex, fpBtb);
 
   root.add(fpGroup);

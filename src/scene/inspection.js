@@ -67,7 +67,9 @@ function isPointInExtrudeProfile(lx, ly, profile) {
 }
 
 /**
- * Extract world-space solid collision entries for every mesh (including per-instance InstancedMeshes).
+ * Extract world-space solid collision entries for every mesh (including per-instance InstancedMeshes),
+ * tagging each mesh with both its moduleId and its distinct sub-assembly layerId so BOTH inter-module
+ * and intra-module (e.g., SoC vs mezzanine, lens vs lens, coil vs rear glass) collisions are caught!
  */
 function collectSolidEntries(assemblies) {
   const entries = [];
@@ -78,9 +80,25 @@ function collectSolidEntries(assemblies) {
     asm.root.updateWorldMatrix(true, true);
     let meshIdx = 0;
 
+    // Determine the logical rigid sub-assembly ancestor for any mesh inside an assembly
+    const getLayerKey = (obj) => {
+      let cur = obj;
+      const chain = [];
+      while (cur && cur !== asm.root) {
+        if (cur.userData?.layerKey) {
+          return `${asm.id}:${cur.userData.layerKey}`;
+        }
+        chain.push(cur);
+        cur = cur.parent;
+      }
+      if (!chain.length) return `${asm.id}:root`;
+      const topChild = chain[chain.length - 1];
+      const topIdx = asm.root.children.indexOf(topChild);
+      return `${asm.id}:L${topIdx}`;
+    };
+
     asm.root.traverse((obj) => {
       if (!obj.isMesh || !obj.geometry) return;
-      if (obj.userData?.ignoreCollision) return;
       meshIdx += 1;
       const geo = obj.geometry;
       if (!geo.boundingBox) geo.computeBoundingBox();
@@ -88,6 +106,7 @@ function collectSolidEntries(assemblies) {
       if (!baseBox || baseBox.isEmpty()) return;
 
       const label = obj.name || `${asm.id}_mesh_${meshIdx}`;
+      const layerId = getLayerKey(obj);
 
       if (obj.isInstancedMesh) {
         for (let i = 0; i < obj.count; i++) {
@@ -96,6 +115,7 @@ function collectSolidEntries(assemblies) {
           const box = baseBox.clone().applyMatrix4(worldMat);
           entries.push({
             moduleId: asm.id,
+            layerId,
             label: `${label}[${i}]`,
             mesh: obj,
             box,
@@ -109,11 +129,13 @@ function collectSolidEntries(assemblies) {
       const box = baseBox.clone().applyMatrix4(obj.matrixWorld);
       entries.push({
         moduleId: asm.id,
+        layerId,
         label,
         mesh: obj,
         box,
         invWorld: obj.matrixWorld.clone().invert(),
         profile: geo.userData?.extrudeProfile || null,
+        annular: geo.userData?.annularRing || null,
       });
     });
   });
@@ -121,8 +143,13 @@ function collectSolidEntries(assemblies) {
   return entries;
 }
 
+function isPointInAnnular(lx, ly, ann) {
+  const r2 = lx * lx + ly * ly;
+  return r2 >= ann.innerR * ann.innerR && r2 <= ann.outerR * ann.outerR;
+}
+
 /**
- * Test if two entries actually overlap in solid 3D volume (accounting for extruded plate holes/shapes).
+ * Test if two entries actually overlap in solid 3D volume (accounting for extruded plate holes/shapes and annular ring bores).
  */
 function computeRealIntersection(a, b) {
   const minX = Math.max(a.box.min.x, b.box.min.x);
@@ -140,9 +167,7 @@ function computeRealIntersection(a, b) {
   const ovZ = maxZ - minZ;
   if (ovZ <= EPS_UNITS) return null;
 
-  // If either mesh is an extruded plate with cutouts or non-rectangular contour (L-shape, frame ring, cutouts),
-  // verify solid XY overlap by sampling the overlap region in both local coordinate spaces!
-  if (a.profile || b.profile) {
+  if (a.profile || b.profile || a.annular || b.annular) {
     const p = new THREE.Vector3();
     const la = new THREE.Vector3();
     const lb = new THREE.Vector3();
@@ -157,13 +182,15 @@ function computeRealIntersection(a, b) {
         const wy = minY + ((iy + 0.5) / steps) * ovY;
         p.set(wx, wy, midZ);
 
-        if (a.profile) {
+        if (a.profile || a.annular) {
           la.copy(p).applyMatrix4(a.invWorld);
-          if (!isPointInExtrudeProfile(la.x, la.y, a.profile)) continue;
+          if (a.profile && !isPointInExtrudeProfile(la.x, la.y, a.profile)) continue;
+          if (a.annular && !isPointInAnnular(la.x, la.y, a.annular)) continue;
         }
-        if (b.profile) {
+        if (b.profile || b.annular) {
           lb.copy(p).applyMatrix4(b.invWorld);
-          if (!isPointInExtrudeProfile(lb.x, lb.y, b.profile)) continue;
+          if (b.profile && !isPointInExtrudeProfile(lb.x, lb.y, b.profile)) continue;
+          if (b.annular && !isPointInAnnular(lb.x, lb.y, b.annular)) continue;
         }
         solidHits++;
         if (wx < hitMinX) hitMinX = wx;
@@ -175,7 +202,6 @@ function computeRealIntersection(a, b) {
 
     if (solidHits === 0) return null;
 
-    // Refine reported overlap bounds to actual solid-hit extent
     const cellX = ovX / steps;
     const cellY = ovY / steps;
     const rMinX = Math.max(minX, hitMinX - cellX * 0.5);
@@ -212,9 +238,9 @@ export function createInspectionSystem({ renderer, scene, phoneGroup, assemblies
 
   // Shared clipping planes (X, Y, Z in world units; 1 unit = 10 mm)
   const sliceState = {
-    x: { enabled: false, mm: 0.0, dir: -1, min: -37.0, max: 37.0, step: 0.1 },
-    y: { enabled: false, mm: 0.0, dir: -1, min: -78.5, max: 78.5, step: 0.1 },
-    z: { enabled: false, mm: 0.0, dir: -1, min: -7.5, max: 5.0, step: 0.05 },
+    x: { enabled: false, mm: 0.0, dir: -1, min: -40.0, max: 40.0, step: 0.1 },
+    y: { enabled: false, mm: 0.0, dir: -1, min: -83.0, max: 83.0, step: 0.1 },
+    z: { enabled: false, mm: 0.0, dir: -1, min: -9.0, max: 5.2, step: 0.05 },
   };
 
   const planes = {
@@ -397,15 +423,16 @@ export function createInspectionSystem({ renderer, scene, phoneGroup, assemblies
       }
     });
 
-    // 2. Solid-vs-Solid inter-module physical interference detection
+    // 2. Solid-vs-Solid Inter-Module AND Intra-Module Layer-vs-Layer Interference Detection (ZERO exclusions!)
     const entries = collectSolidEntries(assemblies);
     const interferences = [];
+    const intraInterferences = [];
 
     for (let i = 0; i < entries.length; i++) {
       const a = entries[i];
       for (let j = i + 1; j < entries.length; j++) {
         const b = entries[j];
-        if (a.moduleId === b.moduleId) continue;
+        if (a.layerId === b.layerId) continue;
 
         const inter = computeRealIntersection(a, b);
         if (!inter) continue;
@@ -415,10 +442,13 @@ export function createInspectionSystem({ renderer, scene, phoneGroup, assemblies
         const overlapZmm = round3(inter.ovZ * MM_PER_UNIT);
         const minPenetrationMm = round3(Math.min(overlapXmm, overlapYmm, overlapZmm));
 
-        interferences.push({
+        const record = {
+          scope: a.moduleId === b.moduleId ? 'intra' : 'inter',
           aModule: a.moduleId,
+          aLayer: a.layerId,
           aPart: a.label,
           bModule: b.moduleId,
+          bLayer: b.layerId,
           bPart: b.label,
           overlapXmm,
           overlapYmm,
@@ -434,14 +464,18 @@ export function createInspectionSystem({ renderer, scene, phoneGroup, assemblies
             round3(inter.max.y * MM_PER_UNIT),
             round3(inter.max.z * MM_PER_UNIT),
           ],
-        });
+        };
+        interferences.push(record);
+        if (record.scope === 'intra') intraInterferences.push(record);
       }
     }
 
-    // Group pair summary by module pair for concise diagnostics
+    // Group pair summary by module pair
     const byPair = {};
     interferences.forEach((it) => {
-      const key = [it.aModule, it.bModule].sort().join(' <-> ');
+      const key = it.scope === 'intra'
+        ? `[INTRA] ${it.aModule} (${it.aLayer} <-> ${it.bLayer})`
+        : [it.aModule, it.bModule].sort().join(' <-> ');
       if (!byPair[key]) {
         byPair[key] = { count: 0, maxPenetrationMm: 0, maxOverlapZmm: 0 };
       }
@@ -456,6 +490,23 @@ export function createInspectionSystem({ renderer, scene, phoneGroup, assemblies
 
     interferences.sort((u, v) => v.minPenetrationMm - u.minPenetrationMm);
 
+    // 3. Physical Anti-Squash Plausibility Checks (Real Commercial Smartphone Engineering Limits!)
+    const batB = moduleBounds.battery;
+    // Actual cell pouch footprint excludes upper flex ribbon tail slightly; use conservative pouch Box3 volume
+    const batVolCm3 = round3((batB.sizeXmm * batB.sizeYmm * batB.sizeZmm) / 1000);
+    const batWh = 23.22; // 6000mAh * 3.87V
+    const batWhPerL = round3(batWh / (batVolCm3 / 1000));
+    const physicalChecks = {
+      batterySizeMm: `${batB.sizeXmm.toFixed(2)} x ${batB.sizeYmm.toFixed(2)} x ${batB.sizeZmm.toFixed(2)}`,
+      batteryVolumeCm3: batVolCm3,
+      batteryImpliedWhPerL: batWhPerL,
+      batteryRealisticSiC: batWhPerL <= 860, // 2026 flagship 10% Si-C pack ceiling ~850 Wh/L
+      displayThicknessMm: moduleBounds.display.sizeZmm,
+      coolingThicknessMm: moduleBounds.cooling.sizeZmm,
+      motherboardStackThicknessMm: moduleBounds.motherboard.sizeZmm,
+      wirelessRearThicknessMm: moduleBounds.wireless.sizeZmm,
+    };
+
     const report = {
       bodyWidthMm: round3((bodyBox.max.x - bodyBox.min.x) * MM_PER_UNIT),
       bodyHeightMm: round3((bodyBox.max.y - bodyBox.min.y) * MM_PER_UNIT),
@@ -464,6 +515,9 @@ export function createInspectionSystem({ renderer, scene, phoneGroup, assemblies
       cameraProtrusionMm: round3((bodyBox.min.z - fullBox.min.z) * MM_PER_UNIT),
       totalCheckedMeshes: entries.length,
       interferenceCount: interferences.length,
+      interModuleCount: interferences.length - intraInterferences.length,
+      intraModuleCount: intraInterferences.length,
+      physicalChecks,
       pairSummary: byPair,
       moduleBounds,
       interferences: interferences.slice(0, 200),
@@ -492,19 +546,19 @@ export function createInspectionSystem({ renderer, scene, phoneGroup, assemblies
     <div class="slice-body" id="slice-body">
       <div class="slice-row">
         <label class="slice-chk"><input type="checkbox" id="slice-x-en" /><span>X</span></label>
-        <input type="range" id="slice-x-val" min="-37" max="37" step="0.1" value="0" />
+        <input type="range" id="slice-x-val" min="-40" max="40" step="0.1" value="0" />
         <span class="slice-mm" id="slice-x-mm">0.0 mm</span>
         <button type="button" class="slice-flip" id="slice-x-dir" title="Flip side">±</button>
       </div>
       <div class="slice-row">
         <label class="slice-chk"><input type="checkbox" id="slice-y-en" /><span>Y</span></label>
-        <input type="range" id="slice-y-val" min="-78.5" max="78.5" step="0.1" value="0" />
+        <input type="range" id="slice-y-val" min="-83" max="83" step="0.1" value="0" />
         <span class="slice-mm" id="slice-y-mm">0.0 mm</span>
         <button type="button" class="slice-flip" id="slice-y-dir" title="Flip side">±</button>
       </div>
       <div class="slice-row">
         <label class="slice-chk"><input type="checkbox" id="slice-z-en" /><span>Z</span></label>
-        <input type="range" id="slice-z-val" min="-7.5" max="5.0" step="0.05" value="0" />
+        <input type="range" id="slice-z-val" min="-9.0" max="5.2" step="0.05" value="0" />
         <span class="slice-mm" id="slice-z-mm">0.00 mm</span>
         <button type="button" class="slice-flip" id="slice-z-dir" title="Flip side">±</button>
       </div>

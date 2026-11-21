@@ -156,6 +156,7 @@ export function createOpticalLensGeometry({
   const geo = new THREE.LatheGeometry(pts, circumSegments);
   geo.rotateX(Math.PI / 2);
   geo.computeVertexNormals();
+  geo.userData.annularRing = { innerR: 0, outerR: radius };
   return geo;
 }
 
@@ -177,6 +178,7 @@ export function createLensRingGeometry(innerR, outerR, height, bevel = 0.012, se
   const geo = new THREE.LatheGeometry(pts, segments);
   geo.rotateX(Math.PI / 2);
   geo.computeVertexNormals();
+  geo.userData.annularRing = { innerR, outerR };
   return geo;
 }
 

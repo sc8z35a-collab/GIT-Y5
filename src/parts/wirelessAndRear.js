@@ -111,12 +111,12 @@ export function buildWirelessAndRearSystem(textures) {
   registerLayer(coilGroup, [0, 0, 0.35]);
 
   // =========================================================================
-  // 3. ETCHED COPPER NFC LOOP ANTENNA (UPPER-RIGHT REAR PERIMETER)
+  // 3. ETCHED COPPER NFC LOOP ANTENNA (UPPER-RIGHT REAR PERIMETER, strictly clear of camera bay -0.31!)
   // =========================================================================
   const nfcGroup = new THREE.Group();
-  nfcGroup.position.set(1.10, 4.45, Z_STACK.WIRELESS_NFC - anchorZ);
+  nfcGroup.position.set(1.42, 4.45, Z_STACK.WIRELESS_NFC - anchorZ);
   for (let i = 0; i < 3; i++) {
-    const w = 3.20 - i * 0.14;
+    const w = 2.84 - i * 0.14;
     const h = 2.65 - i * 0.14;
     const loopShape = createRoundedRectShape(w, h, 0.28 - i * 0.03);
     loopShape.holes.push(createRoundedRectHole(w - 0.05, h - 0.05, 0.24 - i * 0.03));
@@ -158,7 +158,7 @@ export function buildWirelessAndRearSystem(textures) {
   registerLayer(magGroup, [0, 0, -1.12]);
 
   // =========================================================================
-  // 5. MATTE MICRO-TEXTURED CERAMIC REAR GLASS (Z: [-0.440 .. -0.384], flush behind titanium rail!)
+  // 5. MATTE MICRO-TEXTURED CERAMIC REAR GLASS (REAL 0.72mm: [-0.470 .. -0.398], flush behind titanium rail!)
   // =========================================================================
   const rearGroup = new THREE.Group();
   rearGroup.position.z = Z_STACK.REAR_GLASS - anchorZ;
@@ -178,7 +178,7 @@ export function buildWirelessAndRearSystem(textures) {
   );
 
   const rearMesh = new THREE.Mesh(
-    extrudePlate(rearShape, 0.056, {
+    extrudePlate(rearShape, 0.072, {
       bevelSize: 0.022,
       bevelThickness: 0.020,
       bevelSegments: 4,
@@ -189,14 +189,14 @@ export function buildWirelessAndRearSystem(textures) {
   );
   rearGroup.add(rearMesh);
 
-  // Waterproof seal gasket seated cleanly inside rear glass perimeter & rail bore (Z: [-0.382..-0.376])
-  const sealShape = createRoundedRectShape(rearW - 0.42, rearH - 0.42, rearR - 0.20);
-  sealShape.holes.push(createRoundedRectHole(rearW - 0.56, rearH - 0.56, rearR - 0.26));
+  // Waterproof seal gasket seated cleanly inside rear glass perimeter & rail bore (Z: [-0.396..-0.388])
+  const sealShape = createRoundedRectShape(rearW - 0.44, rearH - 0.44, rearR - 0.21);
+  sealShape.holes.push(createRoundedRectHole(rearW - 0.58, rearH - 0.58, rearR - 0.27));
   const rearSeal = new THREE.Mesh(
-    extrudePlate(sealShape, 0.008, { bevelSize: 0, bevelThickness: 0 }),
+    extrudePlate(sealShape, 0.006, { bevelSize: 0, bevelThickness: 0 }),
     matFerrite
   );
-  rearSeal.position.z = 0.034;
+  rearSeal.position.z = 0.041;
   rearGroup.add(rearSeal);
 
   root.add(rearGroup);

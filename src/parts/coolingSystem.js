@@ -72,11 +72,11 @@ export function buildCoolingSystem(textures) {
     roughness: 0.42,
   });
 
-  // 1. Pyrolytic Multi-Layer Graphite Thermal Film
+  // 1. Pyrolytic Multi-Layer Graphite Thermal Film (0.12mm at +0.280 -> [+0.274..+0.286])
   const graphiteGroup = new THREE.Group();
   graphiteGroup.position.z = Z_STACK.COOLING_GRAPHITE - anchorZ;
   const graphiteMesh = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(6.28, 11.45, 0.36), 0.013, { bevelSize: 0.002, bevelThickness: 0.002 }),
+    extrudePlate(createRoundedRectShape(6.28, 11.45, 0.36), 0.012, { bevelSize: 0.002, bevelThickness: 0.002 }),
     matGraphite
   );
   graphiteMesh.position.set(-0.22, 0.08, 0);
@@ -84,43 +84,42 @@ export function buildCoolingSystem(textures) {
   root.add(graphiteGroup);
   registerLayer(graphiteGroup, [0, 0, 2.45]);
 
-  // 2. Pure-Copper Vapor Chamber — Stamped Upper Sealed Lid (lifts off to reveal internal channels!)
+  // 2. Pure-Copper Vapor Chamber — Stamped Upper Sealed Lid (0.12mm at +0.264 -> [+0.258..+0.270])
   const vcTopGroup = new THREE.Group();
   vcTopGroup.position.z = Z_STACK.COOLING_VC_TOP - anchorZ;
   const vcShape = createVaporChamberShape();
   const vcTopMesh = new THREE.Mesh(
-    extrudePlate(vcShape, 0.017, { bevelSize: 0.008, bevelThickness: 0.006 }),
+    extrudePlate(vcShape, 0.012, { bevelSize: 0.005, bevelThickness: 0.004 }),
     matCopperShell
   );
   vcTopGroup.add(vcTopMesh);
   root.add(vcTopGroup);
   registerLayer(vcTopGroup, [0, 0, 1.05]);
 
-  // 3. Vapor Chamber Internal Sintered Copper Capillary Wick Mesh & 3D Micro-Support Pillars!
+  // 3. Vapor Chamber Internal Sintered Copper Capillary Wick Mesh & 3D Micro-Support Pillars (0.10mm at +0.248 -> [+0.243..+0.253])
   const vcWickGroup = new THREE.Group();
   vcWickGroup.position.z = 0;
 
   const wickPlate = new THREE.Mesh(
-    extrudePlate(vcShape, 0.014, { bevelSize: 0.002, bevelThickness: 0.002 }),
+    extrudePlate(vcShape, 0.010, { bevelSize: 0.001, bevelThickness: 0.001 }),
     matCopperWick
   );
   wickPlate.scale.set(0.95, 0.96, 1);
   vcWickGroup.add(wickPlate);
 
-  // Instanced 3D sintered copper structural micro-pillars inside the vapor cavity
-  const pillarGeo = new THREE.CylinderGeometry(0.052, 0.052, 0.018, 10);
+  const pillarGeo = new THREE.CylinderGeometry(0.052, 0.052, 0.010, 10);
   pillarGeo.rotateX(Math.PI / 2);
   const pillarCoords = [];
   for (let y = -4.0; y <= 4.8; y += 0.62) {
     for (let x = -2.4; x <= 2.0; x += 0.56) {
-      if (y > 1.5 && x < -0.5) continue; // respect upper-left camera cutout contour
+      if (y > 1.5 && x < -0.5) continue;
       pillarCoords.push([x, y]);
     }
   }
   const pillarInst = new THREE.InstancedMesh(pillarGeo, matCopperShell, pillarCoords.length);
   const dummy = new THREE.Object3D();
   pillarCoords.forEach(([px, py], i) => {
-    dummy.position.set(px, py, 0.002);
+    dummy.position.set(px, py, 0);
     dummy.updateMatrix();
     pillarInst.setMatrixAt(i, dummy.matrix);
   });
@@ -130,11 +129,11 @@ export function buildCoolingSystem(textures) {
   root.add(vcWickGroup);
   registerLayer(vcWickGroup, [0, 0, -0.22]);
 
-  // 4. Stamped Copper Vapor Chamber Lower Brazed Base Plate
+  // 4. Stamped Copper Vapor Chamber Lower Brazed Base Plate (0.12mm at +0.232 -> [+0.226..+0.238])
   const vcBotGroup = new THREE.Group();
   vcBotGroup.position.z = Z_STACK.COOLING_VC_BOT - anchorZ;
   const vcBotMesh = new THREE.Mesh(
-    extrudePlate(vcShape, 0.014, { bevelSize: 0.006, bevelThickness: 0.005 }),
+    extrudePlate(vcShape, 0.012, { bevelSize: 0.004, bevelThickness: 0.004 }),
     matCopperShell
   );
   vcBotGroup.add(vcBotMesh);

@@ -34,9 +34,9 @@ function createMezzanineShape() {
   const s = new THREE.Shape();
   s.moveTo(-1.55, 0.60);
   s.lineTo(1.44, 0.60);
-  s.lineTo(1.44, 3.97);
-  s.lineTo(-0.86, 3.97);
-  s.lineTo(-1.55, 3.75);
+  s.lineTo(1.44, 4.07);
+  s.lineTo(-0.98, 4.07);
+  s.lineTo(-1.55, 3.95);
   s.closePath();
   return s;
 }
@@ -361,9 +361,9 @@ export function buildMotherboardSystem(textures) {
   const root = new THREE.Group();
   root.name = 'motherboard';
 
-  const anchorX = 1.60;
-  const anchorY = 2.35;
-  const anchorZ = Z_STACK.INTERNAL_MID;
+  const anchorX = 1.76;
+  const anchorY = 2.85;
+  const anchorZ = 0.0;
   root.position.set(anchorX, anchorY, anchorZ);
 
   const layers = [];
@@ -440,10 +440,11 @@ export function buildMotherboardSystem(textures) {
   };
 
   // =========================================================================
-  // 1. PRIMARY 10-LAYER HDI MAINBOARD — TOP STRATUM (L1_TOP + 275 TOP REAL PARTS!)
+  // 1. PRIMARY 10-LAYER HDI MAINBOARD — TOP STRATUM (0.36mm lamina at Z = 0.000 -> [-0.018..+0.018])
+  //    Top parts face -Z (RK3588S2 1.15mm -> [-0.133 .. -0.018]!)
   // =========================================================================
   const mainTopGroup = new THREE.Group();
-  mainTopGroup.position.z = 0.040;
+  mainTopGroup.position.z = 0.000;
 
   const logicShape = createLogicBoardShape();
   const topPcbPlate = new THREE.Mesh(
@@ -452,19 +453,18 @@ export function buildMotherboardSystem(textures) {
   );
   mainTopGroup.add(topPcbPlate);
 
-  // Populate ALL real Mainboard Top components facing -Z (RK3588S2, LPDDR5X, RK806-1, 10 Bucks, 3x RK860, Chargers, Audio, USB-C!)
-  populateRealComponents(mainTopGroup, 'main', 'top', -0.018, -1, textures, materials);
+  populateRealComponents(mainTopGroup, 'main', 'top', -0.019, -1, textures, materials);
 
   // Dual Ultra-Fine 50-Ohm RF Micro-Coaxial Jumpers routing cleanly down the right spine!
   const makeCoax = (xOff, color) => {
     const curve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(1.56 + xOff, 1.85, -0.068),
-      new THREE.Vector3(1.58 + xOff, 0.15, -0.068),
-      new THREE.Vector3(1.57 + xOff, -2.60, -0.068),
-      new THREE.Vector3(1.55 + xOff, -6.45, -0.068),
+      new THREE.Vector3(1.56 + xOff, 1.85, -0.056),
+      new THREE.Vector3(1.58 + xOff, 0.15, -0.056),
+      new THREE.Vector3(1.57 + xOff, -2.60, -0.056),
+      new THREE.Vector3(1.55 + xOff, -6.45, -0.056),
     ]);
     return new THREE.Mesh(
-      new THREE.TubeGeometry(curve, 36, 0.018, 8, false),
+      new THREE.TubeGeometry(curve, 36, 0.016, 8, false),
       new THREE.MeshStandardMaterial({ color, roughness: 0.42, metalness: 0.18 })
     );
   };
@@ -474,10 +474,10 @@ export function buildMotherboardSystem(textures) {
   registerLayer(mainTopGroup, [0, 0, 0.72]);
 
   // =========================================================================
-  // 2. EXPOSED INNER 10-LAYER HDI COPPER CORE (L3 HIGH-SPEED + L4 SPLIT POWER PLANE!)
+  // 2. EXPOSED INNER 10-LAYER HDI COPPER CORE (0.16mm at Z = +0.030 -> [+0.022..+0.038])
   // =========================================================================
   const innerCuGroup = new THREE.Group();
-  innerCuGroup.position.z = 0.064;
+  innerCuGroup.position.z = 0.030;
   const innerCuPlate = new THREE.Mesh(
     extrudePlate(logicShape, 0.016, { bevelSize: 0.002, bevelThickness: 0.002 }),
     matInnerCopperPlane
@@ -488,55 +488,69 @@ export function buildMotherboardSystem(textures) {
   registerLayer(innerCuGroup, [0, 0, 1.38]);
 
   // =========================================================================
-  // 3. PRIMARY 10-LAYER HDI MAINBOARD — BOTTOM STRATUM (L10_BOT + 141 BOT REAL PARTS!)
-  //    (256GB eMMC 5.1, 16MB NOR, SGM3843 OLED PMIC, Display/FP BTBs, BGA Belly 01005 Caps!)
+  // 3. PRIMARY 10-LAYER HDI MAINBOARD — BOTTOM STRATUM (0.28mm at Z = +0.056 -> [+0.042..+0.070])
+  //    Total 10L HDI Mainboard PCB = 0.36 + 0.16 + 0.28 = 0.80mm REAL!
+  //    Bottom parts face +Z (eMMC 0.84mm -> [+0.071..+0.155], clears FRAME_WEB +0.171!)
   // =========================================================================
   const mainBotGroup = new THREE.Group();
-  mainBotGroup.position.z = 0.088;
+  mainBotGroup.position.z = 0.056;
   const botPcbPlate = new THREE.Mesh(
     extrudePlate(logicShape, 0.028, { bevelSize: 0.004, bevelThickness: 0.004 }),
     matMainPcb
   );
   mainBotGroup.add(botPcbPlate);
-  populateRealComponents(mainBotGroup, 'main', 'bot', 0.014, +1, textures, materials);
+  populateRealComponents(mainBotGroup, 'main', 'bot', 0.015, +1, textures, materials);
 
   root.add(mainBotGroup);
   registerLayer(mainBotGroup, [0, 0, 2.08]);
 
   // =========================================================================
-  // 4. 160-PIN PERIMETER GOLD BGA INTERPOSER FRAME (J901) WITH SOLDER BALL ARRAY
+  // 4. 160-PIN SEGMENTED GOLD BGA INTERPOSER BARS (J901) — REAL FULL-HEIGHT SANDWICH STANDOFFS!
+  //    Placed strictly in 100% component-free copper corridors between mainboard top (-0.022) & mezzanine bottom (-0.206)!
+  //    (Zero overlap with RK3588S2, LPDDR5X, RK806-1, or any SMD part on main top / mezz bot!)
   // =========================================================================
   const interposerGroup = new THREE.Group();
-  interposerGroup.position.z = -0.028;
-  const intShape = createMezzanineShape();
-  const intHole = new THREE.Path();
-  intHole.moveTo(-1.35, 0.80);
-  intHole.lineTo(-1.35, 3.74);
-  intHole.lineTo(1.24, 3.74);
-  intHole.lineTo(1.24, 0.80);
-  intHole.closePath();
-  intShape.holes.push(intHole);
-  const interposerFrame = new THREE.Mesh(
-    extrudePlate(intShape, 0.044, { bevelSize: 0.004, bevelThickness: 0.004 }),
-    materials.gold
-  );
-  interposerGroup.add(interposerFrame);
+  interposerGroup.position.z = -0.114;
 
-  // Gleaming Perimeter Solder Balls along the 160-Pin Interposer!
-  const ballGeo = new THREE.SphereGeometry(0.018, 6, 6);
+  // Verified 100% component-free interposer bar zones [cx, cy, w, h] in 10mm units:
+  const interposerBars = [
+    [ 0.41, 4.00, 1.20, 0.085], // North-East 64-Pin High-Speed PCIe/MIPI/USB BGA Interposer Bar
+    [-0.75, 4.00, 0.38, 0.085], // North-West 24-Pin Control/I2C/SPI BGA Interposer Bar
+    [-1.31, 3.86, 0.42, 0.120], // West-Top 28-Pin RF/Clock Grounded Interposer Bar
+    [ 1.34, 0.96, 0.14, 0.640], // East-South 44-Pin Heavy-Current Power/VBAT/GND Interposer Bar
+  ];
+
   const ballCoords = [];
-  for (let x = -1.42; x <= 1.32; x += 0.14) {
-    ballCoords.push([x, 0.70], [x, 3.84]);
-  }
-  for (let y = 0.84; y <= 3.70; y += 0.14) {
-    ballCoords.push([-1.44, y], [1.34, y]);
-  }
-  const ballInst = new THREE.InstancedMesh(ballGeo, materials.tinCap, ballCoords.length);
+  interposerBars.forEach(([cx, cy, bw, bh]) => {
+    const bar = new THREE.Mesh(
+      extrudePlate(createRoundedRectShape(bw, bh, 0.02), 0.144, { bevelSize: 0.002, bevelThickness: 0.002 }),
+      materials.gold
+    );
+    bar.position.set(cx, cy, 0);
+    interposerGroup.add(bar);
+
+    const cols = Math.max(2, Math.floor(bw / 0.10));
+    const rows = Math.max(1, Math.floor(bh / 0.10));
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const bx = cx - bw * 0.42 + (cols > 1 ? (c / (cols - 1)) * bw * 0.84 : 0);
+        const by = cy - bh * 0.42 + (rows > 1 ? (r / (rows - 1)) * bh * 0.84 : 0);
+        ballCoords.push([bx, by]);
+      }
+    }
+  });
+
+  const ballGeo = new THREE.SphereGeometry(0.011, 6, 6);
+  const ballInst = new THREE.InstancedMesh(ballGeo, materials.tinCap, ballCoords.length * 2);
   const dummy = new THREE.Object3D();
-  ballCoords.forEach(([bx, by], i) => {
-    dummy.position.set(bx, by, 0.028);
+  let bIdx = 0;
+  ballCoords.forEach(([bx, by]) => {
+    dummy.position.set(bx, by, +0.081);
     dummy.updateMatrix();
-    ballInst.setMatrixAt(i, dummy.matrix);
+    ballInst.setMatrixAt(bIdx++, dummy.matrix);
+    dummy.position.set(bx, by, -0.081);
+    dummy.updateMatrix();
+    ballInst.setMatrixAt(bIdx++, dummy.matrix);
   });
   ballInst.instanceMatrix.needsUpdate = true;
   interposerGroup.add(ballInst);
@@ -545,29 +559,28 @@ export function buildMotherboardSystem(textures) {
   registerLayer(interposerGroup, [0, 0, -0.08]);
 
   // =========================================================================
-  // 5. STACKED 8-LAYER RF/5G/WI-FI 6E/GNSS/NFC MEZZANINE BOARD (125 REAL PARTS!)
+  // 5. STACKED 8-LAYER RF/5G/WI-FI 6E/GNSS/NFC MEZZANINE BOARD (REAL 0.54mm PCB at Z = -0.234 -> [-0.261..-0.207])
+  //    Mezz top silicon (U707 0.88mm) -> [-0.350 .. -0.262]; Mezz bot (L715 0.85mm) -> [-0.206 .. -0.121], clear of RK3588S2 (-0.111)!
   // =========================================================================
   const mezzGroup = new THREE.Group();
-  mezzGroup.position.z = -0.098;
+  mezzGroup.position.z = -0.234;
   const mezzPcb = new THREE.Mesh(
-    extrudePlate(createMezzanineShape(), 0.052, { bevelSize: 0.006, bevelThickness: 0.006 }),
+    extrudePlate(createMezzanineShape(), 0.054, { bevelSize: 0.006, bevelThickness: 0.006 }),
     matMezzPcb
   );
   mezzGroup.add(mezzPcb);
-  // Populate ALL 125 Real RF Mezzanine components (5G Modem, SDR735, SKY58083, QM77048, AP6275P, MAX-M10S, PN7160, 7x MHF4!)
-  populateRealComponents(mezzGroup, 'mezz', 'top', -0.026, -1, textures, materials);
-  populateRealComponents(mezzGroup, 'mezz', 'bot', +0.026, +1, textures, materials);
+  populateRealComponents(mezzGroup, 'mezz', 'top', -0.028, -1, textures, materials);
+  populateRealComponents(mezzGroup, 'mezz', 'bot', +0.028, +1, textures, materials);
 
   root.add(mezzGroup);
   registerLayer(mezzGroup, [0, 0, -1.05]);
 
   // =========================================================================
-  // 6. COMPARTMENTALIZED STAMPED EMI SHIELDING CAGES (LIFT OFF ON DISSECTION!)
+  // 6. COMPARTMENTALIZED STAMPED EMI SHIELDING CAGES (Z: [-0.376..-0.354], clears U707 -0.350 & rear glass -0.398!)
   // =========================================================================
   const shieldsGroup = new THREE.Group();
-  shieldsGroup.position.z = -0.172;
+  shieldsGroup.position.z = -0.365;
 
-  // Main RF Mezzanine Multi-Compartment Stamped EMI Cage (with RF isolation relief window & copper patch!)
   const s1Shape = createRoundedRectShape(2.74, 2.86, 0.09);
   const s1Cut = new THREE.Path();
   s1Cut.moveTo(-1.14, -1.05);
@@ -577,34 +590,33 @@ export function buildMotherboardSystem(textures) {
   s1Cut.closePath();
   s1Shape.holes.push(s1Cut);
   const shield1 = new THREE.Mesh(
-    extrudePlate(s1Shape, 0.052, { bevelSize: 0.008, bevelThickness: 0.008 }),
+    extrudePlate(s1Shape, 0.016, { bevelSize: 0.003, bevelThickness: 0.003 }),
     matEmiSteel
   );
   shield1.position.set(-0.08, 2.38, 0);
   shieldsGroup.add(shield1);
 
-  // Stamped copper thermal spreader patch inlaid on 5G Modem / Wi-Fi EMI Cage
   const copperPatch = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(1.18, 1.24, 0.05), 0.015, { bevelSize: 0.003, bevelThickness: 0.003 }),
+    extrudePlate(createRoundedRectShape(1.18, 1.24, 0.05), 0.006, { bevelSize: 0.001, bevelThickness: 0.001 }),
     matEmiCopper
   );
-  copperPatch.position.set(-0.82, 2.96, -0.028);
+  copperPatch.position.set(-0.82, 2.96, -0.010);
   shieldsGroup.add(copperPatch);
 
-  // Charging / Dual Charge-Pump EMI & Thermal Shield Can on Right Spine
+  // Charging / Dual Charge-Pump EMI & Thermal Shield Can on Right Spine (clears tall spine inductors -0.111!)
   const shield2 = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(0.76, 2.38, 0.06), 0.048, { bevelSize: 0.007, bevelThickness: 0.007 }),
+    extrudePlate(createRoundedRectShape(0.76, 2.38, 0.06), 0.022, { bevelSize: 0.004, bevelThickness: 0.004 }),
     matEmiSteel
   );
-  shield2.position.set(1.22, -1.35, 0.090);
+  shield2.position.set(1.22, -1.35, 0.215);
   shieldsGroup.add(shield2);
 
   // Audio Codec + Dual SmartPA Shield Can on Lower Spine
   const shield3 = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(0.76, 1.48, 0.05), 0.046, { bevelSize: 0.006, bevelThickness: 0.006 }),
+    extrudePlate(createRoundedRectShape(0.76, 1.48, 0.05), 0.022, { bevelSize: 0.004, bevelThickness: 0.004 }),
     matEmiCopper
   );
-  shield3.position.set(1.22, -4.18, 0.090);
+  shield3.position.set(1.22, -4.18, 0.215);
   shieldsGroup.add(shield3);
 
   root.add(shieldsGroup);

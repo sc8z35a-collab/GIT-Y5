@@ -118,8 +118,16 @@ try {
   console.log(`  Body Total Thickness (Z)  : ${report.bodyThicknessMm.toFixed(3)} mm`);
   console.log(`  Max Thickness w/ Camera   : ${report.maxThicknessWithCameraMm.toFixed(3)} mm`);
   console.log(`  Camera Protrusion         : ${report.cameraProtrusionMm.toFixed(3)} mm`);
-  console.log(`  Solid Meshes Checked      : ${report.totalCheckedMeshes}`);
-  console.log(`  Interference Pairs (>5um) : ${report.interferenceCount}`);
+  console.log(`  Solid Meshes Checked      : ${report.totalCheckedMeshes} (0 excluded)`);
+  console.log(`  Total Interferences (>5um): ${report.interferenceCount} (Inter-Module: ${report.interModuleCount}, Intra-Module: ${report.intraModuleCount})`);
+  console.log('------------------------------------------------------------------------');
+  console.log('  PHYSICAL ANTI-SQUASH REALISM AUDIT:');
+  const pc = report.physicalChecks;
+  console.log(`    6000mAh Battery Box     : ${pc.batterySizeMm} mm -> ${pc.batteryVolumeCm3} cm3 (${pc.batteryImpliedWhPerL} Wh/L, <=860 Wh/L real Si-C: ${pc.batteryRealisticSiC ? 'PASS' : 'FAIL — PHYSICALLY TOO SMALL!'})`);
+  console.log(`    Display Stack Thickness : ${pc.displayThicknessMm} mm`);
+  console.log(`    Cooling VC+Graphite     : ${pc.coolingThicknessMm} mm`);
+  console.log(`    Motherboard 10L+8L+Can  : ${pc.motherboardStackThicknessMm} mm`);
+  console.log(`    Wireless+Rear Ceramic   : ${pc.wirelessRearThicknessMm} mm`);
   console.log('------------------------------------------------------------------------');
   console.log('  MODULE Z-STACK BOUNDS (mm):');
   for (const [id, b] of Object.entries(report.moduleBounds)) {
