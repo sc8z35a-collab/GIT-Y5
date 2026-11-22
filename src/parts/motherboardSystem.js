@@ -512,12 +512,12 @@ export function buildMotherboardSystem(textures) {
   const interposerGroup = new THREE.Group();
   interposerGroup.position.z = -0.114;
 
-  // Verified 100% component-free interposer bar zones [cx, cy, w, h] in 10mm units:
+  // Verified 100% component-free interposer bar zones [cx, cy, w, h] in 10mm units (1:1 with Mainboard & Mezzanine KiCad PCBs!):
   const interposerBars = [
-    [ 0.41, 4.00, 1.20, 0.085], // North-East 64-Pin High-Speed PCIe/MIPI/USB BGA Interposer Bar
-    [-0.75, 4.00, 0.38, 0.085], // North-West 24-Pin Control/I2C/SPI BGA Interposer Bar
-    [-1.31, 3.86, 0.42, 0.120], // West-Top 28-Pin RF/Clock Grounded Interposer Bar
-    [ 1.34, 0.96, 0.14, 0.640], // East-South 44-Pin Heavy-Current Power/VBAT/GND Interposer Bar
+    [ 0.06, 4.00, 2.00, 0.070], // North 20-Pin High-Speed PCIe/USB/Control BGA Interposer Bar
+    [-0.96, 1.66, 1.04, 0.070], // Mid-West 11-Pin RF/RFFE/PCM BGA Interposer Bar
+    [-0.87, 0.68, 0.98, 0.070], // South-West 10-Pin SIM/NFC/eSE BGA Interposer Bar
+    [ 1.33, 0.95, 0.070, 0.52], // South-East 7-Pin Heavy-Current Power/VSYS/GND Interposer Bar
   ];
 
   const ballCoords = [];

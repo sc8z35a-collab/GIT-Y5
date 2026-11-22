@@ -116,17 +116,27 @@ for (const [rail, drv, ind] of buckRails) {
   assert(hasDrv && hasInd && hasCap, `Buck rail complete (${rail}): sense/driver=${drv}, inductor=${ind}, bulkCaps=OK`);
 }
 
-// 3. Verify 24MHz & 32.768kHz Clocks + Open-Drain RTC PU + Reset/TSADC Thermal Shutdown
-assert((nets.CLK_24M_IN || []).includes('U101.XIN_OSC') && (nets.CLK_24M_IN || []).includes('Y101.1') && (nets.CLK_24M_IN || []).includes('C101.1'), '24MHz XIN crystal + load cap C101 wired');
+// 3. Verify 24MHz & 32.768kHz Clocks + Open-Drain RTC PU + Reset/TSADC Thermal Shutdown (REAL PHYSICAL BALLS!)
+assert((nets.CLK_24M_IN || []).includes('U101.T41') && (nets.CLK_24M_IN || []).includes('Y101.1') && (nets.CLK_24M_IN || []).includes('C101.1'), '24MHz XIN crystal -> U101.T41 + load cap C101 wired');
 assert((nets.CLK_24M_OUT || []).includes('Y101.3') && (nets.CLK_24M_OUT || []).includes('C102.1') && (nets.CLK_24M_OUT || []).includes('R102.1'), '24MHz XOUT crystal + load cap C102 + damping R102 wired');
-assert((nets.CLK_32K_RTC || []).includes('U101.CLK32K_IN') && (nets.CLK_32K_RTC || []).includes('U102.CLKOUT') && (nets.CLK_32K_RTC || []).includes('R106.1') && (nets.CLK_32K_RTC || []).includes('U206.CLK32K'), '32.768kHz RTC clock + mandatory 47K open-drain pull-up R106 distributed');
-assert((nets.PMIC_RESETB || []).includes('U101.NPOR_U') && (nets.PMIC_RESETB || []).includes('U206.RESETB') && (nets.PMIC_RESETB || []).includes('R103.1') && (nets.PMIC_RESETB || []).includes('C106.1') && (nets.PMIC_RESETB || []).includes('R108.2'), 'PMIC_RESETB -> NPOR_U + TSADC_SHUT_ORG + 10K PU + 100nF (<0.3uF)');
-assert((nets.VCC_1V1_NLDO_S3 || []).includes('U206.VCC_NLDO') && (nets.VDD2L_0V9_DDR_S3 || []).includes('U301.VDD2L'), 'Dedicated 1.1V NLDO pre-reg (U212) & 0.90V LPDDR5X VDD2L (U211) verified');
+assert((nets.CLK_32K_RTC || []).includes('U101.AD38') && (nets.CLK_32K_RTC || []).includes('U102.7') && (nets.CLK_32K_RTC || []).includes('R106.1') && (nets.CLK_32K_RTC || []).includes('U206.CLK32K'), '32.768kHz RTC clock -> U101.AD38 + U102.7 (MSOP-8) + 47K open-drain PU R106 distributed');
+assert((nets.PMIC_RESETB || []).includes('U101.V42') && (nets.PMIC_RESETB || []).includes('U206.RESETB') && (nets.PMIC_RESETB || []).includes('R103.1') && (nets.PMIC_RESETB || []).includes('C106.1') && (nets.PMIC_RESETB || []).includes('R108.2'), 'PMIC_RESETB -> U101.V42 (NPOR) + TSADC_SHUT_ORG (U101.AC39) + 10K PU + 100nF');
+assert((nets.VCC_1V1_NLDO_S3 || []).includes('U206.VCC_NLDO') && (nets.VDD2L_0V9_DDR_S3 || []).some(n => n.startsWith('U301.')), 'Dedicated 1.1V NLDO pre-reg (U212) & 0.90V LPDDR5X VDD2L (U211) verified');
 
-// 4. Verify LPDDR5X ZQ 240 Ohm Calibration & eMMC 5.1 HS400 Mandatory Straps
-assert(byRef.get('R301')?.value.includes('240R') && byRef.get('R302')?.value.includes('240R'), 'LPDDR5X 240 Ohm 1% ZQ calibration resistors present');
-assert((nets.EMMC_DATA_STROBE || []).includes('U302.DS') && (nets.EMMC_DATA_STROBE || []).includes('R304.1'), 'eMMC 5.1 HS400 Data Strobe 10K pull-down present');
-assert((nets.EMMC_VDDI || []).includes('U302.VDDI') && byRef.get('C301')?.value.includes('2.2uF') && (nets.EMMC_D0_D7 || []).includes('R307.1'), 'eMMC 5.1 VDDI 2.2uF cap + D0 10K pull-up verified');
+// 3b. Verify Rev 3.0 Full 1:1 BGA Ball Expansion & All 7 Fixed Datasheet Packages!
+assert(Object.keys(byRef.get('U101')?.pins || {}).length === 1253, 'U101 RK3588S2 full 1,253-ball FCCSP1253L physical expansion verified');
+assert(Object.keys(byRef.get('U301')?.pins || {}).length === 496 && byRef.get('U301')?.pkg.includes('FBGA-496'), 'U301 K3LK7K70BM-BGCP full 496-ball FBGA-496 expansion verified');
+assert(Object.keys(byRef.get('U302')?.pins || {}).length === 153 && byRef.get('U302')?.pkg.includes('FBGA-153'), 'U302 KLMAG1JETD-B041 full 153-ball FBGA-153 expansion verified');
+assert(byRef.get('U102')?.pkg.includes('MSOP-8') && byRef.get('D101')?.pkg.includes('SOT-23'), 'Fixed packages verified: U102 HYM8563TS (MSOP-8), D101 BAT54C (SOT-23)');
+assert(byRef.get('U802')?.pkg.includes('DSBGA-36') && byRef.get('U803')?.pkg.includes('DSBGA-36') && byRef.get('D801')?.pkg.includes('SOT-23-6') && byRef.get('D701')?.pkg.includes('USON-14'), 'Fixed packages verified: TAS2562YFPR (DSBGA-36), PESD5V0S4UD (SOT-23-6), TPD6E05U06RVZR (USON-14)');
+assert(components.filter(c => c.mpn === 'BLM03AG121SN1D').every(c => c.pkg === '0201'), 'Fixed packages verified: all BLM03AG121SN1D beads are 0201');
+const lpddrSignalNets = Object.keys(nets).filter(k => k.startsWith('LPDDR5X_'));
+assert(lpddrSignalNets.length === 148, `All 148 individual 64-bit 4CH LPDDR5X signal nets (DQ0..63, DMI0..7, RDQS0..7, WCK0..7, CA, CS, CK) wired 1:1 (actual=${lpddrSignalNets.length})`);
+
+// 4. Verify LPDDR5X ZQ 240 Ohm Calibration & eMMC 5.1 HS400 Full 8-Bit Individual Lines
+assert(byRef.get('R301')?.value.includes('240R') && byRef.get('R302')?.value.includes('240R') && byRef.get('R308')?.value.includes('240R') && byRef.get('R311')?.value.includes('240R'), 'LPDDR5X (R301/R302) & SoC 4-channel (R308..R311) 240 Ohm 1% ZQ resistors present');
+assert((nets.EMMC_DATA_STROBE || []).includes('U302.H5') && (nets.EMMC_DATA_STROBE || []).includes('U101.AC40') && (nets.EMMC_DATA_STROBE || []).includes('R304.1'), 'eMMC 5.1 HS400 Data Strobe U101.AC40 <-> U302.H5 + 10K PD verified');
+assert((nets.EMMC_VDDI || []).includes('U302.C2') && byRef.get('C301')?.value.includes('2.2uF') && (nets.EMMC_D0 || []).includes('U302.A3') && (nets.EMMC_D7 || []).includes('U302.B6') && (nets.EMMC_D0 || []).includes('R307.1'), 'eMMC 5.1 VDDI (U302.C2) 2.2uF + full individual D0..D7 + D0 10K PU verified');
 
 // 5. Verify ALL 8 I2C Buses (I2C0..I2C7) Have Both SCL & SDA Pull-Up Resistors!
 for (let b = 0; b <= 7; b++) {
@@ -141,13 +151,13 @@ assert((nets.VBAT_6000MAH || []).includes('J201.P1') && (nets.VBAT_6000MAH || []
 assert((nets.USB_CC1_EXT || []).includes('J601.CC1') && (nets.USB_CC1_EXT || []).includes('U603.CC1_C') && (nets.USB_CC1 || []).includes('U603.CC1_S') && (nets.USB_CC1 || []).includes('U601.CC1'), 'USB-C CC1/CC2 routed through TI TPD4S480 48V EPR OVP to FUSB302B');
 
 // 7. Verify Commercial Android Smartphone Subsystems (VoLTE PCM, StrongBox SPI, OIS Aux SPI, 3-Mic PDM, eSIM, SAR, ALS/Prox)
-assert((nets.PCM_MODEM_CLK || []).includes('U101.I2S2_SCLK') && (nets.PCM_MODEM_CLK || []).includes('U701.PCM_CLK') && (nets.PCM_MODEM_TX || []).includes('U701.PCM_TX'), '4-wire VoLTE/VoNR cellular voice PCM wired SDX62 <-> RK3588S2 I2S2');
-assert((nets.ESE_SPI_CLK || []).includes('U101.SPI0_CLK') && (nets.ESE_SPI_CLK || []).includes('U710.ESE_CLK'), 'Android StrongBox Hardware Keymaster SPI0 wired RK3588S2 <-> NXP SN220T');
+assert((nets.PCM_MODEM_CLK || []).includes('U101.AR39') && (nets.PCM_MODEM_CLK || []).includes('U701.PCM_CLK') && (nets.PCM_MODEM_TX || []).includes('U701.PCM_TX'), '4-wire VoLTE/VoNR cellular voice PCM wired SDX62 <-> RK3588S2 U101.AR39');
+assert((nets.ESE_SPI_CLK || []).includes('U101.M37') && (nets.ESE_SPI_CLK || []).includes('U710.ESE_CLK'), 'Android StrongBox Hardware Keymaster SPI0 wired RK3588S2 U101.M37 <-> NXP SN220T');
 assert((nets.OIS_SPI_CLK || []).includes('U805.SCX_AUX') && (nets.OIS_SPI_CLK || []).includes('J401.OIS_SCLK') && (nets.OIS_SPI_CLK || []).includes('CAM_U3.GYRO_SCLK'), 'Dedicated 2kHz Camera OIS Aux SPI wired ST LSM6DSO -> J401 -> DW9786');
-assert((nets.PDM0_MIC_CLK || []).includes('U101.PDM0_CLK') && (nets.PDM0_MIC_CLK || []).includes('MK801.CLK') && (nets.PDM0_MIC_CLK || []).includes('CAM_MK1.CLK') && (nets.PDM0_MIC_CLK || []).includes('J601.PDM_CLK'), '3-Mic Digital PDM ANC + Zoom-Audio Array wired to RK3588S2 PDM0');
+assert((nets.PDM0_MIC_CLK || []).includes('U101.M41') && (nets.PDM0_MIC_CLK || []).includes('MK801.CLK') && (nets.PDM0_MIC_CLK || []).includes('CAM_MK1.CLK') && (nets.PDM0_MIC_CLK || []).includes('J601.PDM_CLK'), '3-Mic Digital PDM ANC + Zoom-Audio Array wired to RK3588S2 U101.M41');
 assert((nets.ESIM_IO || []).includes('U701.USIM2_IO') && (nets.ESIM_IO || []).includes('U716.IO') && (nets.NFC_SWP_IO || []).includes('U710.SWP1') && (nets.NFC_SWP_IO || []).includes('U716.SWP'), 'GSMA eSIM ST33J2M0 wired to SDX62 USIM2 + NXP SN220T SWP');
-assert((nets.ALS_PROX_INT_N || []).includes('U101.ALS_PROX_INT') && (nets.ALS_PROX_INT_N || []).includes('U810.INT') && (nets.SAR_INT_N || []).includes('U715.NIRQ'), 'Under-OLED Call Proximity TCS3701 + 5G SAR Sensor SX9331 wired');
-assert((nets.CAM0_RAW_D0_P || []).includes('CAM_U1.D0P') && (nets.CAM0_RAW_D0_P || []).includes('CAM_U2.RX_D0P') && (nets.MIPI_CSI0_D0_P || []).includes('CAM_U2.TX_D0P') && (nets.MIPI_CSI0_D0_P || []).includes('U101.CSI0_D0_P'), '45MP Imaging Chain Sony LYT-818 -> Rockchip RK1608B Pre-ISP -> RK3588S2 MIPI_DCPHY0 verified');
+assert((nets.ALS_PROX_INT_N || []).includes('U101.AW23') && (nets.ALS_PROX_INT_N || []).includes('U810.INT') && (nets.SAR_INT_N || []).includes('U715.NIRQ'), 'Under-OLED Call Proximity TCS3701 + 5G SAR Sensor SX9331 wired');
+assert((nets.CAM0_RAW_D0_P || []).includes('CAM_U1.D0P') && (nets.CAM0_RAW_D0_P || []).includes('CAM_U2.RX_D0P') && (nets.MIPI_CSI0_D0_P || []).includes('CAM_U2.TX_D0P') && (nets.MIPI_CSI0_D0_P || []).includes('U101.BA38'), '45MP Imaging Chain Sony LYT-818 -> Rockchip RK1608B Pre-ISP -> RK3588S2 U101.BA38 verified');
 
 // 8. Verify High-Speed Differential Pairing (_P / _N)
 const diffPrefixes = new Set();

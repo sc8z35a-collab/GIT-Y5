@@ -4,3 +4,4 @@ dist/
 *.log
 *.kicad_prl
 hardware/mfg/gerbers/
+hardware/mfg/gerbers_mezz/

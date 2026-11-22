@@ -1,0 +1,828 @@
+{
+  "summary": {
+    "auditedAt": "2026-11-22T01:49:41.024Z",
+    "totalBomLines": 33,
+    "totalPlacementsPerBoard": 139,
+    "physicalComponentLines": 33,
+    "physicalPlacementsPerBoard": 139,
+    "pcbCopperPadLines": 0,
+    "pcbCopperPadCount": 0,
+    "byStatus": {
+      "NOT_IN_JLCPCB_LIBRARY": 16,
+      "IN_STOCK_5X": 13,
+      "OUT_OF_STOCK": 4
+    },
+    "byStatusPlacements": {
+      "NOT_IN_JLCPCB_LIBRARY": 53,
+      "IN_STOCK_5X": 74,
+      "OUT_OF_STOCK": 12
+    },
+    "basicLibraryLines": 0,
+    "extendedLibraryLines": 17,
+    "inStockMatchedPartsCost5BoardsUsd": 101.36,
+    "lcscCodeMismatches": []
+  },
+  "items": [
+    {
+      "mpn": "SDX62-0-NSP",
+      "designators": [
+        "U701"
+      ],
+      "qty": 1,
+      "footprint": "NSP-BGA (11x12mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "GRM033R61A104KE15D",
+      "designators": [
+        "C751",
+        "C752",
+        "C753",
+        "C754",
+        "C1291",
+        "C1292",
+        "C1294",
+        "C1295",
+        "C1297",
+        "C1298",
+        "C1300",
+        "C1301",
+        "C1303",
+        "C1304",
+        "C1306",
+        "C1307",
+        "C1309",
+        "C1310",
+        "C1312",
+        "C1313",
+        "C1315",
+        "C1316",
+        "C1318",
+        "C1319",
+        "C1321",
+        "C1322",
+        "C1324",
+        "C1325",
+        "C1327",
+        "C1328",
+        "C1330",
+        "C1331",
+        "C1333",
+        "C1334",
+        "C1336",
+        "C1337",
+        "C1339",
+        "C1340",
+        "C1342",
+        "C1343",
+        "C1345",
+        "C1346",
+        "C1348",
+        "C1349",
+        "C1351",
+        "C1352",
+        "C1354",
+        "C1359"
+      ],
+      "qty": 48,
+      "footprint": "0201",
+      "lcscInput": "C76934",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C76934",
+        "model": "GRM033R61A104KE15D",
+        "brand": "Murata Electronics",
+        "package": "0201",
+        "libraryType": "expand",
+        "stockCount": 836363,
+        "unitPriceUsd5x": 0.0034,
+        "extCostUsd5x": 0.816,
+        "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
+      },
+      "lcscInputCheck": {
+        "code": "C76934",
+        "model": "GRM033R61A104KE15D",
+        "brand": "Murata Electronics",
+        "stockCount": 836363,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
+    },
+    {
+      "mpn": "NT2016SA-38.4M",
+      "designators": [
+        "Y702"
+      ],
+      "qty": 1,
+      "footprint": "SMD-2016",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 3,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "PMX65-0-WLNSP",
+      "designators": [
+        "U711"
+      ],
+      "qty": 1,
+      "footprint": "WLNSP (5.5x5.5mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "DFE201610E-0R47M=P2",
+      "designators": [
+        "L711",
+        "L712",
+        "L713",
+        "L714"
+      ],
+      "qty": 4,
+      "footprint": "IND_1608",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "GRM155R61A106ME44D",
+      "designators": [
+        "C1278",
+        "C1279",
+        "C1280",
+        "C1281",
+        "C1355"
+      ],
+      "qty": 5,
+      "footprint": "0402",
+      "lcscInput": "C77000",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C77000",
+        "model": "GRM155R61A106ME44D",
+        "brand": "Murata Electronics",
+        "package": "0402",
+        "libraryType": "expand",
+        "stockCount": 506970,
+        "unitPriceUsd5x": 0.0396,
+        "extCostUsd5x": 0.99,
+        "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
+      },
+      "lcscInputCheck": {
+        "code": "C77000",
+        "model": "GRM155R61A106ME44D",
+        "brand": "Murata Electronics",
+        "stockCount": 506970,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
+    },
+    {
+      "mpn": "QET6100",
+      "designators": [
+        "U712"
+      ],
+      "qty": 1,
+      "footprint": "WLCSP-36 (3.5x3.5mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "DFE201610E-1R0M=P2",
+      "designators": [
+        "L715"
+      ],
+      "qty": 1,
+      "footprint": "IND_2016",
+      "lcscInput": "C161082",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C161082",
+        "model": "DFE201610E-1R0M=P2",
+        "brand": "Murata Electronics",
+        "package": "0806",
+        "libraryType": "expand",
+        "stockCount": 18854,
+        "unitPriceUsd5x": 0.137,
+        "extCostUsd5x": 0.685,
+        "category": "Inductors (SMD)"
+      },
+      "lcscInputCheck": {
+        "code": "C161082",
+        "model": "DFE201610E-1R0M=P2",
+        "brand": "Murata Electronics",
+        "stockCount": 18854,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
+    },
+    {
+      "mpn": "GRM155R61A475MEAA",
+      "designators": [
+        "C1282"
+      ],
+      "qty": 1,
+      "footprint": "0402",
+      "lcscInput": "C335105",
+      "status": "IN_STOCK_5X",
+      "matchType": "VARIANT_MPN",
+      "matchScore": 85,
+      "bestMatch": {
+        "lcscCode": "C335105",
+        "model": "GRM155R61A475MEAAD",
+        "brand": "Murata Electronics",
+        "package": "0402",
+        "libraryType": "expand",
+        "stockCount": 67014,
+        "unitPriceUsd5x": 0.0298,
+        "extCostUsd5x": 0.149,
+        "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
+      },
+      "lcscInputCheck": {
+        "code": "C335105",
+        "model": "GRM155R61A475MEAAD",
+        "brand": "Murata Electronics",
+        "stockCount": 67014,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
+    },
+    {
+      "mpn": "SDR735-RFX",
+      "designators": [
+        "U702"
+      ],
+      "qty": 1,
+      "footprint": "WLP-121 (5.5x5.5mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SKY58083-11",
+      "designators": [
+        "U703"
+      ],
+      "qty": 1,
+      "footprint": "LGA-46 (6.0x5.0mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SKY58255-11",
+      "designators": [
+        "U713"
+      ],
+      "qty": 1,
+      "footprint": "LGA-42 (4.5x5.5mm)",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C5348934",
+        "model": "SKY58255-11",
+        "brand": "Skyworks Solutions",
+        "package": "QFN-42(5.5x4.5)",
+        "libraryType": "expand",
+        "stockCount": 10,
+        "unitPriceUsd5x": 2.3102,
+        "extCostUsd5x": 11.551,
+        "category": "RF Modules"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "QM77048",
+      "designators": [
+        "U704"
+      ],
+      "qty": 1,
+      "footprint": "LGA-32 (4.5x4.0mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "QAT3555",
+      "designators": [
+        "U705"
+      ],
+      "qty": 1,
+      "footprint": "QFN-14 (2x2mm)",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C9900081156",
+        "model": "QAT3555",
+        "brand": "JLCPCB Assembly",
+        "package": "QFN-14",
+        "libraryType": "expand",
+        "stockCount": 0,
+        "unitPriceUsd5x": 0.0398,
+        "extCostUsd5x": 0.199,
+        "category": "New Arrivals"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "QDM5872",
+      "designators": [
+        "U714"
+      ],
+      "qty": 1,
+      "footprint": "LGA-28 (3.5x3.0mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SX9331WQ",
+      "designators": [
+        "U715"
+      ],
+      "qty": 1,
+      "footprint": "QFN-16 (2.0x2.0mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "ST33J2M0",
+      "designators": [
+        "U716"
+      ],
+      "qty": 1,
+      "footprint": "WLCSP-20 (2.5x2.5mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "20449-001E",
+      "designators": [
+        "J701",
+        "J702",
+        "J703",
+        "J704",
+        "J709",
+        "J710",
+        "J705",
+        "J706",
+        "J707"
+      ],
+      "qty": 9,
+      "footprint": "MHF4-RECEPT",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C23956435",
+        "model": "20449-001E",
+        "brand": "I-PEX",
+        "package": "SMD",
+        "libraryType": "expand",
+        "stockCount": 0,
+        "unitPriceUsd5x": 0.5907,
+        "extCostUsd5x": 26.5815,
+        "category": "Coaxial Connectors (RF)"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "GRM022R60J103ME15",
+      "designators": [
+        "C1283",
+        "C1284",
+        "C1285",
+        "C1286",
+        "C1287",
+        "C1288",
+        "C1293",
+        "C1296",
+        "C1299",
+        "C1302",
+        "C1305",
+        "C1308",
+        "C1311",
+        "C1314",
+        "C1317",
+        "C1320",
+        "C1323",
+        "C1326",
+        "C1329",
+        "C1332",
+        "C1335",
+        "C1338",
+        "C1341",
+        "C1344",
+        "C1347",
+        "C1350",
+        "C1353",
+        "C1395",
+        "C1396",
+        "C1397",
+        "C1398",
+        "C1399",
+        "C1400",
+        "C1401"
+      ],
+      "qty": 34,
+      "footprint": "01005",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "AP6275P",
+      "designators": [
+        "U707"
+      ],
+      "qty": 1,
+      "footprint": "LGA-47 (10x10mm)",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C2984107",
+        "model": "AP6275P",
+        "brand": "AMPAK Tech",
+        "package": "-",
+        "libraryType": "expand",
+        "stockCount": 550,
+        "unitPriceUsd5x": 15.7734,
+        "extCostUsd5x": 78.867,
+        "category": "WiFi Modules"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "MAX-M10S",
+      "designators": [
+        "U708"
+      ],
+      "qty": 1,
+      "footprint": "LCC-18 (4.5x4.5mm)",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C5291404",
+        "model": "MAX-M10S",
+        "brand": "U-BLOX",
+        "package": "LCC-18_10.1X9.7",
+        "libraryType": "expand",
+        "stockCount": 0,
+        "unitPriceUsd5x": 0.0398,
+        "extCostUsd5x": 0.199,
+        "category": "New Arrivals"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "BGU8009",
+      "designators": [
+        "U709"
+      ],
+      "qty": 1,
+      "footprint": "XSON-6 (1.1x0.9mm)",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "VARIANT_MPN",
+      "matchScore": 85,
+      "bestMatch": {
+        "lcscCode": "C126374",
+        "model": "BGU8009,115",
+        "brand": "Nexperia",
+        "package": "XSON-6(0.9x1.1)",
+        "libraryType": "expand",
+        "stockCount": 0,
+        "unitPriceUsd5x": 0.4536,
+        "extCostUsd5x": 2.268,
+        "category": "Low Noise Amplifiers (LNA) - RF"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SAFEA1G58KA0F00",
+      "designators": [
+        "FL701"
+      ],
+      "qty": 1,
+      "footprint": "SMD-1109",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "VARIANT_MPN",
+      "matchScore": 85,
+      "bestMatch": {
+        "lcscCode": "C91641",
+        "model": "SAFEA1G58KA0F00R15",
+        "brand": "Murata Electronics",
+        "package": "SMD",
+        "libraryType": "expand",
+        "stockCount": 9343,
+        "unitPriceUsd5x": 0.1439,
+        "extCostUsd5x": 0.7195,
+        "category": "SAW Filters"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SN220T",
+      "designators": [
+        "U710"
+      ],
+      "qty": 1,
+      "footprint": "VFBGA-81 (4x4mm)",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 3,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "NX2016SA-27.12M",
+      "designators": [
+        "Y701"
+      ],
+      "qty": 1,
+      "footprint": "SMD-2016",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 5,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "GRM0335C1H120JA01D",
+      "designators": [
+        "C1289",
+        "C1290"
+      ],
+      "qty": 2,
+      "footprint": "0201",
+      "lcscInput": "C85890",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C85890",
+        "model": "GRM0335C1H120JA01D",
+        "brand": "Murata Electronics",
+        "package": "0201",
+        "libraryType": "expand",
+        "stockCount": 182292,
+        "unitPriceUsd5x": 0.0045,
+        "extCostUsd5x": 0.045,
+        "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
+      },
+      "lcscInputCheck": {
+        "code": "C85890",
+        "model": "GRM0335C1H120JA01D",
+        "brand": "Murata Electronics",
+        "stockCount": 182292,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
+    },
+    {
+      "mpn": "DFE201610E-0R56M=P2",
+      "designators": [
+        "L701",
+        "L702"
+      ],
+      "qty": 2,
+      "footprint": "IND_1608",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "NFC_SPRING_2P",
+      "designators": [
+        "J708"
+      ],
+      "qty": 1,
+      "footprint": "PAD-2P",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "BLM03AG121SN1D",
+      "designators": [
+        "FB1001",
+        "FB1002"
+      ],
+      "qty": 2,
+      "footprint": "0201",
+      "lcscInput": "C97850",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C97850",
+        "model": "BLM03AG121SN1D",
+        "brand": "Murata Electronics",
+        "package": "0201",
+        "libraryType": "expand",
+        "stockCount": 36552,
+        "unitPriceUsd5x": 0.0164,
+        "extCostUsd5x": 0.164,
+        "category": "Ferrite Beads"
+      },
+      "lcscInputCheck": {
+        "code": "C97850",
+        "model": "BLM03AG121SN1D",
+        "brand": "Murata Electronics",
+        "stockCount": 36552,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
+    },
+    {
+      "mpn": "GRM033R60J105MEA2D",
+      "designators": [
+        "C1356"
+      ],
+      "qty": 1,
+      "footprint": "0201",
+      "lcscInput": "C76930",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C76930",
+        "model": "GRM033R60J105MEA2D",
+        "brand": "Murata Electronics",
+        "package": "0201",
+        "libraryType": "expand",
+        "stockCount": 3319710,
+        "unitPriceUsd5x": 0.0043,
+        "extCostUsd5x": 0.0215,
+        "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
+      },
+      "lcscInputCheck": {
+        "code": "C76930",
+        "model": "GRM033R60J105MEA2D",
+        "brand": "Murata Electronics",
+        "stockCount": 3319710,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
+    },
+    {
+      "mpn": "NCP03XH103F05RL",
+      "designators": [
+        "RT701"
+      ],
+      "qty": 1,
+      "footprint": "0201",
+      "lcscInput": "C98098",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C98098",
+        "model": "NCP03XH103F05RL",
+        "brand": "Murata Electronics",
+        "package": "0201",
+        "libraryType": "expand",
+        "stockCount": 73899,
+        "unitPriceUsd5x": 0.0139,
+        "extCostUsd5x": 0.0695,
+        "category": "NTC Thermistors"
+      },
+      "lcscInputCheck": {
+        "code": "C98098",
+        "model": "NCP03XH103F05RL",
+        "brand": "Murata Electronics",
+        "stockCount": 73899,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
+    },
+    {
+      "mpn": "RC0201FR-0710KL",
+      "designators": [
+        "R133",
+        "R1015",
+        "R1016"
+      ],
+      "qty": 3,
+      "footprint": "0201",
+      "lcscInput": "C106225",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C106225",
+        "model": "RC0201FR-0710KL",
+        "brand": "YAGEO",
+        "package": "0201",
+        "libraryType": "expand",
+        "stockCount": 2901997,
+        "unitPriceUsd5x": 0.0015,
+        "extCostUsd5x": 0.0225,
+        "category": "Chip Resistor - Surface Mount"
+      },
+      "lcscInputCheck": {
+        "code": "C106225",
+        "model": "RC0201FR-0710KL",
+        "brand": "YAGEO",
+        "stockCount": 2901997,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
+    },
+    {
+      "mpn": "LQW03AW2N2C00D",
+      "designators": [
+        "L1001",
+        "L1002",
+        "L1003",
+        "L1004",
+        "L1005",
+        "L1006",
+        "L1007"
+      ],
+      "qty": 7,
+      "footprint": "0201",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C3222948",
+        "model": "LQW03AW2N2C00D",
+        "brand": "Murata Electronics",
+        "package": "0201",
+        "libraryType": "expand",
+        "stockCount": 5798,
+        "unitPriceUsd5x": 0.2073,
+        "extCostUsd5x": 7.2555,
+        "category": "Power Inductors"
+      },
+      "lcscInputCheck": null
+    }
+  ]
+}

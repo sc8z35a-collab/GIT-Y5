@@ -8,8 +8,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = '/home/antigravity/sc8z35a-collab/GIT-Y5';
-const BOM_CSV = path.join(ROOT, 'hardware/mfg/rk_t4_bom_jlcpcb.csv');
-const OUT_JSON = path.join(ROOT, 'hardware/mfg/jlcpcb_bom_stock_audit.json');
+const BOM_CSV = process.argv[2] ? path.resolve(process.argv[2]) : path.join(ROOT, 'hardware/mfg/rk_t4_bom_jlcpcb.csv');
+const OUT_JSON = process.argv[3] ? path.resolve(process.argv[3]) : path.join(ROOT, 'hardware/mfg/jlcpcb_bom_stock_audit.json');
 const API_URL = 'https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList';
 
 const PCB_COPPER_FEATURES = new Set([

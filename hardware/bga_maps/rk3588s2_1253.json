@@ -1,0 +1,10037 @@
+{
+ "part": "RK3588S2",
+ "package": "FCCSP1253L (17x17mm)",
+ "body_w": 17.0,
+ "body_h": 17.0,
+ "pitch": 0.4,
+ "ball_dia": 0.26,
+ "pad_dia": 0.22,
+ "ball_count": 1253,
+ "source": "Rockchip RK3588S Datasheet V1.7 Table 2-1 & Radxa CM5 V2.21",
+ "balls": [
+  {
+   "ball": "A1",
+   "name": "VSS_1",
+   "row": "A",
+   "col": 1,
+   "x": -8.2,
+   "y": -8.2
+  },
+  {
+   "ball": "A2",
+   "name": "VSS_2",
+   "row": "A",
+   "col": 2,
+   "x": -7.8,
+   "y": -8.2
+  },
+  {
+   "ball": "A3",
+   "name": "DDR_CH1_DQS1P_C",
+   "row": "A",
+   "col": 3,
+   "x": -7.4,
+   "y": -8.2
+  },
+  {
+   "ball": "A4",
+   "name": "DDR_CH1_DQS1N_C",
+   "row": "A",
+   "col": 4,
+   "x": -7.0,
+   "y": -8.2
+  },
+  {
+   "ball": "A5",
+   "name": "DDR_CH1_ZQ_C",
+   "row": "A",
+   "col": 5,
+   "x": -6.6,
+   "y": -8.2
+  },
+  {
+   "ball": "A6",
+   "name": "DDR_CH1_WCK1N_C",
+   "row": "A",
+   "col": 6,
+   "x": -6.2,
+   "y": -8.2
+  },
+  {
+   "ball": "A7",
+   "name": "DDR_CH1_A3_C",
+   "row": "A",
+   "col": 7,
+   "x": -5.8,
+   "y": -8.2
+  },
+  {
+   "ball": "A9",
+   "name": "DDR_CH1_DQS0P_C",
+   "row": "A",
+   "col": 9,
+   "x": -5.0,
+   "y": -8.2
+  },
+  {
+   "ball": "A10",
+   "name": "DDR_CH1_A4_C",
+   "row": "A",
+   "col": 10,
+   "x": -4.6,
+   "y": -8.2
+  },
+  {
+   "ball": "A12",
+   "name": "DDR_CH1_DQ10_C",
+   "row": "A",
+   "col": 12,
+   "x": -3.8,
+   "y": -8.2
+  },
+  {
+   "ball": "A13",
+   "name": "DDR_CH1_LP4/4X_CKE1/LP5_CS1_C",
+   "row": "A",
+   "col": 13,
+   "x": -3.4,
+   "y": -8.2
+  },
+  {
+   "ball": "A15",
+   "name": "DDR_CH1_A5_C",
+   "row": "A",
+   "col": 15,
+   "x": -2.6,
+   "y": -8.2
+  },
+  {
+   "ball": "A16",
+   "name": "DDR_CH1_DQ14_C",
+   "row": "A",
+   "col": 16,
+   "x": -2.2,
+   "y": -8.2
+  },
+  {
+   "ball": "A18",
+   "name": "DDR_CH1_LP4/4X_CKE0/LP5_CS0_C",
+   "row": "A",
+   "col": 18,
+   "x": -1.4,
+   "y": -8.2
+  },
+  {
+   "ball": "A19",
+   "name": "DDR_CH1_LP4/4X_CS1_C",
+   "row": "A",
+   "col": 19,
+   "x": -1.0,
+   "y": -8.2
+  },
+  {
+   "ball": "A20",
+   "name": "DDR_CH1_DQ2_C",
+   "row": "A",
+   "col": 20,
+   "x": -0.6,
+   "y": -8.2
+  },
+  {
+   "ball": "A21",
+   "name": "DDR_CH1_A1_C",
+   "row": "A",
+   "col": 21,
+   "x": -0.2,
+   "y": -8.2
+  },
+  {
+   "ball": "A23",
+   "name": "DDR_CH1_LP4/4X_CS1_D",
+   "row": "A",
+   "col": 23,
+   "x": 0.6,
+   "y": -8.2
+  },
+  {
+   "ball": "A24",
+   "name": "DDR_CH1_DQ0_D",
+   "row": "A",
+   "col": 24,
+   "x": 1.0,
+   "y": -8.2
+  },
+  {
+   "ball": "A26",
+   "name": "DDR_CH1_A0_D",
+   "row": "A",
+   "col": 26,
+   "x": 1.8,
+   "y": -8.2
+  },
+  {
+   "ball": "A27",
+   "name": "DDR_CH1_A1_D",
+   "row": "A",
+   "col": 27,
+   "x": 2.2,
+   "y": -8.2
+  },
+  {
+   "ball": "A28",
+   "name": "DDR_CH1_DQ3_D",
+   "row": "A",
+   "col": 28,
+   "x": 2.6,
+   "y": -8.2
+  },
+  {
+   "ball": "A30",
+   "name": "DDR_CH1_A2_D",
+   "row": "A",
+   "col": 30,
+   "x": 3.4,
+   "y": -8.2
+  },
+  {
+   "ball": "A31",
+   "name": "DDR_CH1_LP4/4X_CKE1/LP5_CS1_D",
+   "row": "A",
+   "col": 31,
+   "x": 3.8,
+   "y": -8.2
+  },
+  {
+   "ball": "A32",
+   "name": "DDR_CH1_DQ15_D",
+   "row": "A",
+   "col": 32,
+   "x": 4.2,
+   "y": -8.2
+  },
+  {
+   "ball": "A33",
+   "name": "DDR_CH1_A6_D",
+   "row": "A",
+   "col": 33,
+   "x": 4.6,
+   "y": -8.2
+  },
+  {
+   "ball": "A35",
+   "name": "DDR_CH1_LP4/4X_CKE0/LP5_CS0_D",
+   "row": "A",
+   "col": 35,
+   "x": 5.4,
+   "y": -8.2
+  },
+  {
+   "ball": "A36",
+   "name": "DDR_CH1_A3_D",
+   "row": "A",
+   "col": 36,
+   "x": 5.8,
+   "y": -8.2
+  },
+  {
+   "ball": "A37",
+   "name": "DDR_CH1_WCK1P_D",
+   "row": "A",
+   "col": 37,
+   "x": 6.2,
+   "y": -8.2
+  },
+  {
+   "ball": "A38",
+   "name": "DDR_CH1_A5_D",
+   "row": "A",
+   "col": 38,
+   "x": 6.6,
+   "y": -8.2
+  },
+  {
+   "ball": "A39",
+   "name": "DDR_CH1_WCK0N_D",
+   "row": "A",
+   "col": 39,
+   "x": 7.0,
+   "y": -8.2
+  },
+  {
+   "ball": "A40",
+   "name": "DDR_CH1_ZQ_D",
+   "row": "A",
+   "col": 40,
+   "x": 7.4,
+   "y": -8.2
+  },
+  {
+   "ball": "A41",
+   "name": "DDR_CH1_DQS0N_D",
+   "row": "A",
+   "col": 41,
+   "x": 7.8,
+   "y": -8.2
+  },
+  {
+   "ball": "A42",
+   "name": "VSS_3",
+   "row": "A",
+   "col": 42,
+   "x": 8.2,
+   "y": -8.2
+  },
+  {
+   "ball": "B1",
+   "name": "DDR_CH0_DQS0N_B",
+   "row": "B",
+   "col": 1,
+   "x": -8.2,
+   "y": -7.8
+  },
+  {
+   "ball": "B2",
+   "name": "DDR_CH0_DQS0P_B",
+   "row": "B",
+   "col": 2,
+   "x": -7.8,
+   "y": -7.8
+  },
+  {
+   "ball": "B3",
+   "name": "VSS_4",
+   "row": "B",
+   "col": 3,
+   "x": -7.4,
+   "y": -7.8
+  },
+  {
+   "ball": "B5",
+   "name": "VSS_5",
+   "row": "B",
+   "col": 5,
+   "x": -6.6,
+   "y": -7.8
+  },
+  {
+   "ball": "B6",
+   "name": "DDR_CH1_WCK1P_C",
+   "row": "B",
+   "col": 6,
+   "x": -6.2,
+   "y": -7.8
+  },
+  {
+   "ball": "B7",
+   "name": "DDR_CH1_A6_C",
+   "row": "B",
+   "col": 7,
+   "x": -5.8,
+   "y": -7.8
+  },
+  {
+   "ball": "B8",
+   "name": "VSS_6",
+   "row": "B",
+   "col": 8,
+   "x": -5.4,
+   "y": -7.8
+  },
+  {
+   "ball": "B9",
+   "name": "DDR_CH1_DQS0N_C",
+   "row": "B",
+   "col": 9,
+   "x": -5.0,
+   "y": -7.8
+  },
+  {
+   "ball": "B10",
+   "name": "VSS_7",
+   "row": "B",
+   "col": 10,
+   "x": -4.6,
+   "y": -7.8
+  },
+  {
+   "ball": "B11",
+   "name": "VSS_8",
+   "row": "B",
+   "col": 11,
+   "x": -4.2,
+   "y": -7.8
+  },
+  {
+   "ball": "B12",
+   "name": "DDR_CH1_DQ9_C",
+   "row": "B",
+   "col": 12,
+   "x": -3.8,
+   "y": -7.8
+  },
+  {
+   "ball": "B13",
+   "name": "DDR_CH1_RESET_C",
+   "row": "B",
+   "col": 13,
+   "x": -3.4,
+   "y": -7.8
+  },
+  {
+   "ball": "B14",
+   "name": "VSS_9",
+   "row": "B",
+   "col": 14,
+   "x": -3.0,
+   "y": -7.8
+  },
+  {
+   "ball": "B15",
+   "name": "DDR_CH1_LP4/4X_CS0_C",
+   "row": "B",
+   "col": 15,
+   "x": -2.6,
+   "y": -7.8
+  },
+  {
+   "ball": "B16",
+   "name": "DDR_CH1_DQ15_C",
+   "row": "B",
+   "col": 16,
+   "x": -2.2,
+   "y": -7.8
+  },
+  {
+   "ball": "B17",
+   "name": "VSS_10",
+   "row": "B",
+   "col": 17,
+   "x": -1.8,
+   "y": -7.8
+  },
+  {
+   "ball": "B18",
+   "name": "DDR_CH1_A0_C",
+   "row": "B",
+   "col": 18,
+   "x": -1.4,
+   "y": -7.8
+  },
+  {
+   "ball": "B19",
+   "name": "VSS_11",
+   "row": "B",
+   "col": 19,
+   "x": -1.0,
+   "y": -7.8
+  },
+  {
+   "ball": "B20",
+   "name": "DDR_CH1_DQ0_C",
+   "row": "B",
+   "col": 20,
+   "x": -0.6,
+   "y": -7.8
+  },
+  {
+   "ball": "B21",
+   "name": "VSS_12",
+   "row": "B",
+   "col": 21,
+   "x": -0.2,
+   "y": -7.8
+  },
+  {
+   "ball": "B22",
+   "name": "DDR_CH1_A2_C",
+   "row": "B",
+   "col": 22,
+   "x": 0.2,
+   "y": -7.8
+  },
+  {
+   "ball": "B23",
+   "name": "VSS_13",
+   "row": "B",
+   "col": 23,
+   "x": 0.6,
+   "y": -7.8
+  },
+  {
+   "ball": "B24",
+   "name": "DDR_CH1_DQ2_D",
+   "row": "B",
+   "col": 24,
+   "x": 1.0,
+   "y": -7.8
+  },
+  {
+   "ball": "B25",
+   "name": "DDR_CH1_RESET_D",
+   "row": "B",
+   "col": 25,
+   "x": 1.4,
+   "y": -7.8
+  },
+  {
+   "ball": "B26",
+   "name": "VSS_14",
+   "row": "B",
+   "col": 26,
+   "x": 1.8,
+   "y": -7.8
+  },
+  {
+   "ball": "B27",
+   "name": "VSS_15",
+   "row": "B",
+   "col": 27,
+   "x": 2.2,
+   "y": -7.8
+  },
+  {
+   "ball": "B28",
+   "name": "DDR_CH1_DQ5_D",
+   "row": "B",
+   "col": 28,
+   "x": 2.6,
+   "y": -7.8
+  },
+  {
+   "ball": "B29",
+   "name": "VSS_16",
+   "row": "B",
+   "col": 29,
+   "x": 3.0,
+   "y": -7.8
+  },
+  {
+   "ball": "B30",
+   "name": "DDR_CH1_LP4/4X_CS0_D",
+   "row": "B",
+   "col": 30,
+   "x": 3.4,
+   "y": -7.8
+  },
+  {
+   "ball": "B31",
+   "name": "VSS_17",
+   "row": "B",
+   "col": 31,
+   "x": 3.8,
+   "y": -7.8
+  },
+  {
+   "ball": "B32",
+   "name": "DDR_CH1_DQ12_D",
+   "row": "B",
+   "col": 32,
+   "x": 4.2,
+   "y": -7.8
+  },
+  {
+   "ball": "B33",
+   "name": "DDR_CH1_A4_D",
+   "row": "B",
+   "col": 33,
+   "x": 4.6,
+   "y": -7.8
+  },
+  {
+   "ball": "B34",
+   "name": "VSS_18",
+   "row": "B",
+   "col": 34,
+   "x": 5.0,
+   "y": -7.8
+  },
+  {
+   "ball": "B35",
+   "name": "VSS_19",
+   "row": "B",
+   "col": 35,
+   "x": 5.4,
+   "y": -7.8
+  },
+  {
+   "ball": "B36",
+   "name": "VSS_20",
+   "row": "B",
+   "col": 36,
+   "x": 5.8,
+   "y": -7.8
+  },
+  {
+   "ball": "B37",
+   "name": "DDR_CH1_WCK1N_D",
+   "row": "B",
+   "col": 37,
+   "x": 6.2,
+   "y": -7.8
+  },
+  {
+   "ball": "B38",
+   "name": "VSS_21",
+   "row": "B",
+   "col": 38,
+   "x": 6.6,
+   "y": -7.8
+  },
+  {
+   "ball": "B39",
+   "name": "DDR_CH1_WCK0P_D",
+   "row": "B",
+   "col": 39,
+   "x": 7.0,
+   "y": -7.8
+  },
+  {
+   "ball": "B40",
+   "name": "VSS_22",
+   "row": "B",
+   "col": 40,
+   "x": 7.4,
+   "y": -7.8
+  },
+  {
+   "ball": "B41",
+   "name": "DDR_CH1_DQS0P_D",
+   "row": "B",
+   "col": 41,
+   "x": 7.8,
+   "y": -7.8
+  },
+  {
+   "ball": "B42",
+   "name": "VSS_23",
+   "row": "B",
+   "col": 42,
+   "x": 8.2,
+   "y": -7.8
+  },
+  {
+   "ball": "C1",
+   "name": "DDR_CH0_ZQ_B",
+   "row": "C",
+   "col": 1,
+   "x": -8.2,
+   "y": -7.4
+  },
+  {
+   "ball": "C2",
+   "name": "VSS_24",
+   "row": "C",
+   "col": 2,
+   "x": -7.8,
+   "y": -7.4
+  },
+  {
+   "ball": "C3",
+   "name": "DDR_CH0_WCK0N_B",
+   "row": "C",
+   "col": 3,
+   "x": -7.4,
+   "y": -7.4
+  },
+  {
+   "ball": "C4",
+   "name": "DDR_CH0_WCK0P_B",
+   "row": "C",
+   "col": 4,
+   "x": -7.0,
+   "y": -7.4
+  },
+  {
+   "ball": "C6",
+   "name": "VSS_25",
+   "row": "C",
+   "col": 6,
+   "x": -6.2,
+   "y": -7.4
+  },
+  {
+   "ball": "C7",
+   "name": "VSS_26",
+   "row": "C",
+   "col": 7,
+   "x": -5.8,
+   "y": -7.4
+  },
+  {
+   "ball": "C8",
+   "name": "DDR_CH1_WCK0P_C",
+   "row": "C",
+   "col": 8,
+   "x": -5.4,
+   "y": -7.4
+  },
+  {
+   "ball": "C9",
+   "name": "VSS_27",
+   "row": "C",
+   "col": 9,
+   "x": -5.0,
+   "y": -7.4
+  },
+  {
+   "ball": "C10",
+   "name": "DDR_CH1_DQ11_C",
+   "row": "C",
+   "col": 10,
+   "x": -4.6,
+   "y": -7.4
+  },
+  {
+   "ball": "C11",
+   "name": "VSS_28",
+   "row": "C",
+   "col": 11,
+   "x": -4.2,
+   "y": -7.4
+  },
+  {
+   "ball": "C12",
+   "name": "VSS_29",
+   "row": "C",
+   "col": 12,
+   "x": -3.8,
+   "y": -7.4
+  },
+  {
+   "ball": "C13",
+   "name": "DDR_CH1_DQ12_C",
+   "row": "C",
+   "col": 13,
+   "x": -3.4,
+   "y": -7.4
+  },
+  {
+   "ball": "C14",
+   "name": "VSS_30",
+   "row": "C",
+   "col": 14,
+   "x": -3.0,
+   "y": -7.4
+  },
+  {
+   "ball": "C15",
+   "name": "VSS_31",
+   "row": "C",
+   "col": 15,
+   "x": -2.6,
+   "y": -7.4
+  },
+  {
+   "ball": "C16",
+   "name": "DDR_CH1_DQ5_C",
+   "row": "C",
+   "col": 16,
+   "x": -2.2,
+   "y": -7.4
+  },
+  {
+   "ball": "C17",
+   "name": "DDR_CH1_DQ4_C",
+   "row": "C",
+   "col": 17,
+   "x": -1.8,
+   "y": -7.4
+  },
+  {
+   "ball": "C18",
+   "name": "VSS_32",
+   "row": "C",
+   "col": 18,
+   "x": -1.4,
+   "y": -7.4
+  },
+  {
+   "ball": "C19",
+   "name": "VSS_33",
+   "row": "C",
+   "col": 19,
+   "x": -1.0,
+   "y": -7.4
+  },
+  {
+   "ball": "C20",
+   "name": "VSS_34",
+   "row": "C",
+   "col": 20,
+   "x": -0.6,
+   "y": -7.4
+  },
+  {
+   "ball": "C21",
+   "name": "DDR_CH1_CK_C",
+   "row": "C",
+   "col": 21,
+   "x": -0.2,
+   "y": -7.4
+  },
+  {
+   "ball": "C22",
+   "name": "VSS_35",
+   "row": "C",
+   "col": 22,
+   "x": 0.2,
+   "y": -7.4
+  },
+  {
+   "ball": "C23",
+   "name": "DDR_CH1_CK_D",
+   "row": "C",
+   "col": 23,
+   "x": 0.6,
+   "y": -7.4
+  },
+  {
+   "ball": "C24",
+   "name": "VSS_36",
+   "row": "C",
+   "col": 24,
+   "x": 1.0,
+   "y": -7.4
+  },
+  {
+   "ball": "C25",
+   "name": "DDR_CH1_DQ1_D",
+   "row": "C",
+   "col": 25,
+   "x": 1.4,
+   "y": -7.4
+  },
+  {
+   "ball": "C26",
+   "name": "VSS_37",
+   "row": "C",
+   "col": 26,
+   "x": 1.8,
+   "y": -7.4
+  },
+  {
+   "ball": "C27",
+   "name": "DDR_CH1_DQ6_D",
+   "row": "C",
+   "col": 27,
+   "x": 2.2,
+   "y": -7.4
+  },
+  {
+   "ball": "C28",
+   "name": "VSS_38",
+   "row": "C",
+   "col": 28,
+   "x": 2.6,
+   "y": -7.4
+  },
+  {
+   "ball": "C29",
+   "name": "DDR_CH1_DQ7_D",
+   "row": "C",
+   "col": 29,
+   "x": 3.0,
+   "y": -7.4
+  },
+  {
+   "ball": "C30",
+   "name": "VSS_39",
+   "row": "C",
+   "col": 30,
+   "x": 3.4,
+   "y": -7.4
+  },
+  {
+   "ball": "C32",
+   "name": "DDR_CH1_DQ14_D",
+   "row": "C",
+   "col": 32,
+   "x": 4.2,
+   "y": -7.4
+  },
+  {
+   "ball": "C33",
+   "name": "DDR_CH1_DM1_D",
+   "row": "C",
+   "col": 33,
+   "x": 4.6,
+   "y": -7.4
+  },
+  {
+   "ball": "C34",
+   "name": "DDR_CH1_DQ13_D",
+   "row": "C",
+   "col": 34,
+   "x": 5.0,
+   "y": -7.4
+  },
+  {
+   "ball": "C35",
+   "name": "VSS_40",
+   "row": "C",
+   "col": 35,
+   "x": 5.4,
+   "y": -7.4
+  },
+  {
+   "ball": "C36",
+   "name": "DDR_CH1_DQS1N_D",
+   "row": "C",
+   "col": 36,
+   "x": 5.8,
+   "y": -7.4
+  },
+  {
+   "ball": "C37",
+   "name": "VSS_41",
+   "row": "C",
+   "col": 37,
+   "x": 6.2,
+   "y": -7.4
+  },
+  {
+   "ball": "C39",
+   "name": "VSS_42",
+   "row": "C",
+   "col": 39,
+   "x": 7.0,
+   "y": -7.4
+  },
+  {
+   "ball": "C41",
+   "name": "AVSS_1",
+   "row": "C",
+   "col": 41,
+   "x": 7.8,
+   "y": -7.4
+  },
+  {
+   "ball": "C42",
+   "name": "PCIE20_2_RXN/SATA30_2_RXN/USB30_SSRXN",
+   "row": "C",
+   "col": 42,
+   "x": 8.2,
+   "y": -7.4
+  },
+  {
+   "ball": "D2",
+   "name": "DDR_CH0_A3_B",
+   "row": "D",
+   "col": 2,
+   "x": -7.8,
+   "y": -7.0
+  },
+  {
+   "ball": "D3",
+   "name": "VSS_43",
+   "row": "D",
+   "col": 3,
+   "x": -7.4,
+   "y": -7.0
+  },
+  {
+   "ball": "D4",
+   "name": "VSS_44",
+   "row": "D",
+   "col": 4,
+   "x": -7.0,
+   "y": -7.0
+  },
+  {
+   "ball": "D7",
+   "name": "VSS_45",
+   "row": "D",
+   "col": 7,
+   "x": -5.8,
+   "y": -7.0
+  },
+  {
+   "ball": "D8",
+   "name": "DDR_CH1_WCK0N_C",
+   "row": "D",
+   "col": 8,
+   "x": -5.4,
+   "y": -7.0
+  },
+  {
+   "ball": "D10",
+   "name": "DDR_CH1_DQ8_C",
+   "row": "D",
+   "col": 10,
+   "x": -4.6,
+   "y": -7.0
+  },
+  {
+   "ball": "D11",
+   "name": "VSS_46",
+   "row": "D",
+   "col": 11,
+   "x": -4.2,
+   "y": -7.0
+  },
+  {
+   "ball": "D13",
+   "name": "DDR_CH1_DM1_C",
+   "row": "D",
+   "col": 13,
+   "x": -3.4,
+   "y": -7.0
+  },
+  {
+   "ball": "D14",
+   "name": "VSS_47",
+   "row": "D",
+   "col": 14,
+   "x": -3.0,
+   "y": -7.0
+  },
+  {
+   "ball": "D15",
+   "name": "VSS_48",
+   "row": "D",
+   "col": 15,
+   "x": -2.6,
+   "y": -7.0
+  },
+  {
+   "ball": "D16",
+   "name": "DDR_CH1_DQ7_C",
+   "row": "D",
+   "col": 16,
+   "x": -2.2,
+   "y": -7.0
+  },
+  {
+   "ball": "D17",
+   "name": "DDR_CH1_DQ6_C",
+   "row": "D",
+   "col": 17,
+   "x": -1.8,
+   "y": -7.0
+  },
+  {
+   "ball": "D18",
+   "name": "VSS_49",
+   "row": "D",
+   "col": 18,
+   "x": -1.4,
+   "y": -7.0
+  },
+  {
+   "ball": "D19",
+   "name": "VSS_50",
+   "row": "D",
+   "col": 19,
+   "x": -1.0,
+   "y": -7.0
+  },
+  {
+   "ball": "D21",
+   "name": "DDR_CH1_CKB_C",
+   "row": "D",
+   "col": 21,
+   "x": -0.2,
+   "y": -7.0
+  },
+  {
+   "ball": "D22",
+   "name": "VSS_51",
+   "row": "D",
+   "col": 22,
+   "x": 0.2,
+   "y": -7.0
+  },
+  {
+   "ball": "D23",
+   "name": "DDR_CH1_CKB_D",
+   "row": "D",
+   "col": 23,
+   "x": 0.6,
+   "y": -7.0
+  },
+  {
+   "ball": "D25",
+   "name": "DDR_CH1_DQ4_D",
+   "row": "D",
+   "col": 25,
+   "x": 1.4,
+   "y": -7.0
+  },
+  {
+   "ball": "D26",
+   "name": "VSS_52",
+   "row": "D",
+   "col": 26,
+   "x": 1.8,
+   "y": -7.0
+  },
+  {
+   "ball": "D27",
+   "name": "DDR_CH1_DM0_D",
+   "row": "D",
+   "col": 27,
+   "x": 2.2,
+   "y": -7.0
+  },
+  {
+   "ball": "D29",
+   "name": "DDR_CH1_DQ9_D",
+   "row": "D",
+   "col": 29,
+   "x": 3.0,
+   "y": -7.0
+  },
+  {
+   "ball": "D30",
+   "name": "VSS_53",
+   "row": "D",
+   "col": 30,
+   "x": 3.4,
+   "y": -7.0
+  },
+  {
+   "ball": "D31",
+   "name": "VSS_54",
+   "row": "D",
+   "col": 31,
+   "x": 3.8,
+   "y": -7.0
+  },
+  {
+   "ball": "D32",
+   "name": "VSS_55",
+   "row": "D",
+   "col": 32,
+   "x": 4.2,
+   "y": -7.0
+  },
+  {
+   "ball": "D34",
+   "name": "DDR_CH1_DQ8_D",
+   "row": "D",
+   "col": 34,
+   "x": 5.0,
+   "y": -7.0
+  },
+  {
+   "ball": "D36",
+   "name": "DDR_CH1_DQS1P_D",
+   "row": "D",
+   "col": 36,
+   "x": 5.8,
+   "y": -7.0
+  },
+  {
+   "ball": "D38",
+   "name": "VOP_POST_EMPTY/I2C4_SDA_M3/UART6_RTSN_M1/PWM0_M2/SPI4_CLK_M2/GPIO1_A2_d",
+   "row": "D",
+   "col": 38,
+   "x": 6.6,
+   "y": -7.0
+  },
+  {
+   "ball": "D39",
+   "name": "SPI2_CLK_M0/GPIO1_A6_d",
+   "row": "D",
+   "col": 39,
+   "x": 7.0,
+   "y": -7.0
+  },
+  {
+   "ball": "D40",
+   "name": "UART7_TX_M2/SPI0_CS1_M2/GPIO1_B5_u",
+   "row": "D",
+   "col": 40,
+   "x": 7.4,
+   "y": -7.0
+  },
+  {
+   "ball": "D41",
+   "name": "PCIE20_2_TXN/SATA30_2_TXN/USB30_SSTXN",
+   "row": "D",
+   "col": 41,
+   "x": 7.8,
+   "y": -7.0
+  },
+  {
+   "ball": "D42",
+   "name": "PCIE20_2_RXP/SATA30_2_RXP/USB30_SSRXP",
+   "row": "D",
+   "col": 42,
+   "x": 8.2,
+   "y": -7.0
+  },
+  {
+   "ball": "E1",
+   "name": "DDR_CH0_A4_B",
+   "row": "E",
+   "col": 1,
+   "x": -8.2,
+   "y": -6.6
+  },
+  {
+   "ball": "E2",
+   "name": "VSS_56",
+   "row": "E",
+   "col": 2,
+   "x": -7.8,
+   "y": -6.6
+  },
+  {
+   "ball": "E3",
+   "name": "DDR_CH0_WCK1P_B",
+   "row": "E",
+   "col": 3,
+   "x": -7.4,
+   "y": -6.6
+  },
+  {
+   "ball": "E4",
+   "name": "DDR_CH0_WCK1N_B",
+   "row": "E",
+   "col": 4,
+   "x": -7.0,
+   "y": -6.6
+  },
+  {
+   "ball": "E5",
+   "name": "VSS_57",
+   "row": "E",
+   "col": 5,
+   "x": -6.6,
+   "y": -6.6
+  },
+  {
+   "ball": "E6",
+   "name": "VSS_58",
+   "row": "E",
+   "col": 6,
+   "x": -6.2,
+   "y": -6.6
+  },
+  {
+   "ball": "E8",
+   "name": "VSS_59",
+   "row": "E",
+   "col": 8,
+   "x": -5.4,
+   "y": -6.6
+  },
+  {
+   "ball": "E9",
+   "name": "VSS_60",
+   "row": "E",
+   "col": 9,
+   "x": -5.0,
+   "y": -6.6
+  },
+  {
+   "ball": "E10",
+   "name": "VSS_61",
+   "row": "E",
+   "col": 10,
+   "x": -4.6,
+   "y": -6.6
+  },
+  {
+   "ball": "E12",
+   "name": "VSS_62",
+   "row": "E",
+   "col": 12,
+   "x": -3.8,
+   "y": -6.6
+  },
+  {
+   "ball": "E13",
+   "name": "DDR_CH1_DQ13_C",
+   "row": "E",
+   "col": 13,
+   "x": -3.4,
+   "y": -6.6
+  },
+  {
+   "ball": "E16",
+   "name": "VSS_63",
+   "row": "E",
+   "col": 16,
+   "x": -2.2,
+   "y": -6.6
+  },
+  {
+   "ball": "E17",
+   "name": "DDR_CH1_DM0_C",
+   "row": "E",
+   "col": 17,
+   "x": -1.8,
+   "y": -6.6
+  },
+  {
+   "ball": "E18",
+   "name": "VSS_64",
+   "row": "E",
+   "col": 18,
+   "x": -1.4,
+   "y": -6.6
+  },
+  {
+   "ball": "E19",
+   "name": "VSS_65",
+   "row": "E",
+   "col": 19,
+   "x": -1.0,
+   "y": -6.6
+  },
+  {
+   "ball": "E20",
+   "name": "DDR_CH1_DQ1_C",
+   "row": "E",
+   "col": 20,
+   "x": -0.6,
+   "y": -6.6
+  },
+  {
+   "ball": "E21",
+   "name": "VSS_66",
+   "row": "E",
+   "col": 21,
+   "x": -0.2,
+   "y": -6.6
+  },
+  {
+   "ball": "E23",
+   "name": "VSS_67",
+   "row": "E",
+   "col": 23,
+   "x": 0.6,
+   "y": -6.6
+  },
+  {
+   "ball": "E25",
+   "name": "VSS_68",
+   "row": "E",
+   "col": 25,
+   "x": 1.4,
+   "y": -6.6
+  },
+  {
+   "ball": "E27",
+   "name": "VSS_69",
+   "row": "E",
+   "col": 27,
+   "x": 2.2,
+   "y": -6.6
+  },
+  {
+   "ball": "E29",
+   "name": "DDR_CH1_DQ10_D",
+   "row": "E",
+   "col": 29,
+   "x": 3.0,
+   "y": -6.6
+  },
+  {
+   "ball": "E30",
+   "name": "VSS_70",
+   "row": "E",
+   "col": 30,
+   "x": 3.4,
+   "y": -6.6
+  },
+  {
+   "ball": "E31",
+   "name": "VSS_71",
+   "row": "E",
+   "col": 31,
+   "x": 3.8,
+   "y": -6.6
+  },
+  {
+   "ball": "E32",
+   "name": "DDR_CH1_DQ11_D",
+   "row": "E",
+   "col": 32,
+   "x": 4.2,
+   "y": -6.6
+  },
+  {
+   "ball": "E33",
+   "name": "VSS_72",
+   "row": "E",
+   "col": 33,
+   "x": 4.6,
+   "y": -6.6
+  },
+  {
+   "ball": "E34",
+   "name": "VSS_73",
+   "row": "E",
+   "col": 34,
+   "x": 5.0,
+   "y": -6.6
+  },
+  {
+   "ball": "E37",
+   "name": "VSS_74",
+   "row": "E",
+   "col": 37,
+   "x": 6.2,
+   "y": -6.6
+  },
+  {
+   "ball": "E38",
+   "name": "VSS_75",
+   "row": "E",
+   "col": 38,
+   "x": 6.6,
+   "y": -6.6
+  },
+  {
+   "ball": "E39",
+   "name": "VSS_76",
+   "row": "E",
+   "col": 39,
+   "x": 7.0,
+   "y": -6.6
+  },
+  {
+   "ball": "E40",
+   "name": "AVSS_2",
+   "row": "E",
+   "col": 40,
+   "x": 7.4,
+   "y": -6.6
+  },
+  {
+   "ball": "E41",
+   "name": "PCIE20_2_TXP/SATA30_2_TXP/USB30_SSTXP",
+   "row": "E",
+   "col": 41,
+   "x": 7.8,
+   "y": -6.6
+  },
+  {
+   "ball": "F1",
+   "name": "DDR_CH0_LP4/4X_CKE1/LP5_CS1_B",
+   "row": "F",
+   "col": 1,
+   "x": -8.2,
+   "y": -6.2
+  },
+  {
+   "ball": "F2",
+   "name": "VSS_77",
+   "row": "F",
+   "col": 2,
+   "x": -7.8,
+   "y": -6.2
+  },
+  {
+   "ball": "F3",
+   "name": "VSS_78",
+   "row": "F",
+   "col": 3,
+   "x": -7.4,
+   "y": -6.2
+  },
+  {
+   "ball": "F4",
+   "name": "VSS_79",
+   "row": "F",
+   "col": 4,
+   "x": -7.0,
+   "y": -6.2
+  },
+  {
+   "ball": "F8",
+   "name": "VSS_80",
+   "row": "F",
+   "col": 8,
+   "x": -5.4,
+   "y": -6.2
+  },
+  {
+   "ball": "F9",
+   "name": "VSS_81",
+   "row": "F",
+   "col": 9,
+   "x": -5.0,
+   "y": -6.2
+  },
+  {
+   "ball": "F10",
+   "name": "VSS_82",
+   "row": "F",
+   "col": 10,
+   "x": -4.6,
+   "y": -6.2
+  },
+  {
+   "ball": "F13",
+   "name": "VSS_83",
+   "row": "F",
+   "col": 13,
+   "x": -3.4,
+   "y": -6.2
+  },
+  {
+   "ball": "F14",
+   "name": "VSS_84",
+   "row": "F",
+   "col": 14,
+   "x": -3.0,
+   "y": -6.2
+  },
+  {
+   "ball": "F15",
+   "name": "VSS_85",
+   "row": "F",
+   "col": 15,
+   "x": -2.6,
+   "y": -6.2
+  },
+  {
+   "ball": "F16",
+   "name": "VSS_86",
+   "row": "F",
+   "col": 16,
+   "x": -2.2,
+   "y": -6.2
+  },
+  {
+   "ball": "F19",
+   "name": "VSS_87",
+   "row": "F",
+   "col": 19,
+   "x": -1.0,
+   "y": -6.2
+  },
+  {
+   "ball": "F20",
+   "name": "DDR_CH1_DQ3_C",
+   "row": "F",
+   "col": 20,
+   "x": -0.6,
+   "y": -6.2
+  },
+  {
+   "ball": "F21",
+   "name": "VSS_88",
+   "row": "F",
+   "col": 21,
+   "x": -0.2,
+   "y": -6.2
+  },
+  {
+   "ball": "F23",
+   "name": "VSS_89",
+   "row": "F",
+   "col": 23,
+   "x": 0.6,
+   "y": -6.2
+  },
+  {
+   "ball": "F29",
+   "name": "VSS_90",
+   "row": "F",
+   "col": 29,
+   "x": 3.0,
+   "y": -6.2
+  },
+  {
+   "ball": "F31",
+   "name": "VSS_91",
+   "row": "F",
+   "col": 31,
+   "x": 3.8,
+   "y": -6.2
+  },
+  {
+   "ball": "F33",
+   "name": "VSS_92",
+   "row": "F",
+   "col": 33,
+   "x": 4.6,
+   "y": -6.2
+  },
+  {
+   "ball": "F34",
+   "name": "VSS_93",
+   "row": "F",
+   "col": 34,
+   "x": 5.0,
+   "y": -6.2
+  },
+  {
+   "ball": "F35",
+   "name": "VSS_94",
+   "row": "F",
+   "col": 35,
+   "x": 5.4,
+   "y": -6.2
+  },
+  {
+   "ball": "F36",
+   "name": "VSS_95",
+   "row": "F",
+   "col": 36,
+   "x": 5.8,
+   "y": -6.2
+  },
+  {
+   "ball": "F37",
+   "name": "MIPI_CAMERA2_CLK_M0/SPDIF1_TX_M0/SATA2_ACT_LED_M1/I2C5_SDA_M3/UART1_RX_M1/PWM13_M2/GPIO1_B7_u",
+   "row": "F",
+   "col": 37,
+   "x": 6.2,
+   "y": -6.2
+  },
+  {
+   "ball": "F38",
+   "name": "VSS_96",
+   "row": "F",
+   "col": 38,
+   "x": 6.6,
+   "y": -6.2
+  },
+  {
+   "ball": "F39",
+   "name": "VSS_97",
+   "row": "F",
+   "col": 39,
+   "x": 7.0,
+   "y": -6.2
+  },
+  {
+   "ball": "F40",
+   "name": "AVSS_3",
+   "row": "F",
+   "col": 40,
+   "x": 7.4,
+   "y": -6.2
+  },
+  {
+   "ball": "F41",
+   "name": "PCIE20_2_REFCLKP",
+   "row": "F",
+   "col": 41,
+   "x": 7.8,
+   "y": -6.2
+  },
+  {
+   "ball": "F42",
+   "name": "PCIE20_2_REFCLKN",
+   "row": "F",
+   "col": 42,
+   "x": 8.2,
+   "y": -6.2
+  },
+  {
+   "ball": "G2",
+   "name": "DDR_CH0_DM1_B",
+   "row": "G",
+   "col": 2,
+   "x": -7.8,
+   "y": -5.8
+  },
+  {
+   "ball": "G3",
+   "name": "VSS_98",
+   "row": "G",
+   "col": 3,
+   "x": -7.4,
+   "y": -5.8
+  },
+  {
+   "ball": "G4",
+   "name": "DDR_CH0_DQ10_B",
+   "row": "G",
+   "col": 4,
+   "x": -7.0,
+   "y": -5.8
+  },
+  {
+   "ball": "G5",
+   "name": "DDR_CH0_DQ8_B",
+   "row": "G",
+   "col": 5,
+   "x": -6.6,
+   "y": -5.8
+  },
+  {
+   "ball": "G6",
+   "name": "VSS_99",
+   "row": "G",
+   "col": 6,
+   "x": -6.2,
+   "y": -5.8
+  },
+  {
+   "ball": "G8",
+   "name": "VSS_100",
+   "row": "G",
+   "col": 8,
+   "x": -5.4,
+   "y": -5.8
+  },
+  {
+   "ball": "G9",
+   "name": "VSS_101",
+   "row": "G",
+   "col": 9,
+   "x": -5.0,
+   "y": -5.8
+  },
+  {
+   "ball": "G10",
+   "name": "VSS_102",
+   "row": "G",
+   "col": 10,
+   "x": -4.6,
+   "y": -5.8
+  },
+  {
+   "ball": "G12",
+   "name": "VSS_103",
+   "row": "G",
+   "col": 12,
+   "x": -3.8,
+   "y": -5.8
+  },
+  {
+   "ball": "G20",
+   "name": "VSS_104",
+   "row": "G",
+   "col": 20,
+   "x": -0.6,
+   "y": -5.8
+  },
+  {
+   "ball": "G21",
+   "name": "VSS_105",
+   "row": "G",
+   "col": 21,
+   "x": -0.2,
+   "y": -5.8
+  },
+  {
+   "ball": "G22",
+   "name": "VSS_106",
+   "row": "G",
+   "col": 22,
+   "x": 0.2,
+   "y": -5.8
+  },
+  {
+   "ball": "G24",
+   "name": "DDR_CH1_VDDQ_CKE",
+   "row": "G",
+   "col": 24,
+   "x": 1.0,
+   "y": -5.8
+  },
+  {
+   "ball": "G25",
+   "name": "VSS_107",
+   "row": "G",
+   "col": 25,
+   "x": 1.4,
+   "y": -5.8
+  },
+  {
+   "ball": "G26",
+   "name": "VSS_108",
+   "row": "G",
+   "col": 26,
+   "x": 1.8,
+   "y": -5.8
+  },
+  {
+   "ball": "G27",
+   "name": "VCCIO4_1V8_1",
+   "row": "G",
+   "col": 27,
+   "x": 2.2,
+   "y": -5.8
+  },
+  {
+   "ball": "G28",
+   "name": "VCCIO4_1V8_2",
+   "row": "G",
+   "col": 28,
+   "x": 2.6,
+   "y": -5.8
+  },
+  {
+   "ball": "G29",
+   "name": "VSS_109",
+   "row": "G",
+   "col": 29,
+   "x": 3.0,
+   "y": -5.8
+  },
+  {
+   "ball": "G31",
+   "name": "VCCIO4",
+   "row": "G",
+   "col": 31,
+   "x": 3.8,
+   "y": -5.8
+  },
+  {
+   "ball": "G34",
+   "name": "PCIE20_SATA30_0_AVDD_1V8",
+   "row": "G",
+   "col": 34,
+   "x": 5.0,
+   "y": -5.8
+  },
+  {
+   "ball": "G36",
+   "name": "AVSS_4",
+   "row": "G",
+   "col": 36,
+   "x": 5.8,
+   "y": -5.8
+  },
+  {
+   "ball": "G37",
+   "name": "SPI2_MISO_M0/GPIO1_A4_d",
+   "row": "G",
+   "col": 37,
+   "x": 6.2,
+   "y": -5.8
+  },
+  {
+   "ball": "G38",
+   "name": "MIPI_CAMERA4_CLK_M0/I2C8_SDA_M2/UART1_CTSN_M1/PWM15_IR_M3/GPIO1_D7_u",
+   "row": "G",
+   "col": 38,
+   "x": 6.6,
+   "y": -5.8
+  },
+  {
+   "ball": "G39",
+   "name": "PDM1_SDI2_M1/SPI0_MISO_M2/GPIO1_B1_d",
+   "row": "G",
+   "col": 39,
+   "x": 7.0,
+   "y": -5.8
+  },
+  {
+   "ball": "G40",
+   "name": "PCIE20X1_1_CLKREQN_M2/DP0_HPDIN_M2/I2C2_SDA_M4/UART6_RX_M1/SPI4_MISO_M2/GPIO1_A0_d",
+   "row": "G",
+   "col": 40,
+   "x": 7.4,
+   "y": -5.8
+  },
+  {
+   "ball": "G41",
+   "name": "AVSS_5",
+   "row": "G",
+   "col": 41,
+   "x": 7.8,
+   "y": -5.8
+  },
+  {
+   "ball": "H1",
+   "name": "DDR_CH0_A6_B",
+   "row": "H",
+   "col": 1,
+   "x": -8.2,
+   "y": -5.4
+  },
+  {
+   "ball": "H2",
+   "name": "DDR_CH0_LP4/4X_CKE0/LP5_CS0_B",
+   "row": "H",
+   "col": 2,
+   "x": -7.8,
+   "y": -5.4
+  },
+  {
+   "ball": "H3",
+   "name": "VSS_110",
+   "row": "H",
+   "col": 3,
+   "x": -7.4,
+   "y": -5.4
+  },
+  {
+   "ball": "H4",
+   "name": "VSS_111",
+   "row": "H",
+   "col": 4,
+   "x": -7.0,
+   "y": -5.4
+  },
+  {
+   "ball": "H5",
+   "name": "VSS_112",
+   "row": "H",
+   "col": 5,
+   "x": -6.6,
+   "y": -5.4
+  },
+  {
+   "ball": "H6",
+   "name": "VSS_113",
+   "row": "H",
+   "col": 6,
+   "x": -6.2,
+   "y": -5.4
+  },
+  {
+   "ball": "H11",
+   "name": "VSS_114",
+   "row": "H",
+   "col": 11,
+   "x": -4.2,
+   "y": -5.4
+  },
+  {
+   "ball": "H12",
+   "name": "VSS_115",
+   "row": "H",
+   "col": 12,
+   "x": -3.8,
+   "y": -5.4
+  },
+  {
+   "ball": "H14",
+   "name": "DDR_CH1_VDDQ_1",
+   "row": "H",
+   "col": 14,
+   "x": -3.0,
+   "y": -5.4
+  },
+  {
+   "ball": "H15",
+   "name": "DDR_CH1_VDDQ_2",
+   "row": "H",
+   "col": 15,
+   "x": -2.6,
+   "y": -5.4
+  },
+  {
+   "ball": "H16",
+   "name": "DDR_CH1_VDDQ_3",
+   "row": "H",
+   "col": 16,
+   "x": -2.2,
+   "y": -5.4
+  },
+  {
+   "ball": "H18",
+   "name": "DDR_CH1_VDDQ_4",
+   "row": "H",
+   "col": 18,
+   "x": -1.4,
+   "y": -5.4
+  },
+  {
+   "ball": "H20",
+   "name": "DDR_CH1_VDDQ_5",
+   "row": "H",
+   "col": 20,
+   "x": -0.6,
+   "y": -5.4
+  },
+  {
+   "ball": "H22",
+   "name": "VSS_116",
+   "row": "H",
+   "col": 22,
+   "x": 0.2,
+   "y": -5.4
+  },
+  {
+   "ball": "H24",
+   "name": "DDR_CH1_VDDQ_CK",
+   "row": "H",
+   "col": 24,
+   "x": 1.0,
+   "y": -5.4
+  },
+  {
+   "ball": "H25",
+   "name": "VSS_117",
+   "row": "H",
+   "col": 25,
+   "x": 1.4,
+   "y": -5.4
+  },
+  {
+   "ball": "H27",
+   "name": "VDD_LOGIC_1",
+   "row": "H",
+   "col": 27,
+   "x": 2.2,
+   "y": -5.4
+  },
+  {
+   "ball": "H29",
+   "name": "VSS_118",
+   "row": "H",
+   "col": 29,
+   "x": 3.0,
+   "y": -5.4
+  },
+  {
+   "ball": "H31",
+   "name": "VCCIO1_1V8",
+   "row": "H",
+   "col": 31,
+   "x": 3.8,
+   "y": -5.4
+  },
+  {
+   "ball": "H34",
+   "name": "PCIE20_SATA30_USB30_2_AVDD_1V8",
+   "row": "H",
+   "col": 34,
+   "x": 5.0,
+   "y": -5.4
+  },
+  {
+   "ball": "H36",
+   "name": "PCIE20_SATA30_0_AVDD_0V85",
+   "row": "H",
+   "col": 36,
+   "x": 5.8,
+   "y": -5.4
+  },
+  {
+   "ball": "H37",
+   "name": "AVSS_6",
+   "row": "H",
+   "col": 37,
+   "x": 6.2,
+   "y": -5.4
+  },
+  {
+   "ball": "H38",
+   "name": "PDM1_SDI0_M1/PCIE20X1_1_PERSTN_M2/PWM3_IR_M3/SPI2_CS0_M0/GPIO1_A7_u",
+   "row": "H",
+   "col": 38,
+   "x": 6.6,
+   "y": -5.4
+  },
+  {
+   "ball": "H39",
+   "name": "PDM1_SDI1_M1/SPI2_CS1_M0/GPIO1_B0_u",
+   "row": "H",
+   "col": 39,
+   "x": 7.0,
+   "y": -5.4
+  },
+  {
+   "ball": "H40",
+   "name": "AVSS_7",
+   "row": "H",
+   "col": 40,
+   "x": 7.4,
+   "y": -5.4
+  },
+  {
+   "ball": "H41",
+   "name": "PCIE20_0_TXP/SATA30_0_TXP",
+   "row": "H",
+   "col": 41,
+   "x": 7.8,
+   "y": -5.4
+  },
+  {
+   "ball": "H42",
+   "name": "PCIE20_0_TXN/SATA30_0_TXN",
+   "row": "H",
+   "col": 42,
+   "x": 8.2,
+   "y": -5.4
+  },
+  {
+   "ball": "J1",
+   "name": "DDR_CH0_LP4/4X_CS0_B",
+   "row": "J",
+   "col": 1,
+   "x": -8.2,
+   "y": -5.0
+  },
+  {
+   "ball": "J2",
+   "name": "VSS_119",
+   "row": "J",
+   "col": 2,
+   "x": -7.8,
+   "y": -5.0
+  },
+  {
+   "ball": "J3",
+   "name": "DDR_CH0_DQ9_B",
+   "row": "J",
+   "col": 3,
+   "x": -7.4,
+   "y": -5.0
+  },
+  {
+   "ball": "J4",
+   "name": "DDR_CH0_DQ11_B",
+   "row": "J",
+   "col": 4,
+   "x": -7.0,
+   "y": -5.0
+  },
+  {
+   "ball": "J5",
+   "name": "DDR_CH0_DQ14_B",
+   "row": "J",
+   "col": 5,
+   "x": -6.6,
+   "y": -5.0
+  },
+  {
+   "ball": "J6",
+   "name": "VSS_120",
+   "row": "J",
+   "col": 6,
+   "x": -6.2,
+   "y": -5.0
+  },
+  {
+   "ball": "J7",
+   "name": "VSS_121",
+   "row": "J",
+   "col": 7,
+   "x": -5.8,
+   "y": -5.0
+  },
+  {
+   "ball": "J8",
+   "name": "VSS_122",
+   "row": "J",
+   "col": 8,
+   "x": -5.4,
+   "y": -5.0
+  },
+  {
+   "ball": "J9",
+   "name": "VSS_123",
+   "row": "J",
+   "col": 9,
+   "x": -5.0,
+   "y": -5.0
+  },
+  {
+   "ball": "J10",
+   "name": "VSS_124",
+   "row": "J",
+   "col": 10,
+   "x": -4.6,
+   "y": -5.0
+  },
+  {
+   "ball": "J12",
+   "name": "VSS_125",
+   "row": "J",
+   "col": 12,
+   "x": -3.8,
+   "y": -5.0
+  },
+  {
+   "ball": "J14",
+   "name": "VSS_126",
+   "row": "J",
+   "col": 14,
+   "x": -3.0,
+   "y": -5.0
+  },
+  {
+   "ball": "J15",
+   "name": "VSS_127",
+   "row": "J",
+   "col": 15,
+   "x": -2.6,
+   "y": -5.0
+  },
+  {
+   "ball": "J16",
+   "name": "VSS_128",
+   "row": "J",
+   "col": 16,
+   "x": -2.2,
+   "y": -5.0
+  },
+  {
+   "ball": "J18",
+   "name": "DDR_CH1_VDD_1",
+   "row": "J",
+   "col": 18,
+   "x": -1.4,
+   "y": -5.0
+  },
+  {
+   "ball": "J20",
+   "name": "DDR_CH1_VDD_MIF_1",
+   "row": "J",
+   "col": 20,
+   "x": -0.6,
+   "y": -5.0
+  },
+  {
+   "ball": "J22",
+   "name": "VSS_129",
+   "row": "J",
+   "col": 22,
+   "x": 0.2,
+   "y": -5.0
+  },
+  {
+   "ball": "J24",
+   "name": "VSS_130",
+   "row": "J",
+   "col": 24,
+   "x": 1.0,
+   "y": -5.0
+  },
+  {
+   "ball": "J26",
+   "name": "VSS_131",
+   "row": "J",
+   "col": 26,
+   "x": 1.8,
+   "y": -5.0
+  },
+  {
+   "ball": "J27",
+   "name": "VDD_LOGIC_2",
+   "row": "J",
+   "col": 27,
+   "x": 2.2,
+   "y": -5.0
+  },
+  {
+   "ball": "J29",
+   "name": "VSS_132",
+   "row": "J",
+   "col": 29,
+   "x": 3.0,
+   "y": -5.0
+  },
+  {
+   "ball": "J30",
+   "name": "VSS_133",
+   "row": "J",
+   "col": 30,
+   "x": 3.4,
+   "y": -5.0
+  },
+  {
+   "ball": "J31",
+   "name": "VSS_134",
+   "row": "J",
+   "col": 31,
+   "x": 3.8,
+   "y": -5.0
+  },
+  {
+   "ball": "J36",
+   "name": "PCIE20_SATA30_USB30_2_AVDD_0V85",
+   "row": "J",
+   "col": 36,
+   "x": 5.8,
+   "y": -5.0
+  },
+  {
+   "ball": "J38",
+   "name": "AVSS_8",
+   "row": "J",
+   "col": 38,
+   "x": 6.6,
+   "y": -5.0
+  },
+  {
+   "ball": "J39",
+   "name": "AVSS_9",
+   "row": "J",
+   "col": 39,
+   "x": 7.0,
+   "y": -5.0
+  },
+  {
+   "ball": "J40",
+   "name": "AVSS_10",
+   "row": "J",
+   "col": 40,
+   "x": 7.4,
+   "y": -5.0
+  },
+  {
+   "ball": "J41",
+   "name": "PCIE20_0_RXN/SATA30_0_RXN",
+   "row": "J",
+   "col": 41,
+   "x": 7.8,
+   "y": -5.0
+  },
+  {
+   "ball": "J42",
+   "name": "PCIE20_0_RXP/SATA30_0_RXP",
+   "row": "J",
+   "col": 42,
+   "x": 8.2,
+   "y": -5.0
+  },
+  {
+   "ball": "K1",
+   "name": "DDR_CH0_DQS1P_B",
+   "row": "K",
+   "col": 1,
+   "x": -8.2,
+   "y": -4.6
+  },
+  {
+   "ball": "K2",
+   "name": "DDR_CH0_DQS1N_B",
+   "row": "K",
+   "col": 2,
+   "x": -7.8,
+   "y": -4.6
+  },
+  {
+   "ball": "K3",
+   "name": "VSS_135",
+   "row": "K",
+   "col": 3,
+   "x": -7.4,
+   "y": -4.6
+  },
+  {
+   "ball": "K6",
+   "name": "VSS_136",
+   "row": "K",
+   "col": 6,
+   "x": -6.2,
+   "y": -4.6
+  },
+  {
+   "ball": "K7",
+   "name": "VSS_137",
+   "row": "K",
+   "col": 7,
+   "x": -5.8,
+   "y": -4.6
+  },
+  {
+   "ball": "K9",
+   "name": "DDR_CH0_VDDQ_CK_1",
+   "row": "K",
+   "col": 9,
+   "x": -5.0,
+   "y": -4.6
+  },
+  {
+   "ball": "K10",
+   "name": "VSS_138",
+   "row": "K",
+   "col": 10,
+   "x": -4.6,
+   "y": -4.6
+  },
+  {
+   "ball": "K11",
+   "name": "VSS_139",
+   "row": "K",
+   "col": 11,
+   "x": -4.2,
+   "y": -4.6
+  },
+  {
+   "ball": "K12",
+   "name": "VSS_140",
+   "row": "K",
+   "col": 12,
+   "x": -3.8,
+   "y": -4.6
+  },
+  {
+   "ball": "K14",
+   "name": "VSS_141",
+   "row": "K",
+   "col": 14,
+   "x": -3.0,
+   "y": -4.6
+  },
+  {
+   "ball": "K17",
+   "name": "VSS_142",
+   "row": "K",
+   "col": 17,
+   "x": -1.8,
+   "y": -4.6
+  },
+  {
+   "ball": "K18",
+   "name": "DDR_CH1_VDD_2",
+   "row": "K",
+   "col": 18,
+   "x": -1.4,
+   "y": -4.6
+  },
+  {
+   "ball": "K20",
+   "name": "DDR_CH1_VDD_MIF_2",
+   "row": "K",
+   "col": 20,
+   "x": -0.6,
+   "y": -4.6
+  },
+  {
+   "ball": "K22",
+   "name": "VSS_143",
+   "row": "K",
+   "col": 22,
+   "x": 0.2,
+   "y": -4.6
+  },
+  {
+   "ball": "K23",
+   "name": "VSS_144",
+   "row": "K",
+   "col": 23,
+   "x": 0.6,
+   "y": -4.6
+  },
+  {
+   "ball": "K25",
+   "name": "VSS_145",
+   "row": "K",
+   "col": 25,
+   "x": 1.4,
+   "y": -4.6
+  },
+  {
+   "ball": "K26",
+   "name": "VSS_146",
+   "row": "K",
+   "col": 26,
+   "x": 1.8,
+   "y": -4.6
+  },
+  {
+   "ball": "K27",
+   "name": "VDD_CPU_BIG0_MEM_1",
+   "row": "K",
+   "col": 27,
+   "x": 2.2,
+   "y": -4.6
+  },
+  {
+   "ball": "K28",
+   "name": "VDD_CPU_BIG0_MEM_2",
+   "row": "K",
+   "col": 28,
+   "x": 2.6,
+   "y": -4.6
+  },
+  {
+   "ball": "K29",
+   "name": "VDD_CPU_BIG0_MEM_3",
+   "row": "K",
+   "col": 29,
+   "x": 3.0,
+   "y": -4.6
+  },
+  {
+   "ball": "K30",
+   "name": "VDD_CPU_BIG0_MEM_4",
+   "row": "K",
+   "col": 30,
+   "x": 3.4,
+   "y": -4.6
+  },
+  {
+   "ball": "K31",
+   "name": "VSS_147",
+   "row": "K",
+   "col": 31,
+   "x": 3.8,
+   "y": -4.6
+  },
+  {
+   "ball": "K32",
+   "name": "VSS_148",
+   "row": "K",
+   "col": 32,
+   "x": 4.2,
+   "y": -4.6
+  },
+  {
+   "ball": "K33",
+   "name": "VSS_149",
+   "row": "K",
+   "col": 33,
+   "x": 4.6,
+   "y": -4.6
+  },
+  {
+   "ball": "K34",
+   "name": "AVSS_11",
+   "row": "K",
+   "col": 34,
+   "x": 5.0,
+   "y": -4.6
+  },
+  {
+   "ball": "K35",
+   "name": "AVSS_12",
+   "row": "K",
+   "col": 35,
+   "x": 5.4,
+   "y": -4.6
+  },
+  {
+   "ball": "K36",
+   "name": "AVSS_13",
+   "row": "K",
+   "col": 36,
+   "x": 5.8,
+   "y": -4.6
+  },
+  {
+   "ball": "K37",
+   "name": "AVSS_14",
+   "row": "K",
+   "col": 37,
+   "x": 6.2,
+   "y": -4.6
+  },
+  {
+   "ball": "K38",
+   "name": "AVSS_15",
+   "row": "K",
+   "col": 38,
+   "x": 6.6,
+   "y": -4.6
+  },
+  {
+   "ball": "K39",
+   "name": "AVSS_16",
+   "row": "K",
+   "col": 39,
+   "x": 7.0,
+   "y": -4.6
+  },
+  {
+   "ball": "K40",
+   "name": "AVSS_17",
+   "row": "K",
+   "col": 40,
+   "x": 7.4,
+   "y": -4.6
+  },
+  {
+   "ball": "K41",
+   "name": "PCIE20_0_REFCLKN",
+   "row": "K",
+   "col": 41,
+   "x": 7.8,
+   "y": -4.6
+  },
+  {
+   "ball": "L1",
+   "name": "DDR_CH0_A5_B",
+   "row": "L",
+   "col": 1,
+   "x": -8.2,
+   "y": -4.2
+  },
+  {
+   "ball": "L2",
+   "name": "VSS_150",
+   "row": "L",
+   "col": 2,
+   "x": -7.8,
+   "y": -4.2
+  },
+  {
+   "ball": "L3",
+   "name": "VSS_151",
+   "row": "L",
+   "col": 3,
+   "x": -7.4,
+   "y": -4.2
+  },
+  {
+   "ball": "L5",
+   "name": "VSS_152",
+   "row": "L",
+   "col": 5,
+   "x": -6.6,
+   "y": -4.2
+  },
+  {
+   "ball": "L6",
+   "name": "VSS_153",
+   "row": "L",
+   "col": 6,
+   "x": -6.2,
+   "y": -4.2
+  },
+  {
+   "ball": "L9",
+   "name": "DDR_CH0_VDDQ_CK_2",
+   "row": "L",
+   "col": 9,
+   "x": -5.0,
+   "y": -4.2
+  },
+  {
+   "ball": "L10",
+   "name": "VSS_154",
+   "row": "L",
+   "col": 10,
+   "x": -4.6,
+   "y": -4.2
+  },
+  {
+   "ball": "L11",
+   "name": "VSS_155",
+   "row": "L",
+   "col": 11,
+   "x": -4.2,
+   "y": -4.2
+  },
+  {
+   "ball": "L12",
+   "name": "VSS_156",
+   "row": "L",
+   "col": 12,
+   "x": -3.8,
+   "y": -4.2
+  },
+  {
+   "ball": "L14",
+   "name": "VSS_157",
+   "row": "L",
+   "col": 14,
+   "x": -3.0,
+   "y": -4.2
+  },
+  {
+   "ball": "L15",
+   "name": "DDR_CH1_PLL_AVDD1V8",
+   "row": "L",
+   "col": 15,
+   "x": -2.6,
+   "y": -4.2
+  },
+  {
+   "ball": "L18",
+   "name": "DDR_CH1_VDD_3",
+   "row": "L",
+   "col": 18,
+   "x": -1.4,
+   "y": -4.2
+  },
+  {
+   "ball": "L20",
+   "name": "DDR_CH1_VDD_MIF_3",
+   "row": "L",
+   "col": 20,
+   "x": -0.6,
+   "y": -4.2
+  },
+  {
+   "ball": "L22",
+   "name": "VSS_158",
+   "row": "L",
+   "col": 22,
+   "x": 0.2,
+   "y": -4.2
+  },
+  {
+   "ball": "L23",
+   "name": "VSS_159",
+   "row": "L",
+   "col": 23,
+   "x": 0.6,
+   "y": -4.2
+  },
+  {
+   "ball": "L24",
+   "name": "VSS_160",
+   "row": "L",
+   "col": 24,
+   "x": 1.0,
+   "y": -4.2
+  },
+  {
+   "ball": "L32",
+   "name": "VSS_161",
+   "row": "L",
+   "col": 32,
+   "x": 4.2,
+   "y": -4.2
+  },
+  {
+   "ball": "L33",
+   "name": "VSS_162",
+   "row": "L",
+   "col": 33,
+   "x": 4.6,
+   "y": -4.2
+  },
+  {
+   "ball": "L34",
+   "name": "AVSS_18",
+   "row": "L",
+   "col": 34,
+   "x": 5.0,
+   "y": -4.2
+  },
+  {
+   "ball": "L35",
+   "name": "AVSS_19",
+   "row": "L",
+   "col": 35,
+   "x": 5.4,
+   "y": -4.2
+  },
+  {
+   "ball": "L36",
+   "name": "VSS_163",
+   "row": "L",
+   "col": 36,
+   "x": 5.8,
+   "y": -4.2
+  },
+  {
+   "ball": "L37",
+   "name": "MIPI_CAMERA3_CLK_M0/I2C8_SCL_M2/UART1_RTSN_M1/PWM14_M2/GPIO1_D6_u",
+   "row": "L",
+   "col": 37,
+   "x": 6.2,
+   "y": -4.2
+  },
+  {
+   "ball": "L38",
+   "name": "MIPI_CAMERA1_CLK_M0/SPDIF0_TX_M0/I2C5_SCL_M3/UART1_TX_M1/GPIO1_B6_u",
+   "row": "L",
+   "col": 38,
+   "x": 6.6,
+   "y": -4.2
+  },
+  {
+   "ball": "L39",
+   "name": "I2C4_SCL_M3/UART6_CTSN_M1/PWM1_M2/SPI4_CS0_M2/GPIO1_A3_d",
+   "row": "L",
+   "col": 39,
+   "x": 7.0,
+   "y": -4.2
+  },
+  {
+   "ball": "L40",
+   "name": "PCIE20X1_1_WAKEN_M2/I2C2_SCL_M4/UART6_TX_M1/SPI4_MOSI_M2/GPIO1_A1_d",
+   "row": "L",
+   "col": 40,
+   "x": 7.4,
+   "y": -4.2
+  },
+  {
+   "ball": "L41",
+   "name": "AVSS_20",
+   "row": "L",
+   "col": 41,
+   "x": 7.8,
+   "y": -4.2
+  },
+  {
+   "ball": "L42",
+   "name": "PCIE20_0_REFCLKP",
+   "row": "L",
+   "col": 42,
+   "x": 8.2,
+   "y": -4.2
+  },
+  {
+   "ball": "M1",
+   "name": "DDR_CH0_LP4/4X_CS1_B",
+   "row": "M",
+   "col": 1,
+   "x": -8.2,
+   "y": -3.8
+  },
+  {
+   "ball": "M2",
+   "name": "VSS_164",
+   "row": "M",
+   "col": 2,
+   "x": -7.8,
+   "y": -3.8
+  },
+  {
+   "ball": "M5",
+   "name": "VSS_165",
+   "row": "M",
+   "col": 5,
+   "x": -6.6,
+   "y": -3.8
+  },
+  {
+   "ball": "M6",
+   "name": "DDR_CH0_VDDQ_CKE_1",
+   "row": "M",
+   "col": 6,
+   "x": -6.2,
+   "y": -3.8
+  },
+  {
+   "ball": "M7",
+   "name": "DDR_CH0_VDDQ_CKE_2",
+   "row": "M",
+   "col": 7,
+   "x": -5.8,
+   "y": -3.8
+  },
+  {
+   "ball": "M8",
+   "name": "VSS_166",
+   "row": "M",
+   "col": 8,
+   "x": -5.4,
+   "y": -3.8
+  },
+  {
+   "ball": "M9",
+   "name": "VSS_167",
+   "row": "M",
+   "col": 9,
+   "x": -5.0,
+   "y": -3.8
+  },
+  {
+   "ball": "M10",
+   "name": "VSS_168",
+   "row": "M",
+   "col": 10,
+   "x": -4.6,
+   "y": -3.8
+  },
+  {
+   "ball": "M12",
+   "name": "VSS_169",
+   "row": "M",
+   "col": 12,
+   "x": -3.8,
+   "y": -3.8
+  },
+  {
+   "ball": "M14",
+   "name": "VSS_170",
+   "row": "M",
+   "col": 14,
+   "x": -3.0,
+   "y": -3.8
+  },
+  {
+   "ball": "M16",
+   "name": "DDR_CH1_PLL_DVDD",
+   "row": "M",
+   "col": 16,
+   "x": -2.2,
+   "y": -3.8
+  },
+  {
+   "ball": "M17",
+   "name": "VSS_171",
+   "row": "M",
+   "col": 17,
+   "x": -1.8,
+   "y": -3.8
+  },
+  {
+   "ball": "M19",
+   "name": "VSS_172",
+   "row": "M",
+   "col": 19,
+   "x": -1.0,
+   "y": -3.8
+  },
+  {
+   "ball": "M21",
+   "name": "VSS_173",
+   "row": "M",
+   "col": 21,
+   "x": -0.2,
+   "y": -3.8
+  },
+  {
+   "ball": "M22",
+   "name": "VSS_174",
+   "row": "M",
+   "col": 22,
+   "x": 0.2,
+   "y": -3.8
+  },
+  {
+   "ball": "M23",
+   "name": "VSS_175",
+   "row": "M",
+   "col": 23,
+   "x": 0.6,
+   "y": -3.8
+  },
+  {
+   "ball": "M24",
+   "name": "VDD_CPU_BIG0_1",
+   "row": "M",
+   "col": 24,
+   "x": 1.0,
+   "y": -3.8
+  },
+  {
+   "ball": "M25",
+   "name": "VDD_CPU_BIG0_2",
+   "row": "M",
+   "col": 25,
+   "x": 1.4,
+   "y": -3.8
+  },
+  {
+   "ball": "M28",
+   "name": "VDD_CPU_BIG0_3",
+   "row": "M",
+   "col": 28,
+   "x": 2.6,
+   "y": -3.8
+  },
+  {
+   "ball": "M29",
+   "name": "VDD_CPU_BIG0_4",
+   "row": "M",
+   "col": 29,
+   "x": 3.0,
+   "y": -3.8
+  },
+  {
+   "ball": "M30",
+   "name": "VDD_CPU_BIG0_5",
+   "row": "M",
+   "col": 30,
+   "x": 3.4,
+   "y": -3.8
+  },
+  {
+   "ball": "M33",
+   "name": "AVSS_21",
+   "row": "M",
+   "col": 33,
+   "x": 4.6,
+   "y": -3.8
+  },
+  {
+   "ball": "M34",
+   "name": "AVSS_22",
+   "row": "M",
+   "col": 34,
+   "x": 5.0,
+   "y": -3.8
+  },
+  {
+   "ball": "M35",
+   "name": "VSS_176",
+   "row": "M",
+   "col": 35,
+   "x": 5.4,
+   "y": -3.8
+  },
+  {
+   "ball": "M36",
+   "name": "VSS_177",
+   "row": "M",
+   "col": 36,
+   "x": 5.8,
+   "y": -3.8
+  },
+  {
+   "ball": "M37",
+   "name": "PDM1_CLK1_M1/SATA0_ACT_LED_M1/UART4_TX_M2/SPI0_CLK_M2/GPIO1_B3_d",
+   "row": "M",
+   "col": 37,
+   "x": 6.2,
+   "y": -3.8
+  },
+  {
+   "ball": "M38",
+   "name": "PDM1_SDI3_M1/UART4_RX_M2/SPI0_MOSI_M2/GPIO1_B2_d",
+   "row": "M",
+   "col": 38,
+   "x": 6.6,
+   "y": -3.8
+  },
+  {
+   "ball": "M39",
+   "name": "PDM1_CLK0_M1/UART7_RX_M2/SPI0_CS0_M2/GPIO1_B4_u",
+   "row": "M",
+   "col": 39,
+   "x": 7.0,
+   "y": -3.8
+  },
+  {
+   "ball": "M40",
+   "name": "HDMI_TX0_HPD_M0/SPI2_MOSI_M0/GPIO1_A5_d",
+   "row": "M",
+   "col": 40,
+   "x": 7.4,
+   "y": -3.8
+  },
+  {
+   "ball": "M41",
+   "name": "I2S0_LRCK_RX/PDM0_CLK0_M0/I2C4_SDA_M4/PWM15_IR_M2/GPIO1_C6_d",
+   "row": "M",
+   "col": 41,
+   "x": 7.8,
+   "y": -3.8
+  },
+  {
+   "ball": "M42",
+   "name": "I2S0_SCLK_TX/I2C6_SCL_M1/UART3_CTSN/PWM7_IR_M2/SPI4_CS0_M0/GPIO1_C3_d",
+   "row": "M",
+   "col": 42,
+   "x": 8.2,
+   "y": -3.8
+  },
+  {
+   "ball": "N1",
+   "name": "DDR_CH0_DQ2_B",
+   "row": "N",
+   "col": 1,
+   "x": -8.2,
+   "y": -3.4
+  },
+  {
+   "ball": "N2",
+   "name": "DDR_CH0_DQ13_B",
+   "row": "N",
+   "col": 2,
+   "x": -7.8,
+   "y": -3.4
+  },
+  {
+   "ball": "N3",
+   "name": "VSS_178",
+   "row": "N",
+   "col": 3,
+   "x": -7.4,
+   "y": -3.4
+  },
+  {
+   "ball": "N5",
+   "name": "DDR_CH0_DQ12_B",
+   "row": "N",
+   "col": 5,
+   "x": -6.6,
+   "y": -3.4
+  },
+  {
+   "ball": "N6",
+   "name": "DDR_CH0_DQ15_B",
+   "row": "N",
+   "col": 6,
+   "x": -6.2,
+   "y": -3.4
+  },
+  {
+   "ball": "N7",
+   "name": "VSS_179",
+   "row": "N",
+   "col": 7,
+   "x": -5.8,
+   "y": -3.4
+  },
+  {
+   "ball": "N9",
+   "name": "VSS_180",
+   "row": "N",
+   "col": 9,
+   "x": -5.0,
+   "y": -3.4
+  },
+  {
+   "ball": "N11",
+   "name": "VSS_181",
+   "row": "N",
+   "col": 11,
+   "x": -4.2,
+   "y": -3.4
+  },
+  {
+   "ball": "N12",
+   "name": "VSS_182",
+   "row": "N",
+   "col": 12,
+   "x": -3.8,
+   "y": -3.4
+  },
+  {
+   "ball": "N15",
+   "name": "DDR_CH1_PLL_AVSS",
+   "row": "N",
+   "col": 15,
+   "x": -2.6,
+   "y": -3.4
+  },
+  {
+   "ball": "N16",
+   "name": "VSS_183",
+   "row": "N",
+   "col": 16,
+   "x": -2.2,
+   "y": -3.4
+  },
+  {
+   "ball": "N17",
+   "name": "VSS_184",
+   "row": "N",
+   "col": 17,
+   "x": -1.8,
+   "y": -3.4
+  },
+  {
+   "ball": "N18",
+   "name": "VSS_185",
+   "row": "N",
+   "col": 18,
+   "x": -1.4,
+   "y": -3.4
+  },
+  {
+   "ball": "N21",
+   "name": "VSS_186",
+   "row": "N",
+   "col": 21,
+   "x": -0.2,
+   "y": -3.4
+  },
+  {
+   "ball": "N22",
+   "name": "VSS_187",
+   "row": "N",
+   "col": 22,
+   "x": 0.2,
+   "y": -3.4
+  },
+  {
+   "ball": "N24",
+   "name": "VDD_CPU_BIG0_6",
+   "row": "N",
+   "col": 24,
+   "x": 1.0,
+   "y": -3.4
+  },
+  {
+   "ball": "N25",
+   "name": "VDD_CPU_BIG0_7",
+   "row": "N",
+   "col": 25,
+   "x": 1.4,
+   "y": -3.4
+  },
+  {
+   "ball": "N33",
+   "name": "AVSS_23",
+   "row": "N",
+   "col": 33,
+   "x": 4.6,
+   "y": -3.4
+  },
+  {
+   "ball": "N34",
+   "name": "VSS_188",
+   "row": "N",
+   "col": 34,
+   "x": 5.0,
+   "y": -3.4
+  },
+  {
+   "ball": "N35",
+   "name": "OSC_1V8_1",
+   "row": "N",
+   "col": 35,
+   "x": 5.4,
+   "y": -3.4
+  },
+  {
+   "ball": "N36",
+   "name": "OSC_1V8_2",
+   "row": "N",
+   "col": 36,
+   "x": 5.8,
+   "y": -3.4
+  },
+  {
+   "ball": "N37",
+   "name": "PMUIO1_1V8_1",
+   "row": "N",
+   "col": 37,
+   "x": 6.2,
+   "y": -3.4
+  },
+  {
+   "ball": "N38",
+   "name": "VSS_189",
+   "row": "N",
+   "col": 38,
+   "x": 6.6,
+   "y": -3.4
+  },
+  {
+   "ball": "N39",
+   "name": "VSS_190",
+   "row": "N",
+   "col": 39,
+   "x": 7.0,
+   "y": -3.4
+  },
+  {
+   "ball": "N40",
+   "name": "VSS_191",
+   "row": "N",
+   "col": 40,
+   "x": 7.4,
+   "y": -3.4
+  },
+  {
+   "ball": "N41",
+   "name": "I2C3_SCL_M0/UART3_TX_M0/SPI4_MOSI_M0/GPIO1_C1_z",
+   "row": "N",
+   "col": 41,
+   "x": 7.8,
+   "y": -3.4
+  },
+  {
+   "ball": "N42",
+   "name": "I2S0_SDI0/GPIO1_D4_d",
+   "row": "N",
+   "col": 42,
+   "x": 8.2,
+   "y": -3.4
+  },
+  {
+   "ball": "P1",
+   "name": "DDR_CH0_RESET_B",
+   "row": "P",
+   "col": 1,
+   "x": -8.2,
+   "y": -3.0
+  },
+  {
+   "ball": "P2",
+   "name": "VSS_192",
+   "row": "P",
+   "col": 2,
+   "x": -7.8,
+   "y": -3.0
+  },
+  {
+   "ball": "P3",
+   "name": "DDR_CH0_DQ5_B",
+   "row": "P",
+   "col": 3,
+   "x": -7.4,
+   "y": -3.0
+  },
+  {
+   "ball": "P4",
+   "name": "DDR_CH0_DQ4_B",
+   "row": "P",
+   "col": 4,
+   "x": -7.0,
+   "y": -3.0
+  },
+  {
+   "ball": "P5",
+   "name": "DDR_CH0_DQ7_B",
+   "row": "P",
+   "col": 5,
+   "x": -6.6,
+   "y": -3.0
+  },
+  {
+   "ball": "P6",
+   "name": "VSS_193",
+   "row": "P",
+   "col": 6,
+   "x": -6.2,
+   "y": -3.0
+  },
+  {
+   "ball": "P7",
+   "name": "VSS_194",
+   "row": "P",
+   "col": 7,
+   "x": -5.8,
+   "y": -3.0
+  },
+  {
+   "ball": "P8",
+   "name": "VSS_195",
+   "row": "P",
+   "col": 8,
+   "x": -5.4,
+   "y": -3.0
+  },
+  {
+   "ball": "P9",
+   "name": "VSS_196",
+   "row": "P",
+   "col": 9,
+   "x": -5.0,
+   "y": -3.0
+  },
+  {
+   "ball": "P10",
+   "name": "DDR_CH0_VDDQ_1",
+   "row": "P",
+   "col": 10,
+   "x": -4.6,
+   "y": -3.0
+  },
+  {
+   "ball": "P12",
+   "name": "VSS_197",
+   "row": "P",
+   "col": 12,
+   "x": -3.8,
+   "y": -3.0
+  },
+  {
+   "ball": "P15",
+   "name": "VDD_VDENC_1",
+   "row": "P",
+   "col": 15,
+   "x": -2.6,
+   "y": -3.0
+  },
+  {
+   "ball": "P16",
+   "name": "VSS_198",
+   "row": "P",
+   "col": 16,
+   "x": -2.2,
+   "y": -3.0
+  },
+  {
+   "ball": "P17",
+   "name": "VSS_199",
+   "row": "P",
+   "col": 17,
+   "x": -1.8,
+   "y": -3.0
+  },
+  {
+   "ball": "P18",
+   "name": "VSS_200",
+   "row": "P",
+   "col": 18,
+   "x": -1.4,
+   "y": -3.0
+  },
+  {
+   "ball": "P19",
+   "name": "VSS_201",
+   "row": "P",
+   "col": 19,
+   "x": -1.0,
+   "y": -3.0
+  },
+  {
+   "ball": "P23",
+   "name": "VDD_CPU_BIG0_8",
+   "row": "P",
+   "col": 23,
+   "x": 0.6,
+   "y": -3.0
+  },
+  {
+   "ball": "P25",
+   "name": "VSS_202",
+   "row": "P",
+   "col": 25,
+   "x": 1.4,
+   "y": -3.0
+  },
+  {
+   "ball": "P26",
+   "name": "VSS_203",
+   "row": "P",
+   "col": 26,
+   "x": 1.8,
+   "y": -3.0
+  },
+  {
+   "ball": "P27",
+   "name": "VSS_204",
+   "row": "P",
+   "col": 27,
+   "x": 2.2,
+   "y": -3.0
+  },
+  {
+   "ball": "P28",
+   "name": "VSS_205",
+   "row": "P",
+   "col": 28,
+   "x": 2.6,
+   "y": -3.0
+  },
+  {
+   "ball": "P29",
+   "name": "VSS_206",
+   "row": "P",
+   "col": 29,
+   "x": 3.0,
+   "y": -3.0
+  },
+  {
+   "ball": "P30",
+   "name": "VSS_207",
+   "row": "P",
+   "col": 30,
+   "x": 3.4,
+   "y": -3.0
+  },
+  {
+   "ball": "P31",
+   "name": "VSS_208",
+   "row": "P",
+   "col": 31,
+   "x": 3.8,
+   "y": -3.0
+  },
+  {
+   "ball": "P32",
+   "name": "VSS_209",
+   "row": "P",
+   "col": 32,
+   "x": 4.2,
+   "y": -3.0
+  },
+  {
+   "ball": "P33",
+   "name": "VSS_210",
+   "row": "P",
+   "col": 33,
+   "x": 4.6,
+   "y": -3.0
+  },
+  {
+   "ball": "P34",
+   "name": "VSS_211",
+   "row": "P",
+   "col": 34,
+   "x": 5.0,
+   "y": -3.0
+  },
+  {
+   "ball": "P38",
+   "name": "PDM0_SDI0_M0/SPI1_CS1_M2/GPIO1_D5_d",
+   "row": "P",
+   "col": 38,
+   "x": 6.6,
+   "y": -3.0
+  },
+  {
+   "ball": "P39",
+   "name": "I2S0_LRCK_TX/I2C2_SCL_M3/UART4_RTSN/GPIO1_C5_d",
+   "row": "P",
+   "col": 39,
+   "x": 7.0,
+   "y": -3.0
+  },
+  {
+   "ball": "P40",
+   "name": "I2S0_SDO3/I2S0_SDI2/PDM0_SDI2_M0/I2C1_SCL_M4/UART4_TX_M0/PWM0_M1/SPI1_CLK_M2/GPIO1_D2_d",
+   "row": "P",
+   "col": 40,
+   "x": 7.4,
+   "y": -3.0
+  },
+  {
+   "ball": "P41",
+   "name": "I2S0_SDO0/I2C4_SCL_M4/UART4_CTSN/GPIO1_C7_d",
+   "row": "P",
+   "col": 41,
+   "x": 7.8,
+   "y": -3.0
+  },
+  {
+   "ball": "R1",
+   "name": "DDR_CH0_A2_B",
+   "row": "R",
+   "col": 1,
+   "x": -8.2,
+   "y": -2.6
+  },
+  {
+   "ball": "R2",
+   "name": "DDR_CH0_A1_B",
+   "row": "R",
+   "col": 2,
+   "x": -7.8,
+   "y": -2.6
+  },
+  {
+   "ball": "R3",
+   "name": "VSS_212",
+   "row": "R",
+   "col": 3,
+   "x": -7.4,
+   "y": -2.6
+  },
+  {
+   "ball": "R4",
+   "name": "VSS_213",
+   "row": "R",
+   "col": 4,
+   "x": -7.0,
+   "y": -2.6
+  },
+  {
+   "ball": "R8",
+   "name": "VSS_214",
+   "row": "R",
+   "col": 8,
+   "x": -5.4,
+   "y": -2.6
+  },
+  {
+   "ball": "R10",
+   "name": "DDR_CH0_VDDQ_2",
+   "row": "R",
+   "col": 10,
+   "x": -4.6,
+   "y": -2.6
+  },
+  {
+   "ball": "R15",
+   "name": "VDD_VDENC_2",
+   "row": "R",
+   "col": 15,
+   "x": -2.6,
+   "y": -2.6
+  },
+  {
+   "ball": "R16",
+   "name": "VSS_215",
+   "row": "R",
+   "col": 16,
+   "x": -2.2,
+   "y": -2.6
+  },
+  {
+   "ball": "R20",
+   "name": "VSS_216",
+   "row": "R",
+   "col": 20,
+   "x": -0.6,
+   "y": -2.6
+  },
+  {
+   "ball": "R21",
+   "name": "VSS_217",
+   "row": "R",
+   "col": 21,
+   "x": -0.2,
+   "y": -2.6
+  },
+  {
+   "ball": "R23",
+   "name": "VDD_CPU_BIG0_9",
+   "row": "R",
+   "col": 23,
+   "x": 0.6,
+   "y": -2.6
+  },
+  {
+   "ball": "R24",
+   "name": "VDD_CPU_BIG0_10",
+   "row": "R",
+   "col": 24,
+   "x": 1.0,
+   "y": -2.6
+  },
+  {
+   "ball": "R25",
+   "name": "VSS_218",
+   "row": "R",
+   "col": 25,
+   "x": 1.4,
+   "y": -2.6
+  },
+  {
+   "ball": "R26",
+   "name": "VDD_CPU_BIG1_1",
+   "row": "R",
+   "col": 26,
+   "x": 1.8,
+   "y": -2.6
+  },
+  {
+   "ball": "R27",
+   "name": "VDD_CPU_BIG1_2",
+   "row": "R",
+   "col": 27,
+   "x": 2.2,
+   "y": -2.6
+  },
+  {
+   "ball": "R28",
+   "name": "VDD_CPU_BIG1_3",
+   "row": "R",
+   "col": 28,
+   "x": 2.6,
+   "y": -2.6
+  },
+  {
+   "ball": "R29",
+   "name": "VDD_CPU_BIG1_4",
+   "row": "R",
+   "col": 29,
+   "x": 3.0,
+   "y": -2.6
+  },
+  {
+   "ball": "R30",
+   "name": "VDD_CPU_BIG1_5",
+   "row": "R",
+   "col": 30,
+   "x": 3.4,
+   "y": -2.6
+  },
+  {
+   "ball": "R31",
+   "name": "VDD_CPU_BIG1_6",
+   "row": "R",
+   "col": 31,
+   "x": 3.8,
+   "y": -2.6
+  },
+  {
+   "ball": "R32",
+   "name": "VDD_CPU_BIG1_7",
+   "row": "R",
+   "col": 32,
+   "x": 4.2,
+   "y": -2.6
+  },
+  {
+   "ball": "R33",
+   "name": "VDD_CPU_BIG1_8",
+   "row": "R",
+   "col": 33,
+   "x": 4.6,
+   "y": -2.6
+  },
+  {
+   "ball": "R35",
+   "name": "VSS_219",
+   "row": "R",
+   "col": 35,
+   "x": 5.4,
+   "y": -2.6
+  },
+  {
+   "ball": "R36",
+   "name": "PMUIO1_1V8_2",
+   "row": "R",
+   "col": 36,
+   "x": 5.8,
+   "y": -2.6
+  },
+  {
+   "ball": "R38",
+   "name": "I2C3_SDA_M0/UART3_RX_M0/SPI4_MISO_M0/GPIO1_C0_z",
+   "row": "R",
+   "col": 38,
+   "x": 6.6,
+   "y": -2.6
+  },
+  {
+   "ball": "R39",
+   "name": "I2S0_SDI1/PDM0_SDI3_M0/I2C1_SDA_M4/UART4_RX_M0/PWM1_M1/SPI1_CS0_M2/GPIO1_D3_d",
+   "row": "R",
+   "col": 39,
+   "x": 7.0,
+   "y": -2.6
+  },
+  {
+   "ball": "T2",
+   "name": "VSS_220",
+   "row": "T",
+   "col": 2,
+   "x": -7.8,
+   "y": -2.2
+  },
+  {
+   "ball": "T3",
+   "name": "VSS_221",
+   "row": "T",
+   "col": 3,
+   "x": -7.4,
+   "y": -2.2
+  },
+  {
+   "ball": "T4",
+   "name": "VSS_222",
+   "row": "T",
+   "col": 4,
+   "x": -7.0,
+   "y": -2.2
+  },
+  {
+   "ball": "T7",
+   "name": "VSS_223",
+   "row": "T",
+   "col": 7,
+   "x": -5.8,
+   "y": -2.2
+  },
+  {
+   "ball": "T10",
+   "name": "DDR_CH0_VDDQ_3",
+   "row": "T",
+   "col": 10,
+   "x": -4.6,
+   "y": -2.2
+  },
+  {
+   "ball": "T12",
+   "name": "DDR_CH0_VDD_1",
+   "row": "T",
+   "col": 12,
+   "x": -3.8,
+   "y": -2.2
+  },
+  {
+   "ball": "T13",
+   "name": "DDR_CH0_VDD_2",
+   "row": "T",
+   "col": 13,
+   "x": -3.4,
+   "y": -2.2
+  },
+  {
+   "ball": "T15",
+   "name": "VDD_VDENC_3",
+   "row": "T",
+   "col": 15,
+   "x": -2.6,
+   "y": -2.2
+  },
+  {
+   "ball": "T16",
+   "name": "VSS_224",
+   "row": "T",
+   "col": 16,
+   "x": -2.2,
+   "y": -2.2
+  },
+  {
+   "ball": "T17",
+   "name": "VSS_225",
+   "row": "T",
+   "col": 17,
+   "x": -1.8,
+   "y": -2.2
+  },
+  {
+   "ball": "T18",
+   "name": "VSS_226",
+   "row": "T",
+   "col": 18,
+   "x": -1.4,
+   "y": -2.2
+  },
+  {
+   "ball": "T20",
+   "name": "VSS_227",
+   "row": "T",
+   "col": 20,
+   "x": -0.6,
+   "y": -2.2
+  },
+  {
+   "ball": "T21",
+   "name": "VSS_228",
+   "row": "T",
+   "col": 21,
+   "x": -0.2,
+   "y": -2.2
+  },
+  {
+   "ball": "T24",
+   "name": "VSS_229",
+   "row": "T",
+   "col": 24,
+   "x": 1.0,
+   "y": -2.2
+  },
+  {
+   "ball": "T25",
+   "name": "VSS_230",
+   "row": "T",
+   "col": 25,
+   "x": 1.4,
+   "y": -2.2
+  },
+  {
+   "ball": "T26",
+   "name": "VDD_CPU_BIG1_9",
+   "row": "T",
+   "col": 26,
+   "x": 1.8,
+   "y": -2.2
+  },
+  {
+   "ball": "T35",
+   "name": "VSS_231",
+   "row": "T",
+   "col": 35,
+   "x": 5.4,
+   "y": -2.2
+  },
+  {
+   "ball": "T36",
+   "name": "VSS_232",
+   "row": "T",
+   "col": 36,
+   "x": 5.8,
+   "y": -2.2
+  },
+  {
+   "ball": "T37",
+   "name": "VSS_233",
+   "row": "T",
+   "col": 37,
+   "x": 6.2,
+   "y": -2.2
+  },
+  {
+   "ball": "T38",
+   "name": "VSS_234",
+   "row": "T",
+   "col": 38,
+   "x": 6.6,
+   "y": -2.2
+  },
+  {
+   "ball": "T39",
+   "name": "VSS_235",
+   "row": "T",
+   "col": 39,
+   "x": 7.0,
+   "y": -2.2
+  },
+  {
+   "ball": "T40",
+   "name": "VSS_236",
+   "row": "T",
+   "col": 40,
+   "x": 7.4,
+   "y": -2.2
+  },
+  {
+   "ball": "T41",
+   "name": "XIN_24M",
+   "row": "T",
+   "col": 41,
+   "x": 7.8,
+   "y": -2.2
+  },
+  {
+   "ball": "T42",
+   "name": "XOUT_24M",
+   "row": "T",
+   "col": 42,
+   "x": 8.2,
+   "y": -2.2
+  },
+  {
+   "ball": "U1",
+   "name": "DDR_CH0_A0_A",
+   "row": "U",
+   "col": 1,
+   "x": -8.2,
+   "y": -1.8
+  },
+  {
+   "ball": "U2",
+   "name": "DDR_CH0_A0_B",
+   "row": "U",
+   "col": 2,
+   "x": -7.8,
+   "y": -1.8
+  },
+  {
+   "ball": "U3",
+   "name": "DDR_CH0_DQ0_B",
+   "row": "U",
+   "col": 3,
+   "x": -7.4,
+   "y": -1.8
+  },
+  {
+   "ball": "U4",
+   "name": "DDR_CH0_DQ6_B",
+   "row": "U",
+   "col": 4,
+   "x": -7.0,
+   "y": -1.8
+  },
+  {
+   "ball": "U5",
+   "name": "DDR_CH0_DQ3_B",
+   "row": "U",
+   "col": 5,
+   "x": -6.6,
+   "y": -1.8
+  },
+  {
+   "ball": "U6",
+   "name": "VSS_237",
+   "row": "U",
+   "col": 6,
+   "x": -6.2,
+   "y": -1.8
+  },
+  {
+   "ball": "U7",
+   "name": "VSS_238",
+   "row": "U",
+   "col": 7,
+   "x": -5.8,
+   "y": -1.8
+  },
+  {
+   "ball": "U8",
+   "name": "VSS_239",
+   "row": "U",
+   "col": 8,
+   "x": -5.4,
+   "y": -1.8
+  },
+  {
+   "ball": "U12",
+   "name": "DDR_CH0_VDD_3",
+   "row": "U",
+   "col": 12,
+   "x": -3.8,
+   "y": -1.8
+  },
+  {
+   "ball": "U13",
+   "name": "DDR_CH0_VDD_4",
+   "row": "U",
+   "col": 13,
+   "x": -3.4,
+   "y": -1.8
+  },
+  {
+   "ball": "U15",
+   "name": "VDD_VDENC_4",
+   "row": "U",
+   "col": 15,
+   "x": -2.6,
+   "y": -1.8
+  },
+  {
+   "ball": "U16",
+   "name": "VSS_240",
+   "row": "U",
+   "col": 16,
+   "x": -2.2,
+   "y": -1.8
+  },
+  {
+   "ball": "U17",
+   "name": "VSS_241",
+   "row": "U",
+   "col": 17,
+   "x": -1.8,
+   "y": -1.8
+  },
+  {
+   "ball": "U18",
+   "name": "VSS_242",
+   "row": "U",
+   "col": 18,
+   "x": -1.4,
+   "y": -1.8
+  },
+  {
+   "ball": "U20",
+   "name": "VSS_243",
+   "row": "U",
+   "col": 20,
+   "x": -0.6,
+   "y": -1.8
+  },
+  {
+   "ball": "U21",
+   "name": "VSS_244",
+   "row": "U",
+   "col": 21,
+   "x": -0.2,
+   "y": -1.8
+  },
+  {
+   "ball": "U22",
+   "name": "VSS_245",
+   "row": "U",
+   "col": 22,
+   "x": 0.2,
+   "y": -1.8
+  },
+  {
+   "ball": "U23",
+   "name": "VSS_246",
+   "row": "U",
+   "col": 23,
+   "x": 0.6,
+   "y": -1.8
+  },
+  {
+   "ball": "U24",
+   "name": "VSS_247",
+   "row": "U",
+   "col": 24,
+   "x": 1.0,
+   "y": -1.8
+  },
+  {
+   "ball": "U25",
+   "name": "VSS_248",
+   "row": "U",
+   "col": 25,
+   "x": 1.4,
+   "y": -1.8
+  },
+  {
+   "ball": "U26",
+   "name": "VDD_CPU_BIG1_10",
+   "row": "U",
+   "col": 26,
+   "x": 1.8,
+   "y": -1.8
+  },
+  {
+   "ball": "U35",
+   "name": "I2S0_SCLK_RX/PDM0_CLK1_M0/I2C2_SDA_M3/PWM11_IR_M2/SPI4_CS1_M0/GPIO1_C4_d",
+   "row": "U",
+   "col": 35,
+   "x": 5.4,
+   "y": -1.8
+  },
+  {
+   "ball": "U36",
+   "name": "I2S0_MCLK/I2C6_SDA_M1/UART3_RTSN/PWM3_IR_M2/SPI4_CLK_M0/GPIO1_C2_d",
+   "row": "U",
+   "col": 36,
+   "x": 5.8,
+   "y": -1.8
+  },
+  {
+   "ball": "U37",
+   "name": "I2S0_SDO1/I2C7_SCL_M0/UART6_TX_M2/SPI1_MISO_M2/GPIO1_D0_d",
+   "row": "U",
+   "col": 37,
+   "x": 6.2,
+   "y": -1.8
+  },
+  {
+   "ball": "U38",
+   "name": "I2S0_SDO2/I2S0_SDI3/PDM0_SDI1_M0/I2C7_SDA_M0/UART6_RX_M2/SPI1_MOSI_M2/GPIO1_D1_d",
+   "row": "U",
+   "col": 38,
+   "x": 6.6,
+   "y": -1.8
+  },
+  {
+   "ball": "U39",
+   "name": "VSS_249",
+   "row": "U",
+   "col": 39,
+   "x": 7.0,
+   "y": -1.8
+  },
+  {
+   "ball": "U40",
+   "name": "VSS_250",
+   "row": "U",
+   "col": 40,
+   "x": 7.4,
+   "y": -1.8
+  },
+  {
+   "ball": "U41",
+   "name": "VSS_251",
+   "row": "U",
+   "col": 41,
+   "x": 7.8,
+   "y": -1.8
+  },
+  {
+   "ball": "V1",
+   "name": "DDR_CH0_CKB_B",
+   "row": "V",
+   "col": 1,
+   "x": -8.2,
+   "y": -1.4
+  },
+  {
+   "ball": "V2",
+   "name": "DDR_CH0_CK_B",
+   "row": "V",
+   "col": 2,
+   "x": -7.8,
+   "y": -1.4
+  },
+  {
+   "ball": "V3",
+   "name": "VSS_252",
+   "row": "V",
+   "col": 3,
+   "x": -7.4,
+   "y": -1.4
+  },
+  {
+   "ball": "V5",
+   "name": "DDR_CH0_DM0_B",
+   "row": "V",
+   "col": 5,
+   "x": -6.6,
+   "y": -1.4
+  },
+  {
+   "ball": "V6",
+   "name": "VSS_253",
+   "row": "V",
+   "col": 6,
+   "x": -6.2,
+   "y": -1.4
+  },
+  {
+   "ball": "V7",
+   "name": "VSS_254",
+   "row": "V",
+   "col": 7,
+   "x": -5.8,
+   "y": -1.4
+  },
+  {
+   "ball": "V8",
+   "name": "VSS_255",
+   "row": "V",
+   "col": 8,
+   "x": -5.4,
+   "y": -1.4
+  },
+  {
+   "ball": "V10",
+   "name": "DDR_CH0_VDDQ_4",
+   "row": "V",
+   "col": 10,
+   "x": -4.6,
+   "y": -1.4
+  },
+  {
+   "ball": "V12",
+   "name": "DDR_CH0_VDD_MIF_1",
+   "row": "V",
+   "col": 12,
+   "x": -3.8,
+   "y": -1.4
+  },
+  {
+   "ball": "V13",
+   "name": "DDR_CH0_VDD_MIF_2",
+   "row": "V",
+   "col": 13,
+   "x": -3.4,
+   "y": -1.4
+  },
+  {
+   "ball": "V14",
+   "name": "DDR_CH0_VDD_MIF_3",
+   "row": "V",
+   "col": 14,
+   "x": -3.0,
+   "y": -1.4
+  },
+  {
+   "ball": "V16",
+   "name": "VSS_256",
+   "row": "V",
+   "col": 16,
+   "x": -2.2,
+   "y": -1.4
+  },
+  {
+   "ball": "V17",
+   "name": "VSS_257",
+   "row": "V",
+   "col": 17,
+   "x": -1.8,
+   "y": -1.4
+  },
+  {
+   "ball": "V19",
+   "name": "VSS_258",
+   "row": "V",
+   "col": 19,
+   "x": -1.0,
+   "y": -1.4
+  },
+  {
+   "ball": "V23",
+   "name": "VSS_259",
+   "row": "V",
+   "col": 23,
+   "x": 0.6,
+   "y": -1.4
+  },
+  {
+   "ball": "V24",
+   "name": "VSS_260",
+   "row": "V",
+   "col": 24,
+   "x": 1.0,
+   "y": -1.4
+  },
+  {
+   "ball": "V25",
+   "name": "VSS_261",
+   "row": "V",
+   "col": 25,
+   "x": 1.4,
+   "y": -1.4
+  },
+  {
+   "ball": "V26",
+   "name": "VDD_CPU_BIG1_MEM_1",
+   "row": "V",
+   "col": 26,
+   "x": 1.8,
+   "y": -1.4
+  },
+  {
+   "ball": "V27",
+   "name": "VDD_CPU_BIG1_MEM_2",
+   "row": "V",
+   "col": 27,
+   "x": 2.2,
+   "y": -1.4
+  },
+  {
+   "ball": "V28",
+   "name": "VDD_CPU_BIG1_MEM_3",
+   "row": "V",
+   "col": 28,
+   "x": 2.6,
+   "y": -1.4
+  },
+  {
+   "ball": "V29",
+   "name": "VDD_CPU_BIG1_MEM_4",
+   "row": "V",
+   "col": 29,
+   "x": 3.0,
+   "y": -1.4
+  },
+  {
+   "ball": "V30",
+   "name": "VSS_262",
+   "row": "V",
+   "col": 30,
+   "x": 3.4,
+   "y": -1.4
+  },
+  {
+   "ball": "V31",
+   "name": "VSS_263",
+   "row": "V",
+   "col": 31,
+   "x": 3.8,
+   "y": -1.4
+  },
+  {
+   "ball": "V32",
+   "name": "VSS_264",
+   "row": "V",
+   "col": 32,
+   "x": 4.2,
+   "y": -1.4
+  },
+  {
+   "ball": "V33",
+   "name": "VSS_265",
+   "row": "V",
+   "col": 33,
+   "x": 4.6,
+   "y": -1.4
+  },
+  {
+   "ball": "V34",
+   "name": "VSS_266",
+   "row": "V",
+   "col": 34,
+   "x": 5.0,
+   "y": -1.4
+  },
+  {
+   "ball": "V35",
+   "name": "PMUIO2_1",
+   "row": "V",
+   "col": 35,
+   "x": 5.4,
+   "y": -1.4
+  },
+  {
+   "ball": "V36",
+   "name": "PMUIO2_2",
+   "row": "V",
+   "col": 36,
+   "x": 5.8,
+   "y": -1.4
+  },
+  {
+   "ball": "V37",
+   "name": "PMUIO2_1V8_1",
+   "row": "V",
+   "col": 37,
+   "x": 6.2,
+   "y": -1.4
+  },
+  {
+   "ball": "V38",
+   "name": "VSS_267",
+   "row": "V",
+   "col": 38,
+   "x": 6.6,
+   "y": -1.4
+  },
+  {
+   "ball": "V39",
+   "name": "VSS_268",
+   "row": "V",
+   "col": 39,
+   "x": 7.0,
+   "y": -1.4
+  },
+  {
+   "ball": "V40",
+   "name": "VSS_269",
+   "row": "V",
+   "col": 40,
+   "x": 7.4,
+   "y": -1.4
+  },
+  {
+   "ball": "V41",
+   "name": "TVSS",
+   "row": "V",
+   "col": 41,
+   "x": 7.8,
+   "y": -1.4
+  },
+  {
+   "ball": "V42",
+   "name": "NPOR",
+   "row": "V",
+   "col": 42,
+   "x": 8.2,
+   "y": -1.4
+  },
+  {
+   "ball": "W2",
+   "name": "VSS_270",
+   "row": "W",
+   "col": 2,
+   "x": -7.8,
+   "y": -1.0
+  },
+  {
+   "ball": "W5",
+   "name": "VSS_271",
+   "row": "W",
+   "col": 5,
+   "x": -6.6,
+   "y": -1.0
+  },
+  {
+   "ball": "W7",
+   "name": "VSS_272",
+   "row": "W",
+   "col": 7,
+   "x": -5.8,
+   "y": -1.0
+  },
+  {
+   "ball": "W8",
+   "name": "VSS_273",
+   "row": "W",
+   "col": 8,
+   "x": -5.4,
+   "y": -1.0
+  },
+  {
+   "ball": "W9",
+   "name": "VSS_274",
+   "row": "W",
+   "col": 9,
+   "x": -5.0,
+   "y": -1.0
+  },
+  {
+   "ball": "W10",
+   "name": "DDR_CH0_VDDQ_5",
+   "row": "W",
+   "col": 10,
+   "x": -4.6,
+   "y": -1.0
+  },
+  {
+   "ball": "W16",
+   "name": "VDD_VDENC_5",
+   "row": "W",
+   "col": 16,
+   "x": -2.2,
+   "y": -1.0
+  },
+  {
+   "ball": "W17",
+   "name": "VDD_VDENC_MEM_1",
+   "row": "W",
+   "col": 17,
+   "x": -1.8,
+   "y": -1.0
+  },
+  {
+   "ball": "W18",
+   "name": "VSS_275",
+   "row": "W",
+   "col": 18,
+   "x": -1.4,
+   "y": -1.0
+  },
+  {
+   "ball": "W19",
+   "name": "VSS_276",
+   "row": "W",
+   "col": 19,
+   "x": -1.0,
+   "y": -1.0
+  },
+  {
+   "ball": "W22",
+   "name": "VSS_277",
+   "row": "W",
+   "col": 22,
+   "x": 0.2,
+   "y": -1.0
+  },
+  {
+   "ball": "W23",
+   "name": "VSS_278",
+   "row": "W",
+   "col": 23,
+   "x": 0.6,
+   "y": -1.0
+  },
+  {
+   "ball": "W24",
+   "name": "VSS_279",
+   "row": "W",
+   "col": 24,
+   "x": 1.0,
+   "y": -1.0
+  },
+  {
+   "ball": "W26",
+   "name": "VSS_280",
+   "row": "W",
+   "col": 26,
+   "x": 1.8,
+   "y": -1.0
+  },
+  {
+   "ball": "W33",
+   "name": "VDD_LOGIC_3",
+   "row": "W",
+   "col": 33,
+   "x": 4.6,
+   "y": -1.0
+  },
+  {
+   "ball": "W38",
+   "name": "REFCLK_OUT/GPIO0_A0_d",
+   "row": "W",
+   "col": 38,
+   "x": 6.6,
+   "y": -1.0
+  },
+  {
+   "ball": "W39",
+   "name": "SPI2_MOSI_M2/I2C0_SDA_M0/GPIO0_A6_z",
+   "row": "W",
+   "col": 39,
+   "x": 7.0,
+   "y": -1.0
+  },
+  {
+   "ball": "W40",
+   "name": "SPI2_CS0_M2/I2C1_SDA_M1/PWM5_M0/UART0_TX_M1/GPIO0_B1_z",
+   "row": "W",
+   "col": 40,
+   "x": 7.4,
+   "y": -1.0
+  },
+  {
+   "ball": "W41",
+   "name": "PMIC_SLEEP1/GPIO0_A2_d",
+   "row": "W",
+   "col": 41,
+   "x": 7.8,
+   "y": -1.0
+  },
+  {
+   "ball": "W42",
+   "name": "PMIC_INT_L/GPIO0_A7_u",
+   "row": "W",
+   "col": 42,
+   "x": 8.2,
+   "y": -1.0
+  },
+  {
+   "ball": "Y1",
+   "name": "DDR_CH0_A4_A",
+   "row": "Y",
+   "col": 1,
+   "x": -8.2,
+   "y": -0.6
+  },
+  {
+   "ball": "Y2",
+   "name": "DDR_CH0_LP4/4X_CS0_A",
+   "row": "Y",
+   "col": 2,
+   "x": -7.8,
+   "y": -0.6
+  },
+  {
+   "ball": "Y3",
+   "name": "VSS_281",
+   "row": "Y",
+   "col": 3,
+   "x": -7.4,
+   "y": -0.6
+  },
+  {
+   "ball": "Y4",
+   "name": "VSS_282",
+   "row": "Y",
+   "col": 4,
+   "x": -7.0,
+   "y": -0.6
+  },
+  {
+   "ball": "Y5",
+   "name": "VSS_283",
+   "row": "Y",
+   "col": 5,
+   "x": -6.6,
+   "y": -0.6
+  },
+  {
+   "ball": "Y6",
+   "name": "VSS_284",
+   "row": "Y",
+   "col": 6,
+   "x": -6.2,
+   "y": -0.6
+  },
+  {
+   "ball": "Y10",
+   "name": "DDR_CH0_VDDQ_6",
+   "row": "Y",
+   "col": 10,
+   "x": -4.6,
+   "y": -0.6
+  },
+  {
+   "ball": "Y11",
+   "name": "VSS_285",
+   "row": "Y",
+   "col": 11,
+   "x": -4.2,
+   "y": -0.6
+  },
+  {
+   "ball": "Y14",
+   "name": "DDR_CH0_PLL_AVDD1V8",
+   "row": "Y",
+   "col": 14,
+   "x": -3.0,
+   "y": -0.6
+  },
+  {
+   "ball": "Y17",
+   "name": "VDD_VDENC_MEM_2",
+   "row": "Y",
+   "col": 17,
+   "x": -1.8,
+   "y": -0.6
+  },
+  {
+   "ball": "Y18",
+   "name": "VSS_286",
+   "row": "Y",
+   "col": 18,
+   "x": -1.4,
+   "y": -0.6
+  },
+  {
+   "ball": "Y19",
+   "name": "VSS_287",
+   "row": "Y",
+   "col": 19,
+   "x": -1.0,
+   "y": -0.6
+  },
+  {
+   "ball": "Y22",
+   "name": "VSS_288",
+   "row": "Y",
+   "col": 22,
+   "x": 0.2,
+   "y": -0.6
+  },
+  {
+   "ball": "Y23",
+   "name": "VSS_289",
+   "row": "Y",
+   "col": 23,
+   "x": 0.6,
+   "y": -0.6
+  },
+  {
+   "ball": "Y24",
+   "name": "VSS_290",
+   "row": "Y",
+   "col": 24,
+   "x": 1.0,
+   "y": -0.6
+  },
+  {
+   "ball": "Y26",
+   "name": "PLL_DVDD0V75",
+   "row": "Y",
+   "col": 26,
+   "x": 1.8,
+   "y": -0.6
+  },
+  {
+   "ball": "Y28",
+   "name": "VSS_291",
+   "row": "Y",
+   "col": 28,
+   "x": 2.6,
+   "y": -0.6
+  },
+  {
+   "ball": "Y29",
+   "name": "VSS_292",
+   "row": "Y",
+   "col": 29,
+   "x": 3.0,
+   "y": -0.6
+  },
+  {
+   "ball": "Y30",
+   "name": "VSS_293",
+   "row": "Y",
+   "col": 30,
+   "x": 3.4,
+   "y": -0.6
+  },
+  {
+   "ball": "Y31",
+   "name": "VSS_294",
+   "row": "Y",
+   "col": 31,
+   "x": 3.8,
+   "y": -0.6
+  },
+  {
+   "ball": "Y32",
+   "name": "VSS_295",
+   "row": "Y",
+   "col": 32,
+   "x": 4.2,
+   "y": -0.6
+  },
+  {
+   "ball": "Y33",
+   "name": "VDD_LOGIC_4",
+   "row": "Y",
+   "col": 33,
+   "x": 4.6,
+   "y": -0.6
+  },
+  {
+   "ball": "Y37",
+   "name": "PMUIO2_1V8_2",
+   "row": "Y",
+   "col": 37,
+   "x": 6.2,
+   "y": -0.6
+  },
+  {
+   "ball": "Y38",
+   "name": "SPI2_MISO_M2/I2C0_SCL_M0/GPIO0_B3_z",
+   "row": "Y",
+   "col": 38,
+   "x": 6.6,
+   "y": -0.6
+  },
+  {
+   "ball": "Y39",
+   "name": "SPI2_CLK_M2/SDMMC_PWREN/PMU_DEBUG/GPIO0_A5_d",
+   "row": "Y",
+   "col": 39,
+   "x": 7.0,
+   "y": -0.6
+  },
+  {
+   "ball": "Y40",
+   "name": "EMMC_D1/FSPI_D1_M0/GPIO2_D1_u",
+   "row": "Y",
+   "col": 40,
+   "x": 7.4,
+   "y": -0.6
+  },
+  {
+   "ball": "Y41",
+   "name": "EMMC_D0/FSPI_D0_M0/GPIO2_D0_u",
+   "row": "Y",
+   "col": 41,
+   "x": 7.8,
+   "y": -0.6
+  },
+  {
+   "ball": "AA1",
+   "name": "DDR_CH0_CKB_A",
+   "row": "AA",
+   "col": 1,
+   "x": -8.2,
+   "y": -0.2
+  },
+  {
+   "ball": "AA2",
+   "name": "DDR_CH0_CK_A",
+   "row": "AA",
+   "col": 2,
+   "x": -7.8,
+   "y": -0.2
+  },
+  {
+   "ball": "AA3",
+   "name": "VSS_296",
+   "row": "AA",
+   "col": 3,
+   "x": -7.4,
+   "y": -0.2
+  },
+  {
+   "ball": "AA5",
+   "name": "DDR_CH0_DQ1_B",
+   "row": "AA",
+   "col": 5,
+   "x": -6.6,
+   "y": -0.2
+  },
+  {
+   "ball": "AA6",
+   "name": "VSS_297",
+   "row": "AA",
+   "col": 6,
+   "x": -6.2,
+   "y": -0.2
+  },
+  {
+   "ball": "AA7",
+   "name": "VSS_298",
+   "row": "AA",
+   "col": 7,
+   "x": -5.8,
+   "y": -0.2
+  },
+  {
+   "ball": "AA8",
+   "name": "VSS_299",
+   "row": "AA",
+   "col": 8,
+   "x": -5.4,
+   "y": -0.2
+  },
+  {
+   "ball": "AA9",
+   "name": "VSS_300",
+   "row": "AA",
+   "col": 9,
+   "x": -5.0,
+   "y": -0.2
+  },
+  {
+   "ball": "AA10",
+   "name": "VSS_301",
+   "row": "AA",
+   "col": 10,
+   "x": -4.6,
+   "y": -0.2
+  },
+  {
+   "ball": "AA11",
+   "name": "VSS_302",
+   "row": "AA",
+   "col": 11,
+   "x": -4.2,
+   "y": -0.2
+  },
+  {
+   "ball": "AA12",
+   "name": "VSS_303",
+   "row": "AA",
+   "col": 12,
+   "x": -3.8,
+   "y": -0.2
+  },
+  {
+   "ball": "AA14",
+   "name": "DDR_CH0_PLL_AVSS",
+   "row": "AA",
+   "col": 14,
+   "x": -3.0,
+   "y": -0.2
+  },
+  {
+   "ball": "AA19",
+   "name": "VSS_304",
+   "row": "AA",
+   "col": 19,
+   "x": -1.0,
+   "y": -0.2
+  },
+  {
+   "ball": "AA22",
+   "name": "VSS_305",
+   "row": "AA",
+   "col": 22,
+   "x": 0.2,
+   "y": -0.2
+  },
+  {
+   "ball": "AA23",
+   "name": "VSS_306",
+   "row": "AA",
+   "col": 23,
+   "x": 0.6,
+   "y": -0.2
+  },
+  {
+   "ball": "AA26",
+   "name": "PLL_AVSS",
+   "row": "AA",
+   "col": 26,
+   "x": 1.8,
+   "y": -0.2
+  },
+  {
+   "ball": "AA28",
+   "name": "VDD_CPU_LIT_MEM_1",
+   "row": "AA",
+   "col": 28,
+   "x": 2.6,
+   "y": -0.2
+  },
+  {
+   "ball": "AA29",
+   "name": "VDD_CPU_LIT_MEM_2",
+   "row": "AA",
+   "col": 29,
+   "x": 3.0,
+   "y": -0.2
+  },
+  {
+   "ball": "AA30",
+   "name": "VDD_CPU_LIT_MEM_3",
+   "row": "AA",
+   "col": 30,
+   "x": 3.4,
+   "y": -0.2
+  },
+  {
+   "ball": "AA31",
+   "name": "VSS_307",
+   "row": "AA",
+   "col": 31,
+   "x": 3.8,
+   "y": -0.2
+  },
+  {
+   "ball": "AA37",
+   "name": "VSS_308",
+   "row": "AA",
+   "col": 37,
+   "x": 6.2,
+   "y": -0.2
+  },
+  {
+   "ball": "AA38",
+   "name": "VSS_309",
+   "row": "AA",
+   "col": 38,
+   "x": 6.6,
+   "y": -0.2
+  },
+  {
+   "ball": "AA39",
+   "name": "VSS_310",
+   "row": "AA",
+   "col": 39,
+   "x": 7.0,
+   "y": -0.2
+  },
+  {
+   "ball": "AA40",
+   "name": "VSS_311",
+   "row": "AA",
+   "col": 40,
+   "x": 7.4,
+   "y": -0.2
+  },
+  {
+   "ball": "AA41",
+   "name": "EMMC_D2/FSPI_D2_M0/GPIO2_D2_u",
+   "row": "AA",
+   "col": 41,
+   "x": 7.8,
+   "y": -0.2
+  },
+  {
+   "ball": "AA42",
+   "name": "EMMC_D3/FSPI_D3_M0/GPIO2_D3_u",
+   "row": "AA",
+   "col": 42,
+   "x": 8.2,
+   "y": -0.2
+  },
+  {
+   "ball": "AB2",
+   "name": "VSS_312",
+   "row": "AB",
+   "col": 2,
+   "x": -7.8,
+   "y": 0.2
+  },
+  {
+   "ball": "AB3",
+   "name": "DDR_CH0_DQ3_A",
+   "row": "AB",
+   "col": 3,
+   "x": -7.4,
+   "y": 0.2
+  },
+  {
+   "ball": "AB4",
+   "name": "DDR_CH0_DQ1_A",
+   "row": "AB",
+   "col": 4,
+   "x": -7.0,
+   "y": 0.2
+  },
+  {
+   "ball": "AB5",
+   "name": "DDR_CH0_DQ4_A",
+   "row": "AB",
+   "col": 5,
+   "x": -6.6,
+   "y": 0.2
+  },
+  {
+   "ball": "AB6",
+   "name": "VSS_313",
+   "row": "AB",
+   "col": 6,
+   "x": -6.2,
+   "y": 0.2
+  },
+  {
+   "ball": "AB9",
+   "name": "VSS_314",
+   "row": "AB",
+   "col": 9,
+   "x": -5.0,
+   "y": 0.2
+  },
+  {
+   "ball": "AB10",
+   "name": "VSS_315",
+   "row": "AB",
+   "col": 10,
+   "x": -4.6,
+   "y": 0.2
+  },
+  {
+   "ball": "AB11",
+   "name": "VSS_316",
+   "row": "AB",
+   "col": 11,
+   "x": -4.2,
+   "y": 0.2
+  },
+  {
+   "ball": "AB12",
+   "name": "VSS_317",
+   "row": "AB",
+   "col": 12,
+   "x": -3.8,
+   "y": 0.2
+  },
+  {
+   "ball": "AB14",
+   "name": "DDR_CH0_PLL_DVDD",
+   "row": "AB",
+   "col": 14,
+   "x": -3.0,
+   "y": 0.2
+  },
+  {
+   "ball": "AB19",
+   "name": "VSS_318",
+   "row": "AB",
+   "col": 19,
+   "x": -1.0,
+   "y": 0.2
+  },
+  {
+   "ball": "AB20",
+   "name": "VSS_319",
+   "row": "AB",
+   "col": 20,
+   "x": -0.6,
+   "y": 0.2
+  },
+  {
+   "ball": "AB21",
+   "name": "VSS_320",
+   "row": "AB",
+   "col": 21,
+   "x": -0.2,
+   "y": 0.2
+  },
+  {
+   "ball": "AB22",
+   "name": "VSS_321",
+   "row": "AB",
+   "col": 22,
+   "x": 0.2,
+   "y": 0.2
+  },
+  {
+   "ball": "AB23",
+   "name": "VSS_322",
+   "row": "AB",
+   "col": 23,
+   "x": 0.6,
+   "y": 0.2
+  },
+  {
+   "ball": "AB24",
+   "name": "VSS_323",
+   "row": "AB",
+   "col": 24,
+   "x": 1.0,
+   "y": 0.2
+  },
+  {
+   "ball": "AB25",
+   "name": "PLL_AVDD1V8",
+   "row": "AB",
+   "col": 25,
+   "x": 1.4,
+   "y": 0.2
+  },
+  {
+   "ball": "AB31",
+   "name": "VDD_CPU_LIT_1",
+   "row": "AB",
+   "col": 31,
+   "x": 3.8,
+   "y": 0.2
+  },
+  {
+   "ball": "AB32",
+   "name": "VSS_324",
+   "row": "AB",
+   "col": 32,
+   "x": 4.2,
+   "y": 0.2
+  },
+  {
+   "ball": "AB33",
+   "name": "VSS_325",
+   "row": "AB",
+   "col": 33,
+   "x": 4.6,
+   "y": 0.2
+  },
+  {
+   "ball": "AB34",
+   "name": "VSS_326",
+   "row": "AB",
+   "col": 34,
+   "x": 5.0,
+   "y": 0.2
+  },
+  {
+   "ball": "AB35",
+   "name": "EMMCIO_1V8_1",
+   "row": "AB",
+   "col": 35,
+   "x": 5.4,
+   "y": 0.2
+  },
+  {
+   "ball": "AB36",
+   "name": "VSS_327",
+   "row": "AB",
+   "col": 36,
+   "x": 5.8,
+   "y": 0.2
+  },
+  {
+   "ball": "AB37",
+   "name": "VSS_328",
+   "row": "AB",
+   "col": 37,
+   "x": 6.2,
+   "y": 0.2
+  },
+  {
+   "ball": "AB38",
+   "name": "VSS_329",
+   "row": "AB",
+   "col": 38,
+   "x": 6.6,
+   "y": 0.2
+  },
+  {
+   "ball": "AB39",
+   "name": "VSS_330",
+   "row": "AB",
+   "col": 39,
+   "x": 7.0,
+   "y": 0.2
+  },
+  {
+   "ball": "AB40",
+   "name": "VSS_331",
+   "row": "AB",
+   "col": 40,
+   "x": 7.4,
+   "y": 0.2
+  },
+  {
+   "ball": "AB41",
+   "name": "EMMC_CLKOUT/GPIO2_A1_d",
+   "row": "AB",
+   "col": 41,
+   "x": 7.8,
+   "y": 0.2
+  },
+  {
+   "ball": "AB42",
+   "name": "EMMC_D4/I2C1_SCL_M3/UART5_RX_M2/GPIO2_D4_u",
+   "row": "AB",
+   "col": 42,
+   "x": 8.2,
+   "y": 0.2
+  },
+  {
+   "ball": "AC1",
+   "name": "DDR_CH0_LP4/4X_CS1_A",
+   "row": "AC",
+   "col": 1,
+   "x": -8.2,
+   "y": 0.6
+  },
+  {
+   "ball": "AC2",
+   "name": "DDR_CH0_A1_A",
+   "row": "AC",
+   "col": 2,
+   "x": -7.8,
+   "y": 0.6
+  },
+  {
+   "ball": "AC3",
+   "name": "VSS_332",
+   "row": "AC",
+   "col": 3,
+   "x": -7.4,
+   "y": 0.6
+  },
+  {
+   "ball": "AC4",
+   "name": "VSS_333",
+   "row": "AC",
+   "col": 4,
+   "x": -7.0,
+   "y": 0.6
+  },
+  {
+   "ball": "AC5",
+   "name": "VSS_334",
+   "row": "AC",
+   "col": 5,
+   "x": -6.6,
+   "y": 0.6
+  },
+  {
+   "ball": "AC6",
+   "name": "VSS_335",
+   "row": "AC",
+   "col": 6,
+   "x": -6.2,
+   "y": 0.6
+  },
+  {
+   "ball": "AC16",
+   "name": "VDD_VDENC_6",
+   "row": "AC",
+   "col": 16,
+   "x": -2.2,
+   "y": 0.6
+  },
+  {
+   "ball": "AC17",
+   "name": "VSS_336",
+   "row": "AC",
+   "col": 17,
+   "x": -1.8,
+   "y": 0.6
+  },
+  {
+   "ball": "AC18",
+   "name": "VSS_337",
+   "row": "AC",
+   "col": 18,
+   "x": -1.4,
+   "y": 0.6
+  },
+  {
+   "ball": "AC22",
+   "name": "VSS_338",
+   "row": "AC",
+   "col": 22,
+   "x": 0.2,
+   "y": 0.6
+  },
+  {
+   "ball": "AC23",
+   "name": "VSS_339",
+   "row": "AC",
+   "col": 23,
+   "x": 0.6,
+   "y": 0.6
+  },
+  {
+   "ball": "AC24",
+   "name": "VSS_340",
+   "row": "AC",
+   "col": 24,
+   "x": 1.0,
+   "y": 0.6
+  },
+  {
+   "ball": "AC25",
+   "name": "VSS_341",
+   "row": "AC",
+   "col": 25,
+   "x": 1.4,
+   "y": 0.6
+  },
+  {
+   "ball": "AC26",
+   "name": "VSS_342",
+   "row": "AC",
+   "col": 26,
+   "x": 1.8,
+   "y": 0.6
+  },
+  {
+   "ball": "AC27",
+   "name": "VDD_CPU_LIT_2",
+   "row": "AC",
+   "col": 27,
+   "x": 2.2,
+   "y": 0.6
+  },
+  {
+   "ball": "AC28",
+   "name": "VDD_CPU_LIT_3",
+   "row": "AC",
+   "col": 28,
+   "x": 2.6,
+   "y": 0.6
+  },
+  {
+   "ball": "AC29",
+   "name": "VDD_CPU_LIT_4",
+   "row": "AC",
+   "col": 29,
+   "x": 3.0,
+   "y": 0.6
+  },
+  {
+   "ball": "AC30",
+   "name": "VDD_CPU_LIT_5",
+   "row": "AC",
+   "col": 30,
+   "x": 3.4,
+   "y": 0.6
+  },
+  {
+   "ball": "AC31",
+   "name": "VDD_CPU_LIT_6",
+   "row": "AC",
+   "col": 31,
+   "x": 3.8,
+   "y": 0.6
+  },
+  {
+   "ball": "AC33",
+   "name": "VCCIO5_1",
+   "row": "AC",
+   "col": 33,
+   "x": 4.6,
+   "y": 0.6
+  },
+  {
+   "ball": "AC34",
+   "name": "VCCIO5_2",
+   "row": "AC",
+   "col": 34,
+   "x": 5.0,
+   "y": 0.6
+  },
+  {
+   "ball": "AC35",
+   "name": "EMMCIO_1V8_2",
+   "row": "AC",
+   "col": 35,
+   "x": 5.4,
+   "y": 0.6
+  },
+  {
+   "ball": "AC37",
+   "name": "SPI2_CS1_M2/I2C1_SCL_M1/UART0_RX_M1/GPIO0_B0_z",
+   "row": "AC",
+   "col": 37,
+   "x": 6.2,
+   "y": 0.6
+  },
+  {
+   "ball": "AC38",
+   "name": "SDMMC_DET/GPIO0_A4_u",
+   "row": "AC",
+   "col": 38,
+   "x": 6.6,
+   "y": 0.6
+  },
+  {
+   "ball": "AC39",
+   "name": "TSADC_SHUT_ORG/TSADC_SHUT/GPIO0_A1_z",
+   "row": "AC",
+   "col": 39,
+   "x": 7.0,
+   "y": 0.6
+  },
+  {
+   "ball": "AC40",
+   "name": "EMMC_DATA_STROBE/I2C2_SDA_M2/UART5_CTSN_M1/GPIO2_A2_d",
+   "row": "AC",
+   "col": 40,
+   "x": 7.4,
+   "y": 0.6
+  },
+  {
+   "ball": "AC41",
+   "name": "VSS_343",
+   "row": "AC",
+   "col": 41,
+   "x": 7.8,
+   "y": 0.6
+  },
+  {
+   "ball": "AD1",
+   "name": "DDR_CH0_LP4/4X_CKE1/LP5_CS1_A",
+   "row": "AD",
+   "col": 1,
+   "x": -8.2,
+   "y": 1.0
+  },
+  {
+   "ball": "AD2",
+   "name": "VSS_344",
+   "row": "AD",
+   "col": 2,
+   "x": -7.8,
+   "y": 1.0
+  },
+  {
+   "ball": "AD3",
+   "name": "VSS_345",
+   "row": "AD",
+   "col": 3,
+   "x": -7.4,
+   "y": 1.0
+  },
+  {
+   "ball": "AD5",
+   "name": "VSS_346",
+   "row": "AD",
+   "col": 5,
+   "x": -6.6,
+   "y": 1.0
+  },
+  {
+   "ball": "AD6",
+   "name": "VSS_347",
+   "row": "AD",
+   "col": 6,
+   "x": -6.2,
+   "y": 1.0
+  },
+  {
+   "ball": "AD8",
+   "name": "VSS_348",
+   "row": "AD",
+   "col": 8,
+   "x": -5.4,
+   "y": 1.0
+  },
+  {
+   "ball": "AD9",
+   "name": "VSS_349",
+   "row": "AD",
+   "col": 9,
+   "x": -5.0,
+   "y": 1.0
+  },
+  {
+   "ball": "AD10",
+   "name": "VSS_350",
+   "row": "AD",
+   "col": 10,
+   "x": -4.6,
+   "y": 1.0
+  },
+  {
+   "ball": "AD11",
+   "name": "VSS_351",
+   "row": "AD",
+   "col": 11,
+   "x": -4.2,
+   "y": 1.0
+  },
+  {
+   "ball": "AD12",
+   "name": "VSS_352",
+   "row": "AD",
+   "col": 12,
+   "x": -3.8,
+   "y": 1.0
+  },
+  {
+   "ball": "AD13",
+   "name": "VSS_353",
+   "row": "AD",
+   "col": 13,
+   "x": -3.4,
+   "y": 1.0
+  },
+  {
+   "ball": "AD14",
+   "name": "VSS_354",
+   "row": "AD",
+   "col": 14,
+   "x": -3.0,
+   "y": 1.0
+  },
+  {
+   "ball": "AD15",
+   "name": "VDD_VDENC_7",
+   "row": "AD",
+   "col": 15,
+   "x": -2.6,
+   "y": 1.0
+  },
+  {
+   "ball": "AD19",
+   "name": "VSS_355",
+   "row": "AD",
+   "col": 19,
+   "x": -1.0,
+   "y": 1.0
+  },
+  {
+   "ball": "AD20",
+   "name": "VSS_356",
+   "row": "AD",
+   "col": 20,
+   "x": -0.6,
+   "y": 1.0
+  },
+  {
+   "ball": "AD22",
+   "name": "VSS_357",
+   "row": "AD",
+   "col": 22,
+   "x": 0.2,
+   "y": 1.0
+  },
+  {
+   "ball": "AD23",
+   "name": "VSS_358",
+   "row": "AD",
+   "col": 23,
+   "x": 0.6,
+   "y": 1.0
+  },
+  {
+   "ball": "AD24",
+   "name": "VSS_359",
+   "row": "AD",
+   "col": 24,
+   "x": 1.0,
+   "y": 1.0
+  },
+  {
+   "ball": "AD25",
+   "name": "VSS_360",
+   "row": "AD",
+   "col": 25,
+   "x": 1.4,
+   "y": 1.0
+  },
+  {
+   "ball": "AD26",
+   "name": "VDD_CPU_LIT_7",
+   "row": "AD",
+   "col": 26,
+   "x": 1.8,
+   "y": 1.0
+  },
+  {
+   "ball": "AD27",
+   "name": "VDD_CPU_LIT_8",
+   "row": "AD",
+   "col": 27,
+   "x": 2.2,
+   "y": 1.0
+  },
+  {
+   "ball": "AD38",
+   "name": "CLK32K_IN/CLK32K_OUT0/GPIO0_B2_u",
+   "row": "AD",
+   "col": 38,
+   "x": 6.6,
+   "y": 1.0
+  },
+  {
+   "ball": "AD39",
+   "name": "PMIC_SLEEP2/GPIO0_A3_d",
+   "row": "AD",
+   "col": 39,
+   "x": 7.0,
+   "y": 1.0
+  },
+  {
+   "ball": "AD40",
+   "name": "EMMC_RSTN/I2C2_SCL_M2/UART5_RTSN_M1/GPIO2_A3_d",
+   "row": "AD",
+   "col": 40,
+   "x": 7.4,
+   "y": 1.0
+  },
+  {
+   "ball": "AD41",
+   "name": "EMMC_D6/FSPI_CS0N_M0/GPIO2_D6_u",
+   "row": "AD",
+   "col": 41,
+   "x": 7.8,
+   "y": 1.0
+  },
+  {
+   "ball": "AD42",
+   "name": "EMMC_D5/I2C1_SDA_M3/UART5_TX_M2/GPIO2_D5_u",
+   "row": "AD",
+   "col": 42,
+   "x": 8.2,
+   "y": 1.0
+  },
+  {
+   "ball": "AE1",
+   "name": "DDR_CH0_DM0_A",
+   "row": "AE",
+   "col": 1,
+   "x": -8.2,
+   "y": 1.4
+  },
+  {
+   "ball": "AE2",
+   "name": "DDR_CH0_DQ6_A",
+   "row": "AE",
+   "col": 2,
+   "x": -7.8,
+   "y": 1.4
+  },
+  {
+   "ball": "AE5",
+   "name": "DDR_CH0_DQ5_A",
+   "row": "AE",
+   "col": 5,
+   "x": -6.6,
+   "y": 1.4
+  },
+  {
+   "ball": "AE6",
+   "name": "VSS_361",
+   "row": "AE",
+   "col": 6,
+   "x": -6.2,
+   "y": 1.4
+  },
+  {
+   "ball": "AE7",
+   "name": "VSS_362",
+   "row": "AE",
+   "col": 7,
+   "x": -5.8,
+   "y": 1.4
+  },
+  {
+   "ball": "AE8",
+   "name": "VSS_363",
+   "row": "AE",
+   "col": 8,
+   "x": -5.4,
+   "y": 1.4
+  },
+  {
+   "ball": "AE9",
+   "name": "VSS_364",
+   "row": "AE",
+   "col": 9,
+   "x": -5.0,
+   "y": 1.4
+  },
+  {
+   "ball": "AE10",
+   "name": "VSS_365",
+   "row": "AE",
+   "col": 10,
+   "x": -4.6,
+   "y": 1.4
+  },
+  {
+   "ball": "AE11",
+   "name": "VSS_366",
+   "row": "AE",
+   "col": 11,
+   "x": -4.2,
+   "y": 1.4
+  },
+  {
+   "ball": "AE12",
+   "name": "VSS_367",
+   "row": "AE",
+   "col": 12,
+   "x": -3.8,
+   "y": 1.4
+  },
+  {
+   "ball": "AE13",
+   "name": "VSS_368",
+   "row": "AE",
+   "col": 13,
+   "x": -3.4,
+   "y": 1.4
+  },
+  {
+   "ball": "AE14",
+   "name": "VSS_369",
+   "row": "AE",
+   "col": 14,
+   "x": -3.0,
+   "y": 1.4
+  },
+  {
+   "ball": "AE15",
+   "name": "VSS_370",
+   "row": "AE",
+   "col": 15,
+   "x": -2.6,
+   "y": 1.4
+  },
+  {
+   "ball": "AE16",
+   "name": "VSS_371",
+   "row": "AE",
+   "col": 16,
+   "x": -2.2,
+   "y": 1.4
+  },
+  {
+   "ball": "AE19",
+   "name": "VSS_372",
+   "row": "AE",
+   "col": 19,
+   "x": -1.0,
+   "y": 1.4
+  },
+  {
+   "ball": "AE20",
+   "name": "VSS_373",
+   "row": "AE",
+   "col": 20,
+   "x": -0.6,
+   "y": 1.4
+  },
+  {
+   "ball": "AE22",
+   "name": "VSS_374",
+   "row": "AE",
+   "col": 22,
+   "x": 0.2,
+   "y": 1.4
+  },
+  {
+   "ball": "AE23",
+   "name": "VSS_375",
+   "row": "AE",
+   "col": 23,
+   "x": 0.6,
+   "y": 1.4
+  },
+  {
+   "ball": "AE24",
+   "name": "VSS_376",
+   "row": "AE",
+   "col": 24,
+   "x": 1.0,
+   "y": 1.4
+  },
+  {
+   "ball": "AE25",
+   "name": "VSS_377",
+   "row": "AE",
+   "col": 25,
+   "x": 1.4,
+   "y": 1.4
+  },
+  {
+   "ball": "AE26",
+   "name": "VSS_378",
+   "row": "AE",
+   "col": 26,
+   "x": 1.8,
+   "y": 1.4
+  },
+  {
+   "ball": "AE27",
+   "name": "VDD_CPU_LIT_9",
+   "row": "AE",
+   "col": 27,
+   "x": 2.2,
+   "y": 1.4
+  },
+  {
+   "ball": "AE38",
+   "name": "VSS_379",
+   "row": "AE",
+   "col": 38,
+   "x": 6.6,
+   "y": 1.4
+  },
+  {
+   "ball": "AE39",
+   "name": "VSS_380",
+   "row": "AE",
+   "col": 39,
+   "x": 7.0,
+   "y": 1.4
+  },
+  {
+   "ball": "AE40",
+   "name": "VSS_381",
+   "row": "AE",
+   "col": 40,
+   "x": 7.4,
+   "y": 1.4
+  },
+  {
+   "ball": "AE41",
+   "name": "EMMC_D7/FSPI_CS1N_M0/GPIO2_D7_u",
+   "row": "AE",
+   "col": 41,
+   "x": 7.8,
+   "y": 1.4
+  },
+  {
+   "ball": "AE42",
+   "name": "EMMC_CMD/FSPI_CLK_M0/GPIO2_A0_u",
+   "row": "AE",
+   "col": 42,
+   "x": 8.2,
+   "y": 1.4
+  },
+  {
+   "ball": "AF1",
+   "name": "DDR_CH0_A2_A",
+   "row": "AF",
+   "col": 1,
+   "x": -8.2,
+   "y": 1.8
+  },
+  {
+   "ball": "AF2",
+   "name": "VSS_382",
+   "row": "AF",
+   "col": 2,
+   "x": -7.8,
+   "y": 1.8
+  },
+  {
+   "ball": "AF3",
+   "name": "DDR_CH0_DQ7_A",
+   "row": "AF",
+   "col": 3,
+   "x": -7.4,
+   "y": 1.8
+  },
+  {
+   "ball": "AF4",
+   "name": "DDR_CH0_DQ14_A",
+   "row": "AF",
+   "col": 4,
+   "x": -7.0,
+   "y": 1.8
+  },
+  {
+   "ball": "AF5",
+   "name": "DDR_CH0_DQ15_A",
+   "row": "AF",
+   "col": 5,
+   "x": -6.6,
+   "y": 1.8
+  },
+  {
+   "ball": "AF6",
+   "name": "VSS_383",
+   "row": "AF",
+   "col": 6,
+   "x": -6.2,
+   "y": 1.8
+  },
+  {
+   "ball": "AF7",
+   "name": "VSS_384",
+   "row": "AF",
+   "col": 7,
+   "x": -5.8,
+   "y": 1.8
+  },
+  {
+   "ball": "AF8",
+   "name": "VSS_385",
+   "row": "AF",
+   "col": 8,
+   "x": -5.4,
+   "y": 1.8
+  },
+  {
+   "ball": "AF9",
+   "name": "VSS_386",
+   "row": "AF",
+   "col": 9,
+   "x": -5.0,
+   "y": 1.8
+  },
+  {
+   "ball": "AF10",
+   "name": "VSS_387",
+   "row": "AF",
+   "col": 10,
+   "x": -4.6,
+   "y": 1.8
+  },
+  {
+   "ball": "AF12",
+   "name": "VDD_LOGIC_5",
+   "row": "AF",
+   "col": 12,
+   "x": -3.8,
+   "y": 1.8
+  },
+  {
+   "ball": "AF13",
+   "name": "VDD_LOGIC_6",
+   "row": "AF",
+   "col": 13,
+   "x": -3.4,
+   "y": 1.8
+  },
+  {
+   "ball": "AF16",
+   "name": "VSS_388",
+   "row": "AF",
+   "col": 16,
+   "x": -2.2,
+   "y": 1.8
+  },
+  {
+   "ball": "AF17",
+   "name": "VSS_389",
+   "row": "AF",
+   "col": 17,
+   "x": -1.8,
+   "y": 1.8
+  },
+  {
+   "ball": "AF19",
+   "name": "VSS_390",
+   "row": "AF",
+   "col": 19,
+   "x": -1.0,
+   "y": 1.8
+  },
+  {
+   "ball": "AF20",
+   "name": "VSS_391",
+   "row": "AF",
+   "col": 20,
+   "x": -0.6,
+   "y": 1.8
+  },
+  {
+   "ball": "AF21",
+   "name": "VSS_392",
+   "row": "AF",
+   "col": 21,
+   "x": -0.2,
+   "y": 1.8
+  },
+  {
+   "ball": "AF26",
+   "name": "VSS_393",
+   "row": "AF",
+   "col": 26,
+   "x": 1.8,
+   "y": 1.8
+  },
+  {
+   "ball": "AF27",
+   "name": "VSS_394",
+   "row": "AF",
+   "col": 27,
+   "x": 2.2,
+   "y": 1.8
+  },
+  {
+   "ball": "AF28",
+   "name": "VSS_395",
+   "row": "AF",
+   "col": 28,
+   "x": 2.6,
+   "y": 1.8
+  },
+  {
+   "ball": "AF29",
+   "name": "VSS_396",
+   "row": "AF",
+   "col": 29,
+   "x": 3.0,
+   "y": 1.8
+  },
+  {
+   "ball": "AF30",
+   "name": "VSS_397",
+   "row": "AF",
+   "col": 30,
+   "x": 3.4,
+   "y": 1.8
+  },
+  {
+   "ball": "AF31",
+   "name": "VSS_398",
+   "row": "AF",
+   "col": 31,
+   "x": 3.8,
+   "y": 1.8
+  },
+  {
+   "ball": "AF32",
+   "name": "VSS_399",
+   "row": "AF",
+   "col": 32,
+   "x": 4.2,
+   "y": 1.8
+  },
+  {
+   "ball": "AF33",
+   "name": "VSS_400",
+   "row": "AF",
+   "col": 33,
+   "x": 4.6,
+   "y": 1.8
+  },
+  {
+   "ball": "AF34",
+   "name": "VSS_401",
+   "row": "AF",
+   "col": 34,
+   "x": 5.0,
+   "y": 1.8
+  },
+  {
+   "ball": "AF35",
+   "name": "RESERVED",
+   "row": "AF",
+   "col": 35,
+   "x": 5.4,
+   "y": 1.8
+  },
+  {
+   "ball": "AF36",
+   "name": "VCCIO5_1V8",
+   "row": "AF",
+   "col": 36,
+   "x": 5.8,
+   "y": 1.8
+  },
+  {
+   "ball": "AF37",
+   "name": "VSS_402",
+   "row": "AF",
+   "col": 37,
+   "x": 6.2,
+   "y": 1.8
+  },
+  {
+   "ball": "AF38",
+   "name": "VSS_403",
+   "row": "AF",
+   "col": 38,
+   "x": 6.6,
+   "y": 1.8
+  },
+  {
+   "ball": "AF39",
+   "name": "VSS_404",
+   "row": "AF",
+   "col": 39,
+   "x": 7.0,
+   "y": 1.8
+  },
+  {
+   "ball": "AF40",
+   "name": "VSS_405",
+   "row": "AF",
+   "col": 40,
+   "x": 7.4,
+   "y": 1.8
+  },
+  {
+   "ball": "AF41",
+   "name": "VSS_406",
+   "row": "AF",
+   "col": 41,
+   "x": 7.8,
+   "y": 1.8
+  },
+  {
+   "ball": "AG1",
+   "name": "DDR_CH0_RESET_A",
+   "row": "AG",
+   "col": 1,
+   "x": -8.2,
+   "y": 2.2
+  },
+  {
+   "ball": "AG2",
+   "name": "DDR_CH0_A5_A",
+   "row": "AG",
+   "col": 2,
+   "x": -7.8,
+   "y": 2.2
+  },
+  {
+   "ball": "AG3",
+   "name": "VSS_407",
+   "row": "AG",
+   "col": 3,
+   "x": -7.4,
+   "y": 2.2
+  },
+  {
+   "ball": "AG4",
+   "name": "VSS_408",
+   "row": "AG",
+   "col": 4,
+   "x": -7.0,
+   "y": 2.2
+  },
+  {
+   "ball": "AG5",
+   "name": "VSS_409",
+   "row": "AG",
+   "col": 5,
+   "x": -6.6,
+   "y": 2.2
+  },
+  {
+   "ball": "AG6",
+   "name": "VSS_410",
+   "row": "AG",
+   "col": 6,
+   "x": -6.2,
+   "y": 2.2
+  },
+  {
+   "ball": "AG7",
+   "name": "VSS_411",
+   "row": "AG",
+   "col": 7,
+   "x": -5.8,
+   "y": 2.2
+  },
+  {
+   "ball": "AG8",
+   "name": "VSS_412",
+   "row": "AG",
+   "col": 8,
+   "x": -5.4,
+   "y": 2.2
+  },
+  {
+   "ball": "AG15",
+   "name": "VSS_413",
+   "row": "AG",
+   "col": 15,
+   "x": -2.6,
+   "y": 2.2
+  },
+  {
+   "ball": "AG16",
+   "name": "VSS_414",
+   "row": "AG",
+   "col": 16,
+   "x": -2.2,
+   "y": 2.2
+  },
+  {
+   "ball": "AG17",
+   "name": "VSS_415",
+   "row": "AG",
+   "col": 17,
+   "x": -1.8,
+   "y": 2.2
+  },
+  {
+   "ball": "AG18",
+   "name": "VSS_416",
+   "row": "AG",
+   "col": 18,
+   "x": -1.4,
+   "y": 2.2
+  },
+  {
+   "ball": "AG19",
+   "name": "VSS_417",
+   "row": "AG",
+   "col": 19,
+   "x": -1.0,
+   "y": 2.2
+  },
+  {
+   "ball": "AG20",
+   "name": "VSS_418",
+   "row": "AG",
+   "col": 20,
+   "x": -0.6,
+   "y": 2.2
+  },
+  {
+   "ball": "AG21",
+   "name": "VSS_419",
+   "row": "AG",
+   "col": 21,
+   "x": -0.2,
+   "y": 2.2
+  },
+  {
+   "ball": "AG22",
+   "name": "VSS_420",
+   "row": "AG",
+   "col": 22,
+   "x": 0.2,
+   "y": 2.2
+  },
+  {
+   "ball": "AG23",
+   "name": "VSS_421",
+   "row": "AG",
+   "col": 23,
+   "x": 0.6,
+   "y": 2.2
+  },
+  {
+   "ball": "AG24",
+   "name": "VSS_422",
+   "row": "AG",
+   "col": 24,
+   "x": 1.0,
+   "y": 2.2
+  },
+  {
+   "ball": "AG25",
+   "name": "VSS_423",
+   "row": "AG",
+   "col": 25,
+   "x": 1.4,
+   "y": 2.2
+  },
+  {
+   "ball": "AG28",
+   "name": "VSS_424",
+   "row": "AG",
+   "col": 28,
+   "x": 2.6,
+   "y": 2.2
+  },
+  {
+   "ball": "AG29",
+   "name": "VSS_425",
+   "row": "AG",
+   "col": 29,
+   "x": 3.0,
+   "y": 2.2
+  },
+  {
+   "ball": "AG31",
+   "name": "VSS_426",
+   "row": "AG",
+   "col": 31,
+   "x": 3.8,
+   "y": 2.2
+  },
+  {
+   "ball": "AG32",
+   "name": "VSS_427",
+   "row": "AG",
+   "col": 32,
+   "x": 4.2,
+   "y": 2.2
+  },
+  {
+   "ball": "AG33",
+   "name": "VSS_428",
+   "row": "AG",
+   "col": 33,
+   "x": 4.6,
+   "y": 2.2
+  },
+  {
+   "ball": "AG34",
+   "name": "VSS_429",
+   "row": "AG",
+   "col": 34,
+   "x": 5.0,
+   "y": 2.2
+  },
+  {
+   "ball": "AG35",
+   "name": "VSS_430",
+   "row": "AG",
+   "col": 35,
+   "x": 5.4,
+   "y": 2.2
+  },
+  {
+   "ball": "AG36",
+   "name": "PMIC_SLEEP4/GPIO0_C2_d",
+   "row": "AG",
+   "col": 36,
+   "x": 5.8,
+   "y": 2.2
+  },
+  {
+   "ball": "AG37",
+   "name": "LITCPU_AVS/SPI3_CLK_M2/GPIO0_D3_u",
+   "row": "AG",
+   "col": 37,
+   "x": 6.2,
+   "y": 2.2
+  },
+  {
+   "ball": "AG38",
+   "name": "I2S1_SDI0_M1/GPU_AVS/UART0_TX_M0/I2C4_SCL_M2/PWM4_M0/GPIO0_C5_u",
+   "row": "AG",
+   "col": 38,
+   "x": 6.6,
+   "y": 2.2
+  },
+  {
+   "ball": "AG39",
+   "name": "I2S1_SDI3_M1/PDM0_SDI1_M1/I2C6_SCL_M0/UART1_CTSN_M2/PWM7_IR_M0/SPI3_MISO_M2/GPIO0_D0_d",
+   "row": "AG",
+   "col": 39,
+   "x": 7.0,
+   "y": 2.2
+  },
+  {
+   "ball": "AG40",
+   "name": "VSS_431",
+   "row": "AG",
+   "col": 40,
+   "x": 7.4,
+   "y": 2.2
+  },
+  {
+   "ball": "AG41",
+   "name": "I2S1_SDO1_M1/I2C0_SDA_M2/UART1_RX_M2/SPI3_MOSI_M2/GPIO0_D2_u",
+   "row": "AG",
+   "col": 41,
+   "x": 7.8,
+   "y": 2.2
+  },
+  {
+   "ball": "AG42",
+   "name": "PMIC_SLEEP6/PDM0_SDI3_M1/GPIO0_D6_d",
+   "row": "AG",
+   "col": 42,
+   "x": 8.2,
+   "y": 2.2
+  },
+  {
+   "ball": "AH2",
+   "name": "VSS_432",
+   "row": "AH",
+   "col": 2,
+   "x": -7.8,
+   "y": 2.6
+  },
+  {
+   "ball": "AH3",
+   "name": "VSS_433",
+   "row": "AH",
+   "col": 3,
+   "x": -7.4,
+   "y": 2.6
+  },
+  {
+   "ball": "AH4",
+   "name": "VSS_434",
+   "row": "AH",
+   "col": 4,
+   "x": -7.0,
+   "y": 2.6
+  },
+  {
+   "ball": "AH5",
+   "name": "VSS_435",
+   "row": "AH",
+   "col": 5,
+   "x": -6.6,
+   "y": 2.6
+  },
+  {
+   "ball": "AH7",
+   "name": "VSS_436",
+   "row": "AH",
+   "col": 7,
+   "x": -5.8,
+   "y": 2.6
+  },
+  {
+   "ball": "AH8",
+   "name": "VSS_437",
+   "row": "AH",
+   "col": 8,
+   "x": -5.4,
+   "y": 2.6
+  },
+  {
+   "ball": "AH9",
+   "name": "VSS_438",
+   "row": "AH",
+   "col": 9,
+   "x": -5.0,
+   "y": 2.6
+  },
+  {
+   "ball": "AH10",
+   "name": "VSS_439",
+   "row": "AH",
+   "col": 10,
+   "x": -4.6,
+   "y": 2.6
+  },
+  {
+   "ball": "AH11",
+   "name": "VDD_LOGIC_7",
+   "row": "AH",
+   "col": 11,
+   "x": -4.2,
+   "y": 2.6
+  },
+  {
+   "ball": "AH12",
+   "name": "VDD_LOGIC_8",
+   "row": "AH",
+   "col": 12,
+   "x": -3.8,
+   "y": 2.6
+  },
+  {
+   "ball": "AH13",
+   "name": "VDD_LOGIC_9",
+   "row": "AH",
+   "col": 13,
+   "x": -3.4,
+   "y": 2.6
+  },
+  {
+   "ball": "AH14",
+   "name": "VDD_LOGIC_10",
+   "row": "AH",
+   "col": 14,
+   "x": -3.0,
+   "y": 2.6
+  },
+  {
+   "ball": "AH15",
+   "name": "VDD_LOGIC_11",
+   "row": "AH",
+   "col": 15,
+   "x": -2.6,
+   "y": 2.6
+  },
+  {
+   "ball": "AH16",
+   "name": "VSS_440",
+   "row": "AH",
+   "col": 16,
+   "x": -2.2,
+   "y": 2.6
+  },
+  {
+   "ball": "AH17",
+   "name": "VSS_441",
+   "row": "AH",
+   "col": 17,
+   "x": -1.8,
+   "y": 2.6
+  },
+  {
+   "ball": "AH18",
+   "name": "VDD_GPU_1",
+   "row": "AH",
+   "col": 18,
+   "x": -1.4,
+   "y": 2.6
+  },
+  {
+   "ball": "AH19",
+   "name": "VDD_GPU_2",
+   "row": "AH",
+   "col": 19,
+   "x": -1.0,
+   "y": 2.6
+  },
+  {
+   "ball": "AH20",
+   "name": "VDD_GPU_3",
+   "row": "AH",
+   "col": 20,
+   "x": -0.6,
+   "y": 2.6
+  },
+  {
+   "ball": "AH21",
+   "name": "VDD_GPU_4",
+   "row": "AH",
+   "col": 21,
+   "x": -0.2,
+   "y": 2.6
+  },
+  {
+   "ball": "AH23",
+   "name": "VDD_LOGIC_12",
+   "row": "AH",
+   "col": 23,
+   "x": 0.6,
+   "y": 2.6
+  },
+  {
+   "ball": "AH24",
+   "name": "VDD_LOGIC_13",
+   "row": "AH",
+   "col": 24,
+   "x": 1.0,
+   "y": 2.6
+  },
+  {
+   "ball": "AH25",
+   "name": "VDD_NPU_MEM_1",
+   "row": "AH",
+   "col": 25,
+   "x": 1.4,
+   "y": 2.6
+  },
+  {
+   "ball": "AH26",
+   "name": "VDD_NPU_MEM_2",
+   "row": "AH",
+   "col": 26,
+   "x": 1.8,
+   "y": 2.6
+  },
+  {
+   "ball": "AH28",
+   "name": "VSS_442",
+   "row": "AH",
+   "col": 28,
+   "x": 2.6,
+   "y": 2.6
+  },
+  {
+   "ball": "AH29",
+   "name": "VSS_443",
+   "row": "AH",
+   "col": 29,
+   "x": 3.0,
+   "y": 2.6
+  },
+  {
+   "ball": "AH36",
+   "name": "VSS_444",
+   "row": "AH",
+   "col": 36,
+   "x": 5.8,
+   "y": 2.6
+  },
+  {
+   "ball": "AH37",
+   "name": "TSADC_TEST_OUT_TS",
+   "row": "AH",
+   "col": 37,
+   "x": 6.2,
+   "y": 2.6
+  },
+  {
+   "ball": "AH38",
+   "name": "PMIC_SLEEP5/GPIO0_C3_d",
+   "row": "AH",
+   "col": 38,
+   "x": 6.6,
+   "y": 2.6
+  },
+  {
+   "ball": "AH39",
+   "name": "I2S1_MCLK_M1/JTAG_TCK_M2/I2C1_SCL_M0/UART2_TX_M0/PCIE20X1_1_CLKREQN_M0/GPIO0_B5_d",
+   "row": "AH",
+   "col": 39,
+   "x": 7.0,
+   "y": 2.6
+  },
+  {
+   "ball": "AH40",
+   "name": "I2S1_SCLK_TX_M1/JTAG_TMS_M2/I2C1_SDA_M0/UART2_RX_M0/PCIE20X1_1_WAKEN_M0/GPIO0_B6_d",
+   "row": "AH",
+   "col": 40,
+   "x": 7.4,
+   "y": 2.6
+  },
+  {
+   "ball": "AH41",
+   "name": "I2S1_SDO0_M1/CPU_BIG0_AVS/I2C0_SCL_M2/UART0_CTSN/UART1_TX_M2/SPI0_CS0_M0/HDMI_TX0_CEC_M1/GPIO0_D1_u",
+   "row": "AH",
+   "col": 41,
+   "x": 7.8,
+   "y": 2.6
+  },
+  {
+   "ball": "AH42",
+   "name": "I2S1_SDI1_M1/NPU_AVS/UART0_RTSN/PWM5_M1/SPI0_CLK_M0/SATA_CP_POD/GPIO0_C6_u",
+   "row": "AH",
+   "col": 42,
+   "x": 8.2,
+   "y": 2.6
+  },
+  {
+   "ball": "AJ1",
+   "name": "DDR_CH0_DQ2_A",
+   "row": "AJ",
+   "col": 1,
+   "x": -8.2,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ2",
+   "name": "DDR_CH0_DQ0_A",
+   "row": "AJ",
+   "col": 2,
+   "x": -7.8,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ3",
+   "name": "DDR_CH0_DQ12_A",
+   "row": "AJ",
+   "col": 3,
+   "x": -7.4,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ5",
+   "name": "VSS_445",
+   "row": "AJ",
+   "col": 5,
+   "x": -6.6,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ6",
+   "name": "DDR_CH0_DQ11_A",
+   "row": "AJ",
+   "col": 6,
+   "x": -6.2,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ7",
+   "name": "VSS_446",
+   "row": "AJ",
+   "col": 7,
+   "x": -5.8,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ8",
+   "name": "VSS_447",
+   "row": "AJ",
+   "col": 8,
+   "x": -5.4,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ9",
+   "name": "VSS_448",
+   "row": "AJ",
+   "col": 9,
+   "x": -5.0,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ10",
+   "name": "VSS_449",
+   "row": "AJ",
+   "col": 10,
+   "x": -4.6,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ11",
+   "name": "VSS_450",
+   "row": "AJ",
+   "col": 11,
+   "x": -4.2,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ12",
+   "name": "VSS_451",
+   "row": "AJ",
+   "col": 12,
+   "x": -3.8,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ15",
+   "name": "VDD_LOGIC_14",
+   "row": "AJ",
+   "col": 15,
+   "x": -2.6,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ16",
+   "name": "VSS_452",
+   "row": "AJ",
+   "col": 16,
+   "x": -2.2,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ18",
+   "name": "VDD_GPU_MEM_1",
+   "row": "AJ",
+   "col": 18,
+   "x": -1.4,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ19",
+   "name": "VDD_GPU_5",
+   "row": "AJ",
+   "col": 19,
+   "x": -1.0,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ20",
+   "name": "VDD_GPU_6",
+   "row": "AJ",
+   "col": 20,
+   "x": -0.6,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ21",
+   "name": "VDD_GPU_7",
+   "row": "AJ",
+   "col": 21,
+   "x": -0.2,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ25",
+   "name": "VDD_NPU_MEM_3",
+   "row": "AJ",
+   "col": 25,
+   "x": 1.4,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ26",
+   "name": "VSS_453",
+   "row": "AJ",
+   "col": 26,
+   "x": 1.8,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ27",
+   "name": "VSS_454",
+   "row": "AJ",
+   "col": 27,
+   "x": 2.2,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ28",
+   "name": "VSS_455",
+   "row": "AJ",
+   "col": 28,
+   "x": 2.6,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ29",
+   "name": "VSS_456",
+   "row": "AJ",
+   "col": 29,
+   "x": 3.0,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ30",
+   "name": "VSS_457",
+   "row": "AJ",
+   "col": 30,
+   "x": 3.4,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ31",
+   "name": "VDD_LOGIC_15",
+   "row": "AJ",
+   "col": 31,
+   "x": 3.8,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ32",
+   "name": "VDD_LOGIC_16",
+   "row": "AJ",
+   "col": 32,
+   "x": 4.2,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ34",
+   "name": "VCCIO6_1V8",
+   "row": "AJ",
+   "col": 34,
+   "x": 5.0,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ35",
+   "name": "VSS_458",
+   "row": "AJ",
+   "col": 35,
+   "x": 5.4,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ36",
+   "name": "PMU_0V75_1",
+   "row": "AJ",
+   "col": 36,
+   "x": 5.8,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ37",
+   "name": "PMU_0V75_2",
+   "row": "AJ",
+   "col": 37,
+   "x": 6.2,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ38",
+   "name": "VSS_459",
+   "row": "AJ",
+   "col": 38,
+   "x": 6.6,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ39",
+   "name": "VSS_460",
+   "row": "AJ",
+   "col": 39,
+   "x": 7.0,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ40",
+   "name": "VSS_461",
+   "row": "AJ",
+   "col": 40,
+   "x": 7.4,
+   "y": 3.0
+  },
+  {
+   "ball": "AJ41",
+   "name": "VSS_462",
+   "row": "AJ",
+   "col": 41,
+   "x": 7.8,
+   "y": 3.0
+  },
+  {
+   "ball": "AK1",
+   "name": "DDR_CH0_LP4/4X_CKE0/LP5_CS0_A",
+   "row": "AK",
+   "col": 1,
+   "x": -8.2,
+   "y": 3.4
+  },
+  {
+   "ball": "AK2",
+   "name": "VSS_463",
+   "row": "AK",
+   "col": 2,
+   "x": -7.8,
+   "y": 3.4
+  },
+  {
+   "ball": "AK3",
+   "name": "DDR_CH0_DQ13_A",
+   "row": "AK",
+   "col": 3,
+   "x": -7.4,
+   "y": 3.4
+  },
+  {
+   "ball": "AK4",
+   "name": "DDR_CH0_DM1_A",
+   "row": "AK",
+   "col": 4,
+   "x": -7.0,
+   "y": 3.4
+  },
+  {
+   "ball": "AK5",
+   "name": "DDR_CH0_DQ8_A",
+   "row": "AK",
+   "col": 5,
+   "x": -6.6,
+   "y": 3.4
+  },
+  {
+   "ball": "AK6",
+   "name": "VSS_464",
+   "row": "AK",
+   "col": 6,
+   "x": -6.2,
+   "y": 3.4
+  },
+  {
+   "ball": "AK7",
+   "name": "VSS_465",
+   "row": "AK",
+   "col": 7,
+   "x": -5.8,
+   "y": 3.4
+  },
+  {
+   "ball": "AK9",
+   "name": "NC",
+   "row": "AK",
+   "col": 9,
+   "x": -5.0,
+   "y": 3.4
+  },
+  {
+   "ball": "AK10",
+   "name": "VCCIO2",
+   "row": "AK",
+   "col": 10,
+   "x": -4.6,
+   "y": 3.4
+  },
+  {
+   "ball": "AK11",
+   "name": "VCCIO2_1V8",
+   "row": "AK",
+   "col": 11,
+   "x": -4.2,
+   "y": 3.4
+  },
+  {
+   "ball": "AK12",
+   "name": "HDMI/eDP_TX0_VDD_IO_1V8",
+   "row": "AK",
+   "col": 12,
+   "x": -3.8,
+   "y": 3.4
+  },
+  {
+   "ball": "AK15",
+   "name": "VDD_LOGIC_17",
+   "row": "AK",
+   "col": 15,
+   "x": -2.6,
+   "y": 3.4
+  },
+  {
+   "ball": "AK16",
+   "name": "VSS_466",
+   "row": "AK",
+   "col": 16,
+   "x": -2.2,
+   "y": 3.4
+  },
+  {
+   "ball": "AK18",
+   "name": "VDD_GPU_MEM_2",
+   "row": "AK",
+   "col": 18,
+   "x": -1.4,
+   "y": 3.4
+  },
+  {
+   "ball": "AK21",
+   "name": "VDD_GPU_8",
+   "row": "AK",
+   "col": 21,
+   "x": -0.2,
+   "y": 3.4
+  },
+  {
+   "ball": "AK22",
+   "name": "VSS_467",
+   "row": "AK",
+   "col": 22,
+   "x": 0.2,
+   "y": 3.4
+  },
+  {
+   "ball": "AK25",
+   "name": "VDD_NPU_MEM_4",
+   "row": "AK",
+   "col": 25,
+   "x": 1.4,
+   "y": 3.4
+  },
+  {
+   "ball": "AK26",
+   "name": "VSS_468",
+   "row": "AK",
+   "col": 26,
+   "x": 1.8,
+   "y": 3.4
+  },
+  {
+   "ball": "AK27",
+   "name": "VDD_NPU_1",
+   "row": "AK",
+   "col": 27,
+   "x": 2.2,
+   "y": 3.4
+  },
+  {
+   "ball": "AK28",
+   "name": "VDD_NPU_2",
+   "row": "AK",
+   "col": 28,
+   "x": 2.6,
+   "y": 3.4
+  },
+  {
+   "ball": "AK29",
+   "name": "VDD_NPU_3",
+   "row": "AK",
+   "col": 29,
+   "x": 3.0,
+   "y": 3.4
+  },
+  {
+   "ball": "AK30",
+   "name": "VSS_469",
+   "row": "AK",
+   "col": 30,
+   "x": 3.4,
+   "y": 3.4
+  },
+  {
+   "ball": "AK39",
+   "name": "I2S1_LRCK_TX_M1/PWM0_M0/I2C2_SCL_M0/SPI0_CS1_M0/PCIE20X1_1_PERSTN_M0/GPIO0_B7_d",
+   "row": "AK",
+   "col": 39,
+   "x": 7.0,
+   "y": 3.4
+  },
+  {
+   "ball": "AK40",
+   "name": "VSS_470",
+   "row": "AK",
+   "col": 40,
+   "x": 7.4,
+   "y": 3.4
+  },
+  {
+   "ball": "AK41",
+   "name": "MIPI_CSI0_D1P",
+   "row": "AK",
+   "col": 41,
+   "x": 7.8,
+   "y": 3.4
+  },
+  {
+   "ball": "AK42",
+   "name": "MIPI_CSI0_D1N",
+   "row": "AK",
+   "col": 42,
+   "x": 8.2,
+   "y": 3.4
+  },
+  {
+   "ball": "AL2",
+   "name": "DDR_CH0_A3_A",
+   "row": "AL",
+   "col": 2,
+   "x": -7.8,
+   "y": 3.8
+  },
+  {
+   "ball": "AL3",
+   "name": "VSS_471",
+   "row": "AL",
+   "col": 3,
+   "x": -7.4,
+   "y": 3.8
+  },
+  {
+   "ball": "AL4",
+   "name": "VSS_472",
+   "row": "AL",
+   "col": 4,
+   "x": -7.0,
+   "y": 3.8
+  },
+  {
+   "ball": "AL5",
+   "name": "VSS_473",
+   "row": "AL",
+   "col": 5,
+   "x": -6.6,
+   "y": 3.8
+  },
+  {
+   "ball": "AL14",
+   "name": "HDMI/eDP_TX0_VDD_CMN_1V8",
+   "row": "AL",
+   "col": 14,
+   "x": -3.0,
+   "y": 3.8
+  },
+  {
+   "ball": "AL15",
+   "name": "AVSS_24",
+   "row": "AL",
+   "col": 15,
+   "x": -2.6,
+   "y": 3.8
+  },
+  {
+   "ball": "AL16",
+   "name": "VSS_474",
+   "row": "AL",
+   "col": 16,
+   "x": -2.2,
+   "y": 3.8
+  },
+  {
+   "ball": "AL18",
+   "name": "VDD_GPU_MEM_3",
+   "row": "AL",
+   "col": 18,
+   "x": -1.4,
+   "y": 3.8
+  },
+  {
+   "ball": "AL21",
+   "name": "VDD_GPU_9",
+   "row": "AL",
+   "col": 21,
+   "x": -0.2,
+   "y": 3.8
+  },
+  {
+   "ball": "AL22",
+   "name": "VSS_475",
+   "row": "AL",
+   "col": 22,
+   "x": 0.2,
+   "y": 3.8
+  },
+  {
+   "ball": "AL28",
+   "name": "VDD_NPU_4",
+   "row": "AL",
+   "col": 28,
+   "x": 2.6,
+   "y": 3.8
+  },
+  {
+   "ball": "AL29",
+   "name": "VDD_NPU_5",
+   "row": "AL",
+   "col": 29,
+   "x": 3.0,
+   "y": 3.8
+  },
+  {
+   "ball": "AL30",
+   "name": "VDD_NPU_6",
+   "row": "AL",
+   "col": 30,
+   "x": 3.4,
+   "y": 3.8
+  },
+  {
+   "ball": "AL31",
+   "name": "VDD_LOGIC_18",
+   "row": "AL",
+   "col": 31,
+   "x": 3.8,
+   "y": 3.8
+  },
+  {
+   "ball": "AL33",
+   "name": "VCCIO6_1",
+   "row": "AL",
+   "col": 33,
+   "x": 4.6,
+   "y": 3.8
+  },
+  {
+   "ball": "AL35",
+   "name": "VSS_476",
+   "row": "AL",
+   "col": 35,
+   "x": 5.4,
+   "y": 3.8
+  },
+  {
+   "ball": "AL38",
+   "name": "I2S1_LRCK_RX_M1/PDM0_CLK1_M1/PWM2_M0/UART0_RX_M0/I2C4_SDA_M2/DP0_HPDIN_M1/GPIO0_C4_d",
+   "row": "AL",
+   "col": 38,
+   "x": 6.6,
+   "y": 3.8
+  },
+  {
+   "ball": "AL39",
+   "name": "I2S1_SDO2_M1/PDM0_SDI2_M1/PWM3_IR_M0/I2C1_SCL_M2/HDMI_TX0_SDA_M1/SPI3_CS0_M2/SATA_CPDET/GPIO0_D4_u",
+   "row": "AL",
+   "col": 39,
+   "x": 7.0,
+   "y": 3.8
+  },
+  {
+   "ball": "AL40",
+   "name": "I2S1_SDI2_M1/PDM0_SDI0_M1/I2C6_SDA_M0/UART1_RTSN_M2/PWM6_M0/SPI0_MISO_M0/GPIO0_C7_d",
+   "row": "AL",
+   "col": 40,
+   "x": 7.4,
+   "y": 3.8
+  },
+  {
+   "ball": "AL41",
+   "name": "MIPI_CSI0_D0N",
+   "row": "AL",
+   "col": 41,
+   "x": 7.8,
+   "y": 3.8
+  },
+  {
+   "ball": "AL42",
+   "name": "MIPI_CSI0_D0P",
+   "row": "AL",
+   "col": 42,
+   "x": 8.2,
+   "y": 3.8
+  },
+  {
+   "ball": "AM1",
+   "name": "DDR_CH0_ZQ_A",
+   "row": "AM",
+   "col": 1,
+   "x": -8.2,
+   "y": 4.2
+  },
+  {
+   "ball": "AM2",
+   "name": "DDR_CH0_A6_A",
+   "row": "AM",
+   "col": 2,
+   "x": -7.8,
+   "y": 4.2
+  },
+  {
+   "ball": "AM4",
+   "name": "VSS_477",
+   "row": "AM",
+   "col": 4,
+   "x": -7.0,
+   "y": 4.2
+  },
+  {
+   "ball": "AM5",
+   "name": "VSS_478",
+   "row": "AM",
+   "col": 5,
+   "x": -6.6,
+   "y": 4.2
+  },
+  {
+   "ball": "AM13",
+   "name": "HDMI/eDP_TX0_VDD_0V75_1",
+   "row": "AM",
+   "col": 13,
+   "x": -3.4,
+   "y": 4.2
+  },
+  {
+   "ball": "AM14",
+   "name": "AVSS_25",
+   "row": "AM",
+   "col": 14,
+   "x": -3.0,
+   "y": 4.2
+  },
+  {
+   "ball": "AM15",
+   "name": "AVSS_26",
+   "row": "AM",
+   "col": 15,
+   "x": -2.6,
+   "y": 4.2
+  },
+  {
+   "ball": "AM16",
+   "name": "VSS_479",
+   "row": "AM",
+   "col": 16,
+   "x": -2.2,
+   "y": 4.2
+  },
+  {
+   "ball": "AM17",
+   "name": "VSS_480",
+   "row": "AM",
+   "col": 17,
+   "x": -1.8,
+   "y": 4.2
+  },
+  {
+   "ball": "AM21",
+   "name": "VDD_GPU_10",
+   "row": "AM",
+   "col": 21,
+   "x": -0.2,
+   "y": 4.2
+  },
+  {
+   "ball": "AM22",
+   "name": "VDD_GPU_11",
+   "row": "AM",
+   "col": 22,
+   "x": 0.2,
+   "y": 4.2
+  },
+  {
+   "ball": "AM23",
+   "name": "VSS_481",
+   "row": "AM",
+   "col": 23,
+   "x": 0.6,
+   "y": 4.2
+  },
+  {
+   "ball": "AM25",
+   "name": "VSS_482",
+   "row": "AM",
+   "col": 25,
+   "x": 1.4,
+   "y": 4.2
+  },
+  {
+   "ball": "AM27",
+   "name": "VSS_483",
+   "row": "AM",
+   "col": 27,
+   "x": 2.2,
+   "y": 4.2
+  },
+  {
+   "ball": "AM30",
+   "name": "VDD_NPU_7",
+   "row": "AM",
+   "col": 30,
+   "x": 3.4,
+   "y": 4.2
+  },
+  {
+   "ball": "AM31",
+   "name": "VSS_484",
+   "row": "AM",
+   "col": 31,
+   "x": 3.8,
+   "y": 4.2
+  },
+  {
+   "ball": "AM32",
+   "name": "VSS_485",
+   "row": "AM",
+   "col": 32,
+   "x": 4.2,
+   "y": 4.2
+  },
+  {
+   "ball": "AM33",
+   "name": "VCCIO6_2",
+   "row": "AM",
+   "col": 33,
+   "x": 4.6,
+   "y": 4.2
+  },
+  {
+   "ball": "AM35",
+   "name": "MIPI_CSI0_AVCC1V8",
+   "row": "AM",
+   "col": 35,
+   "x": 5.4,
+   "y": 4.2
+  },
+  {
+   "ball": "AM37",
+   "name": "MIPI_CSI0_AVCC0V75",
+   "row": "AM",
+   "col": 37,
+   "x": 6.2,
+   "y": 4.2
+  },
+  {
+   "ball": "AM38",
+   "name": "PMIC_SLEEP3/GPIO0_C1_d",
+   "row": "AM",
+   "col": 38,
+   "x": 6.6,
+   "y": 4.2
+  },
+  {
+   "ball": "AM39",
+   "name": "HDMI_TX0_SCL_M1/SPI3_CS1_M2/SATA_MP_SWITCH/GPIO0_D5_u",
+   "row": "AM",
+   "col": 39,
+   "x": 7.0,
+   "y": 4.2
+  },
+  {
+   "ball": "AM40",
+   "name": "I2S1_SCLK_RX_M1/PDM0_CLK0_M1/PWM1_M0/I2C2_SDA_M0/SPI0_MOSI_M0/GPIO0_C0_d",
+   "row": "AM",
+   "col": 40,
+   "x": 7.4,
+   "y": 4.2
+  },
+  {
+   "ball": "AM41",
+   "name": "VSS_486",
+   "row": "AM",
+   "col": 41,
+   "x": 7.8,
+   "y": 4.2
+  },
+  {
+   "ball": "AN1",
+   "name": "DDR_CH0_DQS0P_A",
+   "row": "AN",
+   "col": 1,
+   "x": -8.2,
+   "y": 4.6
+  },
+  {
+   "ball": "AN2",
+   "name": "DDR_CH0_DQS0N_A",
+   "row": "AN",
+   "col": 2,
+   "x": -7.8,
+   "y": 4.6
+  },
+  {
+   "ball": "AN3",
+   "name": "VSS_487",
+   "row": "AN",
+   "col": 3,
+   "x": -7.4,
+   "y": 4.6
+  },
+  {
+   "ball": "AN4",
+   "name": "DDR_CH0_DQ10_A",
+   "row": "AN",
+   "col": 4,
+   "x": -7.0,
+   "y": 4.6
+  },
+  {
+   "ball": "AN5",
+   "name": "DDR_CH0_DQ9_A",
+   "row": "AN",
+   "col": 5,
+   "x": -6.6,
+   "y": 4.6
+  },
+  {
+   "ball": "AN6",
+   "name": "VSS_488",
+   "row": "AN",
+   "col": 6,
+   "x": -6.2,
+   "y": 4.6
+  },
+  {
+   "ball": "AN7",
+   "name": "VSS_489",
+   "row": "AN",
+   "col": 7,
+   "x": -5.8,
+   "y": 4.6
+  },
+  {
+   "ball": "AN8",
+   "name": "OTP_VDDOTP_0V75",
+   "row": "AN",
+   "col": 8,
+   "x": -5.4,
+   "y": 4.6
+  },
+  {
+   "ball": "AN10",
+   "name": "HDMI/eDP_TX0_AVDD_0V75",
+   "row": "AN",
+   "col": 10,
+   "x": -4.6,
+   "y": 4.6
+  },
+  {
+   "ball": "AN11",
+   "name": "AVSS_27",
+   "row": "AN",
+   "col": 11,
+   "x": -4.2,
+   "y": 4.6
+  },
+  {
+   "ball": "AN12",
+   "name": "HDMI/eDP_TX0_VDD_0V75_2",
+   "row": "AN",
+   "col": 12,
+   "x": -3.8,
+   "y": 4.6
+  },
+  {
+   "ball": "AN13",
+   "name": "AVSS_28",
+   "row": "AN",
+   "col": 13,
+   "x": -3.4,
+   "y": 4.6
+  },
+  {
+   "ball": "AN14",
+   "name": "AVSS_29",
+   "row": "AN",
+   "col": 14,
+   "x": -3.0,
+   "y": 4.6
+  },
+  {
+   "ball": "AN15",
+   "name": "AVSS_30",
+   "row": "AN",
+   "col": 15,
+   "x": -2.6,
+   "y": 4.6
+  },
+  {
+   "ball": "AN17",
+   "name": "VSS_490",
+   "row": "AN",
+   "col": 17,
+   "x": -1.8,
+   "y": 4.6
+  },
+  {
+   "ball": "AN18",
+   "name": "AVSS_31",
+   "row": "AN",
+   "col": 18,
+   "x": -1.4,
+   "y": 4.6
+  },
+  {
+   "ball": "AN21",
+   "name": "VDD_GPU_12",
+   "row": "AN",
+   "col": 21,
+   "x": -0.2,
+   "y": 4.6
+  },
+  {
+   "ball": "AN22",
+   "name": "VDD_GPU_13",
+   "row": "AN",
+   "col": 22,
+   "x": 0.2,
+   "y": 4.6
+  },
+  {
+   "ball": "AN23",
+   "name": "VSS_491",
+   "row": "AN",
+   "col": 23,
+   "x": 0.6,
+   "y": 4.6
+  },
+  {
+   "ball": "AN25",
+   "name": "VSS_492",
+   "row": "AN",
+   "col": 25,
+   "x": 1.4,
+   "y": 4.6
+  },
+  {
+   "ball": "AN30",
+   "name": "VDD_NPU_8",
+   "row": "AN",
+   "col": 30,
+   "x": 3.4,
+   "y": 4.6
+  },
+  {
+   "ball": "AN31",
+   "name": "VSS_493",
+   "row": "AN",
+   "col": 31,
+   "x": 3.8,
+   "y": 4.6
+  },
+  {
+   "ball": "AN32",
+   "name": "VSS_494",
+   "row": "AN",
+   "col": 32,
+   "x": 4.2,
+   "y": 4.6
+  },
+  {
+   "ball": "AN33",
+   "name": "VSS_495",
+   "row": "AN",
+   "col": 33,
+   "x": 4.6,
+   "y": 4.6
+  },
+  {
+   "ball": "AN34",
+   "name": "VSS_496",
+   "row": "AN",
+   "col": 34,
+   "x": 5.0,
+   "y": 4.6
+  },
+  {
+   "ball": "AN35",
+   "name": "VSS_497",
+   "row": "AN",
+   "col": 35,
+   "x": 5.4,
+   "y": 4.6
+  },
+  {
+   "ball": "AN37",
+   "name": "VSS_498",
+   "row": "AN",
+   "col": 37,
+   "x": 6.2,
+   "y": 4.6
+  },
+  {
+   "ball": "AN38",
+   "name": "VSS_499",
+   "row": "AN",
+   "col": 38,
+   "x": 6.6,
+   "y": 4.6
+  },
+  {
+   "ball": "AN39",
+   "name": "VSS_500",
+   "row": "AN",
+   "col": 39,
+   "x": 7.0,
+   "y": 4.6
+  },
+  {
+   "ball": "AN40",
+   "name": "VSS_501",
+   "row": "AN",
+   "col": 40,
+   "x": 7.4,
+   "y": 4.6
+  },
+  {
+   "ball": "AN41",
+   "name": "MIPI_CSI0_CLK0N",
+   "row": "AN",
+   "col": 41,
+   "x": 7.8,
+   "y": 4.6
+  },
+  {
+   "ball": "AN42",
+   "name": "MIPI_CSI0_CLK0P",
+   "row": "AN",
+   "col": 42,
+   "x": 8.2,
+   "y": 4.6
+  },
+  {
+   "ball": "AP2",
+   "name": "VSS_502",
+   "row": "AP",
+   "col": 2,
+   "x": -7.8,
+   "y": 5.0
+  },
+  {
+   "ball": "AP5",
+   "name": "VSS_503",
+   "row": "AP",
+   "col": 5,
+   "x": -6.6,
+   "y": 5.0
+  },
+  {
+   "ball": "AP6",
+   "name": "VSS_504",
+   "row": "AP",
+   "col": 6,
+   "x": -6.2,
+   "y": 5.0
+  },
+  {
+   "ball": "AP7",
+   "name": "AVSS_32",
+   "row": "AP",
+   "col": 7,
+   "x": -5.8,
+   "y": 5.0
+  },
+  {
+   "ball": "AP8",
+   "name": "AVSS_33",
+   "row": "AP",
+   "col": 8,
+   "x": -5.4,
+   "y": 5.0
+  },
+  {
+   "ball": "AP9",
+   "name": "AVSS_34",
+   "row": "AP",
+   "col": 9,
+   "x": -5.0,
+   "y": 5.0
+  },
+  {
+   "ball": "AP10",
+   "name": "AVSS_35",
+   "row": "AP",
+   "col": 10,
+   "x": -4.6,
+   "y": 5.0
+  },
+  {
+   "ball": "AP11",
+   "name": "AVSS_36",
+   "row": "AP",
+   "col": 11,
+   "x": -4.2,
+   "y": 5.0
+  },
+  {
+   "ball": "AP16",
+   "name": "AVSS_37",
+   "row": "AP",
+   "col": 16,
+   "x": -2.2,
+   "y": 5.0
+  },
+  {
+   "ball": "AP18",
+   "name": "TYPEC0_DP0_VDDA_0V85_1",
+   "row": "AP",
+   "col": 18,
+   "x": -1.4,
+   "y": 5.0
+  },
+  {
+   "ball": "AP22",
+   "name": "AVSS_38",
+   "row": "AP",
+   "col": 22,
+   "x": 0.2,
+   "y": 5.0
+  },
+  {
+   "ball": "AP23",
+   "name": "SARADC_AVDD_1V8",
+   "row": "AP",
+   "col": 23,
+   "x": 0.6,
+   "y": 5.0
+  },
+  {
+   "ball": "AP25",
+   "name": "VSS_505",
+   "row": "AP",
+   "col": 25,
+   "x": 1.4,
+   "y": 5.0
+  },
+  {
+   "ball": "AP27",
+   "name": "VSS_506",
+   "row": "AP",
+   "col": 27,
+   "x": 2.2,
+   "y": 5.0
+  },
+  {
+   "ball": "AP30",
+   "name": "VDD_NPU_9",
+   "row": "AP",
+   "col": 30,
+   "x": 3.4,
+   "y": 5.0
+  },
+  {
+   "ball": "AP31",
+   "name": "AVSS_39",
+   "row": "AP",
+   "col": 31,
+   "x": 3.8,
+   "y": 5.0
+  },
+  {
+   "ball": "AP32",
+   "name": "AVSS_40",
+   "row": "AP",
+   "col": 32,
+   "x": 4.2,
+   "y": 5.0
+  },
+  {
+   "ball": "AP33",
+   "name": "VSS_507",
+   "row": "AP",
+   "col": 33,
+   "x": 4.6,
+   "y": 5.0
+  },
+  {
+   "ball": "AP34",
+   "name": "VSS_508",
+   "row": "AP",
+   "col": 34,
+   "x": 5.0,
+   "y": 5.0
+  },
+  {
+   "ball": "AP35",
+   "name": "VSS_509",
+   "row": "AP",
+   "col": 35,
+   "x": 5.4,
+   "y": 5.0
+  },
+  {
+   "ball": "AP37",
+   "name": "VSS_510",
+   "row": "AP",
+   "col": 37,
+   "x": 6.2,
+   "y": 5.0
+  },
+  {
+   "ball": "AP38",
+   "name": "VSS_511",
+   "row": "AP",
+   "col": 38,
+   "x": 6.6,
+   "y": 5.0
+  },
+  {
+   "ball": "AP39",
+   "name": "VSS_512",
+   "row": "AP",
+   "col": 39,
+   "x": 7.0,
+   "y": 5.0
+  },
+  {
+   "ball": "AP40",
+   "name": "VSS_513",
+   "row": "AP",
+   "col": 40,
+   "x": 7.4,
+   "y": 5.0
+  },
+  {
+   "ball": "AP41",
+   "name": "MIPI_CSI0_D3N",
+   "row": "AP",
+   "col": 41,
+   "x": 7.8,
+   "y": 5.0
+  },
+  {
+   "ball": "AP42",
+   "name": "MIPI_CSI0_D3P",
+   "row": "AP",
+   "col": 42,
+   "x": 8.2,
+   "y": 5.0
+  },
+  {
+   "ball": "AR1",
+   "name": "SDMMC_CLK/PDM1_CLK0_M0/TEST_CLKOUT_M0/MCU_JTAG_TMS_M0/UART5_TX_M0/GPIO4_D5_d",
+   "row": "AR",
+   "col": 1,
+   "x": -8.2,
+   "y": 5.4
+  },
+  {
+   "ball": "AR2",
+   "name": "SDMMC_D1/PDM1_SDI2_M0/JTAG_TMS_M1/I2C3_SDA_M4/UART2_RX_M1/PWM9_M1/GPIO4_D1_u",
+   "row": "AR",
+   "col": 2,
+   "x": -7.8,
+   "y": 5.4
+  },
+  {
+   "ball": "AR3",
+   "name": "VSS_514",
+   "row": "AR",
+   "col": 3,
+   "x": -7.4,
+   "y": 5.4
+  },
+  {
+   "ball": "AR4",
+   "name": "VSS_515",
+   "row": "AR",
+   "col": 4,
+   "x": -7.0,
+   "y": 5.4
+  },
+  {
+   "ball": "AR5",
+   "name": "DDR_CH0_WCK0N_A",
+   "row": "AR",
+   "col": 5,
+   "x": -6.6,
+   "y": 5.4
+  },
+  {
+   "ball": "AR6",
+   "name": "DDR_CH0_WCK0P_A",
+   "row": "AR",
+   "col": 6,
+   "x": -6.2,
+   "y": 5.4
+  },
+  {
+   "ball": "AR9",
+   "name": "AVSS_41",
+   "row": "AR",
+   "col": 9,
+   "x": -5.0,
+   "y": 5.4
+  },
+  {
+   "ball": "AR16",
+   "name": "AVSS_42",
+   "row": "AR",
+   "col": 16,
+   "x": -2.2,
+   "y": 5.4
+  },
+  {
+   "ball": "AR18",
+   "name": "AVSS_43",
+   "row": "AR",
+   "col": 18,
+   "x": -1.4,
+   "y": 5.4
+  },
+  {
+   "ball": "AR19",
+   "name": "TYPEC0_DP0_VDDA_0V85_2",
+   "row": "AR",
+   "col": 19,
+   "x": -1.0,
+   "y": 5.4
+  },
+  {
+   "ball": "AR20",
+   "name": "AVSS_44",
+   "row": "AR",
+   "col": 20,
+   "x": -0.6,
+   "y": 5.4
+  },
+  {
+   "ball": "AR21",
+   "name": "AVSS_45",
+   "row": "AR",
+   "col": 21,
+   "x": -0.2,
+   "y": 5.4
+  },
+  {
+   "ball": "AR22",
+   "name": "AVSS_46",
+   "row": "AR",
+   "col": 22,
+   "x": 0.2,
+   "y": 5.4
+  },
+  {
+   "ball": "AR23",
+   "name": "TYPEC0_DP0_VDDH_1V8",
+   "row": "AR",
+   "col": 23,
+   "x": 0.6,
+   "y": 5.4
+  },
+  {
+   "ball": "AR25",
+   "name": "AVSS_47",
+   "row": "AR",
+   "col": 25,
+   "x": 1.4,
+   "y": 5.4
+  },
+  {
+   "ball": "AR27",
+   "name": "MIPI_D/C_PHY1_VDD",
+   "row": "AR",
+   "col": 27,
+   "x": 2.2,
+   "y": 5.4
+  },
+  {
+   "ball": "AR30",
+   "name": "MIPI_D/C_PHY1_VDD_1V8_1",
+   "row": "AR",
+   "col": 30,
+   "x": 3.4,
+   "y": 5.4
+  },
+  {
+   "ball": "AR33",
+   "name": "MIPI_D/C_PHY0_VDD",
+   "row": "AR",
+   "col": 33,
+   "x": 4.6,
+   "y": 5.4
+  },
+  {
+   "ball": "AR34",
+   "name": "MIPI_D/C_PHY1_VDD_1V2_1",
+   "row": "AR",
+   "col": 34,
+   "x": 5.0,
+   "y": 5.4
+  },
+  {
+   "ball": "AR35",
+   "name": "MIPI_D/C_PHY0_VDD_1V2_2",
+   "row": "AR",
+   "col": 35,
+   "x": 5.4,
+   "y": 5.4
+  },
+  {
+   "ball": "AR36",
+   "name": "GMAC1_PPSTRIG/I2C3_SDA_M1/UART7_TX_M1/SPI1_MISO_M1/GPIO3_C0_d",
+   "row": "AR",
+   "col": 36,
+   "x": 5.8,
+   "y": 5.4
+  },
+  {
+   "ball": "AR37",
+   "name": "GMAC1_TXD3/SDIO_D1_M1/I2S3_SCLK/AUDDSM_LN/FSPI_D2_M2/I2C6_SCL_M4/PWM11_IR_M0/SPI4_MOSI_M1/GPIO3_A1_u",
+   "row": "AR",
+   "col": 37,
+   "x": 6.2,
+   "y": 5.4
+  },
+  {
+   "ball": "AR38",
+   "name": "GMAC1_TXD2/SDIO_D0_M1/I2S3_MCLK/FSPI_D0_M2/I2C6_SDA_M4/PWM10_M0/SPI4_MISO_M1/GPIO3_A0_u",
+   "row": "AR",
+   "col": 38,
+   "x": 6.6,
+   "y": 5.4
+  },
+  {
+   "ball": "AR39",
+   "name": "GMAC1_RXD1/I2S2_SCLK_RX_M1/MIPI_CAMERA3_CLK_M1/PWM9_M0/GPIO3_B0_u",
+   "row": "AR",
+   "col": 39,
+   "x": 7.0,
+   "y": 5.4
+  },
+  {
+   "ball": "AR40",
+   "name": "VSS_516",
+   "row": "AR",
+   "col": 40,
+   "x": 7.4,
+   "y": 5.4
+  },
+  {
+   "ball": "AR41",
+   "name": "VSS_517",
+   "row": "AR",
+   "col": 41,
+   "x": 7.8,
+   "y": 5.4
+  },
+  {
+   "ball": "AT1",
+   "name": "SDMMC_D3/PDM1_SDI0_M0/JTAG_TMS_M0/I2C8_SDA_M0/UART5_RTSN_M0/PWM10_M1/GPIO4_D3_u",
+   "row": "AT",
+   "col": 1,
+   "x": -8.2,
+   "y": 5.8
+  },
+  {
+   "ball": "AT2",
+   "name": "VSS_518",
+   "row": "AT",
+   "col": 2,
+   "x": -7.8,
+   "y": 5.8
+  },
+  {
+   "ball": "AT3",
+   "name": "DDR_CH0_WCK1N_A",
+   "row": "AT",
+   "col": 3,
+   "x": -7.4,
+   "y": 5.8
+  },
+  {
+   "ball": "AT4",
+   "name": "DDR_CH0_WCK1P_A",
+   "row": "AT",
+   "col": 4,
+   "x": -7.0,
+   "y": 5.8
+  },
+  {
+   "ball": "AT5",
+   "name": "VSS_519",
+   "row": "AT",
+   "col": 5,
+   "x": -6.6,
+   "y": 5.8
+  },
+  {
+   "ball": "AT6",
+   "name": "VSS_520",
+   "row": "AT",
+   "col": 6,
+   "x": -6.2,
+   "y": 5.8
+  },
+  {
+   "ball": "AT7",
+   "name": "AVSS_48",
+   "row": "AT",
+   "col": 7,
+   "x": -5.8,
+   "y": 5.8
+  },
+  {
+   "ball": "AT8",
+   "name": "AVSS_49",
+   "row": "AT",
+   "col": 8,
+   "x": -5.4,
+   "y": 5.8
+  },
+  {
+   "ball": "AT10",
+   "name": "USB20_AVDD_3V3",
+   "row": "AT",
+   "col": 10,
+   "x": -4.6,
+   "y": 5.8
+  },
+  {
+   "ball": "AT11",
+   "name": "USB20_DVDD_0V75_1",
+   "row": "AT",
+   "col": 11,
+   "x": -4.2,
+   "y": 5.8
+  },
+  {
+   "ball": "AT12",
+   "name": "USB20_DVDD_0V75_2",
+   "row": "AT",
+   "col": 12,
+   "x": -3.8,
+   "y": 5.8
+  },
+  {
+   "ball": "AT13",
+   "name": "USB20_AVDD_1V8_1",
+   "row": "AT",
+   "col": 13,
+   "x": -3.4,
+   "y": 5.8
+  },
+  {
+   "ball": "AT14",
+   "name": "USB20_AVDD_1V8_2",
+   "row": "AT",
+   "col": 14,
+   "x": -3.0,
+   "y": 5.8
+  },
+  {
+   "ball": "AT15",
+   "name": "CIF_HREF/BT1120_D8/I2S1_SDO1_M0/PCIE20X1_1_BUTTON_RSTN/I2C7_SCL_M3/UART8_RTSN_M0/PWM14_M1/SPI0_CS0_M1/GPIO4_B2_u",
+   "row": "AT",
+   "col": 15,
+   "x": -2.6,
+   "y": 5.8
+  },
+  {
+   "ball": "AT16",
+   "name": "AVSS_50",
+   "row": "AT",
+   "col": 16,
+   "x": -2.2,
+   "y": 5.8
+  },
+  {
+   "ball": "AT18",
+   "name": "TYPEC0_DP0_VDD_0V85",
+   "row": "AT",
+   "col": 18,
+   "x": -1.4,
+   "y": 5.8
+  },
+  {
+   "ball": "AT19",
+   "name": "AVSS_51",
+   "row": "AT",
+   "col": 19,
+   "x": -1.0,
+   "y": 5.8
+  },
+  {
+   "ball": "AT20",
+   "name": "AVSS_52",
+   "row": "AT",
+   "col": 20,
+   "x": -0.6,
+   "y": 5.8
+  },
+  {
+   "ball": "AT21",
+   "name": "AVSS_53",
+   "row": "AT",
+   "col": 21,
+   "x": -0.2,
+   "y": 5.8
+  },
+  {
+   "ball": "AT22",
+   "name": "AVSS_54",
+   "row": "AT",
+   "col": 22,
+   "x": 0.2,
+   "y": 5.8
+  },
+  {
+   "ball": "AT23",
+   "name": "AVSS_55",
+   "row": "AT",
+   "col": 23,
+   "x": 0.6,
+   "y": 5.8
+  },
+  {
+   "ball": "AT27",
+   "name": "MIPI_D/C_PHY1_VREG",
+   "row": "AT",
+   "col": 27,
+   "x": 2.2,
+   "y": 5.8
+  },
+  {
+   "ball": "AT29",
+   "name": "AVSS_56",
+   "row": "AT",
+   "col": 29,
+   "x": 3.0,
+   "y": 5.8
+  },
+  {
+   "ball": "AT30",
+   "name": "MIPI_D/C_PHY0_VDD_1V8_2",
+   "row": "AT",
+   "col": 30,
+   "x": 3.4,
+   "y": 5.8
+  },
+  {
+   "ball": "AT33",
+   "name": "MIPI_D/C_PHY0_VREG",
+   "row": "AT",
+   "col": 33,
+   "x": 4.6,
+   "y": 5.8
+  },
+  {
+   "ball": "AT36",
+   "name": "VSS_521",
+   "row": "AT",
+   "col": 36,
+   "x": 5.8,
+   "y": 5.8
+  },
+  {
+   "ball": "AT37",
+   "name": "GMAC1_RXD0/MIPI_CAMERA2_CLK_M1/PWM8_M0/GPIO3_A7_u",
+   "row": "AT",
+   "col": 37,
+   "x": 6.2,
+   "y": 5.8
+  },
+  {
+   "ball": "AT38",
+   "name": "GMAC1_RXD2/SDIO_D2_M1/I2S3_LRCK/AUDDSM_LP/FSPI_D2_M2/UART8_TX_M1/SPI4_CLK_M1/GPIO3_A2_u",
+   "row": "AT",
+   "col": 38,
+   "x": 6.6,
+   "y": 5.8
+  },
+  {
+   "ball": "AT39",
+   "name": "GMAC1_TXCLK/SDIO_CMD_M1/I2S3_SDI/AUDDSM_RP/UART8_RTSN_M1/SPI4_CS1_M1/GPIO3_A4_d",
+   "row": "AT",
+   "col": 39,
+   "x": 7.0,
+   "y": 5.8
+  },
+  {
+   "ball": "AT40",
+   "name": "GMAC1_RXD3/SDIO_D3_M1/I2S3_SDO/AUDDSM_RN/FSPI_D3_M2/UART8_RX_M1/SPI4_CS0_M1/GPIO3_A3_u",
+   "row": "AT",
+   "col": 40,
+   "x": 7.4,
+   "y": 5.8
+  },
+  {
+   "ball": "AT41",
+   "name": "MIPI_CSI0_D2P",
+   "row": "AT",
+   "col": 41,
+   "x": 7.8,
+   "y": 5.8
+  },
+  {
+   "ball": "AT42",
+   "name": "MIPI_CSI0_D2N",
+   "row": "AT",
+   "col": 42,
+   "x": 8.2,
+   "y": 5.8
+  },
+  {
+   "ball": "AU1",
+   "name": "SDMMC_CMD/PDM1_CLK1_M0/MCU_JTAG_TCK_M0/UART5_RX_M0/PWM7_IR_M1/GPIO4_D4_u",
+   "row": "AU",
+   "col": 1,
+   "x": -8.2,
+   "y": 6.2
+  },
+  {
+   "ball": "AU2",
+   "name": "VSS_522",
+   "row": "AU",
+   "col": 2,
+   "x": -7.8,
+   "y": 6.2
+  },
+  {
+   "ball": "AU3",
+   "name": "VSS_523",
+   "row": "AU",
+   "col": 3,
+   "x": -7.4,
+   "y": 6.2
+  },
+  {
+   "ball": "AU4",
+   "name": "VSS_524",
+   "row": "AU",
+   "col": 4,
+   "x": -7.0,
+   "y": 6.2
+  },
+  {
+   "ball": "AU6",
+   "name": "USB20_HOST1_REXT",
+   "row": "AU",
+   "col": 6,
+   "x": -6.2,
+   "y": 6.2
+  },
+  {
+   "ball": "AU7",
+   "name": "TYPEC0_USB20_OTG0_REXT",
+   "row": "AU",
+   "col": 7,
+   "x": -5.8,
+   "y": 6.2
+  },
+  {
+   "ball": "AU8",
+   "name": "AVSS_57",
+   "row": "AU",
+   "col": 8,
+   "x": -5.4,
+   "y": 6.2
+  },
+  {
+   "ball": "AU15",
+   "name": "CIF_D5/BT1120_D5/I2S1_SDI0_M0/I2C3_SDA_M2/UART3_TX_M2/SPI2_MOSI_M1/GPIO4_A5_d",
+   "row": "AU",
+   "col": 15,
+   "x": -2.6,
+   "y": 6.2
+  },
+  {
+   "ball": "AU16",
+   "name": "AVSS_58",
+   "row": "AU",
+   "col": 16,
+   "x": -2.2,
+   "y": 6.2
+  },
+  {
+   "ball": "AU18",
+   "name": "AVSS_59",
+   "row": "AU",
+   "col": 18,
+   "x": -1.4,
+   "y": 6.2
+  },
+  {
+   "ball": "AU19",
+   "name": "AVSS_60",
+   "row": "AU",
+   "col": 19,
+   "x": -1.0,
+   "y": 6.2
+  },
+  {
+   "ball": "AU21",
+   "name": "AVSS_61",
+   "row": "AU",
+   "col": 21,
+   "x": -0.2,
+   "y": 6.2
+  },
+  {
+   "ball": "AU22",
+   "name": "A2_ACT_LED_M0/I2C6_SCL_M3/UART8_RX_M0/SPI0_CS1_M1/GPIO4_B1_u",
+   "row": "AU",
+   "col": 22,
+   "x": 0.2,
+   "y": 6.2
+  },
+  {
+   "ball": "AU23",
+   "name": "BT1120_D11/UART9_RX_M1/PWM12_M1/SPI3_MISO_M1/GPIO4_B5_d",
+   "row": "AU",
+   "col": 23,
+   "x": 0.6,
+   "y": 6.2
+  },
+  {
+   "ball": "AU24",
+   "name": "AVSS_62",
+   "row": "AU",
+   "col": 24,
+   "x": 1.0,
+   "y": 6.2
+  },
+  {
+   "ball": "AU25",
+   "name": "AVSS_63",
+   "row": "AU",
+   "col": 25,
+   "x": 1.4,
+   "y": 6.2
+  },
+  {
+   "ball": "AU27",
+   "name": "AVSS_64",
+   "row": "AU",
+   "col": 27,
+   "x": 2.2,
+   "y": 6.2
+  },
+  {
+   "ball": "AU28",
+   "name": "AVSS_65",
+   "row": "AU",
+   "col": 28,
+   "x": 2.6,
+   "y": 6.2
+  },
+  {
+   "ball": "AU29",
+   "name": "AVSS_66",
+   "row": "AU",
+   "col": 29,
+   "x": 3.0,
+   "y": 6.2
+  },
+  {
+   "ball": "AU30",
+   "name": "CIF_D11/PCIE20X1_2_CLKREQN_M0/HDMI_TX0_SCL_M2/I2C5_SCL_M0/SPI3_MOSI_M3/GPIO3_C7_u",
+   "row": "AU",
+   "col": 30,
+   "x": 3.4,
+   "y": 6.2
+  },
+  {
+   "ball": "AU31",
+   "name": "AVSS_67",
+   "row": "AU",
+   "col": 31,
+   "x": 3.8,
+   "y": 6.2
+  },
+  {
+   "ball": "AU34",
+   "name": "CIF_D8/FSPI_CS0N_M2/UART5_TX_M1/SPI3_CS0_M3/GPIO3_C4_u",
+   "row": "AU",
+   "col": 34,
+   "x": 5.0,
+   "y": 6.2
+  },
+  {
+   "ball": "AU35",
+   "name": "VSS_525",
+   "row": "AU",
+   "col": 35,
+   "x": 5.4,
+   "y": 6.2
+  },
+  {
+   "ball": "AU38",
+   "name": "VSS_526",
+   "row": "AU",
+   "col": 38,
+   "x": 6.6,
+   "y": 6.2
+  },
+  {
+   "ball": "AU39",
+   "name": "VSS_527",
+   "row": "AU",
+   "col": 39,
+   "x": 7.0,
+   "y": 6.2
+  },
+  {
+   "ball": "AU40",
+   "name": "VSS_528",
+   "row": "AU",
+   "col": 40,
+   "x": 7.4,
+   "y": 6.2
+  },
+  {
+   "ball": "AU41",
+   "name": "MIPI_CSI0_CLK1P",
+   "row": "AU",
+   "col": 41,
+   "x": 7.8,
+   "y": 6.2
+  },
+  {
+   "ball": "AU42",
+   "name": "MIPI_CSI0_CLK1N",
+   "row": "AU",
+   "col": 42,
+   "x": 8.2,
+   "y": 6.2
+  },
+  {
+   "ball": "AV1",
+   "name": "SDMMC_D2/PDM1_SDI1_M0/JTAG_TCK_M0/I2C8_SCL_M0/UART5_CTSN_M0/GPIO4_D2_u",
+   "row": "AV",
+   "col": 1,
+   "x": -8.2,
+   "y": 6.6
+  },
+  {
+   "ball": "AV2",
+   "name": "SDMMC_D0/PDM1_SDI3_M0/JTAG_TCK_M1/I2C3_SCL_M4/UART2_TX_M1/PWM8_M1/GPIO4_D0_u",
+   "row": "AV",
+   "col": 2,
+   "x": -7.8,
+   "y": 6.6
+  },
+  {
+   "ball": "AV3",
+   "name": "DDR_CH0_DQS1N_A",
+   "row": "AV",
+   "col": 3,
+   "x": -7.4,
+   "y": 6.6
+  },
+  {
+   "ball": "AV4",
+   "name": "DDR_CH0_DQS1P_A",
+   "row": "AV",
+   "col": 4,
+   "x": -7.0,
+   "y": 6.6
+  },
+  {
+   "ball": "AV5",
+   "name": "VSS_529",
+   "row": "AV",
+   "col": 5,
+   "x": -6.6,
+   "y": 6.6
+  },
+  {
+   "ball": "AV6",
+   "name": "USB20_HOST0_DM",
+   "row": "AV",
+   "col": 6,
+   "x": -6.2,
+   "y": 6.6
+  },
+  {
+   "ball": "AV7",
+   "name": "USB20_HOST1_DP",
+   "row": "AV",
+   "col": 7,
+   "x": -5.8,
+   "y": 6.6
+  },
+  {
+   "ball": "AV8",
+   "name": "AVSS_68",
+   "row": "AV",
+   "col": 8,
+   "x": -5.4,
+   "y": 6.6
+  },
+  {
+   "ball": "AV9",
+   "name": "AVSS_69",
+   "row": "AV",
+   "col": 9,
+   "x": -5.0,
+   "y": 6.6
+  },
+  {
+   "ball": "AV10",
+   "name": "TYPEC0_USB20_VBUSDET",
+   "row": "AV",
+   "col": 10,
+   "x": -4.6,
+   "y": 6.6
+  },
+  {
+   "ball": "AV11",
+   "name": "SARADC_IN2",
+   "row": "AV",
+   "col": 11,
+   "x": -4.2,
+   "y": 6.6
+  },
+  {
+   "ball": "AV12",
+   "name": "AVSS_70",
+   "row": "AV",
+   "col": 12,
+   "x": -3.8,
+   "y": 6.6
+  },
+  {
+   "ball": "AV13",
+   "name": "SARADC_IN3",
+   "row": "AV",
+   "col": 13,
+   "x": -3.4,
+   "y": 6.6
+  },
+  {
+   "ball": "AV14",
+   "name": "AVSS_71",
+   "row": "AV",
+   "col": 14,
+   "x": -3.0,
+   "y": 6.6
+  },
+  {
+   "ball": "AV15",
+   "name": "AVSS_72",
+   "row": "AV",
+   "col": 15,
+   "x": -2.6,
+   "y": 6.6
+  },
+  {
+   "ball": "AV16",
+   "name": "AVSS_73",
+   "row": "AV",
+   "col": 16,
+   "x": -2.2,
+   "y": 6.6
+  },
+  {
+   "ball": "AV18",
+   "name": "CIF_D6/BT1120_D6/I2S1_SDI1_M0/I2C5_SCL_M2/UART3_RX_M2/SPI2_CLK_M1/GPIO4_A6_d",
+   "row": "AV",
+   "col": 18,
+   "x": -1.4,
+   "y": 6.6
+  },
+  {
+   "ball": "AV19",
+   "name": "CIF_D0/BT1120_D0/I2S1_MCLK_M0/PCIE20X1_1_CLKREQN_M1/UART9_RTSN_M1/SPI0_MISO_M1/GPIO4_A0_d",
+   "row": "AV",
+   "col": 19,
+   "x": -1.0,
+   "y": 6.6
+  },
+  {
+   "ball": "AV21",
+   "name": "AVSS_74",
+   "row": "AV",
+   "col": 21,
+   "x": -0.2,
+   "y": 6.6
+  },
+  {
+   "ball": "AV22",
+   "name": "BT1120_D13/PCIE20X1_2_CLKREQN_M1/HDMI_TX0_SCL_M0/I2C5_SDA_M1/SPI3_CLK_M1/GPIO4_B7_u",
+   "row": "AV",
+   "col": 22,
+   "x": 0.2,
+   "y": 6.6
+  },
+  {
+   "ball": "AV23",
+   "name": "CIF_VSYNC/BT1120_D9/I2S1_SDO2_M0/PCIE20X1_2_BUTTON_RSTN/I2C7_SDA_M3/UART8_CTSN_M0/PWM15_IR_M1/GPIO4_B3_u",
+   "row": "AV",
+   "col": 23,
+   "x": 0.6,
+   "y": 6.6
+  },
+  {
+   "ball": "AV25",
+   "name": "AVSS_75",
+   "row": "AV",
+   "col": 25,
+   "x": 1.4,
+   "y": 6.6
+  },
+  {
+   "ball": "AV26",
+   "name": "CIF_D2/BT1120_D2/I2S1_LRCK_TX_M0/PCIE20X1_1_PERSTN_M1/SPI0_CLK_M1/GPIO4_A2_d",
+   "row": "AV",
+   "col": 26,
+   "x": 1.8,
+   "y": 6.6
+  },
+  {
+   "ball": "AV27",
+   "name": "CIF_CLKOUT/BT1120_D10/I2S1_SDO3_M0/DP0_HPDIN_M0/SPDIF0_TX_M1/UART9_TX_M1/PWM11_IR_M1/GPIO4_B4_u",
+   "row": "AV",
+   "col": 27,
+   "x": 2.2,
+   "y": 6.6
+  },
+  {
+   "ball": "AV29",
+   "name": "AVSS_76",
+   "row": "AV",
+   "col": 29,
+   "x": 3.0,
+   "y": 6.6
+  },
+  {
+   "ball": "AV30",
+   "name": "CIF_D10/SPI3_MISO_M3/GPIO3_C6_u",
+   "row": "AV",
+   "col": 30,
+   "x": 3.4,
+   "y": 6.6
+  },
+  {
+   "ball": "AV31",
+   "name": "HDMI_TX0_HPD_M1/MCU_JTAG_TCK_M1/UART9_RX_M2/SPI0_CS0_M3/GPIO3_D4_d",
+   "row": "AV",
+   "col": 31,
+   "x": 3.8,
+   "y": 6.6
+  },
+  {
+   "ball": "AV32",
+   "name": "AVSS_77",
+   "row": "AV",
+   "col": 32,
+   "x": 4.2,
+   "y": 6.6
+  },
+  {
+   "ball": "AV33",
+   "name": "AVSS_78",
+   "row": "AV",
+   "col": 33,
+   "x": 4.6,
+   "y": 6.6
+  },
+  {
+   "ball": "AV34",
+   "name": "CIF_D9/FSPI_CS1N_M2/UART5_RX_M1/SPI3_CS1_M3/GPIO3_C5_u",
+   "row": "AV",
+   "col": 34,
+   "x": 5.0,
+   "y": 6.6
+  },
+  {
+   "ball": "AV35",
+   "name": "GMAC1_TXD1/I2S2_MCLK_M1/UART2_CTSN/GPIO3_B4_u",
+   "row": "AV",
+   "col": 35,
+   "x": 5.4,
+   "y": 6.6
+  },
+  {
+   "ball": "AV36",
+   "name": "VSS_530",
+   "row": "AV",
+   "col": 36,
+   "x": 5.8,
+   "y": 6.6
+  },
+  {
+   "ball": "AV37",
+   "name": "ETH1_REFCLKO_25M/MIPI_CAMERA1_CLK_M1/I2C4_SCL_M0/GPIO3_A6_d",
+   "row": "AV",
+   "col": 37,
+   "x": 6.2,
+   "y": 6.6
+  },
+  {
+   "ball": "AV38",
+   "name": "GMAC1_RXCLK/SDIO_CLK_M1/MIPI_CAMERA0_CLK_M1/FSPI_CLK_M2/I2C4_SDA_M0/UART8_CTSN_M1/GPIO3_A5_d",
+   "row": "AV",
+   "col": 38,
+   "x": 6.6,
+   "y": 6.6
+  },
+  {
+   "ball": "AV39",
+   "name": "GMAC1_RXDV_CRS/I2S2_LRCK_RX_M1/MIPI_CAMERA4_CLK_M1/UART2_TX_M2/PWM2_M1/GPIO3_B1_d",
+   "row": "AV",
+   "col": 39,
+   "x": 7.0,
+   "y": 6.6
+  },
+  {
+   "ball": "AV40",
+   "name": "GMAC1_MDC/MIPI_TE0/I2C8_SCL_M4/UART7_RTSN_M1/PWM14_M0/SPI1_CS0_M1/GPIO3_C2_d",
+   "row": "AV",
+   "col": 40,
+   "x": 7.4,
+   "y": 6.6
+  },
+  {
+   "ball": "AV41",
+   "name": "VSS_531",
+   "row": "AV",
+   "col": 41,
+   "x": 7.8,
+   "y": 6.6
+  },
+  {
+   "ball": "AW3",
+   "name": "VSS_532",
+   "row": "AW",
+   "col": 3,
+   "x": -7.4,
+   "y": 7.0
+  },
+  {
+   "ball": "AW4",
+   "name": "VSS_533",
+   "row": "AW",
+   "col": 4,
+   "x": -7.0,
+   "y": 7.0
+  },
+  {
+   "ball": "AW5",
+   "name": "USB20_HOST0_REXT",
+   "row": "AW",
+   "col": 5,
+   "x": -6.6,
+   "y": 7.0
+  },
+  {
+   "ball": "AW6",
+   "name": "USB20_HOST0_DP",
+   "row": "AW",
+   "col": 6,
+   "x": -6.2,
+   "y": 7.0
+  },
+  {
+   "ball": "AW7",
+   "name": "USB20_HOST1_DM",
+   "row": "AW",
+   "col": 7,
+   "x": -5.8,
+   "y": 7.0
+  },
+  {
+   "ball": "AW8",
+   "name": "AVSS_79",
+   "row": "AW",
+   "col": 8,
+   "x": -5.4,
+   "y": 7.0
+  },
+  {
+   "ball": "AW9",
+   "name": "AVSS_80",
+   "row": "AW",
+   "col": 9,
+   "x": -5.0,
+   "y": 7.0
+  },
+  {
+   "ball": "AW10",
+   "name": "TYPEC0_USB20_OTG_ID",
+   "row": "AW",
+   "col": 10,
+   "x": -4.6,
+   "y": 7.0
+  },
+  {
+   "ball": "AW11",
+   "name": "TYPEC0_DP0_REXT",
+   "row": "AW",
+   "col": 11,
+   "x": -4.2,
+   "y": 7.0
+  },
+  {
+   "ball": "AW12",
+   "name": "AVSS_81",
+   "row": "AW",
+   "col": 12,
+   "x": -3.8,
+   "y": 7.0
+  },
+  {
+   "ball": "AW13",
+   "name": "SARADC_IN5",
+   "row": "AW",
+   "col": 13,
+   "x": -3.4,
+   "y": 7.0
+  },
+  {
+   "ball": "AW14",
+   "name": "AVSS_82",
+   "row": "AW",
+   "col": 14,
+   "x": -3.0,
+   "y": 7.0
+  },
+  {
+   "ball": "AW15",
+   "name": "SARADC_IN0_BOOT",
+   "row": "AW",
+   "col": 15,
+   "x": -2.6,
+   "y": 7.0
+  },
+  {
+   "ball": "AW16",
+   "name": "AVSS_83",
+   "row": "AW",
+   "col": 16,
+   "x": -2.2,
+   "y": 7.0
+  },
+  {
+   "ball": "AW17",
+   "name": "AVSS_84",
+   "row": "AW",
+   "col": 17,
+   "x": -1.8,
+   "y": 7.0
+  },
+  {
+   "ball": "AW18",
+   "name": "CIF_D1/BT1120_D1/I2S1_SCLK_TX_M0/PCIE20X1_1_WAKEN_M1/UART9_CTSN_M1/SPI0_MOSI_M1/GPIO4_A1_d",
+   "row": "AW",
+   "col": 18,
+   "x": -1.4,
+   "y": 7.0
+  },
+  {
+   "ball": "AW19",
+   "name": "CIF_D4/BT1120_D4/I2S1_LRCK_RX_M0/I2C3_SCL_M2/UART0_RX_M2/SPI2_MISO_M1/GPIO4_A4_d",
+   "row": "AW",
+   "col": 19,
+   "x": -1.0,
+   "y": 7.0
+  },
+  {
+   "ball": "AW21",
+   "name": "AVSS_85",
+   "row": "AW",
+   "col": 21,
+   "x": -0.2,
+   "y": 7.0
+  },
+  {
+   "ball": "AW22",
+   "name": "BT1120_D12/SATA0_ACT_LED_M0/I2C5_SCL_M1/PWM13_M1/SPI3_MOSI_M1/GPIO4_B6_d",
+   "row": "AW",
+   "col": 22,
+   "x": 0.2,
+   "y": 7.0
+  },
+  {
+   "ball": "AW23",
+   "name": "BT1120_D14/PCIE20X1_2_WAKEN_M1/HDMI_TX0_SDA_M0/I2C8_SCL_M3/SPI3_CS0_M1/GPIO4_C0_u",
+   "row": "AW",
+   "col": 23,
+   "x": 0.6,
+   "y": 7.0
+  },
+  {
+   "ball": "AW25",
+   "name": "AVSS_86",
+   "row": "AW",
+   "col": 25,
+   "x": 1.4,
+   "y": 7.0
+  },
+  {
+   "ball": "AW26",
+   "name": "CIF_D7/BT1120_D7/I2S1_SDI2_M0/I2C5_SDA_M2/SPI2_CS0_M1/GPIO4_A7_d",
+   "row": "AW",
+   "col": 26,
+   "x": 1.8,
+   "y": 7.0
+  },
+  {
+   "ball": "AW27",
+   "name": "CIF_CLKIN/BT1120_CLKOUT/I2S1_SDI3_M0/I2C6_SDA_M3/UART8_TX_M0/SPI2_CS1_M1/GPIO4_B0_d",
+   "row": "AW",
+   "col": 27,
+   "x": 2.2,
+   "y": 7.0
+  },
+  {
+   "ball": "AW28",
+   "name": "AVSS_87",
+   "row": "AW",
+   "col": 28,
+   "x": 2.6,
+   "y": 7.0
+  },
+  {
+   "ball": "AW29",
+   "name": "AVSS_88",
+   "row": "AW",
+   "col": 29,
+   "x": 3.0,
+   "y": 7.0
+  },
+  {
+   "ball": "AW30",
+   "name": "MCU_JTAG_TMS_M1/UART9_TX_M2/PWM11_IR_M3/SPI0_CS1_M3/GPIO3_D5_d",
+   "row": "AW",
+   "col": 30,
+   "x": 3.4,
+   "y": 7.0
+  },
+  {
+   "ball": "AW31",
+   "name": "CIF_D12/PCIE20X1_2_WAKEN_M0/HDMI_TX0_SDA_M2/I2C5_SDA_M0/UART4_RX_M1/PWM8_M2/SPI3_CLK_M3/GPIO3_D0_u",
+   "row": "AW",
+   "col": 31,
+   "x": 3.8,
+   "y": 7.0
+  },
+  {
+   "ball": "AW32",
+   "name": "AVSS_89",
+   "row": "AW",
+   "col": 32,
+   "x": 4.2,
+   "y": 7.0
+  },
+  {
+   "ball": "AW33",
+   "name": "AVSS_90",
+   "row": "AW",
+   "col": 33,
+   "x": 4.6,
+   "y": 7.0
+  },
+  {
+   "ball": "AW34",
+   "name": "GMAC1_TXER/I2S2_SDI_M1/UART2_RX_M2/PWM3_IR_M1/GPIO3_B2_d",
+   "row": "AW",
+   "col": 34,
+   "x": 5.0,
+   "y": 7.0
+  },
+  {
+   "ball": "AW35",
+   "name": "GMAC1_TXD0/I2S2_SDO_M1/UART2_RTSN/GPIO3_B3_u",
+   "row": "AW",
+   "col": 35,
+   "x": 5.4,
+   "y": 7.0
+  },
+  {
+   "ball": "AW36",
+   "name": "AVSS_91",
+   "row": "AW",
+   "col": 36,
+   "x": 5.8,
+   "y": 7.0
+  },
+  {
+   "ball": "AW37",
+   "name": "GMAC1_MCLKINOUT/I2S2_LRCK_TX_M1/UART3_RX_M1/PWM13_M0/GPIO3_B6_d",
+   "row": "AW",
+   "col": 37,
+   "x": 6.2,
+   "y": 7.0
+  },
+  {
+   "ball": "AW38",
+   "name": "GMAC1_PPSCLK/UART7_RX_M1/SPI1_CLK_M1/GPIO3_C1_d",
+   "row": "AW",
+   "col": 38,
+   "x": 6.6,
+   "y": 7.0
+  },
+  {
+   "ball": "AW39",
+   "name": "GMAC1_MDIO/MIPI_TE1/I2C8_SDA_M4/UART7_CTSN_M1/PWM15_IR_M0/SPI1_CS1_M1/GPIO3_C3_d",
+   "row": "AW",
+   "col": 39,
+   "x": 7.0,
+   "y": 7.0
+  },
+  {
+   "ball": "AW40",
+   "name": "AVSS_92",
+   "row": "AW",
+   "col": 40,
+   "x": 7.4,
+   "y": 7.0
+  },
+  {
+   "ball": "AW41",
+   "name": "MIPI_DPHY0_RX_D3P/NO_USE",
+   "row": "AW",
+   "col": 41,
+   "x": 7.8,
+   "y": 7.0
+  },
+  {
+   "ball": "AW42",
+   "name": "MIPI_DPHY0_RX_D3N/MIPI_CPHY0_RX_TRIO2_C",
+   "row": "AW",
+   "col": 42,
+   "x": 8.2,
+   "y": 7.0
+  },
+  {
+   "ball": "AY1",
+   "name": "HDMI_TX0_SBDN/EDP_TX0_AUXN",
+   "row": "AY",
+   "col": 1,
+   "x": -8.2,
+   "y": 7.4
+  },
+  {
+   "ball": "AY2",
+   "name": "AVSS_93",
+   "row": "AY",
+   "col": 2,
+   "x": -7.8,
+   "y": 7.4
+  },
+  {
+   "ball": "AY3",
+   "name": "HDMI/eDP_TX0_REXT",
+   "row": "AY",
+   "col": 3,
+   "x": -7.4,
+   "y": 7.4
+  },
+  {
+   "ball": "AY4",
+   "name": "AVSS_94",
+   "row": "AY",
+   "col": 4,
+   "x": -7.0,
+   "y": 7.4
+  },
+  {
+   "ball": "AY5",
+   "name": "AVSS_95",
+   "row": "AY",
+   "col": 5,
+   "x": -6.6,
+   "y": 7.4
+  },
+  {
+   "ball": "AY7",
+   "name": "AVSS_96",
+   "row": "AY",
+   "col": 7,
+   "x": -5.8,
+   "y": 7.4
+  },
+  {
+   "ball": "AY8",
+   "name": "AVSS_97",
+   "row": "AY",
+   "col": 8,
+   "x": -5.4,
+   "y": 7.4
+  },
+  {
+   "ball": "AY9",
+   "name": "AVSS_98",
+   "row": "AY",
+   "col": 9,
+   "x": -5.0,
+   "y": 7.4
+  },
+  {
+   "ball": "AY10",
+   "name": "TYPEC0_USB20_OTG_DM",
+   "row": "AY",
+   "col": 10,
+   "x": -4.6,
+   "y": 7.4
+  },
+  {
+   "ball": "AY11",
+   "name": "TYPEC0_USB20_OTG_DP",
+   "row": "AY",
+   "col": 11,
+   "x": -4.2,
+   "y": 7.4
+  },
+  {
+   "ball": "AY12",
+   "name": "AVSS_99",
+   "row": "AY",
+   "col": 12,
+   "x": -3.8,
+   "y": 7.4
+  },
+  {
+   "ball": "AY13",
+   "name": "SARADC_IN1",
+   "row": "AY",
+   "col": 13,
+   "x": -3.4,
+   "y": 7.4
+  },
+  {
+   "ball": "AY14",
+   "name": "AVSS_100",
+   "row": "AY",
+   "col": 14,
+   "x": -3.0,
+   "y": 7.4
+  },
+  {
+   "ball": "AY15",
+   "name": "SARADC_IN4",
+   "row": "AY",
+   "col": 15,
+   "x": -2.6,
+   "y": 7.4
+  },
+  {
+   "ball": "AY16",
+   "name": "AVSS_101",
+   "row": "AY",
+   "col": 16,
+   "x": -2.2,
+   "y": 7.4
+  },
+  {
+   "ball": "AY17",
+   "name": "AVSS_102",
+   "row": "AY",
+   "col": 17,
+   "x": -1.8,
+   "y": 7.4
+  },
+  {
+   "ball": "AY18",
+   "name": "AVSS_103",
+   "row": "AY",
+   "col": 18,
+   "x": -1.4,
+   "y": 7.4
+  },
+  {
+   "ball": "AY19",
+   "name": "CIF_D3/BT1120_D3/I2S1_SCLK_RX_M0/UART0_TX_M2/GPIO4_A3_d",
+   "row": "AY",
+   "col": 19,
+   "x": -1.0,
+   "y": 7.4
+  },
+  {
+   "ball": "AY21",
+   "name": "AVSS_104",
+   "row": "AY",
+   "col": 21,
+   "x": -0.2,
+   "y": 7.4
+  },
+  {
+   "ball": "AY22",
+   "name": "AVSS_105",
+   "row": "AY",
+   "col": 22,
+   "x": 0.2,
+   "y": 7.4
+  },
+  {
+   "ball": "AY23",
+   "name": "AVSS_106",
+   "row": "AY",
+   "col": 23,
+   "x": 0.6,
+   "y": 7.4
+  },
+  {
+   "ball": "AY25",
+   "name": "AVSS_107",
+   "row": "AY",
+   "col": 25,
+   "x": 1.4,
+   "y": 7.4
+  },
+  {
+   "ball": "AY26",
+   "name": "BT1120_D15/SPDIF1_TX_M2/PCIE20X1_2_PERSTN_M1/HDMI_TX0_CEC_M0/I2C8_SDA_M3/PWM6_M1/SPI3_CS1_M1/GPIO4_C1_d",
+   "row": "AY",
+   "col": 26,
+   "x": 1.8,
+   "y": 7.4
+  },
+  {
+   "ball": "AY27",
+   "name": "CIF_D13/PCIE20X1_2_PERSTN_M0/UART4_TX_M1/PWM9_M2/SPI0_MISO_M3/GPIO3_D1_d",
+   "row": "AY",
+   "col": 27,
+   "x": 2.2,
+   "y": 7.4
+  },
+  {
+   "ball": "AY28",
+   "name": "AVSS_108",
+   "row": "AY",
+   "col": 28,
+   "x": 2.6,
+   "y": 7.4
+  },
+  {
+   "ball": "AY29",
+   "name": "AVSS_109",
+   "row": "AY",
+   "col": 29,
+   "x": 3.0,
+   "y": 7.4
+  },
+  {
+   "ball": "AY30",
+   "name": "CIF_D14/I2C7_SCL_M2/UART9_RTSN_M2/SPI0_MOSI_M3/GPIO3_D2_d",
+   "row": "AY",
+   "col": 30,
+   "x": 3.4,
+   "y": 7.4
+  },
+  {
+   "ball": "AY31",
+   "name": "CIF_D15/I2C7_SDA_M2/UART9_CTSN_M2/PWM10_M2/SPI0_CLK_M3/GPIO3_D3_d",
+   "row": "AY",
+   "col": 31,
+   "x": 3.8,
+   "y": 7.4
+  },
+  {
+   "ball": "AY32",
+   "name": "AVSS_110",
+   "row": "AY",
+   "col": 32,
+   "x": 4.2,
+   "y": 7.4
+  },
+  {
+   "ball": "AY33",
+   "name": "AVSS_111",
+   "row": "AY",
+   "col": 33,
+   "x": 4.6,
+   "y": 7.4
+  },
+  {
+   "ball": "AY34",
+   "name": "GMAC1_PTP_REF_CLK/I2C3_SCL_M1/SPI1_MOSI_M1/GPIO3_B7_d",
+   "row": "AY",
+   "col": 34,
+   "x": 5.0,
+   "y": 7.4
+  },
+  {
+   "ball": "AY35",
+   "name": "GMAC1_TXEN/I2S2_SCLK_TX_M1/UART3_TX_M1/PWM12_M0/GPIO3_B5_u",
+   "row": "AY",
+   "col": 35,
+   "x": 5.4,
+   "y": 7.4
+  },
+  {
+   "ball": "AY36",
+   "name": "AVSS_112",
+   "row": "AY",
+   "col": 36,
+   "x": 5.8,
+   "y": 7.4
+  },
+  {
+   "ball": "AY37",
+   "name": "AVSS_113",
+   "row": "AY",
+   "col": 37,
+   "x": 6.2,
+   "y": 7.4
+  },
+  {
+   "ball": "AY39",
+   "name": "AVSS_114",
+   "row": "AY",
+   "col": 39,
+   "x": 7.0,
+   "y": 7.4
+  },
+  {
+   "ball": "AY40",
+   "name": "MIPI_DPHY0_RX_D1N/MIPI_CPHY0_RX_TRIO0_C",
+   "row": "AY",
+   "col": 40,
+   "x": 7.4,
+   "y": 7.4
+  },
+  {
+   "ball": "AY41",
+   "name": "AVSS_115",
+   "row": "AY",
+   "col": 41,
+   "x": 7.8,
+   "y": 7.4
+  },
+  {
+   "ball": "AY42",
+   "name": "MIPI_DPHY0_RX_D2P/MIPI_CPHY0_RX_TRIO2_B",
+   "row": "AY",
+   "col": 42,
+   "x": 8.2,
+   "y": 7.4
+  },
+  {
+   "ball": "BA1",
+   "name": "HDMI_TX0_SBDP/EDP_TX0_AUXP",
+   "row": "BA",
+   "col": 1,
+   "x": -8.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BA2",
+   "name": "HDMI_TX0_D3P/EDP_TX0_D3P",
+   "row": "BA",
+   "col": 2,
+   "x": -7.8,
+   "y": 7.8
+  },
+  {
+   "ball": "BA3",
+   "name": "AVSS_116",
+   "row": "BA",
+   "col": 3,
+   "x": -7.4,
+   "y": 7.8
+  },
+  {
+   "ball": "BA4",
+   "name": "HDMI_TX0_D0N/EDP_TX0_D0N",
+   "row": "BA",
+   "col": 4,
+   "x": -7.0,
+   "y": 7.8
+  },
+  {
+   "ball": "BA5",
+   "name": "HDMI_TX0_D1P/EDP_TX0_D1P",
+   "row": "BA",
+   "col": 5,
+   "x": -6.6,
+   "y": 7.8
+  },
+  {
+   "ball": "BA6",
+   "name": "AVSS_117",
+   "row": "BA",
+   "col": 6,
+   "x": -6.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BA7",
+   "name": "HDMI_TX0_D2N/EDP_TX0_D2N",
+   "row": "BA",
+   "col": 7,
+   "x": -5.8,
+   "y": 7.8
+  },
+  {
+   "ball": "BA8",
+   "name": "TYPEC0_SBU1/DP0_AUXP",
+   "row": "BA",
+   "col": 8,
+   "x": -5.4,
+   "y": 7.8
+  },
+  {
+   "ball": "BA9",
+   "name": "AVSS_118",
+   "row": "BA",
+   "col": 9,
+   "x": -5.0,
+   "y": 7.8
+  },
+  {
+   "ball": "BA10",
+   "name": "TYPEC0_SSRX1N/DP0_TX0N",
+   "row": "BA",
+   "col": 10,
+   "x": -4.6,
+   "y": 7.8
+  },
+  {
+   "ball": "BA11",
+   "name": "TYPEC0_SSTX1N/DP0_TX1N",
+   "row": "BA",
+   "col": 11,
+   "x": -4.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BA12",
+   "name": "AVSS_119",
+   "row": "BA",
+   "col": 12,
+   "x": -3.8,
+   "y": 7.8
+  },
+  {
+   "ball": "BA13",
+   "name": "TYPEC0_SSRX2N/DP0_TX2N",
+   "row": "BA",
+   "col": 13,
+   "x": -3.4,
+   "y": 7.8
+  },
+  {
+   "ball": "BA14",
+   "name": "TYPEC0_SSTX2N/DP0_TX3N",
+   "row": "BA",
+   "col": 14,
+   "x": -3.0,
+   "y": 7.8
+  },
+  {
+   "ball": "BA15",
+   "name": "AVSS_120",
+   "row": "BA",
+   "col": 15,
+   "x": -2.6,
+   "y": 7.8
+  },
+  {
+   "ball": "BA16",
+   "name": "MIPI_DPHY1_TX_D0N/MIPI_CPHY1_TX_TRIO0_A",
+   "row": "BA",
+   "col": 16,
+   "x": -2.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BA17",
+   "name": "MIPI_DPHY1_TX_D1P/MIPI_CPHY1_TX_TRIO1_A",
+   "row": "BA",
+   "col": 17,
+   "x": -1.8,
+   "y": 7.8
+  },
+  {
+   "ball": "BA18",
+   "name": "AVSS_121",
+   "row": "BA",
+   "col": 18,
+   "x": -1.4,
+   "y": 7.8
+  },
+  {
+   "ball": "BA19",
+   "name": "MIPI_DPHY1_TX_CLKN/MIPI_CPHY1_TX_TRIO1_B",
+   "row": "BA",
+   "col": 19,
+   "x": -1.0,
+   "y": 7.8
+  },
+  {
+   "ball": "BA20",
+   "name": "MIPI_DPHY1_TX_D2P/MIPI_CPHY1_TX_TRIO2_B",
+   "row": "BA",
+   "col": 20,
+   "x": -0.6,
+   "y": 7.8
+  },
+  {
+   "ball": "BA21",
+   "name": "AVSS_122",
+   "row": "BA",
+   "col": 21,
+   "x": -0.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BA22",
+   "name": "MIPI_DPHY1_TX_D3N/MIPI_CPHY1_TX_TRIO2_C",
+   "row": "BA",
+   "col": 22,
+   "x": 0.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BA23",
+   "name": "MIPI_DPHY1_RX_D0P/MIPI_CPHY1_RX_TRIO0_B",
+   "row": "BA",
+   "col": 23,
+   "x": 0.6,
+   "y": 7.8
+  },
+  {
+   "ball": "BA24",
+   "name": "AVSS_123",
+   "row": "BA",
+   "col": 24,
+   "x": 1.0,
+   "y": 7.8
+  },
+  {
+   "ball": "BA25",
+   "name": "MIPI_DPHY1_RX_D1N/MIPI_CPHY1_RX_TRIO0_C",
+   "row": "BA",
+   "col": 25,
+   "x": 1.4,
+   "y": 7.8
+  },
+  {
+   "ball": "BA26",
+   "name": "MIPI_DPHY1_RX_CLKP/MIPI_CPHY1_RX_TRIO1_C",
+   "row": "BA",
+   "col": 26,
+   "x": 1.8,
+   "y": 7.8
+  },
+  {
+   "ball": "BA27",
+   "name": "AVSS_124",
+   "row": "BA",
+   "col": 27,
+   "x": 2.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BA28",
+   "name": "MIPI_DPHY1_RX_D2N/MIPI_CPHY1_RX_TRIO2_A",
+   "row": "BA",
+   "col": 28,
+   "x": 2.6,
+   "y": 7.8
+  },
+  {
+   "ball": "BA29",
+   "name": "MIPI_DPHY1_RX_D3P/NO_USE",
+   "row": "BA",
+   "col": 29,
+   "x": 3.0,
+   "y": 7.8
+  },
+  {
+   "ball": "BA30",
+   "name": "AVSS_125",
+   "row": "BA",
+   "col": 30,
+   "x": 3.4,
+   "y": 7.8
+  },
+  {
+   "ball": "BA31",
+   "name": "MIPI_DPHY0_TX_D0N/MIPI_CPHY0_TX_TRIO0_A",
+   "row": "BA",
+   "col": 31,
+   "x": 3.8,
+   "y": 7.8
+  },
+  {
+   "ball": "BA32",
+   "name": "MIPI_DPHY0_TX_D1P/MIPI_CPHY0_TX_TRIO1_A",
+   "row": "BA",
+   "col": 32,
+   "x": 4.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BA33",
+   "name": "AVSS_126",
+   "row": "BA",
+   "col": 33,
+   "x": 4.6,
+   "y": 7.8
+  },
+  {
+   "ball": "BA34",
+   "name": "MIPI_DPHY0_TX_CLKN/MIPI_CPHY0_TX_TRIO1_B",
+   "row": "BA",
+   "col": 34,
+   "x": 5.0,
+   "y": 7.8
+  },
+  {
+   "ball": "BA35",
+   "name": "MIPI_DPHY0_TX_D2P/MIPI_CPHY0_TX_TRIO2_B",
+   "row": "BA",
+   "col": 35,
+   "x": 5.4,
+   "y": 7.8
+  },
+  {
+   "ball": "BA36",
+   "name": "AVSS_127",
+   "row": "BA",
+   "col": 36,
+   "x": 5.8,
+   "y": 7.8
+  },
+  {
+   "ball": "BA37",
+   "name": "MIPI_DPHY0_TX_D3N/MIPI_CPHY0_TX_TRIO2_C",
+   "row": "BA",
+   "col": 37,
+   "x": 6.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BA38",
+   "name": "MIPI_DPHY0_RX_D0P/MIPI_CPHY0_RX_TRIO0_B",
+   "row": "BA",
+   "col": 38,
+   "x": 6.6,
+   "y": 7.8
+  },
+  {
+   "ball": "BA40",
+   "name": "MIPI_DPHY0_RX_D1P/MIPI_CPHY0_RX_TRIO1_A",
+   "row": "BA",
+   "col": 40,
+   "x": 7.4,
+   "y": 7.8
+  },
+  {
+   "ball": "BA41",
+   "name": "MIPI_DPHY0_RX_CLKN/MIPI_CPHY0_RX_TRIO1_B",
+   "row": "BA",
+   "col": 41,
+   "x": 7.8,
+   "y": 7.8
+  },
+  {
+   "ball": "BA42",
+   "name": "MIPI_DPHY0_RX_D2N/MIPI_CPHY0_RX_TRIO2_A",
+   "row": "BA",
+   "col": 42,
+   "x": 8.2,
+   "y": 7.8
+  },
+  {
+   "ball": "BB1",
+   "name": "AVSS_128",
+   "row": "BB",
+   "col": 1,
+   "x": -8.2,
+   "y": 8.2
+  },
+  {
+   "ball": "BB2",
+   "name": "HDMI_TX0_D3N/EDP_TX0_D3N",
+   "row": "BB",
+   "col": 2,
+   "x": -7.8,
+   "y": 8.2
+  },
+  {
+   "ball": "BB4",
+   "name": "HDMI_TX0_D0P/EDP_TX0_D0P",
+   "row": "BB",
+   "col": 4,
+   "x": -7.0,
+   "y": 8.2
+  },
+  {
+   "ball": "BB5",
+   "name": "HDMI_TX0_D1N/EDP_TX0_D1N",
+   "row": "BB",
+   "col": 5,
+   "x": -6.6,
+   "y": 8.2
+  },
+  {
+   "ball": "BB7",
+   "name": "HDMI_TX0_D2P/EDP_TX0_D2P",
+   "row": "BB",
+   "col": 7,
+   "x": -5.8,
+   "y": 8.2
+  },
+  {
+   "ball": "BB8",
+   "name": "TYPEC0_SBU2/DP0_AUXN",
+   "row": "BB",
+   "col": 8,
+   "x": -5.4,
+   "y": 8.2
+  },
+  {
+   "ball": "BB10",
+   "name": "TYPEC0_SSRX1P/DP0_TX0P",
+   "row": "BB",
+   "col": 10,
+   "x": -4.6,
+   "y": 8.2
+  },
+  {
+   "ball": "BB11",
+   "name": "TYPEC0_SSTX1P/DP0_TX1P",
+   "row": "BB",
+   "col": 11,
+   "x": -4.2,
+   "y": 8.2
+  },
+  {
+   "ball": "BB13",
+   "name": "TYPEC0_SSRX2P/DP0_TX2P",
+   "row": "BB",
+   "col": 13,
+   "x": -3.4,
+   "y": 8.2
+  },
+  {
+   "ball": "BB14",
+   "name": "TYPEC0_SSTX2P/DP0_TX3P",
+   "row": "BB",
+   "col": 14,
+   "x": -3.0,
+   "y": 8.2
+  },
+  {
+   "ball": "BB16",
+   "name": "MIPI_DPHY1_TX_D0P/MIPI_CPHY1_TX_TRIO0_B",
+   "row": "BB",
+   "col": 16,
+   "x": -2.2,
+   "y": 8.2
+  },
+  {
+   "ball": "BB17",
+   "name": "MIPI_DPHY1_TX_D1N/MIPI_CPHY1_TX_TRIO0_C",
+   "row": "BB",
+   "col": 17,
+   "x": -1.8,
+   "y": 8.2
+  },
+  {
+   "ball": "BB19",
+   "name": "MIPI_DPHY1_TX_CLKP/MIPI_CPHY1_TX_TRIO1_C",
+   "row": "BB",
+   "col": 19,
+   "x": -1.0,
+   "y": 8.2
+  },
+  {
+   "ball": "BB20",
+   "name": "MIPI_DPHY1_TX_D2N/MIPI_CPHY1_TX_TRIO2_A",
+   "row": "BB",
+   "col": 20,
+   "x": -0.6,
+   "y": 8.2
+  },
+  {
+   "ball": "BB22",
+   "name": "MIPI_DPHY1_TX_D3P/NO_USE",
+   "row": "BB",
+   "col": 22,
+   "x": 0.2,
+   "y": 8.2
+  },
+  {
+   "ball": "BB23",
+   "name": "MIPI_DPHY1_RX_D0N/MIPI_CPHY1_RX_TRIO0_A",
+   "row": "BB",
+   "col": 23,
+   "x": 0.6,
+   "y": 8.2
+  },
+  {
+   "ball": "BB25",
+   "name": "MIPI_DPHY1_RX_D1P/MIPI_CPHY1_RX_TRIO1_A",
+   "row": "BB",
+   "col": 25,
+   "x": 1.4,
+   "y": 8.2
+  },
+  {
+   "ball": "BB26",
+   "name": "MIPI_DPHY1_RX_CLKN/MIPI_CPHY1_RX_TRIO1_B",
+   "row": "BB",
+   "col": 26,
+   "x": 1.8,
+   "y": 8.2
+  },
+  {
+   "ball": "BB28",
+   "name": "MIPI_DPHY1_RX_D2P/MIPI_CPHY1_RX_TRIO2_B",
+   "row": "BB",
+   "col": 28,
+   "x": 2.6,
+   "y": 8.2
+  },
+  {
+   "ball": "BB29",
+   "name": "MIPI_DPHY1_RX_D3N/MIPI_CPHY1_RX_TRIO2_C",
+   "row": "BB",
+   "col": 29,
+   "x": 3.0,
+   "y": 8.2
+  },
+  {
+   "ball": "BB31",
+   "name": "MIPI_DPHY0_TX_D0P/MIPI_CPHY0_TX_TRIO0_B",
+   "row": "BB",
+   "col": 31,
+   "x": 3.8,
+   "y": 8.2
+  },
+  {
+   "ball": "BB32",
+   "name": "MIPI_DPHY0_TX_D1N/MIPI_CPHY0_TX_TRIO0_C",
+   "row": "BB",
+   "col": 32,
+   "x": 4.2,
+   "y": 8.2
+  },
+  {
+   "ball": "BB34",
+   "name": "MIPI_DPHY0_TX_CLKP/MIPI_CPHY0_TX_TRIO1_C",
+   "row": "BB",
+   "col": 34,
+   "x": 5.0,
+   "y": 8.2
+  },
+  {
+   "ball": "BB35",
+   "name": "MIPI_DPHY0_TX_D2N/MIPI_CPHY0_TX_TRIO2_A",
+   "row": "BB",
+   "col": 35,
+   "x": 5.4,
+   "y": 8.2
+  },
+  {
+   "ball": "BB37",
+   "name": "MIPI_DPHY0_TX_D3P/NO_USE",
+   "row": "BB",
+   "col": 37,
+   "x": 6.2,
+   "y": 8.2
+  },
+  {
+   "ball": "BB38",
+   "name": "MIPI_DPHY0_RX_D0N/MIPI_CPHY0_RX_TRIO0_A",
+   "row": "BB",
+   "col": 38,
+   "x": 6.6,
+   "y": 8.2
+  },
+  {
+   "ball": "BB41",
+   "name": "MIPI_DPHY0_RX_CLKP/MIPI_CPHY0_RX_TRIO1_C",
+   "row": "BB",
+   "col": 41,
+   "x": 7.8,
+   "y": 8.2
+  },
+  {
+   "ball": "BB42",
+   "name": "AVSS_129",
+   "row": "BB",
+   "col": 42,
+   "x": 8.2,
+   "y": 8.2
+  }
+ ]
+}

@@ -33,12 +33,21 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import {
+  buildRk3588s2FullPins,
+  buildLpddr5xFullPins,
+  buildEmmc51FullPins,
+} from './bga_full_expand.mjs';
 
 const ROOT_DIR = path.resolve(import.meta.dirname, '..');
 const HW_DIR = path.join(ROOT_DIR, 'hardware');
 const SRC_HW_DIR = path.join(ROOT_DIR, 'src', 'hardware');
 fs.mkdirSync(HW_DIR, { recursive: true });
 fs.mkdirSync(SRC_HW_DIR, { recursive: true });
+
+const rkFull = buildRk3588s2FullPins();
+const lpddrFull = buildLpddr5xFullPins();
+const emmcFull = buildEmmc51FullPins();
 
 const components = [];
 const routes = [];
@@ -210,170 +219,12 @@ addPart({
   manufacturer: 'Rockchip',
   category: 'SoC',
   kind: 'soc',
-  value: 'Octa-Core A76/A55 8nm 48MP-ISP 6TOPS-NPU Android-14/15',
-  pkg: 'FCCSP1253 (17x17mm)',
+  value: 'Octa-Core A76/A55 8nm 48MP-ISP 6TOPS-NPU Android-14/15 (Full 1253-Ball)',
+  pkg: 'FCCSP1253L (17x17mm)',
   board: 'main', side: 'top',
   x: 4.6, y: 24.5, w: 17.0, h: 17.0, t: 0.92,
   subsystem: 'SoC',
-  pins: {
-    // Power Rails
-    VDD_CPU_BIG0: 'VDD_CPU_BIG0_S0',
-    VDD_CPU_BIG1: 'VDD_CPU_BIG1_S0',
-    VDD_CPU_LIT:  'VDD_CPU_LIT_S0',
-    VDD_GPU:      'VDD_GPU_S0',
-    VDD_NPU:      'VDD_NPU_S0',
-    VDD_LOGIC:    'VDD_LOG_S0',
-    VDD_VDENC:    'VDD_VDENC_S0',
-    VDD_DDR:      'VDD_DDR_S0',
-    VDD2_DDR:     'VDD2_DDR_S3',
-    VDD2L_DDR:    'VDD2L_0V9_DDR_S3',
-    VDDQ_DDR:     'VDDQ_DDR_S0',
-    VDDQ_DDR_CKE: 'VDDQ_DDR_CKE_S3',
-    VDDA_DDR_PLL: 'VDDA_DDR_PLL_S0',
-    VDD_0V75_S3:  'VDD_0V75_S3',
-    VDD_0V75_S0:  'VDD_0V75_S0',
-    VDD_0V75_PLL: 'VDD_0V75_S0_PLL',
-    AVDD_0V85_S0: 'AVDD_0V85_S0',
-    VDD_BIG_MEM:  'VDD_CPU_BIG_MEM_S0',
-    VCC_1V8_S3:   'VCC_1V8_S3',
-    VCC_1V8_S0:   'VCC_1V8_S0',
-    VCC_1V8_PMU:  'VCC_1V8_PMU_S3',
-    AVCC_1V8_S0:  'AVCC_1V8_S0',
-    AVDD_1V2_S0:  'AVDD_1V2_S0',
-    VCC_3V3_S3:   'VCC_3V3_S3',
-    AVDD_3V3_S0:  'AVDD_3V3_S0',
-    VCCIO_SD:     'VCCIO_SD_S0',
-    VSS:          'GND',
-    // Clocks & Reset & Thermal Shutdown & Boot
-    XIN_OSC:      'CLK_24M_IN',
-    XOUT_OSC:     'CLK_24M_OUT_R',
-    CLK32K_IN:    'CLK_32K_RTC',
-    RTC_INT:      'RTC_INT_L',
-    NPOR_U:       'PMIC_RESETB',
-    TSADC_SHUT:   'TSADC_SHUT_ORG',
-    PMIC_SLEEP1:  'PMIC_SLEEP1',
-    PMIC_SLEEP2:  'PMIC_SLEEP2',
-    SARADC_IN0:   'SARADC_IN0_RECOVERY',
-    SARADC_IN1:   'BOARD_ID_ADC',
-    SARADC_IN2:   'BAT_NTC_ADC',
-    SARADC_IN3:   'THERM_SOC_ADC',
-    SARADC_IN4:   'THERM_CHG_ADC',
-    SARADC_IN5:   'THERM_RFPA_ADC',
-    UART2_TX_M0:  'UART2_DBG_TX',
-    UART2_RX_M0:  'UART2_DBG_RX',
-    SWDIO:        'JTAG_SWDIO',
-    SWCLK:        'JTAG_SWCLK',
-    // PMIC Control (SPI2 via 22R series damping + IRQ)
-    SPI2_CS0:     'PMIC_SPI_CS0',
-    SPI2_CLK:     'PMIC_SPI_CLK_SOC',
-    SPI2_MOSI:    'PMIC_SPI_MOSI_SOC',
-    SPI2_MISO:    'PMIC_SPI_MISO',
-    PMIC_INT:     'PMIC_INT_L',
-    // Memory: LPDDR5X 64-bit Quad-Channel (CH0_A/B + CH1_C/D + WCK + RESET_N)
-    DDR_CH0_DQ:    'LPDDR5X_CH0_DQ',
-    DDR_CH0_CA:    'LPDDR5X_CH0_CA',
-    DDR_CH0_CK_P:  'LPDDR5X_CH0_CK_P',
-    DDR_CH0_CK_N:  'LPDDR5X_CH0_CK_N',
-    DDR_CH0_WCK_P: 'LPDDR5X_CH0_WCK_P',
-    DDR_CH0_WCK_N: 'LPDDR5X_CH0_WCK_N',
-    DDR_CH1_DQ:    'LPDDR5X_CH1_DQ',
-    DDR_CH1_CA:    'LPDDR5X_CH1_CA',
-    DDR_CH1_CK_P:  'LPDDR5X_CH1_CK_P',
-    DDR_CH1_CK_N:  'LPDDR5X_CH1_CK_N',
-    DDR_CH1_WCK_P: 'LPDDR5X_CH1_WCK_P',
-    DDR_CH1_WCK_N: 'LPDDR5X_CH1_WCK_N',
-    DDR_RESET:     'DDR_RESET_N',
-    // Storage: eMMC 5.1 HS400 + FSPI NOR
-    EMMC_CLK:     'EMMC_CLK_SOC',
-    EMMC_CMD:     'EMMC_CMD',
-    EMMC_D0_D7:   'EMMC_D0_D7',
-    EMMC_DS:      'EMMC_DATA_STROBE',
-    EMMC_RSTN:    'EMMC_RSTN',
-    FSPI_CLK:     'FSPI_CLK',
-    FSPI_CS0:     'FSPI_CS0',
-    FSPI_D0_D3:   'FSPI_D0_D3',
-    // Camera MIPI CSI-2: Exact RK3588S2 V1.3 Datasheet 3x 4-Lane Ports (1x DCPHY + 2x DPHY)!
-    // Port 0 (MIPI_DCPHY0): 45MP Main Sony LYT-818 + RK1608B Pre-ISP
-    CSI0_D0_P: 'MIPI_CSI0_D0_P', CSI0_D0_N: 'MIPI_CSI0_D0_N',
-    CSI0_D1_P: 'MIPI_CSI0_D1_P', CSI0_D1_N: 'MIPI_CSI0_D1_N',
-    CSI0_D2_P: 'MIPI_CSI0_D2_P', CSI0_D2_N: 'MIPI_CSI0_D2_N',
-    CSI0_D3_P: 'MIPI_CSI0_D3_P', CSI0_D3_N: 'MIPI_CSI0_D3_N',
-    CSI0_CLK_P: 'MIPI_CSI0_CLK_P', CSI0_CLK_N: 'MIPI_CSI0_CLK_N',
-    CAM0_MCLK: 'CAM0_MCLK_SOC', CAM0_RST: 'CAM0_RST_N',
-    // Port 1 (MIPI_CSI0_DPHY 4-lane): Ultra-Wide Sony IMX355
-    CSI1_D0_P: 'MIPI_CSI1_D0_P', CSI1_D0_N: 'MIPI_CSI1_D0_N',
-    CSI1_D1_P: 'MIPI_CSI1_D1_P', CSI1_D1_N: 'MIPI_CSI1_D1_N',
-    CSI1_D2_P: 'MIPI_CSI1_D2_P', CSI1_D2_N: 'MIPI_CSI1_D2_N',
-    CSI1_D3_P: 'MIPI_CSI1_D3_P', CSI1_D3_N: 'MIPI_CSI1_D3_N',
-    CSI1_CLK_P: 'MIPI_CSI1_CLK_P', CSI1_CLK_N: 'MIPI_CSI1_CLK_N',
-    CAM1_MCLK: 'CAM1_MCLK_SOC', CAM1_RST: 'CAM1_RST_N',
-    // Port 2 (MIPI_CSI1_DPHY 4-lane): Front Selfie Sony IMX615 32MP
-    CSI2_D0_P: 'MIPI_CSI2_D0_P', CSI2_D0_N: 'MIPI_CSI2_D0_N',
-    CSI2_D1_P: 'MIPI_CSI2_D1_P', CSI2_D1_N: 'MIPI_CSI2_D1_N',
-    CSI2_D2_P: 'MIPI_CSI2_D2_P', CSI2_D2_N: 'MIPI_CSI2_D2_N',
-    CSI2_D3_P: 'MIPI_CSI2_D3_P', CSI2_D3_N: 'MIPI_CSI2_D3_N',
-    CSI2_CLK_P: 'MIPI_CSI2_CLK_P', CSI2_CLK_N: 'MIPI_CSI2_CLK_N',
-    CAM2_MCLK: 'CAM2_MCLK_SOC', CAM2_RST: 'CAM2_RST_N',
-    // Camera Optical Assist IRQs (VL53L8CX dToF + TCS3408 Flicker + Flash Strobe)
-    TOF_INT: 'TOF_INT_N', TOF_LPN: 'TOF_LPN', FLICKER_INT: 'FLICKER_INT_N',
-    FLASH_STROBE: 'CAM_FLASH_STROBE',
-    // Display LTPO OLED MIPI DSI-2 (120Hz) + 240Hz Touch SPI4
-    DSI0_D0_P: 'MIPI_DSI0_D0_P', DSI0_D0_N: 'MIPI_DSI0_D0_N',
-    DSI0_D1_P: 'MIPI_DSI0_D1_P', DSI0_D1_N: 'MIPI_DSI0_D1_N',
-    DSI0_D2_P: 'MIPI_DSI0_D2_P', DSI0_D2_N: 'MIPI_DSI0_D2_N',
-    DSI0_D3_P: 'MIPI_DSI0_D3_P', DSI0_D3_N: 'MIPI_DSI0_D3_N',
-    DSI0_CLK_P: 'MIPI_DSI0_CLK_P', DSI0_CLK_N: 'MIPI_DSI0_CLK_N',
-    LCD_TE: 'LCD_TE_SYNC', LCD_RST: 'LCD_RST_N', LCD_ERR_FG: 'LCD_ERR_FG',
-    TP_INT: 'TP_INT_N', TP_RST: 'TP_RST_N',
-    SPI4_CLK: 'TP_SPI_CLK', SPI4_MOSI: 'TP_SPI_MOSI', SPI4_MISO: 'TP_SPI_MISO', SPI4_CS: 'TP_SPI_CS',
-    // USB 3.1 Gen1 + DP1.4 Type-C + USB 2.0 Host1 (Modem QDLoader/Diag)
-    USB3_DP: 'USB0_D_P', USB3_DN: 'USB0_D_N',
-    USB3_TX0_P: 'USB3_SOC_TX0_P', USB3_TX0_N: 'USB3_SOC_TX0_N',
-    USB3_RX0_P: 'USB3_SOC_RX0_P', USB3_RX0_N: 'USB3_SOC_RX0_N',
-    USB3_TX1_P: 'USB3_SOC_TX1_P', USB3_TX1_N: 'USB3_SOC_TX1_N',
-    USB3_RX1_P: 'USB3_SOC_RX1_P', USB3_RX1_N: 'USB3_SOC_RX1_N',
-    CC_INT: 'USB_CC_INT_N',
-    USB1_DP: 'MODEM_USB_DP', USB1_DN: 'MODEM_USB_DN',
-    // PCIe 2.1 x1 (2x Native RK3588S2 Combo PHYs: 5G SDX62 Modem & Wi-Fi 6E AP6275P)
-    PCIE0_TX_P: 'PCIE_MODEM_TX_P', PCIE0_TX_N: 'PCIE_MODEM_TX_N',
-    PCIE0_RX_P: 'PCIE_MODEM_RX_P', PCIE0_RX_N: 'PCIE_MODEM_RX_N',
-    PCIE0_CLK_P: 'PCIE_MODEM_CLK_P', PCIE0_CLK_N: 'PCIE_MODEM_CLK_N',
-    PCIE0_RST: 'MODEM_PERST_N', PCIE0_WAKE: 'MODEM_WAKE_N',
-    PCIE1_TX_P: 'PCIE_WIFI_TX_P', PCIE1_TX_N: 'PCIE_WIFI_TX_N',
-    PCIE1_RX_P: 'PCIE_WIFI_RX_P', PCIE1_RX_N: 'PCIE_WIFI_RX_N',
-    PCIE1_CLK_P: 'PCIE_WIFI_CLK_P', PCIE1_CLK_N: 'PCIE_WIFI_CLK_N',
-    PCIE1_RST: 'WIFI_PERST_N', PCIE1_WAKE: 'WIFI_WAKE_N',
-    // I2C Buses 0..7
-    I2C0_SCL: 'I2C0_SCL', I2C0_SDA: 'I2C0_SDA', // RK860 BIG0/BIG1
-    I2C1_SCL: 'I2C1_SCL', I2C1_SDA: 'I2C1_SDA', // RK860 NPU
-    I2C2_SCL: 'I2C2_SCL', I2C2_SDA: 'I2C2_SDA', // BQ27Z561 Gauge, BQ25895, 2x BQ25970, P9222-R
-    I2C3_SCL: 'I2C3_SCL', I2C3_SDA: 'I2C3_SDA', // 45MP Main Cam, DW9786, GT24C64A, VL53L8CX, TCS3408, WL2868C, LM3644
-    I2C4_SCL: 'I2C4_SCL', I2C4_SDA: 'I2C4_SDA', // FUSB302B, TUSB546, Ultra-Wide & Selfie Cam
-    I2C5_SCL: 'I2C5_SCL', I2C5_SDA: 'I2C5_SDA', // OLED SGM3843, Touch Fallback, NXP SN220T NFC+eSE
-    I2C6_SCL: 'I2C6_SCL', I2C6_SDA: 'I2C6_SDA', // RTC HYM8563, LSM6DSO, AK09918C, BMP581, TMAG5273, TCS3701 ALS/Prox, SX9331 SAR
-    I2C7_SCL: 'I2C7_SCL', I2C7_SDA: 'I2C7_SDA', // Audio ES8388, Dual TAS2562, Haptic DRV2625
-    // SPI0 (NXP SN220T StrongBox Hardware Keymaster eSE!) + SPI1 (Goodix Ultrasonic FP)
-    SPI0_CLK: 'ESE_SPI_CLK', SPI0_MOSI: 'ESE_SPI_MOSI', SPI0_MISO: 'ESE_SPI_MISO', SPI0_CS: 'ESE_SPI_CS',
-    SPI1_CLK: 'FP_SPI_CLK', SPI1_MOSI: 'FP_SPI_MOSI', SPI1_MISO: 'FP_SPI_MISO', SPI1_CS: 'FP_SPI_CS',
-    FP_INT: 'FP_INT_N', FP_RST: 'FP_RST_N',
-    // Audio I2S0 (Codec), I2S1 (Stereo SmartPA), I2S2/PCM (4-Wire VoLTE/VoNR Modem Voice), PDM0 (3-Mic ANC Array!)
-    I2S0_SCLK: 'I2S0_CODEC_SCLK', I2S0_LRCK: 'I2S0_CODEC_LRCK', I2S0_SDO: 'I2S0_CODEC_SDO', I2S0_SDI: 'I2S0_CODEC_SDI', I2S0_MCLK: 'I2S0_CODEC_MCLK',
-    I2S1_SCLK: 'I2S1_PA_SCLK', I2S1_LRCK: 'I2S1_PA_LRCK', I2S1_SDO: 'I2S1_PA_SDO', I2S1_SDI: 'I2S1_PA_SDI',
-    I2S2_SCLK: 'PCM_MODEM_CLK', I2S2_LRCK: 'PCM_MODEM_SYNC', I2S2_SDO: 'PCM_MODEM_TX', I2S2_SDI: 'PCM_MODEM_RX',
-    PDM0_CLK: 'PDM0_MIC_CLK', PDM0_SDI0: 'PDM0_MIC_BOT_TOP', PDM0_SDI1: 'PDM0_MIC_REAR_ZOOM',
-    // UART4 (GNSS), UART6 (BT 5.4 HCI)
-    UART4_TX: 'GNSS_UART_RX', UART4_RX: 'GNSS_UART_TX',
-    UART6_TX: 'BT_UART_RX', UART6_RX: 'BT_UART_TX',
-    // Interrupts, SAR, ALS/Prox & Hardware Keys
-    VOL_DN_KEY: 'KEY_VOL_DN',
-    FG_ALRT: 'FG_ALRT_N',
-    IMU_INT: 'IMU_INT1',
-    ALS_PROX_INT: 'ALS_PROX_INT_N',
-    SAR_INT: 'SAR_INT_N',
-    HAPTIC_TRIG: 'HAPTIC_TRIG',
-    NFC_IRQ: 'NFC_IRQ',
-    NFC_DWL: 'NFC_DWL_REQ',
-  },
+  pins: rkFull.pins,
 });
 
 // 24.000MHz Primary SoC Crystal Oscillator + Load Caps + Feedback/Series Resistors
@@ -389,34 +240,34 @@ addCap({ ref: 'C102', value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', x
 addRes({ ref: 'R101', value: '1M', pkg: '0201', x: 1.8, y: 34.4, subsystem: 'Clocks', net1: 'CLK_24M_IN', net2: 'CLK_24M_OUT' });
 addRes({ ref: 'R102', value: '22R', pkg: '0201', x: 3.1, y: 34.4, subsystem: 'Clocks', net1: 'CLK_24M_OUT', net2: 'CLK_24M_OUT_R' });
 
-// HYM8563TS Real-Time Clock + 32.768kHz Crystal + Load Caps + Open-Drain Pull-Ups + Backup Power Diode
+// HYM8563TS Real-Time Clock (Datasheet-Verified MSOP-8 3.0x4.9mm!) + 32.768kHz XTAL + BAT54C (SOT-23 2.9x2.4mm!)
 addPart({
   ref: 'U102', mpn: 'HYM8563TS', manufacturer: 'Haoyu',
-  category: 'RTC', kind: 'ic', value: 'I2C RTC 32.768kHz', pkg: 'DFN-8 (2x2mm)',
-  board: 'main', side: 'top', x: -1.8, y: 36.4, w: 2.0, h: 2.0, t: 0.55,
+  category: 'RTC', kind: 'ic', value: 'I2C RTC 32.768kHz', pkg: 'MSOP-8 (3.0x4.9mm)',
+  board: 'main', side: 'top', x: -8.6, y: 37.2, w: 4.9, h: 3.0, t: 0.85,
   subsystem: 'Clocks',
-  pins: { OSCI: 'RTC_32K_XI', OSCO: 'RTC_32K_XO', CLKOUT: 'CLK_32K_RTC', INT: 'RTC_INT_L', SCL: 'I2C6_SCL', SDA: 'I2C6_SDA', VDD: 'VCC_RTC_3V3', VSS: 'GND' },
+  pins: { '1': 'RTC_32K_XI', '2': 'RTC_32K_XO', '3': 'RTC_INT_L', '4': 'GND', '5': 'I2C6_SDA', '6': 'I2C6_SCL', '7': 'CLK_32K_RTC', '8': 'VCC_RTC_3V3' },
 });
 addPart({
   ref: 'Y102', mpn: 'FC-12M 32.7680KA-A3', manufacturer: 'Epson',
   category: 'Crystal', kind: 'xtal', value: '32.768kHz ±20ppm', pkg: 'SMD-2012',
-  board: 'main', side: 'top', x: -4.2, y: 36.4, w: 2.0, h: 1.2, t: 0.48,
+  board: 'main', side: 'top', x: -8.6, y: 34.6, w: 2.0, h: 1.2, t: 0.48,
   subsystem: 'Clocks',
   pins: { '1': 'RTC_32K_XI', '2': 'RTC_32K_XO' },
 });
-addCap({ ref: 'C104', value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', x: -4.6, y: 35.4, subsystem: 'Clocks', netP: 'RTC_32K_XI' });
-addCap({ ref: 'C105', value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', x: -3.6, y: 35.4, subsystem: 'Clocks', netP: 'RTC_32K_XO' });
+addCap({ ref: 'C104', value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', x: -10.4, y: 34.6, subsystem: 'Clocks', netP: 'RTC_32K_XI' });
+addCap({ ref: 'C105', value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', x: -6.8, y: 34.6, subsystem: 'Clocks', netP: 'RTC_32K_XO' });
 // Mandatory 47K pull-up on HYM8563TS open-drain CLKOUT + 10K pull-up on RTC_INT_L (Radxa ROCK 5B+ Page 29!)
 addRes({ ref: 'R106', value: '47K', pkg: '0201', side: 'bot', x: -2.0, y: 34.0, subsystem: 'Clocks', net1: 'CLK_32K_RTC', net2: 'VCC_1V8_PMU_S3' });
 addRes({ ref: 'R107', value: '10K', pkg: '0201', side: 'bot', x: -1.0, y: 34.0, subsystem: 'Clocks', net1: 'RTC_INT_L', net2: 'VCC_1V8_PMU_S3' });
 addPart({
   ref: 'D101', mpn: 'BAT54C', manufacturer: 'Nexperia',
-  category: 'Diode', kind: 'esd', value: 'Schottky ORing', pkg: 'SOT-323',
-  board: 'main', side: 'top', x: -4.2, y: 38.8, w: 1.8, h: 1.1, t: 0.50,
+  category: 'Diode', kind: 'esd', value: 'Schottky ORing', pkg: 'SOT-23 (2.9x2.4mm)',
+  board: 'main', side: 'top', x: -13.4, y: 37.2, w: 2.9, h: 2.4, t: 0.85,
   subsystem: 'Clocks',
-  pins: { A1: 'VCC_3V3_S3', A2: 'VBAT_6000MAH', K: 'VCC_RTC_3V3' },
+  pins: { '1': 'VCC_3V3_S3', '2': 'VBAT_6000MAH', '3': 'VCC_RTC_3V3' },
 });
-addCap({ ref: 'C103', value: '10uF', voltage: '6.3V', pkg: '0402', x: -2.6, y: 38.8, subsystem: 'Clocks', netP: 'VCC_RTC_3V3' });
+addCap({ ref: 'C103', value: '10uF', voltage: '6.3V', pkg: '0402', x: -13.4, y: 35.0, subsystem: 'Clocks', netP: 'VCC_RTC_3V3' });
 
 // Reset, TSADC Thermal Shutdown, Recovery Boot Ladder (SARADC_IN0 + 1nF + ESD), MaskROM & Debug UART2/SWD
 addRes({ ref: 'R103', value: '10K', pkg: '0201', x: 4.5, y: 35.2, subsystem: 'Boot', net1: 'PMIC_RESETB', net2: 'VCC_1V8_PMU_S3' });
@@ -426,6 +277,14 @@ addRes({ ref: 'R104', value: '10K', pkg: '0201', x: 6.3, y: 35.2, subsystem: 'Bo
 addRes({ ref: 'R105', value: '100R', pkg: '0201', x: 7.2, y: 35.2, subsystem: 'Boot', net1: 'SARADC_IN0_RECOVERY', net2: 'KEY_VOL_UP_REC' });
 addCap({ ref: 'C107', value: '1nF', voltage: '25V', pkg: '0201', side: 'bot', x: 1.0, y: 34.0, subsystem: 'Boot', netP: 'SARADC_IN0_RECOVERY' }); // CM5 Page 13 SARADC filter!
 addEsd({ ref: 'D102', mpn: 'ESD5451N', value: 'ESD 5V Recovery Key', pkg: 'DFN1006', side: 'bot', w: 1.0, h: 0.6, t: 0.40, x: 2.2, y: 34.0, subsystem: 'Boot', pins: { '1': 'KEY_VOL_UP_REC', '2': 'GND' } });
+// Mandatory RK3588S2 SoC-side 240 Ohm 1% DDR ZQ calibration resistors (CH0_A/B + CH1_C/D -> VDDQ_DDR_S0) & USB/DP REXT!
+addRes({ ref: 'R308', value: '240R', tol: '1%', pkg: '0201', side: 'bot', x: -3.2, y: 34.0, subsystem: 'Memory', net1: 'SOC_DDR_ZQ_A', net2: 'VDDQ_DDR_S0' });
+addRes({ ref: 'R309', value: '240R', tol: '1%', pkg: '0201', side: 'bot', x: -4.2, y: 34.0, subsystem: 'Memory', net1: 'SOC_DDR_ZQ_B', net2: 'VDDQ_DDR_S0' });
+addRes({ ref: 'R310', value: '240R', tol: '1%', pkg: '0201', side: 'bot', x: -5.2, y: 34.0, subsystem: 'Memory', net1: 'SOC_DDR_ZQ_C', net2: 'VDDQ_DDR_S0' });
+addRes({ ref: 'R311', value: '240R', tol: '1%', pkg: '0201', side: 'bot', x: -6.2, y: 34.0, subsystem: 'Memory', net1: 'SOC_DDR_ZQ_D', net2: 'VDDQ_DDR_S0' });
+addRes({ ref: 'R601', value: '200R', tol: '1%', pkg: '0201', side: 'bot', x: 3.6,  y: 34.0, subsystem: 'USB-C',  net1: 'USB20_OTG_REXT', net2: 'GND' });
+addRes({ ref: 'R602', value: '8.2K', tol: '1%', pkg: '0201', side: 'bot', x: 4.8,  y: 34.0, subsystem: 'USB-C',  net1: 'TYPEC0_DP0_REXT', net2: 'GND' });
+
 addTestPoint({ ref: 'TP101', net: 'EMMC_CLK_LINE', x: -5.4, y: 34.4, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP102', net: 'GND', x: -4.2, y: 34.4, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP103', net: 'UART2_DBG_TX', x: 8.6, y: 35.2, subsystem: 'Boot' });
@@ -433,36 +292,38 @@ addTestPoint({ ref: 'TP104', net: 'UART2_DBG_RX', x: 9.7, y: 35.2, subsystem: 'B
 addTestPoint({ ref: 'TP105', net: 'JTAG_SWDIO', x: 8.6, y: 36.4, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP106', net: 'JTAG_SWCLK', x: 9.7, y: 36.4, subsystem: 'Boot' });
 
-// 56x Ultra-Compact SoC Decoupling Capacitors (perimeter + underside decoupling matrix!)
+// 104x Ultra-Compact SoC Decoupling Capacitors (34 perimeter + 70 backside BGA cavity 01005 matrix across all 22 power domains!)
 const socDecoupleRails = [
   'VDD_CPU_BIG0_S0', 'VDD_CPU_BIG1_S0', 'VDD_CPU_LIT_S0', 'VDD_GPU_S0',
   'VDD_NPU_S0', 'VDD_LOG_S0', 'VDD_VDENC_S0', 'VDD_DDR_S0',
-  'VDD2_DDR_S3', 'VDD2L_0V9_DDR_S3', 'VDDQ_DDR_S0', 'VDD_0V75_S3',
-  'VDDA_DDR_PLL_S0', 'VCC_1V8_S3', 'VCC_1V8_S0', 'AVCC_1V8_S0',
+  'VDD_CPU_BIG_MEM_S0', 'VDD2_DDR_S3', 'VDD2L_0V9_DDR_S3', 'VDDQ_DDR_S0',
+  'VDDQ_DDR_CKE_S3', 'VDD_0V75_S3', 'VDD_0V75_S0', 'VDD_0V75_S0_PLL',
+  'VDDA_DDR_PLL_S0', 'AVDD_0V85_S0', 'AVDD_1V2_S0', 'VCC_1V8_S3',
+  'VCC_1V8_S0', 'AVCC_1V8_S0', 'VCC_1V8_PMU_S3', 'VCCIO_SD_S0', 'AVDD_3V3_S0',
 ];
-// Perimeter caps around RK3588S2 (top, bottom, right edges) + 24 backside cavity caps under BGA!
+// Perimeter caps around RK3588S2 (top, bottom, right edges)
 for (let i = 0; i < 12; i++) {
   const rail = socDecoupleRails[i % socDecoupleRails.length];
   addCap({ value: i % 3 === 0 ? '4.7uF' : '1uF', pkg: '0201', x: -3.2 + i * 1.4, y: 33.7, subsystem: 'SoC', netP: rail });
 }
 for (let i = 0; i < 12; i++) {
-  const rail = socDecoupleRails[(i + 4) % socDecoupleRails.length];
+  const rail = socDecoupleRails[(i + 6) % socDecoupleRails.length];
   addCap({ value: i % 3 === 0 ? '4.7uF' : '100nF', pkg: '0201', x: -3.2 + i * 1.4, y: 15.2, subsystem: 'SoC', netP: rail });
 }
 for (let i = 0; i < 10; i++) {
-  const rail = socDecoupleRails[(i + 8) % socDecoupleRails.length];
+  const rail = socDecoupleRails[(i + 12) % socDecoupleRails.length];
   addCap({ value: '100nF', pkg: '01005', x: 13.7, y: 16.6 + i * 1.4, rot: 90, subsystem: 'SoC', netP: rail });
 }
-// Backside BGA belly ultra-high-frequency 01005 decoupling grid (real flagship layout!)
-for (let r = 0; r < 4; r++) {
-  for (let c = 0; c < 6; c++) {
-    const rail = socDecoupleRails[(r * 6 + c) % socDecoupleRails.length];
+// 70x Backside BGA belly ultra-high-frequency 01005 decoupling grid directly under RK3588S2 power balls!
+for (let r = 0; r < 7; r++) {
+  for (let c = 0; c < 10; c++) {
+    const rail = socDecoupleRails[(r * 10 + c) % socDecoupleRails.length];
     addCap({
       value: (r + c) % 3 === 0 ? '1uF' : '100nF',
       pkg: '01005',
       side: 'bot',
-      x: -1.5 + c * 2.4,
-      y: 19.0 + r * 3.6,
+      x: -2.4 + c * 1.6,
+      y: 17.6 + r * 2.2,
       subsystem: 'SoC',
       netP: rail,
     });
@@ -755,75 +616,61 @@ addInd({ ref: 'L224', value: '1.0uH', current: '5A', pkg: 'IND_2016', x: 11.4, y
 addCap({ value: '22uF', voltage: '10V', pkg: '0402', x: 9.2, y: -63.0, subsystem: 'Power', netP: 'VCC5V0_OTG_HOST' });
 
 // ============================================================================
-// SUBSYSTEM 3: MEMORY (16GB LPDDR5X-6400 64-Bit Quad-Ch) + STORAGE (256GB eMMC 5.1 + 16MB NOR)
+// SUBSYSTEM 3: MEMORY (16GB LPDDR5X-6400 64-Bit Quad-Ch, FULL 496-BALL FBGA-496)
+//            + STORAGE (256GB eMMC 5.1 FULL 153-BALL FBGA-153 + 16MB NOR)
 // ============================================================================
 addPart({
   ref: 'U301', mpn: 'K3LK7K70BM-BGCP', manufacturer: 'Samsung',
-  category: 'DRAM', kind: 'dram', value: '16GB LPDDR5X-6400 64-bit Quad-Ch', pkg: '315-FBGA (12.4x15.0mm)',
-  board: 'main', side: 'top', x: -10.3, y: 24.5, w: 12.4, h: 15.0, t: 0.85,
+  category: 'DRAM', kind: 'dram', value: 'LPDDR5/5X-6400 64-bit Quad-Ch (Full 496-Ball)', pkg: 'FBGA-496 (12.4x14.0mm)',
+  board: 'main', side: 'top', x: -10.8, y: 24.5, w: 12.4, h: 14.0, t: 0.77,
   subsystem: 'Memory',
-  pins: {
-    CH0_DQ: 'LPDDR5X_CH0_DQ', CH0_CA: 'LPDDR5X_CH0_CA',
-    CH0_CK_P: 'LPDDR5X_CH0_CK_P', CH0_CK_N: 'LPDDR5X_CH0_CK_N',
-    CH0_WCK_P: 'LPDDR5X_CH0_WCK_P', CH0_WCK_N: 'LPDDR5X_CH0_WCK_N',
-    CH1_DQ: 'LPDDR5X_CH1_DQ', CH1_CA: 'LPDDR5X_CH1_CA',
-    CH1_CK_P: 'LPDDR5X_CH1_CK_P', CH1_CK_N: 'LPDDR5X_CH1_CK_N',
-    CH1_WCK_P: 'LPDDR5X_CH1_WCK_P', CH1_WCK_N: 'LPDDR5X_CH1_WCK_N',
-    RESET_N: 'DDR_RESET_N',
-    // Exact LPDDR5X 4-Rail Power Tree (ROCK 5B+ Page 14!): VDD1=1.8V, VDD2H=1.05V, VDD2L=0.90V S3, VDDQ=0.50V!
-    VDD1: 'VCC_1V8_S3', VDD2H: 'VDD2_DDR_S3', VDD2L: 'VDD2L_0V9_DDR_S3',
-    VDDQ: 'VDDQ_DDR_S0', VDDQ_CKE: 'VDDQ_DDR_CKE_S3',
-    ZQ_A: 'DDR_ZQ_A', ZQ_B: 'DDR_ZQ_B', VSS: 'GND',
-  },
+  pins: lpddrFull.pins,
 });
 // Mandatory 240 Ohm 1% LPDDR5X ZQ Calibration Resistors to VDDQ_DDR_S0 + VDDQ_DDR_CKE_S3 120R Ferrite (ROCK 5B+ Page 14!)
 addRes({ ref: 'R301', value: '240R', tol: '1%', pkg: '0201', x: -4.8, y: 32.8, subsystem: 'Memory', net1: 'DDR_ZQ_A', net2: 'VDDQ_DDR_S0' });
 addRes({ ref: 'R302', value: '240R', tol: '1%', pkg: '0201', x: -5.8, y: 32.8, subsystem: 'Memory', net1: 'DDR_ZQ_B', net2: 'VDDQ_DDR_S0' });
 addBead({ ref: 'FB301', value: '120R@100MHz', pkg: '0201', side: 'bot', x: -15.6, y: 34.0, subsystem: 'Memory', net1: 'VDD2_DDR_S3', net2: 'VDDQ_DDR_CKE_S3' });
-// 36x LPDDR5X Decoupling Capacitors (Top perimeter + Backside BGA belly + 12x bulk/HF caps on VDD2H/VDD2L/VDDQ/VDD1!)
+// 52x LPDDR5X Decoupling Capacitors (Top perimeter + 32x Backside BGA cavity 01005 + 12x bulk/HF caps on VDD2H/VDD2L/VDDQ/VDD1!)
 const ddrRails = ['VDD2_DDR_S3', 'VDD2L_0V9_DDR_S3', 'VDDQ_DDR_S0', 'VCC_1V8_S3'];
 for (let i = 0; i < 8; i++) {
   addCap({ value: i % 2 === 0 ? '1uF' : '100nF', pkg: '0201', x: -14.2 + i * 1.0, y: 32.8, subsystem: 'Memory', netP: ddrRails[i % 4] });
 }
-for (let r = 0; r < 4; r++) {
-  for (let c = 0; c < 4; c++) {
-    addCap({ value: '100nF', pkg: '01005', side: 'bot', x: -14.8 + c * 2.8, y: 19.2 + r * 3.5, subsystem: 'Memory', netP: ddrRails[(r + c) % 4] });
+for (let r = 0; r < 6; r++) {
+  for (let c = 0; c < 6; c++) {
+    addCap({ value: (r + c) % 3 === 0 ? '1uF' : '100nF', pkg: '01005', side: 'bot', x: -15.6 + c * 1.9, y: 18.4 + r * 2.4, subsystem: 'Memory', netP: ddrRails[(r + c) % 4] });
   }
 }
 for (let i = 0; i < 12; i++) {
   addCap({ value: i < 4 ? '22uF' : i < 8 ? '10uF' : '100nF', pkg: i < 8 ? '0402' : '0201', side: 'bot', x: -14.0 + i * 1.15, y: 32.4, subsystem: 'Memory', netP: ddrRails[i % 4] });
 }
 
-// 256GB eMMC 5.1 HS400 Boot Storage (Double-Sided SMT: Bottom face directly behind lower-left bay!)
+// 256GB eMMC 5.1 HS400 Boot Storage (Double-Sided SMT: Bottom face, FULL 153-BALL JEDEC MO-276!)
 addPart({
   ref: 'U302', mpn: 'KLMAG1JETD-B041', manufacturer: 'Samsung',
-  category: 'Storage', kind: 'flash', value: '256GB eMMC 5.1 HS400', pkg: '153-FBGA (11.5x13.0mm)',
+  category: 'Storage', kind: 'flash', value: '256GB eMMC 5.1 HS400 (Full 153-Ball)', pkg: 'FBGA-153 (11.5x13.0mm)',
   board: 'main', side: 'bot', x: -10.8, y: 10.0, w: 11.5, h: 13.0, t: 0.84,
   subsystem: 'Storage',
-  pins: {
-    CLK: 'EMMC_CLK_LINE', CMD: 'EMMC_CMD', D0_D7: 'EMMC_D0_D7', DS: 'EMMC_DATA_STROBE', RSTN: 'EMMC_RSTN',
-    VCC: 'VCC_3V3_S3', VCCQ: 'VCC_1V8_S3', VDDI: 'EMMC_VDDI', VSS: 'GND',
-  },
+  pins: emmcFull.pins,
 });
 // Mandatory eMMC 5.1 Series Clock 22R, HS400 DS 10K Pull-Down, CMD/RSTN/D0 10K Pull-Ups & 2.2uF VDDI Cap (CM5 Page 19!)
 addRes({ ref: 'R303', value: '22R', pkg: '0201', side: 'bot', x: -4.2, y: 12.8, subsystem: 'Storage', net1: 'EMMC_CLK_SOC', net2: 'EMMC_CLK_LINE' });
 addRes({ ref: 'R304', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 11.8, subsystem: 'Storage', net1: 'EMMC_DATA_STROBE', net2: 'GND' });
 addRes({ ref: 'R305', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 10.8, subsystem: 'Storage', net1: 'EMMC_RSTN', net2: 'VCC_1V8_S3' });
 addRes({ ref: 'R306', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 9.8,  subsystem: 'Storage', net1: 'EMMC_CMD', net2: 'VCC_1V8_S3' });
-addRes({ ref: 'R307', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 13.8, subsystem: 'Storage', net1: 'EMMC_D0_D7', net2: 'VCC_1V8_S3' });
+addRes({ ref: 'R307', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 13.8, subsystem: 'Storage', net1: 'EMMC_D0', net2: 'VCC_1V8_S3' });
 addCap({ ref: 'C301', value: '2.2uF', voltage: '6.3V', pkg: '0201', side: 'bot', x: -4.2, y: 8.6,  subsystem: 'Storage', netP: 'EMMC_VDDI' });
 addCap({ value: '4.7uF', pkg: '0402', side: 'bot', x: -4.2, y: 7.4, subsystem: 'Storage', netP: 'VCC_3V3_S3' });
 addCap({ value: '4.7uF', pkg: '0402', side: 'bot', x: -4.2, y: 6.2, subsystem: 'Storage', netP: 'VCC_1V8_S3' });
 addCap({ value: '100nF', pkg: '0201', side: 'bot', x: -3.2, y: 7.4, subsystem: 'Storage', netP: 'VCC_3V3_S3' });
 addCap({ value: '100nF', pkg: '0201', side: 'bot', x: -3.2, y: 6.2, subsystem: 'Storage', netP: 'VCC_1V8_S3' });
 
-// Fail-Safe 16MB Quad-SPI Boot NOR Flash (Winbond W25Q128JWPQ, Bot side upper bay!)
+// Fail-Safe 16MB Quad-SPI Boot NOR Flash (Winbond W25Q128JWPQ, Bot side upper bay — full 8 pins!)
 addPart({
   ref: 'U303', mpn: 'W25Q128JWPQ', manufacturer: 'Winbond',
   category: 'Storage', kind: 'ic', value: '16MB 1.8V Quad-SPI NOR Flash', pkg: 'WSON-8 (5x6mm)',
   board: 'main', side: 'bot', x: -5.8, y: 43.2, w: 5.0, h: 6.0, t: 0.68,
   subsystem: 'Storage',
-  pins: { CLK: 'FSPI_CLK', CS: 'FSPI_CS0', IO0_3: 'FSPI_D0_D3', VCC: 'VCC_1V8_S3', GND: 'GND' },
+  pins: { '1': 'FSPI_CS0', '2': 'FSPI_D1', '3': 'FSPI_D2', '4': 'GND', '5': 'FSPI_D0', '6': 'FSPI_CLK', '7': 'FSPI_D3', '8': 'VCC_1V8_S3' },
 });
 addCap({ value: '100nF', pkg: '0201', side: 'bot', x: -2.4, y: 43.2, subsystem: 'Storage', netP: 'VCC_1V8_S3' });
 addRes({ value: '10K', pkg: '0201', side: 'bot', x: -2.4, y: 42.2, subsystem: 'Storage', net1: 'FSPI_CS0', net2: 'VCC_1V8_S3' });
@@ -1131,7 +978,7 @@ addCap({ value: '100nF', pkg: '0201', side: 'bot', x: 12.4, y: 45.8, subsystem: 
 ].forEach((pa) => {
   addPart({
     ref: pa.ref, mpn: 'TAS2562YFPR', manufacturer: 'Texas Instruments',
-    category: 'AudioPA', kind: 'ic', value: `6.1W Class-D ${pa.label}`, pkg: 'DSBGA-30 (2.6x2.8mm)',
+    category: 'AudioPA', kind: 'ic', value: `6.1W Class-D ${pa.label}`, pkg: 'DSBGA-36 (2.6x2.8mm)',
     board: 'main', side: 'top', x: 14.2, y: pa.y, w: 2.6, h: 2.8, t: 0.56,
     subsystem: 'Audio',
     pins: {
@@ -1225,7 +1072,7 @@ addPart({
 addRes({ ref: 'R810', value: '1K', pkg: '0201', x: 14.3, y: 19.2, subsystem: 'Keys', net1: 'KEY_PWR_EXT', net2: 'PMIC_PWRON_L' });
 addRes({ ref: 'R811', value: '1K', pkg: '0201', x: 14.3, y: 18.0, subsystem: 'Keys', net1: 'KEY_VOL_UP_EXT', net2: 'KEY_VOL_UP_REC' });
 addRes({ ref: 'R812', value: '1K', pkg: '0201', x: 14.3, y: 16.8, subsystem: 'Keys', net1: 'KEY_VOL_DN_EXT', net2: 'KEY_VOL_DN' });
-addEsd({ ref: 'D801', mpn: 'PESD5V0S4UD', w: 2.0, h: 1.2, x: 14.8, y: 14.6, subsystem: 'Keys', pins: { I1: 'KEY_PWR_EXT', I2: 'KEY_VOL_UP_EXT', I3: 'KEY_VOL_DN_EXT', GND: 'GND' } });
+addEsd({ ref: 'D801', mpn: 'PESD5V0S4UD', pkg: 'SOT-23-6 (2.9x2.8mm)', w: 2.9, h: 2.8, t: 0.90, x: 14.1, y: 13.8, subsystem: 'Keys', pins: { '1': 'KEY_PWR_EXT', '2': 'GND', '3': 'KEY_VOL_UP_EXT', '4': 'KEY_VOL_DN_EXT', '5': 'VCC_1V8_PMU_S3', '6': 'GND' } });
 
 // ALL 8 I2C BUSES MANDATORY 2.2kOhm PULL-UP RESISTORS (I2C0 .. I2C7 -> VCC_1V8_S3)!
 for (let bus = 0; bus <= 7; bus++) {
@@ -1714,8 +1561,8 @@ addCap({ value: '10nF', pkg: '0201', x: 6.4, y: 36.8, subsystem: 'Boot', netP: '
   ['SPK_BOT_OUT_P', 'SPK_BOT_OUT_N', -43.0],
   ['SPK_TOP_OUT_P', 'SPK_TOP_OUT_N', -46.8],
 ].forEach(([pNet, nNet, yy]) => {
-  addBead({ value: '120R@100MHz 3A', pkg: '0402', side: 'bot', x: 10.2, y: yy + 0.65, subsystem: 'Audio', net1: pNet, net2: `${pNet}_EMI` });
-  addBead({ value: '120R@100MHz 3A', pkg: '0402', side: 'bot', x: 10.2, y: yy - 0.65, subsystem: 'Audio', net1: nNet, net2: `${nNet}_EMI` });
+  addBead({ value: '120R@100MHz', pkg: '0201', side: 'bot', x: 10.2, y: yy + 0.65, subsystem: 'Audio', net1: pNet, net2: `${pNet}_EMI` });
+  addBead({ value: '120R@100MHz', pkg: '0201', side: 'bot', x: 10.2, y: yy - 0.65, subsystem: 'Audio', net1: nNet, net2: `${nNet}_EMI` });
   addCap({ value: '1nF', voltage: '50V', diel: 'C0G', pkg: '0201', side: 'bot', x: 11.8, y: yy + 0.65, subsystem: 'Audio', netP: `${pNet}_EMI` });
   addCap({ value: '1nF', voltage: '50V', diel: 'C0G', pkg: '0201', side: 'bot', x: 11.8, y: yy - 0.65, subsystem: 'Audio', netP: `${nNet}_EMI` });
   addEsd({ mpn: 'PESD5V0S1BL', pkg: 'DFN1006', w: 1.0, h: 0.6, side: 'bot', x: 13.4, y: yy, subsystem: 'Audio', pins: { I1: `${pNet}_EMI`, I2: `${nNet}_EMI`, GND: 'GND' } });
@@ -1725,10 +1572,13 @@ addCap({ value: '10nF', pkg: '0201', x: 6.4, y: 36.8, subsystem: 'Boot', netP: '
   addCap({ value: '33pF', diel: 'C0G', pkg: '01005', side: 'bot', x: 11.4 + idx * 1.1, y: -40.0, subsystem: 'Audio', netP: mNet });
 });
 
-// 6. ISO-7816 Nano-SIM1 ESD Array + Pull-Ups + Decoupling (Spine Backside near J601!)
+// 6. ISO-7816 Nano-SIM1 ESD Array (Datasheet-Verified USON-14 3.5x1.4mm!) + Pull-Ups + Decoupling
 addEsd({
-  ref: 'D701', mpn: 'TPD6E05U06RVZR', side: 'bot', x: 10.6, y: -62.4, subsystem: '5G-RF',
-  pins: { I1: 'USIM1_VCC', I2: 'USIM1_CLK', I3: 'USIM1_RST', I4: 'USIM1_IO', I5: 'USIM1_DET', GND: 'GND' },
+  ref: 'D701', mpn: 'TPD6E05U06RVZR', pkg: 'USON-14 (3.5x1.4mm)', w: 3.5, h: 1.4, t: 0.50, side: 'bot', x: 10.2, y: -62.4, subsystem: '5G-RF',
+  pins: {
+    '1': 'USIM1_VCC', '2': 'USIM1_CLK', '3': 'GND', '4': 'USIM1_RST', '5': 'USIM1_IO', '6': 'USIM1_DET', '7': 'GND',
+    '8': 'GND', '9': 'USIM1_DET', '10': 'USIM1_IO', '11': 'USIM1_RST', '12': 'GND', '13': 'USIM1_CLK', '14': 'USIM1_VCC',
+  },
 });
 addRes({ value: '10K', pkg: '0201', side: 'bot', x: 12.8, y: -62.0, subsystem: '5G-RF', net1: 'USIM1_IO', net2: 'USIM1_VCC' });
 addRes({ value: '100K', pkg: '0201', side: 'bot', x: 12.8, y: -62.8, subsystem: '5G-RF', net1: 'USIM1_DET', net2: 'VCC_1V8_S3' });
@@ -1852,8 +1702,14 @@ addRoute('mezz', 'L1_TOP', 'NFC_ANT_P',      0.22, [[9.2, 12.2], [5.4, 11.4], [1
 // BUILD NET TABLE & EXPORT ALL HARDWARE ARTIFACTS
 // ============================================================================
 const nets = {};
+let totalPhysicalPads = 0;
+let mainPhysicalPads = 0;
 for (const c of components) {
-  for (const [pinName, netName] of Object.entries(c.pins)) {
+  const entries = Object.entries(c.pins);
+  totalPhysicalPads += entries.length;
+  if (c.board === 'main') mainPhysicalPads += entries.length;
+  for (const [pinName, netName] of entries) {
+    if (!netName) continue; // Physical NC / RFU / VSF / unused GPIO ball (kept on PCB pad, not a net)
     if (!nets[netName]) nets[netName] = [];
     nets[netName].push(`${c.ref}.${pinName}`);
   }
@@ -1862,33 +1718,40 @@ for (const c of components) {
 // 1. Write hardware/rk_t4_netlist.json
 const fullHardware = {
   project: 'RK T4 Smartphone Mainboard + RF Mezzanine + Optical Camera Modules',
-  revision: 'REV 2.0 (Commercial Android 14/15 Flagship Production Architecture)',
+  revision: 'REV 3.0 (Full 1:1 BGA Ballout, 12L 0.80mm 3+6+3 HDI, Controlled Impedance & Length-Matched LPDDR5X)',
   date: '2026-11-21',
   pcbStackup: {
-    layers: 10,
-    type: '10-Layer Any-Layer / 3+4+3 HDI (0.75mm Main + 0.55mm 8-Layer RF Mezzanine + 4-Layer Camera Rigid-Flex)',
-    dielectric: 'Megtron-6 / TU-872SLK Low-Loss FR4',
+    layers: 12,
+    thicknessMm: 0.80,
+    type: '12-Layer 3+6+3 (3-Step) HDI (0.80mm Main S1000-2M TG170 + 0.60mm 6-Layer RF Mezzanine CPWG)',
+    dielectric: 'Shengyi S1000-2M TG170 (Er=4.10~4.20, Df=0.018)',
+    microvia: '0.10mm laser drill / 0.20mm pad (AR=0.50:1 <= 1:1), 0.15/0.25mm buried core (AR=2.32:1)',
     impedances: {
-      singleEnded: '50 Ohm ±7% (RF Coplanar) / 40 Ohm (LPDDR5X DQ)',
-      differential: '80 Ohm (LPDDR5X CK/WCK/DQS) / 90 Ohm (USB3.1/2.0) / 100 Ohm (MIPI CSI-2, MIPI DSI-2, PCIe 2.1)',
+      singleEnded: '40 Ohm ±5 Ohm (LPDDR5X DQ/CA/DMI) / 50 Ohm ±10% (eMMC/RF CPWG)',
+      differential: '80 Ohm (LPDDR5X CK/WCK/RDQS) / 85 Ohm (PCIe 2.1) / 90 Ohm (USB3.1/2.0) / 100 Ohm (MIPI CSI-2/DSI-2)',
     },
     layerTable: [
-      { layer: 'L1_TOP', role: 'Component Mount + 50Ω RF + MIPI CSI-2 / LPDDR5X', copperUm: 18 },
-      { layer: 'L2_GND', role: 'Solid High-Speed Reference Ground Plane', copperUm: 18 },
-      { layer: 'L3_HS',  role: 'High-Speed LPDDR5X / MIPI DSI-2 / eMMC 5.1', copperUm: 15 },
-      { layer: 'L4_PWR', role: 'Heavy Copper Core Power Plane (VBAT / VSYS / CPU / GPU)', copperUm: 35 },
-      { layer: 'L5_SIG', role: 'Control Buses (I2C0..7, SPI0..4, OIS Aux SPI, UART, I2S/PCM, PDM)', copperUm: 15 },
-      { layer: 'L6_SIG', role: 'Control & Sensor Hub Routing', copperUm: 15 },
-      { layer: 'L7_PWR', role: 'IO Power Splits (1.8V / 3.3V / DDR2H / OLED / CAM)', copperUm: 35 },
-      { layer: 'L8_HS',  role: 'USB 3.1 SuperSpeed + PCIe 2.1 Differential Lanes', copperUm: 15 },
-      { layer: 'L9_GND', role: 'Solid Reference Ground Plane + Shield Stitching', copperUm: 18 },
-      { layer: 'L10_BOT',role: 'Backside 01005 BGA Decoupling + Display/eMMC/NOR/Interposer Pads', copperUm: 18 },
+      { layer: 'F.Cu',    role: 'L1 Top Component Pads + Outer BGA Escape + 50Ω RF', copperUm: 35 },
+      { layer: 'In1.Cu',  role: 'L2 Solid High-Speed Reference GND Plane #1 (Microvia L1-L2)', copperUm: 18 },
+      { layer: 'In2.Cu',  role: 'L3 High-Speed Horizontal (LPDDR5X CH0_A/B + MIPI + USB3)', copperUm: 18 },
+      { layer: 'In3.Cu',  role: 'L4 High-Speed Vertical (LPDDR5X CH1_C/D + PCIe + eMMC)', copperUm: 18 },
+      { layer: 'In4.Cu',  role: 'L5 Solid High-Speed Reference GND Plane #2 (Shield)', copperUm: 18 },
+      { layer: 'In5.Cu',  role: 'L6 Inner Signal Horizontal (LPDDR5X + Core Buses)', copperUm: 18 },
+      { layer: 'In6.Cu',  role: 'L7 Inner Signal Vertical (Core Buses + Spine)', copperUm: 18 },
+      { layer: 'In7.Cu',  role: 'L8 Power Plane (VSYS_3V87 + Split Core/DDR/1V8 Rails)', copperUm: 18 },
+      { layer: 'In8.Cu',  role: 'L9 Inner Signal Horizontal (Bottom BGA / eMMC / Power)', copperUm: 18 },
+      { layer: 'In9.Cu',  role: 'L10 Inner Signal Vertical (Bottom BGA / Spine / Control)', copperUm: 18 },
+      { layer: 'In10.Cu', role: 'L11 Solid High-Speed Reference GND Plane #3 (Microvia L12-L11)', copperUm: 18 },
+      { layer: 'B.Cu',    role: 'L12 Bottom Component Pads (eMMC 153-FBGA + Cavity 01005 MLCCs)', copperUm: 35 },
     ],
   },
   summary: {
     totalComponents: components.length,
     uniqueMPNs: new Set(components.map((c) => c.mpn)).size,
     totalNets: Object.keys(nets).length,
+    totalPhysicalPads,
+    mainPhysicalPads,
+    bgaFullBallCounts: { U101_RK3588S2: rkFull.stats.total, U301_LPDDR5X: lpddrFull.stats.total, U302_eMMC51: emmcFull.stats.total },
     totalRoutes: routes.length,
     mainBoardParts: components.filter((c) => c.board === 'main').length,
     mezzBoardParts: components.filter((c) => c.board === 'mezz').length,
