@@ -1,0 +1,140 @@
+name: RK T4 Hardware CI (ERC + KiCad 9 Native DRC + 3D CAD Audit)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      reroute:
+        description: 'Re-run full 14L HDI & 8L RF routing from scratch inside KiCad 9 container'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+permissions:
+  contents: read
+
+jobs:
+  erc-and-timing-audit:
+    name: 1. Netlist ERC & High-Speed Timing Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Run Netlist Verification & 111-Check ERC Suite
+        run: |
+          node hardware/verify_erc.mjs
+      - name: Audit High-Speed Timing Closure Report
+        run: |
+          node -e '
+            const fs = require("fs");
+            const r = JSON.parse(fs.readFileSync("hardware/length_match_report.json", "utf8"));
+            let md = "### High-Speed Timing Closure (Rev 4.0)\n\n";
+            md += "| Group | Type | Routed | Min (mm) | Max (mm) | Skew (mm) | Skew (ps) |\n|---|---|---:|---:|---:|---:|---:|\n";
+            let worstBus = 0, worstPair = 0;
+            for (const g of r.groups) {
+              if (g.type.startsWith("LPDDR5X") || g.type === "eMMC-5.1") {
+                worstBus = Math.max(worstBus, g.afterSkewPs);
+                md += `| ${g.group} | ${g.type} | ${g.routedCount}/${g.netCount} | ${g.afterMinMm} | ${g.afterMaxMm} | ${g.afterSkewMm} | **${g.afterSkewPs}** |\n`;
+              } else {
+                worstPair = Math.max(worstPair, g.afterSkewPs);
+              }
+            }
+            md += `\n**Worst LPDDR5X/eMMC Bus Skew:** ${worstBus.toFixed(2)} ps | **Worst Diff-Pair Intra-Pair Skew:** ${worstPair.toFixed(2)} ps\n`;
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, md);
+            console.log(md);
+          '
+
+  kicad9-native-drc-and-mfg:
+    name: 2. KiCad 9 Native DRC & Gerber/Drill Export (14L HDI + 8L RF)
+    runs-on: ubuntu-latest
+    container:
+      image: kicad/kicad:9.0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Node.js 24 LTS inside KiCad 9 Container
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq curl ca-certificates gnupg
+          curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
+          apt-get install -y -qq nodejs
+          node -v
+          kicad-cli --version
+      - name: Optional Full From-Scratch Re-Routing (14L HDI + 8L RF)
+        if: ${{ github.event.inputs.reroute == 'true' }}
+        run: |
+          node hardware/route_hdi_rev4.mjs
+          node hardware/route_mezzanine_rf.mjs
+      - name: Strict Native KiCad 9 DRC & Manufacturing Export (Mainboard 14L + Mezzanine 8L)
+        run: |
+          node hardware/export_mfg.mjs
+          node -e '
+            const fs = require("fs");
+            const m = JSON.parse(fs.readFileSync("hardware/kicad_drc_report.json", "utf8"));
+            const z = JSON.parse(fs.readFileSync("hardware/kicad_mezz_drc_report.json", "utf8"));
+            const summary = [
+              "### Official KiCad 9 Native DRC Results (`--severity-all --all-track-errors`)",
+              `- **Mainboard (14L 1.20mm 3+8+3 Staggered HDI):** violations=${m.violations.length}, unconnected=${m.unconnected_items.length}`,
+              `- **Mezzanine (8L 0.80mm JLC08081H-1080A RF):** violations=${z.violations.length}, unconnected=${z.unconnected_items.length}`,
+            ].join("\n") + "\n";
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
+            console.log(summary);
+            if (m.violations.length || m.unconnected_items.length || z.violations.length || z.unconnected_items.length) {
+              process.exit(1);
+            }
+          '
+      - name: Upload Verified Manufacturing Package & DRC Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: rk-t4-rev4-manufacturing-package
+          path: |
+            hardware/kicad_drc_report.json
+            hardware/kicad_mezz_drc_report.json
+            hardware/length_match_report.json
+            hardware/mezzanine_rf_report.json
+            hardware/mfg/rk_t4_mainboard_gerbers.zip
+            hardware/mfg/rk_t4_mezzanine_gerbers.zip
+            hardware/mfg/rk_t4_bom_jlcpcb.csv
+            hardware/mfg/rk_t4_cpl_jlcpcb.csv
+            hardware/mfg/rk_t4_mezz_bom_jlcpcb.csv
+            hardware/mfg/rk_t4_mezz_cpl_jlcpcb.csv
+
+  cad-3d-interference-audit:
+    name: 3. 3D CAD Build & Zero-Interference Box3 Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Dependencies & Build Single-File 3D Viewer
+        run: |
+          npm ci
+          npm run build
+      - name: Run Headless Chromium 3D Box3 Interference & Anti-Squash Audit
+        run: |
+          CHROME_BIN=$(which chromium-browser || which chromium || which google-chrome || true)
+          if [ -z "$CHROME_BIN" ]; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq chromium-browser
+          fi
+          node hardware/check_3d_intersections.mjs "file://${PWD}/index.html"
+          node -e '
+            const fs = require("fs");
+            const r = JSON.parse(fs.readFileSync("hardware/3d_interference_report.json", "utf8"));
+            const md = [
+              "### 3D CAD Box3 Physical Clearance Audit",
+              `- **Body Thickness:** ${r.bodyThicknessMm} mm (w/ Camera: ${r.maxThicknessWithCameraMm} mm)`,
+              `- **Meshes Checked:** ${r.totalSolidMeshes} (0 excluded)`,
+              `- **Physical Interferences (>5 µm):** **${r.totalInterferences}**`,
+              `- **6000mAh Si-C Battery Density:** ${r.physicalChecks.batteryImpliedWhPerL} Wh/L (${r.physicalChecks.batteryRealisticSiC ? "PASS <= 860 Wh/L" : "FAIL"})`,
+            ].join("\n") + "\n";
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, md);
+            if (r.totalInterferences !== 0 || !r.physicalChecks.batteryRealisticSiC) process.exit(1);
+          '

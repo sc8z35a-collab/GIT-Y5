@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 /**
- * RK T4 Flagship — Phase 4A: 8-Layer 0.600 mm 5G RF / Wi-Fi 6E / GNSS / NFC Mezzanine PCB Generator
+ * RK T4 Flagship — Rev 4.0: 8-Layer 0.800 mm JLCPCB JLC08081H-1080A 5G RF / Wi-Fi 6E / GNSS / NFC Mezzanine PCB
  *
- * ZERO SHORTCUTS — Real Microwave/RF Hardware Implementation:
+ * ZERO SHORTCUTS — Real Microwave/RF Hardware Implementation (100% JLCPCB Factory Spec Match):
  *  - All 140 Mezzanine components (461 physical pads, 100 electrical nets) from hardware/rk_t4_netlist.json
  *  - Exact 1:1 4-bar J901 BGA Interposer landing matching Mainboard F.Cu and 3D sandwich assembly
- *  - Exact 8-Layer 0.600 mm RF Stackup (1:1 with generate_board.mjs & motherboardSystem.js):
- *      L1 F.Cu   (35um):  50.10 ohm CPWG RF Waveguides (W=0.106mm, G=0.150mm) + Coplanar GND Pour + 0.80mm Via Fences
- *      L2 In1.Cu (15um):  Solid Unbroken RF Reference GND Plane (h=0.090mm, Er=4.05)
- *      L3 In2.Cu (15um):  High-Speed Digital H (PCIe Gen3 85 ohm, RFFE, SPMI, PCM, SIM)
- *      L4 In3.Cu (15um):  High-Speed Digital V
- *      L5 In4.Cu (15um):  Power / RF Control H (VSYS, VPA_ET, PMX65 rails, I2C/SPI/UART)
- *      L6 In5.Cu (15um):  Power / RF Control V
- *      L7 In6.Cu (15um):  Solid Shield GND Plane #2 (shielding bottom PMX65/QET6100/QDM5872/J901)
- *      L8 B.Cu   (35um):  Bottom Components + J901 Interposer + Coplanar GND Pour
- *  - JLCPCB Standard 8-Layer ENIG + POFV through-hole vias (0.15/0.25 mm, AR = 4.0:1 <= 16:1)
+ *  - Exact JLCPCB JLC08081H-1080A 8-Layer 0.800 mm RF Stackup (1 oz outer / 0.5 oz inner, 1080*1 prepreg):
+ *      L1 F.Cu   (35.0um): 49.49 ohm CPWG RF Waveguides (W=0.090mm, G=0.150mm) + Coplanar GND Pour + 0.80mm Via Fences
+ *      L2 In1.Cu (15.2um): Solid Unbroken RF Reference GND Plane (1080*1 h=0.0764mm, Er=3.91)
+ *      L3 In2.Cu (15.2um): High-Speed Digital H (PCIe Gen3 86.2 ohm diff, RFFE, SPMI, PCM, SIM)
+ *      L4 In3.Cu (15.2um): High-Speed Digital V
+ *      L5 In4.Cu (15.2um): Power / RF Control H (VSYS, VPA_ET, PMX65 rails, I2C/SPI/UART)
+ *      L6 In5.Cu (15.2um): Power / RF Control V
+ *      L7 In6.Cu (15.2um): Solid Shield GND Plane #2 (shielding bottom PMX65/QET6100/QDM5872/J901)
+ *      L8 B.Cu   (35.0um): Bottom Components + J901 Interposer + Coplanar GND Pour
+ *  - JLCPCB Standard 8-Layer 0.80 mm ENIG + Epoxy POFV through-hole vias (0.15/0.25 mm, AR = 5.33:1 <= 16:1)
  *  - Native KiCad 9.0.8 ZONE_FILLER plane pours & strict native kicad-cli pcb drc --severity-all gate!
  */
 
@@ -34,29 +34,29 @@ const netlist = JSON.parse(fs.readFileSync(NETLIST_PATH, 'utf8'));
 const mezzComps = netlist.components.filter((c) => c.board === 'mezz');
 
 // ============================================================================
-// 1. EXACT 8-LAYER 0.600 mm RF STACKUP & CONTROLLED IMPEDANCE RULES
+// 1. EXACT JLCPCB JLC08081H-1080A 8-LAYER 0.800 mm RF STACKUP & IMPEDANCE RULES
 // ============================================================================
 const RULES = {
-  minTrack: 0.090,
+  minTrack: 0.090,       // >= 3.5 mil (0.0889 mm) JLCPCB impedance control minimum
   minClearance: 0.090,
-  rfWidth: 0.106,        // 50.10 ohm CPWG on F.Cu (h=0.090mm, Er=4.05, t=35um, G=0.150mm)
+  rfWidth: 0.090,        // 49.49 ohm CPWG on F.Cu (JLC 1080*1 h=0.0764mm, Er=3.91, t=35um, G=0.150mm)
   rfGap: 0.150,          // Coplanar GND gap G = 0.150 mm
-  pcieWidth: 0.095,      // 85 ohm diff stripline on In2..In5
+  pcieWidth: 0.115,      // 86.2 ohm diff stripline on In2/In5 (W=0.115mm, S=0.135mm on 0.25mm grid)
   pwrWidth: 0.140,       // Power distribution on 0.25mm grid (0.25 - 0.14 = 0.110 >= 0.100mm clearance!)
   sigWidth: 0.100,       // Digital control (RFFE/SPMI/PCM/SIM/I2C/SPI/UART)
-  viaDia: 0.250,         // JLCPCB Standard 8L POFV through-hole via (AR = 0.60/0.15 = 4.0:1)
+  viaDia: 0.250,         // JLCPCB Standard 8L 0.8mm Epoxy POFV through-hole via (AR = 0.80/0.15 = 5.33:1)
   viaDrill: 0.150,
   holeToHole: 0.160,
   holeClearance: 0.120,
   copperEdgeClearance: 0.250,
   fenceSpacing: 0.800,   // lambda/35 at 6 GHz (Wi-Fi 6E / 5G n77/n79)
-  fenceOffset: 0.430,    // Normal offset from RF centerline: 0.053 + 0.150 + 0.125 + 0.102 guard
+  fenceOffset: 0.430,    // Normal offset from RF centerline: 0.045 + 0.150 + 0.125 + 0.110 guard
 };
 
 const NETCLASS_SPECS = {
   Default:       { width: 0.100, clearance: 0.095, viaDia: 0.25, viaDrill: 0.15 },
-  RF_CPWG_50:    { width: 0.106, clearance: 0.150, viaDia: 0.25, viaDrill: 0.15 },
-  PCIE_DIFF_85:  { width: 0.095, clearance: 0.100, viaDia: 0.25, viaDrill: 0.15, diffWidth: 0.095, diffGap: 0.105 },
+  RF_CPWG_50:    { width: 0.090, clearance: 0.150, viaDia: 0.25, viaDrill: 0.15 },
+  PCIE_DIFF_85:  { width: 0.115, clearance: 0.100, viaDia: 0.25, viaDrill: 0.15, diffWidth: 0.115, diffGap: 0.135 },
   POWER_RF:      { width: 0.140, clearance: 0.100, viaDia: 0.25, viaDrill: 0.15 },
   GND:           { width: 0.140, clearance: 0.100, viaDia: 0.25, viaDrill: 0.15 },
 };
@@ -1388,11 +1388,11 @@ fs.writeFileSync(PRO_OUT, JSON.stringify(mezzPro, null, 2));
 const out = [];
 out.push(`(kicad_pcb`);
 out.push(`  (version 20241229)`);
-out.push(`  (generator "rk_t4_mezzanine_rf_rev3")`);
-out.push(`  (generator_version "3.0")`);
-out.push(`  (general (thickness 0.600) (legacy_teardrops no))`);
+out.push(`  (generator "rk_t4_mezzanine_rf_rev4")`);
+out.push(`  (generator_version "4.0")`);
+out.push(`  (general (thickness 0.800) (legacy_teardrops no))`);
 out.push(`  (paper "A4")`);
-out.push(`  (title_block (title "RK T4 8-Layer 5G NR / Wi-Fi 6E / GNSS / NFC RF Mezzanine PCB (Rev 3.0)") (date "2026-11-21") (rev "3.0") (company "RK Hardware Engineering"))`);
+out.push(`  (title_block (title "RK T4 8-Layer 0.80mm JLC08081H-1080A 5G NR / Wi-Fi 6E / GNSS / NFC RF Mezzanine PCB (Rev 4.0)") (date "2026-11-21") (rev "4.0") (company "RK Hardware Engineering"))`);
 out.push(`  (layers`);
 out.push(`    (0 "F.Cu" signal)`);
 out.push(`    (4 "In1.Cu" power)`);
@@ -1414,21 +1414,21 @@ out.push(`    (stackup`);
 out.push(`      (layer "F.SilkS" (type "Top Silk Screen"))`);
 out.push(`      (layer "F.Paste" (type "Top Solder Paste"))`);
 out.push(`      (layer "F.Mask" (type "Top Solder Mask") (thickness 0.015))`);
-out.push(`      (layer "F.Cu" (type "copper") (thickness 0.035))`);
-out.push(`      (layer "dielectric 1" (type "prepreg") (thickness 0.090) (material "FR4-RF-2116") (epsilon_r 4.05) (loss_tangent 0.014))`);
-out.push(`      (layer "In1.Cu" (type "copper") (thickness 0.015))`);
-out.push(`      (layer "dielectric 2" (type "core") (thickness 0.046) (material "FR4-RF-Core") (epsilon_r 4.05) (loss_tangent 0.014))`);
-out.push(`      (layer "In2.Cu" (type "copper") (thickness 0.015))`);
-out.push(`      (layer "dielectric 3" (type "prepreg") (thickness 0.046) (material "FR4-RF-1080") (epsilon_r 4.05) (loss_tangent 0.014))`);
-out.push(`      (layer "In3.Cu" (type "copper") (thickness 0.015))`);
-out.push(`      (layer "dielectric 4" (type "core") (thickness 0.046) (material "FR4-RF-Core") (epsilon_r 4.05) (loss_tangent 0.014))`);
-out.push(`      (layer "In4.Cu" (type "copper") (thickness 0.015))`);
-out.push(`      (layer "dielectric 5" (type "prepreg") (thickness 0.046) (material "FR4-RF-1080") (epsilon_r 4.05) (loss_tangent 0.014))`);
-out.push(`      (layer "In5.Cu" (type "copper") (thickness 0.015))`);
-out.push(`      (layer "dielectric 6" (type "core") (thickness 0.046) (material "FR4-RF-Core") (epsilon_r 4.05) (loss_tangent 0.014))`);
-out.push(`      (layer "In6.Cu" (type "copper") (thickness 0.015))`);
-out.push(`      (layer "dielectric 7" (type "prepreg") (thickness 0.090) (material "FR4-RF-2116") (epsilon_r 4.05) (loss_tangent 0.014))`);
-out.push(`      (layer "B.Cu" (type "copper") (thickness 0.035))`);
+out.push(`      (layer "F.Cu" (type "copper") (thickness 0.0350))`);
+out.push(`      (layer "dielectric 1" (type "prepreg") (thickness 0.0764) (material "JLC-1080*1") (epsilon_r 3.91) (loss_tangent 0.015))`);
+out.push(`      (layer "In1.Cu" (type "copper") (thickness 0.0152))`);
+out.push(`      (layer "dielectric 2" (type "core") (thickness 0.1000) (material "FR4-TG155-Core") (epsilon_r 4.60) (loss_tangent 0.016))`);
+out.push(`      (layer "In2.Cu" (type "copper") (thickness 0.0152))`);
+out.push(`      (layer "dielectric 3" (type "prepreg") (thickness 0.0930) (material "JLC-1080*1") (epsilon_r 3.91) (loss_tangent 0.015))`);
+out.push(`      (layer "In3.Cu" (type "copper") (thickness 0.0152))`);
+out.push(`      (layer "dielectric 4" (type "core") (thickness 0.1000) (material "FR4-TG155-Core") (epsilon_r 4.60) (loss_tangent 0.016))`);
+out.push(`      (layer "In4.Cu" (type "copper") (thickness 0.0152))`);
+out.push(`      (layer "dielectric 5" (type "prepreg") (thickness 0.0930) (material "JLC-1080*1") (epsilon_r 3.91) (loss_tangent 0.015))`);
+out.push(`      (layer "In5.Cu" (type "copper") (thickness 0.0152))`);
+out.push(`      (layer "dielectric 6" (type "core") (thickness 0.1000) (material "FR4-TG155-Core") (epsilon_r 4.60) (loss_tangent 0.016))`);
+out.push(`      (layer "In6.Cu" (type "copper") (thickness 0.0152))`);
+out.push(`      (layer "dielectric 7" (type "prepreg") (thickness 0.0764) (material "JLC-1080*1") (epsilon_r 3.91) (loss_tangent 0.015))`);
+out.push(`      (layer "B.Cu" (type "copper") (thickness 0.0350))`);
 out.push(`      (layer "B.Mask" (type "Bottom Solder Mask") (thickness 0.015))`);
 out.push(`      (layer "B.Paste" (type "Bottom Solder Paste"))`);
 out.push(`      (layer "B.SilkS" (type "Bottom Silk Screen"))`);
@@ -1501,17 +1501,31 @@ zf.Fill(b.Zones())
 pcbnew.SaveBoard(sys.argv[1], b)
 print("Filled", len(b.Zones()), "GND/CPWG zones natively via pcbnew.ZONE_FILLER")
 `;
-const env = {
-  ...process.env,
-  PYTHONPATH: '/home/antigravity/.local/kicad-root/usr/lib/python3/dist-packages',
-  LD_LIBRARY_PATH: '/home/antigravity/.local/kicad-root/usr/lib/x86_64-linux-gnu:/home/antigravity/.local/kicad-root/usr/lib/x86_64-linux-gnu/kicad:/home/antigravity/.local/kicad-root/lib/x86_64-linux-gnu:/home/antigravity/.local/kicad-root/usr/lib',
-};
+const kicadRoot = '/home/antigravity/.local/kicad-root';
+const env = fs.existsSync(kicadRoot)
+  ? {
+      ...process.env,
+      PYTHONPATH: `${kicadRoot}/usr/lib/python3/dist-packages`,
+      LD_LIBRARY_PATH: `${kicadRoot}/usr/lib/x86_64-linux-gnu:${kicadRoot}/usr/lib/x86_64-linux-gnu/kicad:${kicadRoot}/lib/x86_64-linux-gnu:${kicadRoot}/usr/lib:${process.env.LD_LIBRARY_PATH || ''}`,
+    }
+  : { ...process.env };
 console.log(execFileSync('python3', ['-c', pyFill, PCB_OUT], { env, encoding: 'utf8' }).trim());
 
 const rfSummary = {
-  board: 'RK T4 8-Layer 5G NR / Wi-Fi 6E / GNSS / NFC RF Mezzanine (Rev 3.0)',
-  stackup: { layers: 8, thicknessMm: 0.600, er: 4.05, cpwgHeightMm: 0.090, outerCopperUm: 35, innerCopperUm: 15, viaSpec: '0.15/0.25mm POFV (AR 4.0:1)' },
-  cpwgSpec: { z0Ohm: 50.10, widthMm: 0.106, coplanarGapMm: 0.150, erEff: 2.960, tpdPsPerMm: 5.736, fenceSpacingMm: 0.800 },
+  board: 'RK T4 8-Layer 0.80mm JLC08081H-1080A 5G NR / Wi-Fi 6E / GNSS / NFC RF Mezzanine (Rev 4.0)',
+  stackup: {
+    code: 'JLC08081H-1080A',
+    layers: 8,
+    thicknessMm: 0.800,
+    erPrepreg1080: 3.91,
+    erCore: 4.60,
+    cpwgHeightMm: 0.0764,
+    outerCopperUm: 35.0,
+    innerCopperUm: 15.2,
+    viaSpec: '0.15/0.25mm Epoxy POFV (AR 5.33:1)',
+  },
+  cpwgSpec: { z0Ohm: 49.49, widthMm: 0.090, coplanarGapMm: 0.150, erEff: 3.004, tpdPsPerMm: 5.781, fenceSpacingMm: 0.800 },
+  pcieSpec: { zDiffOhm: 86.2, widthMm: 0.115, gapMm: 0.135, layers: ['In2.Cu', 'In5.Cu'] },
   counts: {
     footprints: footprints.length,
     pads: allPads.length,

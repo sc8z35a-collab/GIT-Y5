@@ -1,5 +1,5 @@
 Drill report for rk_t4_mezzanine.kicad_pcb
-Created on 2026-11-22T01:38:21+0000
+Created on 2026-11-22T07:25:54+0000
 
 Copper Layer Stackup:
     =============================================================
@@ -16,9 +16,9 @@ Copper Layer Stackup:
 Drill file 'rk_t4_mezzanine.drl' contains
     plated through holes:
     =============================================================
-    T1  0.150mm  0.0059"  (712 holes)
+    T1  0.150mm  0.0059"  (706 holes)
 
-    Total plated holes count 712
+    Total plated holes count 706
 
 
 Not plated through holes are merged with plated holes

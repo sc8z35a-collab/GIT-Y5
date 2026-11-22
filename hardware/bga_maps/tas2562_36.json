@@ -1,0 +1,54 @@
+{
+  "part": "TAS2562YFPR",
+  "package": "DSBGA-36 (YFP0036, 2.41x2.43mm, 0.40mm pitch)",
+  "body_w": 2.41,
+  "body_h": 2.43,
+  "pitch": 0.4,
+  "ball_dia": 0.25,
+  "pad_dia": 0.22,
+  "ball_count": 36,
+  "source": "Texas Instruments TAS2562 Datasheet SLASEI7A (Rev. A, Dec 2018), Section 5 Pin Configuration (Pages 3-4)",
+  "balls": [
+    { "ball": "A1", "name": "SDZ",    "row": "A", "col": 1, "x": -1.0, "y": -1.0 },
+    { "ball": "A2", "name": "SBCLK",  "row": "A", "col": 2, "x": -0.6, "y": -1.0 },
+    { "ball": "A3", "name": "FSYNC",  "row": "A", "col": 3, "x": -0.2, "y": -1.0 },
+    { "ball": "A4", "name": "SCL",    "row": "A", "col": 4, "x":  0.2, "y": -1.0 },
+    { "ball": "A5", "name": "SDA",    "row": "A", "col": 5, "x":  0.6, "y": -1.0 },
+    { "ball": "A6", "name": "DREG",   "row": "A", "col": 6, "x":  1.0, "y": -1.0 },
+
+    { "ball": "B1", "name": "SDOUT",  "row": "B", "col": 1, "x": -1.0, "y": -0.6 },
+    { "ball": "B2", "name": "SDIN",   "row": "B", "col": 2, "x": -0.6, "y": -0.6 },
+    { "ball": "B3", "name": "AD1",    "row": "B", "col": 3, "x": -0.2, "y": -0.6 },
+    { "ball": "B4", "name": "AD0",    "row": "B", "col": 4, "x":  0.2, "y": -0.6 },
+    { "ball": "B5", "name": "IRQZ",   "row": "B", "col": 5, "x":  0.6, "y": -0.6 },
+    { "ball": "B6", "name": "VDD",    "row": "B", "col": 6, "x":  1.0, "y": -0.6 },
+
+    { "ball": "C1", "name": "VBAT_1", "row": "C", "col": 1, "x": -1.0, "y": -0.2 },
+    { "ball": "C2", "name": "VBAT_2", "row": "C", "col": 2, "x": -0.6, "y": -0.2 },
+    { "ball": "C3", "name": "VSNS_N", "row": "C", "col": 3, "x": -0.2, "y": -0.2 },
+    { "ball": "C4", "name": "GREG",   "row": "C", "col": 4, "x":  0.2, "y": -0.2 },
+    { "ball": "C5", "name": "VSNS_P", "row": "C", "col": 5, "x":  0.6, "y": -0.2 },
+    { "ball": "C6", "name": "GPIO",   "row": "C", "col": 6, "x":  1.0, "y": -0.2 },
+
+    { "ball": "D1", "name": "BGND_1", "row": "D", "col": 1, "x": -1.0, "y":  0.2 },
+    { "ball": "D2", "name": "BGND_2", "row": "D", "col": 2, "x": -0.6, "y":  0.2 },
+    { "ball": "D3", "name": "BGND_3", "row": "D", "col": 3, "x": -0.2, "y":  0.2 },
+    { "ball": "D4", "name": "GND",    "row": "D", "col": 4, "x":  0.2, "y":  0.2 },
+    { "ball": "D5", "name": "PGND_1", "row": "D", "col": 5, "x":  0.6, "y":  0.2 },
+    { "ball": "D6", "name": "PGND_2", "row": "D", "col": 6, "x":  1.0, "y":  0.2 },
+
+    { "ball": "E1", "name": "SW_1",   "row": "E", "col": 1, "x": -1.0, "y":  0.6 },
+    { "ball": "E2", "name": "SW_2",   "row": "E", "col": 2, "x": -0.6, "y":  0.6 },
+    { "ball": "E3", "name": "SW_3",   "row": "E", "col": 3, "x": -0.2, "y":  0.6 },
+    { "ball": "E4", "name": "GNDD",   "row": "E", "col": 4, "x":  0.2, "y":  0.6 },
+    { "ball": "E5", "name": "OUT_P",  "row": "E", "col": 5, "x":  0.6, "y":  0.6 },
+    { "ball": "E6", "name": "OUT_N",  "row": "E", "col": 6, "x":  1.0, "y":  0.6 },
+
+    { "ball": "F1", "name": "VBST_1", "row": "F", "col": 1, "x": -1.0, "y":  1.0 },
+    { "ball": "F2", "name": "VBST_2", "row": "F", "col": 2, "x": -0.6, "y":  1.0 },
+    { "ball": "F3", "name": "VBST_3", "row": "F", "col": 3, "x": -0.2, "y":  1.0 },
+    { "ball": "F4", "name": "PVDD_1", "row": "F", "col": 4, "x":  0.2, "y":  1.0 },
+    { "ball": "F5", "name": "PVDD_2", "row": "F", "col": 5, "x":  0.6, "y":  1.0 },
+    { "ball": "F6", "name": "PVDD_3", "row": "F", "col": 6, "x":  1.0, "y":  1.0 }
+  ]
+}

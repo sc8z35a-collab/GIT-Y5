@@ -101,7 +101,7 @@ export function buildFrameSystem(textures) {
     )
   );
   const railMesh = new THREE.Mesh(
-    extrudePlate(railShape, 0.788, {
+    extrudePlate(railShape, 0.852, {
       bevelSize: 0.036,
       bevelThickness: 0.036,
       bevelSegments: 5,
@@ -109,11 +109,12 @@ export function buildFrameSystem(textures) {
     }),
     matTitanium
   );
+  railMesh.position.z = -0.032; // World Z: [-0.458 .. +0.394] flush between front glass & Rev 4.0 rear ceramic!
   chassisGroup.add(railMesh);
 
   // 6 Insulated PEEK RF Antenna Split Bands inlaid cleanly across the Titanium perimeter
-  const sideBandGeo = new THREE.BoxGeometry(PHONE.RAIL_W + 0.018, 0.11, 0.74);
-  const topBotBandGeo = new THREE.BoxGeometry(0.11, PHONE.RAIL_W + 0.018, 0.74);
+  const sideBandGeo = new THREE.BoxGeometry(PHONE.RAIL_W + 0.018, 0.11, 0.80);
+  const topBotBandGeo = new THREE.BoxGeometry(0.11, PHONE.RAIL_W + 0.018, 0.80);
   [
     [-PHONE.W / 2 + PHONE.RAIL_W / 2,  6.40, sideBandGeo],
     [ PHONE.W / 2 - PHONE.RAIL_W / 2,  6.40, sideBandGeo],
@@ -123,7 +124,7 @@ export function buildFrameSystem(textures) {
     [ 2.05, -PHONE.H / 2 + PHONE.RAIL_W / 2, topBotBandGeo],
   ].forEach(([bx, by, geo]) => {
     const band = new THREE.Mesh(geo, matPeekAntenna);
-    band.position.set(bx, by, 0);
+    band.position.set(bx, by, -0.032);
     chassisGroup.add(band);
   });
 

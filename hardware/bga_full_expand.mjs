@@ -20,6 +20,7 @@ const MAP_DIR = path.join(__dirname, 'bga_maps');
 export const RK3588S2_MAP = JSON.parse(fs.readFileSync(path.join(MAP_DIR, 'rk3588s2_1253.json'), 'utf8'));
 export const LPDDR5X_MAP  = JSON.parse(fs.readFileSync(path.join(MAP_DIR, 'lpddr5x_496.json'), 'utf8'));
 export const EMMC51_MAP   = JSON.parse(fs.readFileSync(path.join(MAP_DIR, 'emmc51_153.json'), 'utf8'));
+export const TAS2562_MAP  = JSON.parse(fs.readFileSync(path.join(MAP_DIR, 'tas2562_36.json'), 'utf8'));
 
 /**
  * Canonical LPDDR5X net name for a 4-channel x64 (CH0_A, CH0_B, CH1_C, CH1_D) bus.
@@ -392,3 +393,63 @@ export function buildEmmc51FullPins() {
   }
   return { pins, stats };
 }
+
+/**
+ * Build exact 36-ball pin map for U802 / U803 (TI TAS2562YFPR DSBGA-36 SmartPA, SLASEI7A).
+ * Maps all 36 physical balls (A1..F6), including distinct I2C address straps (0x4C / 0x4D),
+ * DREG / GREG / PVDD-VBST internal boost rails, IV-sense (VSNS_P/N), and all 7 GND balls.
+ */
+export function buildTas2562FullPins({ ref, outP, outN, i2cAddrBit0 = false }) {
+  const pins = {};
+  const stats = { total: 0, gnd: 0, power: 0, signal: 0, nc: 0 };
+  const map = {
+    SDZ:    'VCC_1V8_S0', // Active-high hardware enable (controlled via I2C software shutdown)
+    SBCLK:  'I2S1_PA_SCLK',
+    FSYNC:  'I2S1_PA_LRCK',
+    SCL:    'I2C7_SCL',
+    SDA:    'I2C7_SDA',
+    DREG:   `TAS_DREG_${ref}`,
+    SDOUT:  'I2S1_PA_SDI',
+    SDIN:   'I2S1_PA_SDO',
+    AD1:    'GND',
+    AD0:    i2cAddrBit0 ? 'VCC_1V8_S0' : 'GND',
+    IRQZ:   '', // Optional open-drain IRQ (internal pull-up, polled over I2C7)
+    VDD:    'VCC_1V8_S0',
+    VBAT_1: 'VSYS_3V87',
+    VBAT_2: 'VSYS_3V87',
+    VSNS_N: outN,
+    GREG:   `TAS_GREG_${ref}`,
+    VSNS_P: outP,
+    GPIO:   '', // Unused general purpose I/O (per datasheet: no connect if not used)
+    BGND_1: 'GND',
+    BGND_2: 'GND',
+    BGND_3: 'GND',
+    GND:    'GND',
+    PGND_1: 'GND',
+    PGND_2: 'GND',
+    GNDD:   'GND',
+    SW_1:   `SW_${ref}`,
+    SW_2:   `SW_${ref}`,
+    SW_3:   `SW_${ref}`,
+    OUT_P:  outP,
+    OUT_N:  outN,
+    VBST_1: `TAS_PVDD_${ref}`,
+    VBST_2: `TAS_PVDD_${ref}`,
+    VBST_3: `TAS_PVDD_${ref}`,
+    PVDD_1: `TAS_PVDD_${ref}`,
+    PVDD_2: `TAS_PVDD_${ref}`,
+    PVDD_3: `TAS_PVDD_${ref}`,
+  };
+  for (const b of TAS2562_MAP.balls) {
+    stats.total++;
+    const net = map[b.name];
+    if (net === undefined) throw new Error(`Unmapped TAS2562 ball: ${b.ball} (${b.name})`);
+    pins[b.ball] = net;
+    if (!net) stats.nc++;
+    else if (net === 'GND') stats.gnd++;
+    else if (/^(VSYS|VCC|SW_|TAS_)/.test(net)) stats.power++;
+    else stats.signal++;
+  }
+  return { pins, stats };
+}
+

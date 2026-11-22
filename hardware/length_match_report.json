@@ -1,54 +1,54 @@
 {
-  "stackup": "12-Layer 0.800mm 3+6+3 HDI (TU-872SLK / S1000-2M Er=3.70, t_in=15um)",
-  "propagationDelayPsPerMm": 6.416,
+  "stackup": "14-Layer 1.200mm 3+8+3 STAGGERED HDI (Shengyi S1000-2M TG170, Er=3.95, 1oz/1oz 35um Cu)",
+  "propagationDelayPsPerMm": 6.629,
   "netclasses": {
     "Default": {
       "width": 0.075,
       "clearance": 0.07,
-      "diffGap": 0.1,
-      "zTarget": "General"
+      "diffGap": 0.125,
+      "zTarget": "General (1oz Cu)"
     },
     "DDR_SE_40": {
-      "width": 0.124,
+      "width": 0.077,
       "clearance": 0.07,
-      "diffGap": 0.095,
-      "zTarget": "40.4 Ohm SE"
+      "diffGap": 0.123,
+      "zTarget": "40.0 Ohm SE (Cavity A, 1oz)"
     },
     "DDR_DIFF_80": {
-      "width": 0.11,
+      "width": 0.07,
       "clearance": 0.07,
-      "diffGap": 0.095,
-      "zTarget": "80.1 Ohm Diff"
+      "diffGap": 0.13,
+      "zTarget": "79.8 Ohm Diff (Cavity A, 1oz)"
     },
     "EMMC_SE_50": {
-      "width": 0.081,
+      "width": 0.089,
       "clearance": 0.07,
-      "diffGap": 0.1,
-      "zTarget": "49.9 Ohm SE"
+      "diffGap": 0.111,
+      "zTarget": "50.0 Ohm SE (Cavity B, 1oz)"
     },
     "PCIE_DIFF_85": {
       "width": 0.095,
       "clearance": 0.07,
-      "diffGap": 0.1,
-      "zTarget": "85.0 Ohm Diff"
+      "diffGap": 0.105,
+      "zTarget": "85.1 Ohm Diff (Cavity B, 1oz)"
     },
     "USB3_DIFF_90": {
-      "width": 0.09,
+      "width": 0.087,
       "clearance": 0.07,
-      "diffGap": 0.13,
-      "zTarget": "90.1 Ohm Diff"
+      "diffGap": 0.113,
+      "zTarget": "90.0 Ohm Diff (Cavity B, 1oz)"
     },
     "MIPI_DIFF_100": {
-      "width": 0.075,
+      "width": 0.071,
       "clearance": 0.07,
-      "diffGap": 0.15,
-      "zTarget": "100.0 Ohm Diff"
+      "diffGap": 0.129,
+      "zTarget": "99.6 Ohm Diff (Cavity B, 1oz)"
     },
     "POWER_WIDE": {
-      "width": 0.124,
+      "width": 0.098,
       "clearance": 0.07,
-      "diffGap": 0.1,
-      "zTarget": "Low-R Power"
+      "diffGap": 0.102,
+      "zTarget": "Low-R Power (1oz Cu, 35um)"
     }
   },
   "groups": [
@@ -56,84 +56,81 @@
       "group": "LPDDR5X_CH0A_BYTE0_WCK0",
       "type": "LPDDR5X-Byte",
       "netCount": 13,
-      "routedCount": 11,
-      "unroutedNets": [
-        "LPDDR5X_CH0A_DQ6",
-        "LPDDR5X_CH0A_DQ7"
-      ],
-      "beforeMinMm": 3.098,
-      "beforeMaxMm": 15.988,
-      "beforeSkewMm": 12.89,
-      "afterMinMm": 3.498,
-      "afterMaxMm": 15.988,
-      "afterSkewMm": 12.49,
-      "afterSkewPs": 80.14,
-      "meanderBumps": 32,
+      "routedCount": 13,
+      "unroutedNets": [],
+      "beforeMinMm": 6.442,
+      "beforeMaxMm": 20.252,
+      "beforeSkewMm": 13.81,
+      "afterMinMm": 15.096,
+      "afterMaxMm": 20.434,
+      "afterSkewMm": 5.338,
+      "afterSkewPs": 35.39,
+      "meanderBumps": 29,
       "nets": [
         {
           "name": "LPDDR5X_CH0A_DQ0",
           "routed": true,
-          "len": 15.862
+          "len": 20.434
         },
         {
           "name": "LPDDR5X_CH0A_DQ1",
           "routed": true,
-          "len": 9.624
+          "len": 20.434
         },
         {
           "name": "LPDDR5X_CH0A_DQ2",
           "routed": true,
-          "len": 7.624
+          "len": 20.434
         },
         {
           "name": "LPDDR5X_CH0A_DQ3",
           "routed": true,
-          "len": 10.024
+          "len": 15.794
         },
         {
           "name": "LPDDR5X_CH0A_DQ4",
           "routed": true,
-          "len": 15.862
+          "len": 20.434
         },
         {
           "name": "LPDDR5X_CH0A_DQ5",
           "routed": true,
-          "len": 15.988
+          "len": 15.096
         },
         {
           "name": "LPDDR5X_CH0A_DQ6",
-          "routed": false,
-          "len": 0.298
+          "routed": true,
+          "len": 20.434
         },
         {
           "name": "LPDDR5X_CH0A_DQ7",
-          "routed": false,
-          "len": 0.298
+          "routed": true,
+          "len": 20.434
         },
         {
           "name": "LPDDR5X_CH0A_DMI0",
           "routed": true,
-          "len": 7.35
+          "len": 20.434
         },
         {
           "name": "LPDDR5X_CH0A_RDQS0_P",
           "routed": true,
-          "len": 3.498
+          "len": 20.406
         },
         {
           "name": "LPDDR5X_CH0A_RDQS0_N",
           "routed": true,
-          "len": 6.424
+          "len": 17.98
         },
         {
           "name": "LPDDR5X_CH0A_WCK0_P",
           "routed": true,
-          "len": 15.862
+          "len": 16
         },
         {
           "name": "LPDDR5X_CH0A_WCK0_N",
           "routed": true,
-          "len": 9.624
+          "len": 16.664
         }
       ]
     },
@@ -141,84 +138,81 @@
       "group": "LPDDR5X_CH0A_BYTE1_WCK1",
       "type": "LPDDR5X-Byte",
       "netCount": 13,
-      "routedCount": 11,
-      "unroutedNets": [
-        "LPDDR5X_CH0A_DQ12",
-        "LPDDR5X_CH0A_DMI1"
-      ],
-      "beforeMinMm": 7.624,
-      "beforeMaxMm": 30.218,
-      "beforeSkewMm": 22.594,
-      "afterMinMm": 9.624,
-      "afterMaxMm": 30.218,
-      "afterSkewMm": 20.594,
-      "afterSkewPs": 132.14,
-      "meanderBumps": 98,
+      "routedCount": 13,
+      "unroutedNets": [],
+      "beforeMinMm": 8.66,
+      "beforeMaxMm": 23.348,
+      "beforeSkewMm": 14.688,
+      "afterMinMm": 16.756,
+      "afterMaxMm": 23.352,
+      "afterSkewMm": 6.596,
+      "afterSkewPs": 43.73,
+      "meanderBumps": 26,
       "nets": [
         {
           "name": "LPDDR5X_CH0A_DQ8",
           "routed": true,
-          "len": 16.388
+          "len": 23.352
         },
         {
           "name": "LPDDR5X_CH0A_DQ9",
           "routed": true,
-          "len": 30.181
+          "len": 20.378
         },
         {
           "name": "LPDDR5X_CH0A_DQ10",
           "routed": true,
-          "len": 20.424
+          "len": 23.352
         },
         {
           "name": "LPDDR5X_CH0A_DQ11",
           "routed": true,
-          "len": 10.914
+          "len": 23.352
         },
         {
           "name": "LPDDR5X_CH0A_DQ12",
-          "routed": false,
-          "len": 0.298
+          "routed": true,
+          "len": 23.332
         },
         {
           "name": "LPDDR5X_CH0A_DQ13",
           "routed": true,
-          "len": 12.388
+          "len": 16.756
         },
         {
           "name": "LPDDR5X_CH0A_DQ14",
           "routed": true,
-          "len": 9.624
+          "len": 23.352
         },
         {
           "name": "LPDDR5X_CH0A_DQ15",
           "routed": true,
-          "len": 13.714
+          "len": 23.348
         },
         {
           "name": "LPDDR5X_CH0A_DMI1",
-          "routed": false,
-          "len": 0.298
+          "routed": true,
+          "len": 23.352
         },
         {
           "name": "LPDDR5X_CH0A_RDQS1_P",
           "routed": true,
-          "len": 29.862
+          "len": 23.352
         },
         {
           "name": "LPDDR5X_CH0A_RDQS1_N",
           "routed": true,
-          "len": 30.024
+          "len": 23.352
         },
         {
           "name": "LPDDR5X_CH0A_WCK1_P",
           "routed": true,
-          "len": 30.218
+          "len": 23.352
         },
         {
           "name": "LPDDR5X_CH0A_WCK1_N",
           "routed": true,
-          "len": 20.114
+          "len": 23.352
         }
       ]
     },
@@ -226,73 +220,71 @@
       "group": "LPDDR5X_CH0A_CA_CK",
       "type": "LPDDR5X-CA",
       "netCount": 11,
-      "routedCount": 10,
-      "unroutedNets": [
-        "LPDDR5X_CH0A_CA4"
-      ],
-      "beforeMinMm": 4.024,
-      "beforeMaxMm": 22.514,
-      "beforeSkewMm": 18.49,
-      "afterMinMm": 4.824,
-      "afterMaxMm": 22.514,
-      "afterSkewMm": 17.69,
-      "afterSkewPs": 113.5,
-      "meanderBumps": 28,
+      "routedCount": 11,
+      "unroutedNets": [],
+      "beforeMinMm": 6.478,
+      "beforeMaxMm": 16.366,
+      "beforeSkewMm": 9.888,
+      "afterMinMm": 9.362,
+      "afterMaxMm": 16.366,
+      "afterSkewMm": 7.004,
+      "afterSkewPs": 46.43,
+      "meanderBumps": 11,
       "nets": [
         {
           "name": "LPDDR5X_CH0A_CA0",
           "routed": true,
-          "len": 13.076
+          "len": 16.366
         },
         {
           "name": "LPDDR5X_CH0A_CA1",
           "routed": true,
-          "len": 10.676
+          "len": 16.366
         },
         {
           "name": "LPDDR5X_CH0A_CA2",
           "routed": true,
-          "len": 5.224
+          "len": 12.658
         },
         {
           "name": "LPDDR5X_CH0A_CA3",
           "routed": true,
-          "len": 7.098
+          "len": 16.366
         },
         {
           "name": "LPDDR5X_CH0A_CA4",
-          "routed": false,
-          "len": 0.298
+          "routed": true,
+          "len": 16.366
         },
         {
           "name": "LPDDR5X_CH0A_CA5",
           "routed": true,
-          "len": 6.024
+          "len": 16.366
         },
         {
           "name": "LPDDR5X_CH0A_CA6",
           "routed": true,
-          "len": 18.788
+          "len": 13.116
         },
         {
           "name": "LPDDR5X_CH0A_CS0",
           "routed": true,
-          "len": 4.824
+          "len": 9.362
         },
         {
           "name": "LPDDR5X_CH0A_CS1",
           "routed": true,
-          "len": 4.824
+          "len": 11.086
         },
         {
           "name": "LPDDR5X_CH0A_CK_P",
           "routed": true,
-          "len": 17.714
+          "len": 16.366
         },
         {
           "name": "LPDDR5X_CH0A_CK_N",
           "routed": true,
-          "len": 22.514
+          "len": 16.366
         }
       ]
     },
@@ -300,83 +292,81 @@
       "group": "LPDDR5X_CH0B_BYTE0_WCK0",
       "type": "LPDDR5X-Byte",
       "netCount": 13,
-      "routedCount": 12,
-      "unroutedNets": [
-        "LPDDR5X_CH0B_DQ5"
-      ],
-      "beforeMinMm": 18.114,
-      "beforeMaxMm": 35.944,
-      "beforeSkewMm": 17.83,
-      "afterMinMm": 24.55,
-      "afterMaxMm": 35.944,
-      "afterSkewMm": 11.394,
-      "afterSkewPs": 73.11,
-      "meanderBumps": 128,
+      "routedCount": 13,
+      "unroutedNets": [],
+      "beforeMinMm": 21.4,
+      "beforeMaxMm": 30.736,
+      "beforeSkewMm": 9.336,
+      "afterMinMm": 31.078,
+      "afterMaxMm": 31.098,
+      "afterSkewMm": 0.02,
+      "afterSkewPs": 0.13,
+      "meanderBumps": 8,
       "nets": [
         {
           "name": "LPDDR5X_CH0B_DQ0",
           "routed": true,
-          "len": 25.485
+          "len": 31.078
         },
         {
           "name": "LPDDR5X_CH0B_DQ1",
           "routed": true,
-          "len": 28.344
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_DQ2",
           "routed": true,
-          "len": 32.64
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_DQ3",
           "routed": true,
-          "len": 27.84
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_DQ4",
           "routed": true,
-          "len": 28.114
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_DQ5",
-          "routed": false,
-          "len": 0.424
+          "routed": true,
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_DQ6",
           "routed": true,
-          "len": 28.433
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_DQ7",
           "routed": true,
-          "len": 35.633
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_DMI0",
           "routed": true,
-          "len": 35.944
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_RDQS0_P",
           "routed": true,
-          "len": 35.566
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_RDQS0_N",
           "routed": true,
-          "len": 24.78
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_WCK0_P",
           "routed": true,
-          "len": 28.802
+          "len": 31.098
         },
         {
           "name": "LPDDR5X_CH0B_WCK0_N",
           "routed": true,
-          "len": 24.55
+          "len": 31.098
         }
       ]
     },
@@ -384,84 +374,81 @@
       "group": "LPDDR5X_CH0B_BYTE1_WCK1",
       "type": "LPDDR5X-Byte",
       "netCount": 13,
-      "routedCount": 11,
-      "unroutedNets": [
-        "LPDDR5X_CH0B_DQ9",
-        "LPDDR5X_CH0B_DQ10"
-      ],
-      "beforeMinMm": 23.988,
-      "beforeMaxMm": 31.907,
-      "beforeSkewMm": 7.919,
-      "afterMinMm": 28.366,
-      "afterMaxMm": 31.907,
-      "afterSkewMm": 3.541,
-      "afterSkewPs": 22.72,
-      "meanderBumps": 69,
+      "routedCount": 13,
+      "unroutedNets": [],
+      "beforeMinMm": 27.052,
+      "beforeMaxMm": 38.096,
+      "beforeSkewMm": 11.044,
+      "afterMinMm": 38.216,
+      "afterMaxMm": 38.216,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 5,
       "nets": [
         {
           "name": "LPDDR5X_CH0B_DQ8",
           "routed": true,
-          "len": 31.692
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_DQ9",
-          "routed": false,
-          "len": 0.424
+          "routed": true,
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_DQ10",
-          "routed": false,
-          "len": 0.424
+          "routed": true,
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_DQ11",
           "routed": true,
-          "len": 31.907
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_DQ12",
           "routed": true,
-          "len": 28.366
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_DQ13",
           "routed": true,
-          "len": 31.507
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_DQ14",
           "routed": true,
-          "len": 31.818
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_DQ15",
           "routed": true,
-          "len": 31.566
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_DMI1",
           "routed": true,
-          "len": 31.588
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_RDQS1_P",
           "routed": true,
-          "len": 31.692
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_RDQS1_N",
           "routed": true,
-          "len": 31.781
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_WCK1_P",
           "routed": true,
-          "len": 31.588
+          "len": 38.216
         },
         {
           "name": "LPDDR5X_CH0B_WCK1_N",
           "routed": true,
-          "len": 31.692
+          "len": 38.216
         }
       ]
     },
@@ -471,69 +458,69 @@
       "netCount": 11,
       "routedCount": 11,
       "unroutedNets": [],
-      "beforeMinMm": 16.402,
-      "beforeMaxMm": 44.397,
-      "beforeSkewMm": 27.995,
-      "afterMinMm": 20.802,
-      "afterMaxMm": 44.397,
-      "afterSkewMm": 23.595,
-      "afterSkewPs": 151.39,
-      "meanderBumps": 133,
+      "beforeMinMm": 21,
+      "beforeMaxMm": 37.816,
+      "beforeSkewMm": 16.816,
+      "afterMinMm": 37.928,
+      "afterMaxMm": 37.934,
+      "afterSkewMm": 0.006,
+      "afterSkewPs": 0.04,
+      "meanderBumps": 8,
       "nets": [
         {
           "name": "LPDDR5X_CH0B_CA0",
           "routed": true,
-          "len": 44.388
+          "len": 37.934
         },
         {
           "name": "LPDDR5X_CH0B_CA1",
           "routed": true,
-          "len": 24.766
+          "len": 37.934
         },
         {
           "name": "LPDDR5X_CH0B_CA2",
           "routed": true,
-          "len": 44.307
+          "len": 37.934
         },
         {
           "name": "LPDDR5X_CH0B_CA3",
           "routed": true,
-          "len": 44.218
+          "len": 37.934
         },
         {
           "name": "LPDDR5X_CH0B_CA4",
           "routed": true,
-          "len": 44.092
+          "len": 37.934
         },
         {
           "name": "LPDDR5X_CH0B_CA5",
           "routed": true,
-          "len": 28.766
+          "len": 37.934
         },
         {
           "name": "LPDDR5X_CH0B_CA6",
           "routed": true,
-          "len": 44.397
+          "len": 37.934
         },
         {
           "name": "LPDDR5X_CH0B_CS0",
           "routed": true,
-          "len": 33.166
+          "len": 37.928
         },
         {
           "name": "LPDDR5X_CH0B_CS1",
           "routed": true,
-          "len": 44.07
+          "len": 37.934
         },
         {
           "name": "LPDDR5X_CH0B_CK_P",
           "routed": true,
-          "len": 44.285
+          "len": 37.934
         },
         {
           "name": "LPDDR5X_CH0B_CK_N",
           "routed": true,
-          "len": 20.802
+          "len": 37.934
         }
       ]
     },
@@ -541,84 +528,81 @@
       "group": "LPDDR5X_CH1C_BYTE0_WCK0",
       "type": "LPDDR5X-Byte",
       "netCount": 13,
-      "routedCount": 11,
-      "unroutedNets": [
-        "LPDDR5X_CH1C_DQ3",
-        "LPDDR5X_CH1C_WCK0_N"
-      ],
-      "beforeMinMm": 14.402,
-      "beforeMaxMm": 45.292,
-      "beforeSkewMm": 30.89,
-      "afterMinMm": 15.202,
-      "afterMaxMm": 45.292,
-      "afterSkewMm": 30.09,
-      "afterSkewPs": 193.06,
-      "meanderBumps": 101,
+      "routedCount": 13,
+      "unroutedNets": [],
+      "beforeMinMm": 17.898,
+      "beforeMaxMm": 31.982,
+      "beforeSkewMm": 14.084,
+      "afterMinMm": 23.452,
+      "afterMaxMm": 31.982,
+      "afterSkewMm": 8.53,
+      "afterSkewPs": 56.55,
+      "meanderBumps": 36,
       "nets": [
         {
           "name": "LPDDR5X_CH1C_DQ0",
           "routed": true,
-          "len": 40.892
+          "len": 31.972
         },
         {
           "name": "LPDDR5X_CH1C_DQ1",
           "routed": true,
-          "len": 21.988
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_DQ2",
           "routed": true,
-          "len": 45.049
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_DQ3",
-          "routed": false,
-          "len": 0.298
+          "routed": true,
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_DQ4",
           "routed": true,
-          "len": 21.328
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_DQ5",
           "routed": true,
-          "len": 38.114
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_DQ6",
           "routed": true,
-          "len": 45.292
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_DQ7",
           "routed": true,
-          "len": 40.388
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_DMI0",
           "routed": true,
-          "len": 28.128
+          "len": 23.452
         },
         {
           "name": "LPDDR5X_CH1C_RDQS0_P",
           "routed": true,
-          "len": 18.402
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_RDQS0_N",
           "routed": true,
-          "len": 15.202
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_WCK0_P",
           "routed": true,
-          "len": 22.514
+          "len": 31.982
         },
         {
           "name": "LPDDR5X_CH1C_WCK0_N",
-          "routed": false,
-          "len": 0.298
+          "routed": true,
+          "len": 31.982
         }
       ]
     },
@@ -626,83 +610,81 @@
       "group": "LPDDR5X_CH1C_BYTE1_WCK1",
       "type": "LPDDR5X-Byte",
       "netCount": 13,
-      "routedCount": 12,
-      "unroutedNets": [
-        "LPDDR5X_CH1C_DQ8"
-      ],
-      "beforeMinMm": 8.824,
-      "beforeMaxMm": 31.292,
-      "beforeSkewMm": 22.468,
-      "afterMinMm": 9.624,
-      "afterMaxMm": 31.292,
-      "afterSkewMm": 21.668,
-      "afterSkewPs": 139.03,
-      "meanderBumps": 49,
+      "routedCount": 13,
+      "unroutedNets": [],
+      "beforeMinMm": 12.916,
+      "beforeMaxMm": 24.948,
+      "beforeSkewMm": 12.032,
+      "afterMinMm": 17.484,
+      "afterMaxMm": 25.062,
+      "afterSkewMm": 7.578,
+      "afterSkewPs": 50.24,
+      "meanderBumps": 12,
       "nets": [
         {
           "name": "LPDDR5X_CH1C_DQ8",
-          "routed": false,
-          "len": 0.298
+          "routed": true,
+          "len": 17.484
         },
         {
           "name": "LPDDR5X_CH1C_DQ9",
           "routed": true,
-          "len": 31.292
+          "len": 19.894
         },
         {
           "name": "LPDDR5X_CH1C_DQ10",
           "routed": true,
-          "len": 14.824
+          "len": 25.062
         },
         {
           "name": "LPDDR5X_CH1C_DQ11",
           "routed": true,
-          "len": 9.624
+          "len": 25.062
         },
         {
           "name": "LPDDR5X_CH1C_DQ12",
           "routed": true,
-          "len": 28.254
+          "len": 25.062
         },
         {
           "name": "LPDDR5X_CH1C_DQ13",
           "routed": true,
-          "len": 12.55
+          "len": 25.052
         },
         {
           "name": "LPDDR5X_CH1C_DQ14",
           "routed": true,
-          "len": 18.002
+          "len": 25.062
         },
         {
           "name": "LPDDR5X_CH1C_DQ15",
           "routed": true,
-          "len": 19.328
+          "len": 25.062
         },
         {
           "name": "LPDDR5X_CH1C_DMI1",
           "routed": true,
-          "len": 14.15
+          "len": 25.062
         },
         {
           "name": "LPDDR5X_CH1C_RDQS1_P",
           "routed": true,
-          "len": 12.15
+          "len": 25.052
         },
         {
           "name": "LPDDR5X_CH1C_RDQS1_N",
           "routed": true,
-          "len": 12.55
+          "len": 25.062
         },
         {
           "name": "LPDDR5X_CH1C_WCK1_P",
           "routed": true,
-          "len": 31.188
+          "len": 25.062
         },
         {
           "name": "LPDDR5X_CH1C_WCK1_N",
           "routed": true,
-          "len": 13.224
+          "len": 25.062
         }
       ]
     },
@@ -710,73 +692,71 @@
       "group": "LPDDR5X_CH1C_CA_CK",
       "type": "LPDDR5X-CA",
       "netCount": 11,
-      "routedCount": 10,
-      "unroutedNets": [
-        "LPDDR5X_CH1C_CA5"
-      ],
-      "beforeMinMm": 12.15,
-      "beforeMaxMm": 24.64,
-      "beforeSkewMm": 12.49,
-      "afterMinMm": 12.95,
-      "afterMaxMm": 24.64,
-      "afterSkewMm": 11.69,
-      "afterSkewPs": 75.01,
-      "meanderBumps": 38,
+      "routedCount": 11,
+      "unroutedNets": [],
+      "beforeMinMm": 13.242,
+      "beforeMaxMm": 30.132,
+      "beforeSkewMm": 16.89,
+      "afterMinMm": 23.23,
+      "afterMaxMm": 30.334,
+      "afterSkewMm": 7.104,
+      "afterSkewPs": 47.1,
+      "meanderBumps": 33,
       "nets": [
         {
           "name": "LPDDR5X_CH1C_CA0",
           "routed": true,
-          "len": 19.35
+          "len": 30.334
         },
         {
           "name": "LPDDR5X_CH1C_CA1",
           "routed": true,
-          "len": 24.262
+          "len": 30.334
         },
         {
           "name": "LPDDR5X_CH1C_CA2",
           "routed": true,
-          "len": 21.876
+          "len": 30.334
         },
         {
           "name": "LPDDR5X_CH1C_CA3",
           "routed": true,
-          "len": 12.95
+          "len": 30.334
         },
         {
           "name": "LPDDR5X_CH1C_CA4",
           "routed": true,
-          "len": 24.64
+          "len": 30.334
         },
         {
           "name": "LPDDR5X_CH1C_CA5",
-          "routed": false,
-          "len": 0.298
+          "routed": true,
+          "len": 30.332
         },
         {
           "name": "LPDDR5X_CH1C_CA6",
           "routed": true,
-          "len": 13.35
+          "len": 23.23
         },
         {
           "name": "LPDDR5X_CH1C_CS0",
           "routed": true,
-          "len": 24.307
+          "len": 30.334
         },
         {
           "name": "LPDDR5X_CH1C_CS1",
           "routed": true,
-          "len": 16.424
+          "len": 30.334
         },
         {
           "name": "LPDDR5X_CH1C_CK_P",
           "routed": true,
-          "len": 24.262
+          "len": 30.334
         },
         {
           "name": "LPDDR5X_CH1C_CK_N",
           "routed": true,
-          "len": 24.24
+          "len": 30.334
         }
       ]
     },
@@ -786,79 +766,79 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 27.862,
-      "beforeMaxMm": 46.906,
-      "beforeSkewMm": 19.044,
-      "afterMinMm": 46.604,
-      "afterMaxMm": 46.906,
-      "afterSkewMm": 0.302,
-      "afterSkewPs": 1.94,
-      "meanderBumps": 128,
+      "beforeMinMm": 29.86,
+      "beforeMaxMm": 46.434,
+      "beforeSkewMm": 16.574,
+      "afterMinMm": 46.578,
+      "afterMaxMm": 46.578,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 16,
       "nets": [
         {
           "name": "LPDDR5X_CH1D_DQ0",
           "routed": true,
-          "len": 46.64
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_DQ1",
           "routed": true,
-          "len": 46.662
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_DQ2",
           "routed": true,
-          "len": 46.788
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_DQ3",
           "routed": true,
-          "len": 46.64
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_DQ4",
           "routed": true,
-          "len": 46.662
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_DQ5",
           "routed": true,
-          "len": 46.73
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_DQ6",
           "routed": true,
-          "len": 46.604
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_DQ7",
           "routed": true,
-          "len": 46.618
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_DMI0",
           "routed": true,
-          "len": 46.663
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_RDQS0_P",
           "routed": true,
-          "len": 46.906
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_RDQS0_N",
           "routed": true,
-          "len": 46.64
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_WCK0_P",
           "routed": true,
-          "len": 46.766
+          "len": 46.578
         },
         {
           "name": "LPDDR5X_CH1D_WCK0_N",
           "routed": true,
-          "len": 46.766
+          "len": 46.578
         }
       ]
     },
@@ -868,79 +848,79 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 31.188,
-      "beforeMaxMm": 52.996,
-      "beforeSkewMm": 21.808,
-      "afterMinMm": 39.988,
-      "afterMaxMm": 52.996,
-      "afterSkewMm": 13.008,
-      "afterSkewPs": 83.46,
-      "meanderBumps": 227,
+      "beforeMinMm": 36.33,
+      "beforeMaxMm": 48.132,
+      "beforeSkewMm": 11.802,
+      "afterMinMm": 48.226,
+      "afterMaxMm": 48.252,
+      "afterSkewMm": 0.026,
+      "afterSkewPs": 0.17,
+      "meanderBumps": 8,
       "nets": [
         {
           "name": "LPDDR5X_CH1D_DQ8",
           "routed": true,
-          "len": 48.892
+          "len": 48.226
         },
         {
           "name": "LPDDR5X_CH1D_DQ9",
           "routed": true,
-          "len": 46.448
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_DQ10",
           "routed": true,
-          "len": 52.707
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_DQ11",
           "routed": true,
-          "len": 42.492
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_DQ12",
           "routed": true,
-          "len": 51.166
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_DQ13",
           "routed": true,
-          "len": 52.662
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_DQ14",
           "routed": true,
-          "len": 39.988
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_DQ15",
           "routed": true,
-          "len": 50.492
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_DMI1",
           "routed": true,
-          "len": 52.596
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_RDQS1_P",
           "routed": true,
-          "len": 49.885
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_RDQS1_N",
           "routed": true,
-          "len": 52.662
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_WCK1_P",
           "routed": true,
-          "len": 52.996
+          "len": 48.252
         },
         {
           "name": "LPDDR5X_CH1D_WCK1_N",
           "routed": true,
-          "len": 50.892
+          "len": 48.252
         }
       ]
     },
@@ -950,281 +930,143 @@
       "netCount": 11,
       "routedCount": 11,
       "unroutedNets": [],
-      "beforeMinMm": 30.788,
-      "beforeMaxMm": 51.508,
-      "beforeSkewMm": 20.72,
-      "afterMinMm": 36.196,
-      "afterMaxMm": 51.508,
-      "afterSkewMm": 15.312,
-      "afterSkewPs": 98.25,
-      "meanderBumps": 151,
+      "beforeMinMm": 29.166,
+      "beforeMaxMm": 46.508,
+      "beforeSkewMm": 17.342,
+      "afterMinMm": 46.834,
+      "afterMaxMm": 46.834,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 12,
       "nets": [
         {
           "name": "LPDDR5X_CH1D_CA0",
           "routed": true,
-          "len": 44.276
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CA1",
           "routed": true,
-          "len": 51.188
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CA2",
           "routed": true,
-          "len": 40.24
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CA3",
           "routed": true,
-          "len": 51.323
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CA4",
           "routed": true,
-          "len": 51.345
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CA5",
           "routed": true,
-          "len": 51.144
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CA6",
           "routed": true,
-          "len": 51.485
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CS0",
           "routed": true,
-          "len": 51.508
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CS1",
           "routed": true,
-          "len": 51.44
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CK_P",
           "routed": true,
-          "len": 36.196
+          "len": 46.834
         },
         {
           "name": "LPDDR5X_CH1D_CK_N",
           "routed": true,
-          "len": 42.618
+          "len": 46.834
         }
       ]
     },
     {
       "group": "EMMC51_HS400_BUS",
       "type": "eMMC-5.1",
-      "netCount": 12,
-      "routedCount": 12,
+      "netCount": 11,
+      "routedCount": 11,
       "unroutedNets": [],
-      "beforeMinMm": 30.301,
-      "beforeMaxMm": 92.267,
-      "beforeSkewMm": 61.966,
-      "afterMinMm": 46.673,
-      "afterMaxMm": 92.267,
-      "afterSkewMm": 45.594,
-      "afterSkewPs": 292.54,
-      "meanderBumps": 371,
+      "beforeMinMm": 36.133,
+      "beforeMaxMm": 49.729,
+      "beforeSkewMm": 13.596,
+      "afterMinMm": 49.891,
+      "afterMaxMm": 49.891,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 2,
       "nets": [
         {
           "name": "EMMC_D0",
           "routed": true,
-          "len": 57.632
+          "len": 49.891
         },
         {
           "name": "EMMC_D1",
           "routed": true,
-          "len": 59.851
+          "len": 49.891
         },
         {
           "name": "EMMC_D2",
           "routed": true,
-          "len": 51.273
+          "len": 49.891
         },
         {
           "name": "EMMC_D3",
           "routed": true,
-          "len": 91.985
+          "len": 49.891
         },
         {
           "name": "EMMC_D4",
           "routed": true,
-          "len": 76.311
+          "len": 49.891
         },
         {
           "name": "EMMC_D5",
           "routed": true,
-          "len": 92.267
+          "len": 49.891
         },
         {
           "name": "EMMC_D6",
           "routed": true,
-          "len": 46.673
+          "len": 49.891
         },
         {
           "name": "EMMC_D7",
           "routed": true,
-          "len": 47.325
+          "len": 49.891
         },
         {
           "name": "EMMC_CMD",
           "routed": true,
-          "len": 92.187
+          "len": 49.891
         },
         {
           "name": "EMMC_DATA_STROBE",
           "routed": true,
-          "len": 92.039
-        },
-        {
-          "name": "EMMC_CLK_SOC",
-          "routed": true,
-          "len": 48.301
+          "len": 49.891
         },
         {
           "name": "EMMC_CLK_LINE",
           "routed": true,
-          "len": 92.024
-        }
-      ]
-    },
-    {
-      "group": "DIFF_PCIE_WIFI_RX",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 15.852,
-      "beforeMaxMm": 27.655,
-      "beforeSkewMm": 11.804,
-      "afterMinMm": 22.252,
-      "afterMaxMm": 27.655,
-      "afterSkewMm": 5.403,
-      "afterSkewPs": 34.67,
-      "meanderBumps": 13,
-      "nets": [
-        {
-          "name": "PCIE_WIFI_RX_P",
-          "routed": true,
-          "len": 22.252
-        },
-        {
-          "name": "PCIE_WIFI_RX_N",
-          "routed": true,
-          "len": 27.655
-        }
-      ]
-    },
-    {
-      "group": "DIFF_PCIE_WIFI_TX",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 16.05,
-      "beforeMaxMm": 22.724,
-      "beforeSkewMm": 6.674,
-      "afterMinMm": 22.45,
-      "afterMaxMm": 22.724,
-      "afterSkewMm": 0.274,
-      "afterSkewPs": 1.76,
-      "meanderBumps": 5,
-      "nets": [
-        {
-          "name": "PCIE_WIFI_TX_P",
-          "routed": true,
-          "len": 22.45
-        },
-        {
-          "name": "PCIE_WIFI_TX_N",
-          "routed": true,
-          "len": 22.724
-        }
-      ]
-    },
-    {
-      "group": "DIFF_PCIE_WIFI_CLK",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 22.294,
-      "beforeMaxMm": 24.612,
-      "beforeSkewMm": 2.318,
-      "afterMinMm": 24.294,
-      "afterMaxMm": 24.612,
-      "afterSkewMm": 0.318,
-      "afterSkewPs": 2.04,
-      "meanderBumps": 2,
-      "nets": [
-        {
-          "name": "PCIE_WIFI_CLK_P",
-          "routed": true,
-          "len": 24.612
-        },
-        {
-          "name": "PCIE_WIFI_CLK_N",
-          "routed": true,
-          "len": 24.294
-        }
-      ]
-    },
-    {
-      "group": "DIFF_PCIE_MODEM_TX",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 34.701,
-      "beforeMaxMm": 86.681,
-      "beforeSkewMm": 51.981,
-      "afterMinMm": 51.901,
-      "afterMaxMm": 86.681,
-      "afterSkewMm": 34.78,
-      "afterSkewPs": 223.16,
-      "meanderBumps": 27,
-      "nets": [
-        {
-          "name": "PCIE_MODEM_TX_P",
-          "routed": true,
-          "len": 86.681
-        },
-        {
-          "name": "PCIE_MODEM_TX_N",
-          "routed": true,
-          "len": 51.901
-        }
-      ]
-    },
-    {
-      "group": "DIFF_PCIE_MODEM_RX",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 36.105,
-      "beforeMaxMm": 87.605,
-      "beforeSkewMm": 51.501,
-      "afterMinMm": 87.305,
-      "afterMaxMm": 87.605,
-      "afterSkewMm": 0.3,
-      "afterSkewPs": 1.92,
-      "meanderBumps": 58,
-      "nets": [
-        {
-          "name": "PCIE_MODEM_RX_P",
-          "routed": true,
-          "len": 87.305
-        },
-        {
-          "name": "PCIE_MODEM_RX_N",
-          "routed": true,
-          "len": 87.605
+          "len": 49.891,
+          "rawClkLineMm": 15.462,
+          "clkSocPlusR303Mm": 34.429
         }
       ]
     },
@@ -1234,672 +1076,159 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 22.912,
-      "beforeMaxMm": 24.293,
-      "beforeSkewMm": 1.381,
-      "afterMinMm": 24.112,
-      "afterMaxMm": 24.293,
-      "afterSkewMm": 0.181,
-      "afterSkewPs": 1.16,
-      "meanderBumps": 3,
+      "beforeMinMm": 26.609,
+      "beforeMaxMm": 26.731,
+      "beforeSkewMm": 0.122,
+      "afterMinMm": 26.731,
+      "afterMaxMm": 26.731,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
       "nets": [
         {
           "name": "PCIE_MODEM_CLK_P",
           "routed": true,
-          "len": 24.293
+          "len": 26.731
         },
         {
           "name": "PCIE_MODEM_CLK_N",
           "routed": true,
-          "len": 24.112
+          "len": 26.731
         }
       ]
     },
     {
-      "group": "DIFF_MIPI_CSI2_CLK",
+      "group": "DIFF_PCIE_MODEM_RX",
       "type": "HS-DiffPair",
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 53.072,
-      "beforeMaxMm": 54.998,
-      "beforeSkewMm": 1.926,
-      "afterMinMm": 54.672,
-      "afterMaxMm": 54.998,
-      "afterSkewMm": 0.326,
-      "afterSkewPs": 2.09,
-      "meanderBumps": 3,
-      "nets": [
-        {
-          "name": "MIPI_CSI2_CLK_P",
-          "routed": true,
-          "len": 54.998
-        },
-        {
-          "name": "MIPI_CSI2_CLK_N",
-          "routed": true,
-          "len": 54.672
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI1_CLK",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 25.806,
-      "beforeMaxMm": 28.277,
-      "beforeSkewMm": 2.47,
-      "afterMinMm": 28.206,
-      "afterMaxMm": 28.277,
-      "afterSkewMm": 0.071,
-      "afterSkewPs": 0.46,
-      "meanderBumps": 5,
-      "nets": [
-        {
-          "name": "MIPI_CSI1_CLK_P",
-          "routed": true,
-          "len": 28.277
-        },
-        {
-          "name": "MIPI_CSI1_CLK_N",
-          "routed": true,
-          "len": 28.206
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_DSI0_D1",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 53.569,
-      "beforeMaxMm": 57.258,
-      "beforeSkewMm": 3.689,
-      "afterMinMm": 57.169,
-      "afterMaxMm": 57.258,
-      "afterSkewMm": 0.089,
-      "afterSkewPs": 0.57,
-      "meanderBumps": 7,
-      "nets": [
-        {
-          "name": "MIPI_DSI0_D1_P",
-          "routed": true,
-          "len": 57.258
-        },
-        {
-          "name": "MIPI_DSI0_D1_N",
-          "routed": true,
-          "len": 57.169
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_DSI0_D2",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 54.739,
-      "beforeMaxMm": 56.843,
-      "beforeSkewMm": 2.104,
-      "afterMinMm": 56.739,
-      "afterMaxMm": 56.843,
-      "afterSkewMm": 0.104,
-      "afterSkewPs": 0.67,
-      "meanderBumps": 5,
-      "nets": [
-        {
-          "name": "MIPI_DSI0_D2_P",
-          "routed": true,
-          "len": 56.843
-        },
-        {
-          "name": "MIPI_DSI0_D2_N",
-          "routed": true,
-          "len": 56.739
-        }
-      ]
-    },
-    {
-      "group": "DIFF_USB3_SOC_RX0",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 89.864,
-      "beforeMaxMm": 90.081,
-      "beforeSkewMm": 0.217,
-      "afterMinMm": 89.864,
-      "afterMaxMm": 90.081,
-      "afterSkewMm": 0.217,
-      "afterSkewPs": 1.39,
+      "beforeMinMm": 34.15,
+      "beforeMaxMm": 72.64,
+      "beforeSkewMm": 38.49,
+      "afterMinMm": 72.64,
+      "afterMaxMm": 72.64,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
-          "name": "USB3_SOC_RX0_P",
+          "name": "PCIE_MODEM_RX_P",
           "routed": true,
-          "len": 90.081
+          "len": 72.64
         },
         {
-          "name": "USB3_SOC_RX0_N",
+          "name": "PCIE_MODEM_RX_N",
           "routed": true,
-          "len": 89.864
+          "len": 72.64
         }
       ]
     },
     {
-      "group": "DIFF_USB3_SOC_TX0",
+      "group": "DIFF_PCIE_MODEM_TX",
       "type": "HS-DiffPair",
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 88.866,
-      "beforeMaxMm": 94.437,
-      "beforeSkewMm": 5.571,
-      "afterMinMm": 94.066,
-      "afterMaxMm": 94.437,
-      "afterSkewMm": 0.371,
-      "afterSkewPs": 2.38,
-      "meanderBumps": 13,
-      "nets": [
-        {
-          "name": "USB3_SOC_TX0_P",
-          "routed": true,
-          "len": 94.066
-        },
-        {
-          "name": "USB3_SOC_TX0_N",
-          "routed": true,
-          "len": 94.437
-        }
-      ]
-    },
-    {
-      "group": "DIFF_USB3_SOC_RX1",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 86.196,
-      "beforeMaxMm": 92.507,
-      "beforeSkewMm": 6.312,
-      "afterMinMm": 92.196,
-      "afterMaxMm": 92.507,
-      "afterSkewMm": 0.311,
-      "afterSkewPs": 2,
-      "meanderBumps": 9,
-      "nets": [
-        {
-          "name": "USB3_SOC_RX1_P",
-          "routed": true,
-          "len": 92.196
-        },
-        {
-          "name": "USB3_SOC_RX1_N",
-          "routed": true,
-          "len": 92.507
-        }
-      ]
-    },
-    {
-      "group": "DIFF_USB3_SOC_TX1",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 85.863,
-      "beforeMaxMm": 90.331,
-      "beforeSkewMm": 4.468,
-      "afterMinMm": 90.263,
-      "afterMaxMm": 90.331,
-      "afterSkewMm": 0.068,
-      "afterSkewPs": 0.44,
-      "meanderBumps": 5,
-      "nets": [
-        {
-          "name": "USB3_SOC_TX1_P",
-          "routed": true,
-          "len": 90.331
-        },
-        {
-          "name": "USB3_SOC_TX1_N",
-          "routed": true,
-          "len": 90.263
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_DSI0_D0",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 52.658,
-      "beforeMaxMm": 58.155,
-      "beforeSkewMm": 5.497,
-      "afterMinMm": 57.858,
-      "afterMaxMm": 58.155,
-      "afterSkewMm": 0.297,
-      "afterSkewPs": 1.91,
-      "meanderBumps": 4,
-      "nets": [
-        {
-          "name": "MIPI_DSI0_D0_P",
-          "routed": true,
-          "len": 58.155
-        },
-        {
-          "name": "MIPI_DSI0_D0_N",
-          "routed": true,
-          "len": 57.858
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_DSI0_CLK",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 62.065,
-      "beforeMaxMm": 70.793,
-      "beforeSkewMm": 8.728,
-      "afterMinMm": 70.465,
-      "afterMaxMm": 70.793,
-      "afterSkewMm": 0.328,
-      "afterSkewPs": 2.1,
-      "meanderBumps": 9,
-      "nets": [
-        {
-          "name": "MIPI_DSI0_CLK_P",
-          "routed": true,
-          "len": 70.793
-        },
-        {
-          "name": "MIPI_DSI0_CLK_N",
-          "routed": true,
-          "len": 70.465
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_DSI0_D3",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 58.984,
-      "beforeMaxMm": 61.169,
-      "beforeSkewMm": 2.185,
-      "afterMinMm": 60.984,
-      "afterMaxMm": 61.169,
-      "afterSkewMm": 0.185,
-      "afterSkewPs": 1.19,
-      "meanderBumps": 3,
-      "nets": [
-        {
-          "name": "MIPI_DSI0_D3_P",
-          "routed": true,
-          "len": 60.984
-        },
-        {
-          "name": "MIPI_DSI0_D3_N",
-          "routed": true,
-          "len": 61.169
-        }
-      ]
-    },
-    {
-      "group": "DIFF_USBC_TX2",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 6.766,
-      "beforeMaxMm": 11.121,
-      "beforeSkewMm": 4.355,
-      "afterMinMm": 9.966,
-      "afterMaxMm": 11.121,
-      "afterSkewMm": 1.155,
-      "afterSkewPs": 7.41,
-      "meanderBumps": 7,
-      "nets": [
-        {
-          "name": "USBC_TX2_P",
-          "routed": true,
-          "len": 9.966
-        },
-        {
-          "name": "USBC_TX2_N",
-          "routed": true,
-          "len": 11.121
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI2_D1",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 63.162,
-      "beforeMaxMm": 66.997,
-      "beforeSkewMm": 3.835,
-      "afterMinMm": 66.762,
-      "afterMaxMm": 66.997,
-      "afterSkewMm": 0.235,
-      "afterSkewPs": 1.51,
-      "meanderBumps": 3,
-      "nets": [
-        {
-          "name": "MIPI_CSI2_D1_P",
-          "routed": true,
-          "len": 66.762
-        },
-        {
-          "name": "MIPI_CSI2_D1_N",
-          "routed": true,
-          "len": 66.997
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI2_D0",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 52.347,
-      "beforeMaxMm": 58.724,
-      "beforeSkewMm": 6.377,
-      "afterMinMm": 58.347,
-      "afterMaxMm": 58.724,
-      "afterSkewMm": 0.377,
-      "afterSkewPs": 2.42,
-      "meanderBumps": 5,
-      "nets": [
-        {
-          "name": "MIPI_CSI2_D0_P",
-          "routed": true,
-          "len": 58.724
-        },
-        {
-          "name": "MIPI_CSI2_D0_N",
-          "routed": true,
-          "len": 58.347
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI2_D3",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 56.773,
-      "beforeMaxMm": 60.245,
-      "beforeSkewMm": 3.472,
-      "afterMinMm": 59.973,
-      "afterMaxMm": 60.245,
-      "afterSkewMm": 0.272,
-      "afterSkewPs": 1.75,
-      "meanderBumps": 4,
-      "nets": [
-        {
-          "name": "MIPI_CSI2_D3_P",
-          "routed": true,
-          "len": 60.245
-        },
-        {
-          "name": "MIPI_CSI2_D3_N",
-          "routed": true,
-          "len": 59.973
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI2_D2",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 53.135,
-      "beforeMaxMm": 56.156,
-      "beforeSkewMm": 3.021,
-      "afterMinMm": 55.935,
-      "afterMaxMm": 56.156,
-      "afterSkewMm": 0.221,
-      "afterSkewPs": 1.42,
-      "meanderBumps": 7,
-      "nets": [
-        {
-          "name": "MIPI_CSI2_D2_P",
-          "routed": true,
-          "len": 56.156
-        },
-        {
-          "name": "MIPI_CSI2_D2_N",
-          "routed": true,
-          "len": 55.935
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI0_D3",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 48.844,
-      "beforeMaxMm": 49.206,
-      "beforeSkewMm": 0.361,
-      "afterMinMm": 48.844,
-      "afterMaxMm": 49.206,
-      "afterSkewMm": 0.362,
-      "afterSkewPs": 2.32,
+      "beforeMinMm": 56.64,
+      "beforeMaxMm": 108.829,
+      "beforeSkewMm": 52.189,
+      "afterMinMm": 108.824,
+      "afterMaxMm": 108.829,
+      "afterSkewMm": 0.005,
+      "afterSkewPs": 0.03,
       "meanderBumps": 0,
       "nets": [
         {
-          "name": "MIPI_CSI0_D3_P",
+          "name": "PCIE_MODEM_TX_P",
           "routed": true,
-          "len": 48.844
+          "len": 108.824
         },
         {
-          "name": "MIPI_CSI0_D3_N",
+          "name": "PCIE_MODEM_TX_N",
           "routed": true,
-          "len": 49.206
+          "len": 108.829
         }
       ]
     },
     {
-      "group": "DIFF_MIPI_CSI0_D2",
+      "group": "DIFF_PCIE_WIFI_CLK",
       "type": "HS-DiffPair",
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 39.412,
-      "beforeMaxMm": 49.292,
-      "beforeSkewMm": 9.88,
-      "afterMinMm": 49.012,
-      "afterMaxMm": 49.292,
-      "afterSkewMm": 0.28,
-      "afterSkewPs": 1.8,
-      "meanderBumps": 4,
-      "nets": [
-        {
-          "name": "MIPI_CSI0_D2_P",
-          "routed": true,
-          "len": 49.292
-        },
-        {
-          "name": "MIPI_CSI0_D2_N",
-          "routed": true,
-          "len": 49.012
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI1_D0",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 26.094,
-      "beforeMaxMm": 27.421,
-      "beforeSkewMm": 1.327,
-      "afterMinMm": 27.294,
-      "afterMaxMm": 27.421,
-      "afterSkewMm": 0.127,
-      "afterSkewPs": 0.81,
-      "meanderBumps": 3,
-      "nets": [
-        {
-          "name": "MIPI_CSI1_D0_P",
-          "routed": true,
-          "len": 27.294
-        },
-        {
-          "name": "MIPI_CSI1_D0_N",
-          "routed": true,
-          "len": 27.421
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI1_D3",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 28.43,
-      "beforeMaxMm": 33.527,
-      "beforeSkewMm": 5.098,
-      "afterMinMm": 33.23,
-      "afterMaxMm": 33.527,
-      "afterSkewMm": 0.297,
-      "afterSkewPs": 1.91,
-      "meanderBumps": 9,
-      "nets": [
-        {
-          "name": "MIPI_CSI1_D3_P",
-          "routed": true,
-          "len": 33.23
-        },
-        {
-          "name": "MIPI_CSI1_D3_N",
-          "routed": true,
-          "len": 33.527
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI0_D0",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 31.058,
-      "beforeMaxMm": 36.665,
-      "beforeSkewMm": 5.607,
-      "afterMinMm": 36.658,
-      "afterMaxMm": 36.665,
-      "afterSkewMm": 0.007,
-      "afterSkewPs": 0.04,
-      "meanderBumps": 3,
-      "nets": [
-        {
-          "name": "MIPI_CSI0_D0_P",
-          "routed": true,
-          "len": 36.665
-        },
-        {
-          "name": "MIPI_CSI0_D0_N",
-          "routed": true,
-          "len": 36.658
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI0_D1",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 33.727,
-      "beforeMaxMm": 36.158,
-      "beforeSkewMm": 2.432,
-      "afterMinMm": 36.127,
-      "afterMaxMm": 36.158,
-      "afterSkewMm": 0.031,
-      "afterSkewPs": 0.2,
-      "meanderBumps": 2,
-      "nets": [
-        {
-          "name": "MIPI_CSI0_D1_P",
-          "routed": true,
-          "len": 36.158
-        },
-        {
-          "name": "MIPI_CSI0_D1_N",
-          "routed": true,
-          "len": 36.127
-        }
-      ]
-    },
-    {
-      "group": "DIFF_MIPI_CSI1_D1",
-      "type": "HS-DiffPair",
-      "netCount": 2,
-      "routedCount": 2,
-      "unroutedNets": [],
-      "beforeMinMm": 30.685,
-      "beforeMaxMm": 31.245,
-      "beforeSkewMm": 0.56,
-      "afterMinMm": 31.085,
-      "afterMaxMm": 31.245,
-      "afterSkewMm": 0.16,
-      "afterSkewPs": 1.03,
+      "beforeMinMm": 17.328,
+      "beforeMaxMm": 17.922,
+      "beforeSkewMm": 0.594,
+      "afterMinMm": 17.922,
+      "afterMaxMm": 17.922,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 1,
       "nets": [
         {
-          "name": "MIPI_CSI1_D1_P",
+          "name": "PCIE_WIFI_CLK_P",
           "routed": true,
-          "len": 31.085
+          "len": 17.922
         },
         {
-          "name": "MIPI_CSI1_D1_N",
+          "name": "PCIE_WIFI_CLK_N",
           "routed": true,
-          "len": 31.245
+          "len": 17.922
         }
       ]
     },
     {
-      "group": "DIFF_MIPI_CSI1_D2",
+      "group": "DIFF_PCIE_WIFI_RX",
       "type": "HS-DiffPair",
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 24.456,
-      "beforeMaxMm": 28.294,
-      "beforeSkewMm": 3.838,
-      "afterMinMm": 28.056,
-      "afterMaxMm": 28.294,
-      "afterSkewMm": 0.238,
-      "afterSkewPs": 1.53,
-      "meanderBumps": 5,
+      "beforeMinMm": 20.382,
+      "beforeMaxMm": 21.338,
+      "beforeSkewMm": 0.956,
+      "afterMinMm": 21.338,
+      "afterMaxMm": 21.338,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
       "nets": [
         {
-          "name": "MIPI_CSI1_D2_P",
+          "name": "PCIE_WIFI_RX_P",
           "routed": true,
-          "len": 28.294
+          "len": 21.338
         },
         {
-          "name": "MIPI_CSI1_D2_N",
+          "name": "PCIE_WIFI_RX_N",
           "routed": true,
-          "len": 28.056
+          "len": 21.338
+        }
+      ]
+    },
+    {
+      "group": "DIFF_PCIE_WIFI_TX",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 44.41,
+      "beforeMaxMm": 77.174,
+      "beforeSkewMm": 32.764,
+      "afterMinMm": 77.174,
+      "afterMaxMm": 77.174,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "PCIE_WIFI_TX_P",
+          "routed": true,
+          "len": 77.174
+        },
+        {
+          "name": "PCIE_WIFI_TX_N",
+          "routed": true,
+          "len": 77.174
         }
       ]
     },
@@ -1909,24 +1238,645 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 46.686,
-      "beforeMaxMm": 46.763,
-      "beforeSkewMm": 0.077,
-      "afterMinMm": 46.686,
-      "afterMaxMm": 46.763,
-      "afterSkewMm": 0.077,
-      "afterSkewPs": 0.49,
+      "beforeMinMm": 45.678,
+      "beforeMaxMm": 48.733,
+      "beforeSkewMm": 3.054,
+      "afterMinMm": 48.733,
+      "afterMaxMm": 48.733,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "MIPI_CSI0_CLK_P",
           "routed": true,
-          "len": 46.763
+          "len": 48.733
         },
         {
           "name": "MIPI_CSI0_CLK_N",
           "routed": true,
-          "len": 46.686
+          "len": 48.733
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI0_D0",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 37.75,
+      "beforeMaxMm": 38.605,
+      "beforeSkewMm": 0.854,
+      "afterMinMm": 38.605,
+      "afterMaxMm": 38.605,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 1,
+      "nets": [
+        {
+          "name": "MIPI_CSI0_D0_P",
+          "routed": true,
+          "len": 38.605
+        },
+        {
+          "name": "MIPI_CSI0_D0_N",
+          "routed": true,
+          "len": 38.605
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI0_D1",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 41.869,
+      "beforeMaxMm": 45.034,
+      "beforeSkewMm": 3.165,
+      "afterMinMm": 45.034,
+      "afterMaxMm": 45.034,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_CSI0_D1_P",
+          "routed": true,
+          "len": 45.034
+        },
+        {
+          "name": "MIPI_CSI0_D1_N",
+          "routed": true,
+          "len": 45.034
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI0_D2",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 47.982,
+      "beforeMaxMm": 48.084,
+      "beforeSkewMm": 0.103,
+      "afterMinMm": 48.084,
+      "afterMaxMm": 48.084,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_CSI0_D2_P",
+          "routed": true,
+          "len": 48.084
+        },
+        {
+          "name": "MIPI_CSI0_D2_N",
+          "routed": true,
+          "len": 48.084
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI0_D3",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 49.232,
+      "beforeMaxMm": 50.928,
+      "beforeSkewMm": 1.696,
+      "afterMinMm": 50.998,
+      "afterMaxMm": 50.998,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_CSI0_D3_P",
+          "routed": true,
+          "len": 50.998
+        },
+        {
+          "name": "MIPI_CSI0_D3_N",
+          "routed": true,
+          "len": 50.998
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI1_CLK",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 25.656,
+      "beforeMaxMm": 26.244,
+      "beforeSkewMm": 0.588,
+      "afterMinMm": 26.244,
+      "afterMaxMm": 26.244,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 1,
+      "nets": [
+        {
+          "name": "MIPI_CSI1_CLK_P",
+          "routed": true,
+          "len": 26.244
+        },
+        {
+          "name": "MIPI_CSI1_CLK_N",
+          "routed": true,
+          "len": 26.244
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI1_D0",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 28.167,
+      "beforeMaxMm": 31.532,
+      "beforeSkewMm": 3.365,
+      "afterMinMm": 31.731,
+      "afterMaxMm": 31.731,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_CSI1_D0_P",
+          "routed": true,
+          "len": 31.731
+        },
+        {
+          "name": "MIPI_CSI1_D0_N",
+          "routed": true,
+          "len": 31.731
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI1_D1",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 32.337,
+      "beforeMaxMm": 35.208,
+      "beforeSkewMm": 2.871,
+      "afterMinMm": 35.208,
+      "afterMaxMm": 35.208,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 1,
+      "nets": [
+        {
+          "name": "MIPI_CSI1_D1_P",
+          "routed": true,
+          "len": 35.208
+        },
+        {
+          "name": "MIPI_CSI1_D1_N",
+          "routed": true,
+          "len": 35.208
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI1_D2",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 30.186,
+      "beforeMaxMm": 30.202,
+      "beforeSkewMm": 0.016,
+      "afterMinMm": 30.186,
+      "afterMaxMm": 30.202,
+      "afterSkewMm": 0.016,
+      "afterSkewPs": 0.11,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_CSI1_D2_P",
+          "routed": true,
+          "len": 30.202
+        },
+        {
+          "name": "MIPI_CSI1_D2_N",
+          "routed": true,
+          "len": 30.186
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI1_D3",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 31.149,
+      "beforeMaxMm": 33.514,
+      "beforeSkewMm": 2.366,
+      "afterMinMm": 33.513,
+      "afterMaxMm": 33.514,
+      "afterSkewMm": 0.001,
+      "afterSkewPs": 0.01,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_CSI1_D3_P",
+          "routed": true,
+          "len": 33.513
+        },
+        {
+          "name": "MIPI_CSI1_D3_N",
+          "routed": true,
+          "len": 33.514
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI2_CLK",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 57.806,
+      "beforeMaxMm": 97.234,
+      "beforeSkewMm": 39.428,
+      "afterMinMm": 97.234,
+      "afterMaxMm": 97.234,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_CSI2_CLK_P",
+          "routed": true,
+          "len": 97.234
+        },
+        {
+          "name": "MIPI_CSI2_CLK_N",
+          "routed": true,
+          "len": 97.234
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI2_D0",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 52.843,
+      "beforeMaxMm": 57.459,
+      "beforeSkewMm": 4.616,
+      "afterMinMm": 57.459,
+      "afterMaxMm": 57.459,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 1,
+      "nets": [
+        {
+          "name": "MIPI_CSI2_D0_P",
+          "routed": true,
+          "len": 57.459
+        },
+        {
+          "name": "MIPI_CSI2_D0_N",
+          "routed": true,
+          "len": 57.459
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI2_D1",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 53.705,
+      "beforeMaxMm": 57.855,
+      "beforeSkewMm": 4.15,
+      "afterMinMm": 57.855,
+      "afterMaxMm": 57.855,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_CSI2_D1_P",
+          "routed": true,
+          "len": 57.855
+        },
+        {
+          "name": "MIPI_CSI2_D1_N",
+          "routed": true,
+          "len": 57.855
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI2_D2",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 54.249,
+      "beforeMaxMm": 55.329,
+      "beforeSkewMm": 1.081,
+      "afterMinMm": 55.329,
+      "afterMaxMm": 55.329,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_CSI2_D2_P",
+          "routed": true,
+          "len": 55.329
+        },
+        {
+          "name": "MIPI_CSI2_D2_N",
+          "routed": true,
+          "len": 55.329
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_CSI2_D3",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 57.86,
+      "beforeMaxMm": 83.753,
+      "beforeSkewMm": 25.893,
+      "afterMinMm": 83.753,
+      "afterMaxMm": 83.753,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 1,
+      "nets": [
+        {
+          "name": "MIPI_CSI2_D3_P",
+          "routed": true,
+          "len": 83.753
+        },
+        {
+          "name": "MIPI_CSI2_D3_N",
+          "routed": true,
+          "len": 83.753
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_DSI0_CLK",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 56.351,
+      "beforeMaxMm": 56.945,
+      "beforeSkewMm": 0.595,
+      "afterMinMm": 56.945,
+      "afterMaxMm": 56.945,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 1,
+      "nets": [
+        {
+          "name": "MIPI_DSI0_CLK_P",
+          "routed": true,
+          "len": 56.945
+        },
+        {
+          "name": "MIPI_DSI0_CLK_N",
+          "routed": true,
+          "len": 56.945
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_DSI0_D0",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 53.511,
+      "beforeMaxMm": 53.967,
+      "beforeSkewMm": 0.455,
+      "afterMinMm": 53.967,
+      "afterMaxMm": 53.967,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 1,
+      "nets": [
+        {
+          "name": "MIPI_DSI0_D0_P",
+          "routed": true,
+          "len": 53.967
+        },
+        {
+          "name": "MIPI_DSI0_D0_N",
+          "routed": true,
+          "len": 53.967
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_DSI0_D1",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 53.383,
+      "beforeMaxMm": 54.515,
+      "beforeSkewMm": 1.133,
+      "afterMinMm": 54.515,
+      "afterMaxMm": 54.515,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_DSI0_D1_P",
+          "routed": true,
+          "len": 54.515
+        },
+        {
+          "name": "MIPI_DSI0_D1_N",
+          "routed": true,
+          "len": 54.515
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_DSI0_D2",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 54.579,
+      "beforeMaxMm": 54.617,
+      "beforeSkewMm": 0.037,
+      "afterMinMm": 54.617,
+      "afterMaxMm": 54.617,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_DSI0_D2_P",
+          "routed": true,
+          "len": 54.617
+        },
+        {
+          "name": "MIPI_DSI0_D2_N",
+          "routed": true,
+          "len": 54.617
+        }
+      ]
+    },
+    {
+      "group": "DIFF_MIPI_DSI0_D3",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 57.315,
+      "beforeMaxMm": 59.379,
+      "beforeSkewMm": 2.065,
+      "afterMinMm": 59.379,
+      "afterMaxMm": 59.379,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "MIPI_DSI0_D3_P",
+          "routed": true,
+          "len": 59.379
+        },
+        {
+          "name": "MIPI_DSI0_D3_N",
+          "routed": true,
+          "len": 59.379
+        }
+      ]
+    },
+    {
+      "group": "DIFF_USB3_SOC_RX0",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 88.066,
+      "beforeMaxMm": 89.695,
+      "beforeSkewMm": 1.628,
+      "afterMinMm": 89.694,
+      "afterMaxMm": 89.695,
+      "afterSkewMm": 0.001,
+      "afterSkewPs": 0.01,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "USB3_SOC_RX0_P",
+          "routed": true,
+          "len": 89.694
+        },
+        {
+          "name": "USB3_SOC_RX0_N",
+          "routed": true,
+          "len": 89.695
+        }
+      ]
+    },
+    {
+      "group": "DIFF_USB3_SOC_RX1",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 84.367,
+      "beforeMaxMm": 85.545,
+      "beforeSkewMm": 1.178,
+      "afterMinMm": 85.545,
+      "afterMaxMm": 85.545,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "USB3_SOC_RX1_P",
+          "routed": true,
+          "len": 85.545
+        },
+        {
+          "name": "USB3_SOC_RX1_N",
+          "routed": true,
+          "len": 85.545
+        }
+      ]
+    },
+    {
+      "group": "DIFF_USB3_SOC_TX0",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 82.149,
+      "beforeMaxMm": 89.106,
+      "beforeSkewMm": 6.957,
+      "afterMinMm": 89.095,
+      "afterMaxMm": 89.106,
+      "afterSkewMm": 0.011,
+      "afterSkewPs": 0.07,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "USB3_SOC_TX0_P",
+          "routed": true,
+          "len": 89.095
+        },
+        {
+          "name": "USB3_SOC_TX0_N",
+          "routed": true,
+          "len": 89.106
+        }
+      ]
+    },
+    {
+      "group": "DIFF_USB3_SOC_TX1",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 81.288,
+      "beforeMaxMm": 86.979,
+      "beforeSkewMm": 5.692,
+      "afterMinMm": 87.071,
+      "afterMaxMm": 87.072,
+      "afterSkewMm": 0.001,
+      "afterSkewPs": 0.01,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "USB3_SOC_TX1_P",
+          "routed": true,
+          "len": 87.072
+        },
+        {
+          "name": "USB3_SOC_TX1_N",
+          "routed": true,
+          "len": 87.071
         }
       ]
     },
@@ -1936,24 +1886,24 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 15.089,
-      "beforeMaxMm": 15.384,
-      "beforeSkewMm": 0.295,
-      "afterMinMm": 15.089,
-      "afterMaxMm": 15.384,
-      "afterSkewMm": 0.295,
-      "afterSkewPs": 1.89,
-      "meanderBumps": 0,
+      "beforeMinMm": 16.197,
+      "beforeMaxMm": 16.686,
+      "beforeSkewMm": 0.489,
+      "afterMinMm": 16.686,
+      "afterMaxMm": 16.686,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 1,
       "nets": [
         {
           "name": "USBC_RX1_P",
           "routed": true,
-          "len": 15.089
+          "len": 16.686
         },
         {
           "name": "USBC_RX1_N",
           "routed": true,
-          "len": 15.384
+          "len": 16.686
         }
       ]
     },
@@ -1963,24 +1913,24 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 15.619,
-      "beforeMaxMm": 18.44,
-      "beforeSkewMm": 2.821,
-      "afterMinMm": 18.419,
-      "afterMaxMm": 18.44,
-      "afterSkewMm": 0.021,
-      "afterSkewPs": 0.13,
-      "meanderBumps": 4,
+      "beforeMinMm": 9.545,
+      "beforeMaxMm": 11.305,
+      "beforeSkewMm": 1.76,
+      "afterMinMm": 11.305,
+      "afterMaxMm": 11.305,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
       "nets": [
         {
           "name": "USBC_RX2_P",
           "routed": true,
-          "len": 18.419
+          "len": 11.305
         },
         {
           "name": "USBC_RX2_N",
           "routed": true,
-          "len": 18.44
+          "len": 11.305
         }
       ]
     },
@@ -1990,26 +1940,626 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 6.966,
-      "beforeMaxMm": 10.881,
-      "beforeSkewMm": 3.915,
-      "afterMinMm": 10.566,
-      "afterMaxMm": 10.881,
-      "afterSkewMm": 0.315,
-      "afterSkewPs": 2.02,
-      "meanderBumps": 7,
+      "beforeMinMm": 8.001,
+      "beforeMaxMm": 11.272,
+      "beforeSkewMm": 3.27,
+      "afterMinMm": 11.272,
+      "afterMaxMm": 11.272,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
       "nets": [
         {
           "name": "USBC_TX1_P",
           "routed": true,
-          "len": 10.881
+          "len": 11.272
         },
         {
           "name": "USBC_TX1_N",
           "routed": true,
-          "len": 10.566
+          "len": 11.272
+        }
+      ]
+    },
+    {
+      "group": "DIFF_USBC_TX2",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 9.183,
+      "beforeMaxMm": 10.74,
+      "beforeSkewMm": 1.557,
+      "afterMinMm": 10.74,
+      "afterMaxMm": 10.74,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 1,
+      "nets": [
+        {
+          "name": "USBC_TX2_P",
+          "routed": true,
+          "len": 10.74
+        },
+        {
+          "name": "USBC_TX2_N",
+          "routed": true,
+          "len": 10.74
+        }
+      ]
+    },
+    {
+      "group": "DIFF_USBC_TX2_AC",
+      "type": "HS-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 3.606,
+      "beforeMaxMm": 4.819,
+      "beforeSkewMm": 1.213,
+      "afterMinMm": 4.652,
+      "afterMaxMm": 4.819,
+      "afterSkewMm": 0.167,
+      "afterSkewPs": 1.11,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "USBC_TX2_AC_P",
+          "routed": true,
+          "len": 4.652
+        },
+        {
+          "name": "USBC_TX2_AC_N",
+          "routed": true,
+          "len": 4.819
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0A_CK",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 13.088,
+      "beforeMaxMm": 16.366,
+      "beforeSkewMm": 3.278,
+      "afterMinMm": 16.366,
+      "afterMaxMm": 16.366,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0A_CK_P",
+          "routed": true,
+          "len": 16.366
+        },
+        {
+          "name": "LPDDR5X_CH0A_CK_N",
+          "routed": true,
+          "len": 16.366
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0A_RDQS0",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 6.442,
+      "beforeMaxMm": 7.678,
+      "beforeSkewMm": 1.236,
+      "afterMinMm": 17.98,
+      "afterMaxMm": 20.406,
+      "afterSkewMm": 2.426,
+      "afterSkewPs": 16.08,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0A_RDQS0_P",
+          "routed": true,
+          "len": 20.406
+        },
+        {
+          "name": "LPDDR5X_CH0A_RDQS0_N",
+          "routed": true,
+          "len": 17.98
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0A_RDQS1",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 15.098,
+      "beforeMaxMm": 19.654,
+      "beforeSkewMm": 4.556,
+      "afterMinMm": 23.352,
+      "afterMaxMm": 23.352,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0A_RDQS1_P",
+          "routed": true,
+          "len": 23.352
+        },
+        {
+          "name": "LPDDR5X_CH0A_RDQS1_N",
+          "routed": true,
+          "len": 23.352
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0A_WCK0",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 11.242,
+      "beforeMaxMm": 11.242,
+      "beforeSkewMm": 0,
+      "afterMinMm": 16,
+      "afterMaxMm": 16.664,
+      "afterSkewMm": 0.664,
+      "afterSkewPs": 4.4,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0A_WCK0_P",
+          "routed": true,
+          "len": 16
+        },
+        {
+          "name": "LPDDR5X_CH0A_WCK0_N",
+          "routed": true,
+          "len": 16.664
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0A_WCK1",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 15.098,
+      "beforeMaxMm": 19.824,
+      "beforeSkewMm": 4.726,
+      "afterMinMm": 23.352,
+      "afterMaxMm": 23.352,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0A_WCK1_P",
+          "routed": true,
+          "len": 23.352
+        },
+        {
+          "name": "LPDDR5X_CH0A_WCK1_N",
+          "routed": true,
+          "len": 23.352
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0B_CK",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 21,
+      "beforeMaxMm": 25.146,
+      "beforeSkewMm": 4.146,
+      "afterMinMm": 37.934,
+      "afterMaxMm": 37.934,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0B_CK_P",
+          "routed": true,
+          "len": 37.934
+        },
+        {
+          "name": "LPDDR5X_CH0B_CK_N",
+          "routed": true,
+          "len": 37.934
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0B_RDQS0",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 26.532,
+      "beforeMaxMm": 28.6,
+      "beforeSkewMm": 2.068,
+      "afterMinMm": 31.098,
+      "afterMaxMm": 31.098,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0B_RDQS0_P",
+          "routed": true,
+          "len": 31.098
+        },
+        {
+          "name": "LPDDR5X_CH0B_RDQS0_N",
+          "routed": true,
+          "len": 31.098
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0B_RDQS1",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 27.052,
+      "beforeMaxMm": 29.966,
+      "beforeSkewMm": 2.914,
+      "afterMinMm": 38.216,
+      "afterMaxMm": 38.216,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0B_RDQS1_P",
+          "routed": true,
+          "len": 38.216
+        },
+        {
+          "name": "LPDDR5X_CH0B_RDQS1_N",
+          "routed": true,
+          "len": 38.216
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0B_WCK0",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 25.062,
+      "beforeMaxMm": 29.4,
+      "beforeSkewMm": 4.338,
+      "afterMinMm": 31.098,
+      "afterMaxMm": 31.098,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0B_WCK0_P",
+          "routed": true,
+          "len": 31.098
+        },
+        {
+          "name": "LPDDR5X_CH0B_WCK0_N",
+          "routed": true,
+          "len": 31.098
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH0B_WCK1",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 28.044,
+      "beforeMaxMm": 38.096,
+      "beforeSkewMm": 10.052,
+      "afterMinMm": 38.216,
+      "afterMaxMm": 38.216,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH0B_WCK1_P",
+          "routed": true,
+          "len": 38.216
+        },
+        {
+          "name": "LPDDR5X_CH0B_WCK1_N",
+          "routed": true,
+          "len": 38.216
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1C_CK",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 25.166,
+      "beforeMaxMm": 30.132,
+      "beforeSkewMm": 4.966,
+      "afterMinMm": 30.334,
+      "afterMaxMm": 30.334,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1C_CK_P",
+          "routed": true,
+          "len": 30.334
+        },
+        {
+          "name": "LPDDR5X_CH1C_CK_N",
+          "routed": true,
+          "len": 30.334
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1C_RDQS0",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 17.898,
+      "beforeMaxMm": 20.2,
+      "beforeSkewMm": 2.302,
+      "afterMinMm": 31.982,
+      "afterMaxMm": 31.982,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1C_RDQS0_P",
+          "routed": true,
+          "len": 31.982
+        },
+        {
+          "name": "LPDDR5X_CH1C_RDQS0_N",
+          "routed": true,
+          "len": 31.982
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1C_RDQS1",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 12.916,
+      "beforeMaxMm": 15.862,
+      "beforeSkewMm": 2.946,
+      "afterMinMm": 25.052,
+      "afterMaxMm": 25.062,
+      "afterSkewMm": 0.01,
+      "afterSkewPs": 0.07,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1C_RDQS1_P",
+          "routed": true,
+          "len": 25.052
+        },
+        {
+          "name": "LPDDR5X_CH1C_RDQS1_N",
+          "routed": true,
+          "len": 25.062
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1C_WCK0",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 18.262,
+      "beforeMaxMm": 22.262,
+      "beforeSkewMm": 4,
+      "afterMinMm": 31.982,
+      "afterMaxMm": 31.982,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1C_WCK0_P",
+          "routed": true,
+          "len": 31.982
+        },
+        {
+          "name": "LPDDR5X_CH1C_WCK0_N",
+          "routed": true,
+          "len": 31.982
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1C_WCK1",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 15.06,
+      "beforeMaxMm": 18.262,
+      "beforeSkewMm": 3.202,
+      "afterMinMm": 25.062,
+      "afterMaxMm": 25.062,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1C_WCK1_P",
+          "routed": true,
+          "len": 25.062
+        },
+        {
+          "name": "LPDDR5X_CH1C_WCK1_N",
+          "routed": true,
+          "len": 25.062
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1D_CK",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 29.166,
+      "beforeMaxMm": 29.452,
+      "beforeSkewMm": 0.286,
+      "afterMinMm": 46.834,
+      "afterMaxMm": 46.834,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1D_CK_P",
+          "routed": true,
+          "len": 46.834
+        },
+        {
+          "name": "LPDDR5X_CH1D_CK_N",
+          "routed": true,
+          "len": 46.834
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1D_RDQS0",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 41.024,
+      "beforeMaxMm": 46.434,
+      "beforeSkewMm": 5.41,
+      "afterMinMm": 46.578,
+      "afterMaxMm": 46.578,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1D_RDQS0_P",
+          "routed": true,
+          "len": 46.578
+        },
+        {
+          "name": "LPDDR5X_CH1D_RDQS0_N",
+          "routed": true,
+          "len": 46.578
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1D_RDQS1",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 37.8,
+      "beforeMaxMm": 42.298,
+      "beforeSkewMm": 4.498,
+      "afterMinMm": 48.252,
+      "afterMaxMm": 48.252,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1D_RDQS1_P",
+          "routed": true,
+          "len": 48.252
+        },
+        {
+          "name": "LPDDR5X_CH1D_RDQS1_N",
+          "routed": true,
+          "len": 48.252
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1D_WCK0",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 37.234,
+      "beforeMaxMm": 43.998,
+      "beforeSkewMm": 6.764,
+      "afterMinMm": 46.578,
+      "afterMaxMm": 46.578,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1D_WCK0_P",
+          "routed": true,
+          "len": 46.578
+        },
+        {
+          "name": "LPDDR5X_CH1D_WCK0_N",
+          "routed": true,
+          "len": 46.578
+        }
+      ]
+    },
+    {
+      "group": "DIFF_LPDDR5X_CH1D_WCK1",
+      "type": "DDR-DiffPair",
+      "netCount": 2,
+      "routedCount": 2,
+      "unroutedNets": [],
+      "beforeMinMm": 39.182,
+      "beforeMaxMm": 41.79,
+      "beforeSkewMm": 2.608,
+      "afterMinMm": 48.252,
+      "afterMaxMm": 48.252,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
+      "meanderBumps": 0,
+      "nets": [
+        {
+          "name": "LPDDR5X_CH1D_WCK1_P",
+          "routed": true,
+          "len": 48.252
+        },
+        {
+          "name": "LPDDR5X_CH1D_WCK1_N",
+          "routed": true,
+          "len": 48.252
         }
       ]
     }
-  ]
+  ],
+  "emmcClockBreakdown": {
+    "clkSocMm": 33.829,
+    "r303BodyMm": 0.6,
+    "clkLineMm": 15.462,
+    "totalClkFlightMm": 49.891
+  }
 }

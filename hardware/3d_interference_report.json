@@ -1,0 +1,148 @@
+{
+  "bodyWidthMm": 79.09,
+  "bodyHeightMm": 162.72,
+  "bodyThicknessMm": 10.04,
+  "maxThicknessWithCameraMm": 12.87,
+  "cameraProtrusionMm": 2.83,
+  "totalCheckedMeshes": 2856,
+  "interferenceCount": 0,
+  "interModuleCount": 0,
+  "intraModuleCount": 0,
+  "physicalChecks": {
+    "batterySizeMm": "59.60 x 89.02 x 5.18",
+    "batteryVolumeCm3": 27.483,
+    "batteryImpliedWhPerL": 844.886,
+    "batteryRealisticSiC": true,
+    "displayThicknessMm": 1.8,
+    "coolingThicknessMm": 0.6,
+    "motherboardStackThicknessMm": 6.06,
+    "wirelessRearThicknessMm": 2.35
+  },
+  "pairSummary": {},
+  "moduleBounds": {
+    "display": {
+      "minXmm": -36.14,
+      "maxXmm": 36.14,
+      "minYmm": -80.366,
+      "maxYmm": 78.914,
+      "minZmm": 2.9,
+      "maxZmm": 4.7,
+      "sizeXmm": 72.28,
+      "sizeYmm": 159.28,
+      "sizeZmm": 1.8
+    },
+    "cooling": {
+      "minXmm": -31.12,
+      "maxXmm": 31.72,
+      "minYmm": -53.696,
+      "maxYmm": 60.844,
+      "minZmm": 2.26,
+      "maxZmm": 2.86,
+      "sizeXmm": 62.84,
+      "sizeYmm": 114.54,
+      "sizeZmm": 0.6
+    },
+    "frame": {
+      "minXmm": -39.49,
+      "maxXmm": 39.6,
+      "minYmm": -82.086,
+      "maxYmm": 80.634,
+      "minZmm": -4.58,
+      "maxZmm": 3.94,
+      "sizeXmm": 79.09,
+      "sizeYmm": 162.72,
+      "sizeZmm": 8.52
+    },
+    "motherboard": {
+      "minXmm": -0.65,
+      "maxXmm": 34.25,
+      "minYmm": -41.176,
+      "maxYmm": 75.924,
+      "minZmm": -4.37,
+      "maxZmm": 1.69,
+      "sizeXmm": 34.9,
+      "sizeYmm": 117.1,
+      "sizeZmm": 6.06
+    },
+    "camera": {
+      "minXmm": -32.47,
+      "maxXmm": -2.8,
+      "minYmm": 30.104,
+      "maxYmm": 72.844,
+      "minZmm": -8.17,
+      "maxZmm": 1.91,
+      "sizeXmm": 29.67,
+      "sizeYmm": 42.74,
+      "sizeZmm": 10.08
+    },
+    "battery": {
+      "minXmm": -34.7,
+      "maxXmm": 24.9,
+      "minYmm": -59.346,
+      "maxYmm": 29.674,
+      "minZmm": -2.97,
+      "maxZmm": 2.21,
+      "sizeXmm": 59.6,
+      "sizeYmm": 89.02,
+      "sizeZmm": 5.18
+    },
+    "wireless": {
+      "minXmm": -36.22,
+      "maxXmm": 36.22,
+      "minYmm": -80.446,
+      "maxYmm": 78.994,
+      "minZmm": -5.34,
+      "maxZmm": -2.99,
+      "sizeXmm": 72.44,
+      "sizeYmm": 159.44,
+      "sizeZmm": 2.35
+    },
+    "speaker": {
+      "minXmm": 8.98,
+      "maxXmm": 32.22,
+      "minYmm": -78.426,
+      "maxYmm": -60.606,
+      "minZmm": -2.35,
+      "maxZmm": 1.18,
+      "sizeXmm": 23.24,
+      "sizeYmm": 17.82,
+      "sizeZmm": 3.53
+    },
+    "haptic": {
+      "minXmm": -30.79,
+      "maxXmm": -9.5,
+      "minYmm": -77.816,
+      "maxYmm": -66.036,
+      "minZmm": -2.27,
+      "maxZmm": 0.95,
+      "sizeXmm": 21.29,
+      "sizeYmm": 11.78,
+      "sizeZmm": 3.22
+    },
+    "usbc": {
+      "minXmm": -6.56,
+      "maxXmm": 6.56,
+      "minYmm": -78.726,
+      "maxYmm": -60.966,
+      "minZmm": -2.1,
+      "maxZmm": 1.4,
+      "sizeXmm": 13.12,
+      "sizeYmm": 17.76,
+      "sizeZmm": 3.5
+    },
+    "selfie": {
+      "minXmm": -8.74,
+      "maxXmm": 11.8,
+      "minYmm": 70.574,
+      "maxYmm": 77.174,
+      "minZmm": -0.31,
+      "maxZmm": 2.83,
+      "sizeXmm": 20.54,
+      "sizeYmm": 6.6,
+      "sizeZmm": 3.14
+    }
+  },
+  "interferences": [],
+  "totalSolidMeshes": 2856,
+  "totalInterferences": 0
+}

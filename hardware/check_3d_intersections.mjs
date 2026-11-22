@@ -15,7 +15,12 @@ const URL = process.argv[2] || 'http://127.0.0.1:5173/';
 const SHOT_DIR = process.argv[3] || '';
 const PORT = 9241;
 
-const chrome = spawn('/usr/bin/google-chrome', [
+const CHROME_BIN =
+  process.env.CHROME_BIN ||
+  ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'].find((p) => fs.existsSync(p)) ||
+  'google-chrome';
+
+const chrome = spawn(CHROME_BIN, [
   '--headless=new',
   '--no-sandbox',
   '--disable-dev-shm-usage',
@@ -109,6 +114,19 @@ try {
     returnByValue: true,
   });
   const report = evalRes.result.value;
+  const outReportPath = path.join(path.dirname(new globalThis.URL(import.meta.url).pathname), '3d_interference_report.json');
+  fs.writeFileSync(
+    outReportPath,
+    JSON.stringify(
+      {
+        ...report,
+        totalSolidMeshes: report.totalCheckedMeshes,
+        totalInterferences: report.interferenceCount,
+      },
+      null,
+      2
+    )
+  );
 
   console.log('========================================================================');
   console.log('  RK T4 — 3D BOX3 THICKNESS & PHYSICAL INTERFERENCE AUDIT REPORT        ');
@@ -126,7 +144,7 @@ try {
   console.log(`    6000mAh Battery Box     : ${pc.batterySizeMm} mm -> ${pc.batteryVolumeCm3} cm3 (${pc.batteryImpliedWhPerL} Wh/L, <=860 Wh/L real Si-C: ${pc.batteryRealisticSiC ? 'PASS' : 'FAIL — PHYSICALLY TOO SMALL!'})`);
   console.log(`    Display Stack Thickness : ${pc.displayThicknessMm} mm`);
   console.log(`    Cooling VC+Graphite     : ${pc.coolingThicknessMm} mm`);
-  console.log(`    Motherboard 10L+8L+Can  : ${pc.motherboardStackThicknessMm} mm`);
+  console.log(`    Motherboard 14L+8L+Can  : ${pc.motherboardStackThicknessMm} mm`);
   console.log(`    Wireless+Rear Ceramic   : ${pc.wirelessRearThicknessMm} mm`);
   console.log('------------------------------------------------------------------------');
   console.log('  MODULE Z-STACK BOUNDS (mm):');
