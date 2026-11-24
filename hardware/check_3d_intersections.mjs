@@ -9,6 +9,7 @@
 import { spawn } from 'node:child_process';
 import http from 'node:http';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
 const URL = process.argv[2] || 'http://127.0.0.1:5173/';
@@ -17,25 +18,40 @@ const PORT = 9241;
 
 const CHROME_BIN =
   process.env.CHROME_BIN ||
-  ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'].find((p) => fs.existsSync(p)) ||
+  ['/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser'].find((p) => fs.existsSync(p)) ||
   'google-chrome';
+
+const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'chrome-cdp-box3-'));
+let chromeStderr = '';
+let chromeExited = null;
 
 const chrome = spawn(CHROME_BIN, [
   '--headless=new',
   '--no-sandbox',
+  '--disable-setuid-sandbox',
   '--disable-dev-shm-usage',
   '--disable-gpu-sandbox',
-  '--user-data-dir=/tmp/chrome-cdp-box3-audit',
+  '--no-first-run',
+  '--no-default-browser-check',
+  `--user-data-dir=${userDataDir}`,
   '--enable-webgl',
   '--use-gl=angle',
   '--use-angle=swiftshader',
   '--enable-unsafe-swiftshader',
   '--ignore-gpu-blocklist',
   '--no-proxy-server',
+  '--remote-debugging-address=127.0.0.1',
   `--remote-debugging-port=${PORT}`,
   '--window-size=1280,800',
   'about:blank',
-], { stdio: 'ignore' });
+], { stdio: ['ignore', 'ignore', 'pipe'] });
+
+chrome.stderr?.on('data', (chunk) => {
+  if (chromeStderr.length < 4000) chromeStderr += chunk.toString();
+});
+chrome.on('exit', (code, sig) => {
+  chromeExited = { code, sig };
+});
 
 function httpGetJson(url) {
   return new Promise((resolve, reject) => {
@@ -50,15 +66,16 @@ function httpGetJson(url) {
 }
 
 async function waitForCDP() {
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 120; i++) {
+    if (chromeExited) break;
     try {
       const list = await httpGetJson(`http://127.0.0.1:${PORT}/json/list`);
       const page = list.find((t) => t.type === 'page');
       if (page?.webSocketDebuggerUrl) return page.webSocketDebuggerUrl;
     } catch {}
-    await new Promise((r) => setTimeout(r, 200));
+    await new Promise((r) => setTimeout(r, 250));
   }
-  throw new Error('Chrome CDP did not start');
+  throw new Error(`Chrome CDP did not start (bin=${CHROME_BIN}, exited=${JSON.stringify(chromeExited)}): ${chromeStderr.slice(0, 800)}`);
 }
 
 let msgId = 1;

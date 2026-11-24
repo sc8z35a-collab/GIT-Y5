@@ -178,7 +178,10 @@ jobs:
           if [ -z "$CHROME_BIN" ]; then
             wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/chrome.deb
             sudo apt-get update -qq && sudo apt-get install -y -qq /tmp/chrome.deb
+            CHROME_BIN=$(which google-chrome || which chromium || which chromium-browser)
           fi
+          export CHROME_BIN
+          "$CHROME_BIN" --version
           node hardware/check_3d_intersections.mjs "file://${PWD}/index.html"
           node -e '
             const fs = require("fs");
