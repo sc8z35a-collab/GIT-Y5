@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * RK T4 Rev 3.0 — Dual-Board Native KiCad 9.0.8 Manufacturing Package Exporter
+ * RK T4 Rev 4.0 — Dual-Board Native KiCad 9.0.8 Manufacturing Package Exporter
  * ============================================================================
  * Supports exporting either or both verified boards:
- *   - Mainboard (`--board main`): 12-Layer 0.800 mm 3+6+3 HDI (19 Gerbers + blind/buried/through Excellon drills)
- *   - Mezzanine (`--board mezz`): 8-Layer 0.600 mm 5G RF CPWG (15 Gerbers + POFV Excellon drill)
+ *   - Mainboard (`--board main`): 14-Layer 1.200 mm 3+8+3 Staggered HDI (21 Gerbers + 8 sequential Excellon drills)
+ *   - Mezzanine (`--board mezz`): 8-Layer 0.800 mm JLC08081H-1080A 5G RF CPWG (15 Gerbers + POFV Excellon drill)
  *   - Default (no flag): exports BOTH boards!
  *
  * Strictly gates EVERY board through official native `kicad-cli pcb drc --severity-all --all-track-errors --exit-code-violations`
@@ -44,7 +44,7 @@ if (fs.existsSync(AUDIT_PATH)) {
 const BOARDS = {
   main: {
     key: 'main',
-    title: 'RK T4 Mainboard (12-Layer 0.800mm 3+6+3 HDI, Rev 3.0)',
+    title: 'RK T4 Mainboard (14-Layer 1.200mm 3+8+3 Staggered HDI, Rev 4.0)',
     pcbPath: path.join(HW_DIR, 'rk_t4_mainboard.kicad_pcb'),
     drcPath: path.join(HW_DIR, 'kicad_drc_report.json'),
     gerberDir: path.join(MFG_DIR, 'gerbers'),
@@ -57,14 +57,15 @@ const BOARDS = {
     svgBotPath: path.join(MFG_DIR, 'rk_t4_pcb_bot.svg'),
     layers: [
       'F.Cu',
-      'In1.Cu', 'In2.Cu', 'In3.Cu', 'In4.Cu', 'In5.Cu', 'In6.Cu', 'In7.Cu', 'In8.Cu', 'In9.Cu', 'In10.Cu',
+      'In1.Cu', 'In2.Cu', 'In3.Cu', 'In4.Cu', 'In5.Cu', 'In6.Cu',
+      'In7.Cu', 'In8.Cu', 'In9.Cu', 'In10.Cu', 'In11.Cu', 'In12.Cu',
       'B.Cu',
       'F.Paste', 'B.Paste', 'F.SilkS', 'B.SilkS', 'F.Mask', 'B.Mask', 'Edge.Cuts',
     ],
   },
   mezz: {
     key: 'mezz',
-    title: 'RK T4 5G RF Mezzanine (8-Layer 0.600mm 50-ohm CPWG, Rev 3.0)',
+    title: 'RK T4 5G RF Mezzanine (8-Layer 0.800mm JLC08081H-1080A CPWG, Rev 4.0)',
     pcbPath: path.join(HW_DIR, 'rk_t4_mezzanine.kicad_pcb'),
     drcPath: path.join(HW_DIR, 'kicad_mezz_drc_report.json'),
     gerberDir: path.join(MFG_DIR, 'gerbers_mezz'),
@@ -212,4 +213,4 @@ print(f"   Packaged {len(os.listdir(src_dir))} files into {zip_path} ({os.path.g
 
 if (boardArg === 'main' || boardArg === 'both') exportBoard(BOARDS.main);
 if (boardArg === 'mezz' || boardArg === 'both') exportBoard(BOARDS.mezz);
-console.log('\nAll requested Rev 3.0 manufacturing packages generated cleanly!');
+console.log('\nAll requested Rev 4.0 manufacturing packages generated cleanly!');

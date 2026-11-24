@@ -37,6 +37,7 @@ import {
   buildRk3588s2FullPins,
   buildLpddr5xFullPins,
   buildEmmc51FullPins,
+  buildTas2562FullPins,
 } from './bga_full_expand.mjs';
 
 const ROOT_DIR = path.resolve(import.meta.dirname, '..');
@@ -222,7 +223,7 @@ addPart({
   value: 'Octa-Core A76/A55 8nm 48MP-ISP 6TOPS-NPU Android-14/15 (Full 1253-Ball)',
   pkg: 'FCCSP1253L (17x17mm)',
   board: 'main', side: 'top',
-  x: 4.6, y: 24.5, w: 17.0, h: 17.0, t: 0.92,
+  x: 6.4, y: 24.5, w: 17.0, h: 17.0, t: 0.92,
   subsystem: 'SoC',
   pins: rkFull.pins,
 });
@@ -285,8 +286,9 @@ addRes({ ref: 'R311', value: '240R', tol: '1%', pkg: '0201', side: 'bot', x: -6.
 addRes({ ref: 'R601', value: '200R', tol: '1%', pkg: '0201', side: 'bot', x: 3.6,  y: 34.0, subsystem: 'USB-C',  net1: 'USB20_OTG_REXT', net2: 'GND' });
 addRes({ ref: 'R602', value: '8.2K', tol: '1%', pkg: '0201', side: 'bot', x: 4.8,  y: 34.0, subsystem: 'USB-C',  net1: 'TYPEC0_DP0_REXT', net2: 'GND' });
 
-addTestPoint({ ref: 'TP101', net: 'EMMC_CLK_LINE', x: -5.4, y: 34.4, subsystem: 'Boot' });
-addTestPoint({ ref: 'TP102', net: 'GND', x: -4.2, y: 34.4, subsystem: 'Boot' });
+// MaskROM shorting pair (TP101/TP102) placed right next to R303 (eMMC CLK series resistor on B.Cu) to keep HS400 CLK stub < 2mm!
+addTestPoint({ ref: 'TP101', net: 'EMMC_CLK_LINE', side: 'bot', x: -4.2, y: 15.2, subsystem: 'Boot' });
+addTestPoint({ ref: 'TP102', net: 'GND',           side: 'bot', x: -3.0, y: 15.2, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP103', net: 'UART2_DBG_TX', x: 8.6, y: 35.2, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP104', net: 'UART2_DBG_RX', x: 9.7, y: 35.2, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP105', net: 'JTAG_SWDIO', x: 8.6, y: 36.4, subsystem: 'Boot' });
@@ -301,18 +303,18 @@ const socDecoupleRails = [
   'VDDA_DDR_PLL_S0', 'AVDD_0V85_S0', 'AVDD_1V2_S0', 'VCC_1V8_S3',
   'VCC_1V8_S0', 'AVCC_1V8_S0', 'VCC_1V8_PMU_S3', 'VCCIO_SD_S0', 'AVDD_3V3_S0',
 ];
-// Perimeter caps around RK3588S2 (top, bottom, right edges)
+// Perimeter caps around RK3588S2 (top, bottom, right edges — aligned to U101 center x=6.4!)
 for (let i = 0; i < 12; i++) {
   const rail = socDecoupleRails[i % socDecoupleRails.length];
-  addCap({ value: i % 3 === 0 ? '4.7uF' : '1uF', pkg: '0201', x: -3.2 + i * 1.4, y: 33.7, subsystem: 'SoC', netP: rail });
+  addCap({ value: i % 3 === 0 ? '4.7uF' : '1uF', pkg: '0201', x: -1.4 + i * 1.4, y: 33.7, subsystem: 'SoC', netP: rail });
 }
 for (let i = 0; i < 12; i++) {
   const rail = socDecoupleRails[(i + 6) % socDecoupleRails.length];
-  addCap({ value: i % 3 === 0 ? '4.7uF' : '100nF', pkg: '0201', x: -3.2 + i * 1.4, y: 15.2, subsystem: 'SoC', netP: rail });
+  addCap({ value: i % 3 === 0 ? '4.7uF' : '100nF', pkg: '0201', x: -1.4 + i * 1.4, y: 15.2, subsystem: 'SoC', netP: rail });
 }
 for (let i = 0; i < 10; i++) {
   const rail = socDecoupleRails[(i + 12) % socDecoupleRails.length];
-  addCap({ value: '100nF', pkg: '01005', x: 13.7, y: 16.6 + i * 1.4, rot: 90, subsystem: 'SoC', netP: rail });
+  addCap({ value: '100nF', pkg: '01005', x: 15.6, y: 16.6 + i * 1.4, rot: 90, subsystem: 'SoC', netP: rail });
 }
 // 70x Backside BGA belly ultra-high-frequency 01005 decoupling grid directly under RK3588S2 power balls!
 for (let r = 0; r < 7; r++) {
@@ -322,7 +324,7 @@ for (let r = 0; r < 7; r++) {
       value: (r + c) % 3 === 0 ? '1uF' : '100nF',
       pkg: '01005',
       side: 'bot',
-      x: -2.4 + c * 1.6,
+      x: -0.6 + c * 1.6,
       y: 17.6 + r * 2.2,
       subsystem: 'SoC',
       netP: rail,
@@ -622,26 +624,26 @@ addCap({ value: '22uF', voltage: '10V', pkg: '0402', x: 9.2, y: -63.0, subsystem
 addPart({
   ref: 'U301', mpn: 'K3LK7K70BM-BGCP', manufacturer: 'Samsung',
   category: 'DRAM', kind: 'dram', value: 'LPDDR5/5X-6400 64-bit Quad-Ch (Full 496-Ball)', pkg: 'FBGA-496 (12.4x14.0mm)',
-  board: 'main', side: 'top', x: -10.8, y: 24.5, w: 12.4, h: 14.0, t: 0.77,
+  board: 'main', side: 'top', x: -11.4, y: 24.5, w: 12.4, h: 14.0, t: 0.77,
   subsystem: 'Memory',
   pins: lpddrFull.pins,
 });
 // Mandatory 240 Ohm 1% LPDDR5X ZQ Calibration Resistors to VDDQ_DDR_S0 + VDDQ_DDR_CKE_S3 120R Ferrite (ROCK 5B+ Page 14!)
-addRes({ ref: 'R301', value: '240R', tol: '1%', pkg: '0201', x: -4.8, y: 32.8, subsystem: 'Memory', net1: 'DDR_ZQ_A', net2: 'VDDQ_DDR_S0' });
-addRes({ ref: 'R302', value: '240R', tol: '1%', pkg: '0201', x: -5.8, y: 32.8, subsystem: 'Memory', net1: 'DDR_ZQ_B', net2: 'VDDQ_DDR_S0' });
+addRes({ ref: 'R301', value: '240R', tol: '1%', pkg: '0201', x: -5.4, y: 32.8, subsystem: 'Memory', net1: 'DDR_ZQ_A', net2: 'VDDQ_DDR_S0' });
+addRes({ ref: 'R302', value: '240R', tol: '1%', pkg: '0201', x: -6.4, y: 32.8, subsystem: 'Memory', net1: 'DDR_ZQ_B', net2: 'VDDQ_DDR_S0' });
 addBead({ ref: 'FB301', value: '120R@100MHz', pkg: '0201', side: 'bot', x: -15.6, y: 34.0, subsystem: 'Memory', net1: 'VDD2_DDR_S3', net2: 'VDDQ_DDR_CKE_S3' });
-// 52x LPDDR5X Decoupling Capacitors (Top perimeter + 32x Backside BGA cavity 01005 + 12x bulk/HF caps on VDD2H/VDD2L/VDDQ/VDD1!)
+// 52x LPDDR5X Decoupling Capacitors (Top perimeter + 36x Backside BGA cavity 01005 + 12x bulk/HF caps on VDD2H/VDD2L/VDDQ/VDD1!)
 const ddrRails = ['VDD2_DDR_S3', 'VDD2L_0V9_DDR_S3', 'VDDQ_DDR_S0', 'VCC_1V8_S3'];
 for (let i = 0; i < 8; i++) {
-  addCap({ value: i % 2 === 0 ? '1uF' : '100nF', pkg: '0201', x: -14.2 + i * 1.0, y: 32.8, subsystem: 'Memory', netP: ddrRails[i % 4] });
+  addCap({ value: i % 2 === 0 ? '1uF' : '100nF', pkg: '0201', x: -14.8 + i * 1.0, y: 32.8, subsystem: 'Memory', netP: ddrRails[i % 4] });
 }
 for (let r = 0; r < 6; r++) {
   for (let c = 0; c < 6; c++) {
-    addCap({ value: (r + c) % 3 === 0 ? '1uF' : '100nF', pkg: '01005', side: 'bot', x: -15.6 + c * 1.9, y: 18.4 + r * 2.4, subsystem: 'Memory', netP: ddrRails[(r + c) % 4] });
+    addCap({ value: (r + c) % 3 === 0 ? '1uF' : '100nF', pkg: '01005', side: 'bot', x: -16.2 + c * 1.9, y: 18.4 + r * 2.4, subsystem: 'Memory', netP: ddrRails[(r + c) % 4] });
   }
 }
 for (let i = 0; i < 12; i++) {
-  addCap({ value: i < 4 ? '22uF' : i < 8 ? '10uF' : '100nF', pkg: i < 8 ? '0402' : '0201', side: 'bot', x: -14.0 + i * 1.15, y: 32.4, subsystem: 'Memory', netP: ddrRails[i % 4] });
+  addCap({ value: i < 4 ? '22uF' : i < 8 ? '10uF' : '100nF', pkg: i < 8 ? '0402' : '0201', side: 'bot', x: -14.6 + i * 1.15, y: 32.4, subsystem: 'Memory', netP: ddrRails[i % 4] });
 }
 
 // 256GB eMMC 5.1 HS400 Boot Storage (Double-Sided SMT: Bottom face, FULL 153-BALL JEDEC MO-276!)
@@ -971,24 +973,26 @@ addPart({
 });
 addCap({ value: '100nF', pkg: '0201', side: 'bot', x: 12.4, y: 45.8, subsystem: 'Audio', netP: 'VCC_1V8_S0' });
 
-// Dual 6.1W Class-D SmartPA Amplifiers (Bottom Speaker + Top Earpiece Stereo!)
+// Dual 6.1W Class-D SmartPA Amplifiers (TI TAS2562YFPR — FULL 36-Ball DSBGA YFP0036 1:1 Expansion!)
 [
-  { ref: 'U802', ind: 'L801', y: -43.0, outP: 'SPK_BOT_OUT_P', outN: 'SPK_BOT_OUT_N', label: 'Bottom Speaker SmartPA' },
-  { ref: 'U803', ind: 'L802', y: -46.8, outP: 'SPK_TOP_OUT_P', outN: 'SPK_TOP_OUT_N', label: 'Top Earpiece SmartPA' },
+  { ref: 'U802', ind: 'L801', y: -42.9, outP: 'SPK_BOT_OUT_P', outN: 'SPK_BOT_OUT_N', addrBit0: false, label: 'Bottom Speaker SmartPA (I2C 0x4C)' },
+  { ref: 'U803', ind: 'L802', y: -46.9, outP: 'SPK_TOP_OUT_P', outN: 'SPK_TOP_OUT_N', addrBit0: true,  label: 'Top Earpiece SmartPA (I2C 0x4D)' },
 ].forEach((pa) => {
+  const tasFull = buildTas2562FullPins({ ref: pa.ref, outP: pa.outP, outN: pa.outN, i2cAddrBit0: pa.addrBit0 });
   addPart({
     ref: pa.ref, mpn: 'TAS2562YFPR', manufacturer: 'Texas Instruments',
-    category: 'AudioPA', kind: 'ic', value: `6.1W Class-D ${pa.label}`, pkg: 'DSBGA-36 (2.6x2.8mm)',
-    board: 'main', side: 'top', x: 14.2, y: pa.y, w: 2.6, h: 2.8, t: 0.56,
+    category: 'AudioPA', kind: 'ic', value: `6.1W Class-D ${pa.label} (Full 36-Ball)`, pkg: 'DSBGA-36 (2.41x2.43mm)',
+    board: 'main', side: 'top', x: 14.2, y: pa.y, w: 2.5, h: 2.5, t: 0.56,
     subsystem: 'Audio',
-    pins: {
-      VBAT: 'VSYS_3V87', SW: `SW_${pa.ref}`, IOVDD: 'VCC_1V8_S0',
-      SCLK: 'I2S1_PA_SCLK', LRCK: 'I2S1_PA_LRCK', DIN: 'I2S1_PA_SDO', DOUT: 'I2S1_PA_SDI',
-      SCL: 'I2C7_SCL', SDA: 'I2C7_SDA', OUTP: pa.outP, OUTN: pa.outN, GND: 'GND',
-    },
+    pins: tasFull.pins,
   });
   addInd({ ref: pa.ind, value: '1.0uH', current: '4.5A', pkg: 'IND_2016', x: 11.0, y: pa.y, subsystem: 'Audio', net1: 'VSYS_3V87', net2: `SW_${pa.ref}` });
   addCap({ value: '10uF', voltage: '16V', pkg: '0402', x: 8.9, y: pa.y, subsystem: 'Audio', netP: 'VSYS_3V87' });
+  // Mandatory TI SLASEI7A internal regulator & Class-H boost caps (DREG 1uF, GREG 100nF, PVDD/VBST 10uF + 100nF on B.Cu!)
+  addCap({ value: '1uF',   voltage: '6.3V', pkg: '0201', side: 'bot', x: 15.2, y: pa.y + 0.7, subsystem: 'Audio', netP: `TAS_DREG_${pa.ref}` });
+  addCap({ value: '100nF', voltage: '10V',  pkg: '0201', side: 'bot', x: 15.2, y: pa.y - 0.1, subsystem: 'Audio', netP: `TAS_GREG_${pa.ref}` });
+  addCap({ value: '100nF', voltage: '25V',  pkg: '0201', side: 'bot', x: 15.2, y: pa.y - 0.9, subsystem: 'Audio', netP: `TAS_PVDD_${pa.ref}` });
+  addCap({ value: '10uF',  voltage: '25V',  pkg: '0402', side: 'bot', x: 11.2, y: pa.y,       subsystem: 'Audio', netP: `TAS_PVDD_${pa.ref}` });
 });
 addPart({
   ref: 'J802', mpn: 'EARPIECE_PAD_2P', manufacturer: 'TE',
@@ -1061,18 +1065,18 @@ addPart({
 });
 addCap({ value: '1uF', pkg: '0201', side: 'bot', x: 1.4, y: 45.8, subsystem: 'Sensors', netP: 'VCC_1V8_S3' });
 
-// Side Tactile Buttons BTB (Power Key, Vol+ Recovery, Vol-) + ESD Protection (nudged >=0.55mm inside edge!)
+// Side Tactile Buttons BTB (Power Key, Vol+ Recovery, Vol-) + ESD Protection (cleanly south of U101 y=16.0!)
 addPart({
   ref: 'J801', mpn: 'SIDE_KEY_BTB_6P', manufacturer: 'Hirose',
   category: 'Connector', kind: 'btb', value: 'Power/Vol+/Vol- Side Flex BTB', pkg: 'BTB-6P',
-  board: 'main', side: 'top', x: 15.3, y: 18.0, w: 1.2, h: 4.2, t: 0.60,
+  board: 'main', side: 'top', x: 15.3, y: 12.4, w: 1.2, h: 4.2, t: 0.60,
   subsystem: 'Keys',
   pins: { PWR: 'KEY_PWR_EXT', VUP: 'KEY_VOL_UP_EXT', VDN: 'KEY_VOL_DN_EXT', GND: 'GND' },
 });
-addRes({ ref: 'R810', value: '1K', pkg: '0201', x: 14.3, y: 19.2, subsystem: 'Keys', net1: 'KEY_PWR_EXT', net2: 'PMIC_PWRON_L' });
-addRes({ ref: 'R811', value: '1K', pkg: '0201', x: 14.3, y: 18.0, subsystem: 'Keys', net1: 'KEY_VOL_UP_EXT', net2: 'KEY_VOL_UP_REC' });
-addRes({ ref: 'R812', value: '1K', pkg: '0201', x: 14.3, y: 16.8, subsystem: 'Keys', net1: 'KEY_VOL_DN_EXT', net2: 'KEY_VOL_DN' });
-addEsd({ ref: 'D801', mpn: 'PESD5V0S4UD', pkg: 'SOT-23-6 (2.9x2.8mm)', w: 2.9, h: 2.8, t: 0.90, x: 14.1, y: 13.8, subsystem: 'Keys', pins: { '1': 'KEY_PWR_EXT', '2': 'GND', '3': 'KEY_VOL_UP_EXT', '4': 'KEY_VOL_DN_EXT', '5': 'VCC_1V8_PMU_S3', '6': 'GND' } });
+addRes({ ref: 'R810', value: '1K', pkg: '0201', x: 14.1, y: 13.6, subsystem: 'Keys', net1: 'KEY_PWR_EXT', net2: 'PMIC_PWRON_L' });
+addRes({ ref: 'R811', value: '1K', pkg: '0201', x: 14.1, y: 12.4, subsystem: 'Keys', net1: 'KEY_VOL_UP_EXT', net2: 'KEY_VOL_UP_REC' });
+addRes({ ref: 'R812', value: '1K', pkg: '0201', x: 14.1, y: 11.2, subsystem: 'Keys', net1: 'KEY_VOL_DN_EXT', net2: 'KEY_VOL_DN' });
+addEsd({ ref: 'D801', mpn: 'PESD5V0S4UD', pkg: 'SOT-23-6 (2.9x2.8mm)', w: 2.9, h: 2.8, t: 0.90, x: 14.0, y: 5.2, subsystem: 'Keys', pins: { '1': 'KEY_PWR_EXT', '2': 'GND', '3': 'KEY_VOL_UP_EXT', '4': 'KEY_VOL_DN_EXT', '5': 'VCC_1V8_PMU_S3', '6': 'GND' } });
 
 // ALL 8 I2C BUSES MANDATORY 2.2kOhm PULL-UP RESISTORS (I2C0 .. I2C7 -> VCC_1V8_S3)!
 for (let bus = 0; bus <= 7; bus++) {
@@ -1517,7 +1521,7 @@ addPart({
 // ============================================================================
 // 1. 3x On-Board 10K NTC Thermal Sensors (SoC, 80W Charge Pumps, 5G PAMiD -> SARADC_IN3/4/5)
 const ntcZones = [
-  { rt: 'RT101', rp: 'R131', net: 'THERM_SOC_ADC',  board: 'main', x: 15.0, y: 31.8, sub: 'Thermal' },
+  { rt: 'RT101', rp: 'R131', net: 'THERM_SOC_ADC',  board: 'main', x: 14.8, y: 34.4, sub: 'Thermal' },
   { rt: 'RT201', rp: 'R132', net: 'THERM_CHG_ADC',  board: 'main', x: 14.0, y: -15.4, sub: 'Thermal' },
   { rt: 'RT701', rp: 'R133', net: 'THERM_RFPA_ADC', board: 'mezz', x: -1.4, y: 16.0, sub: 'Thermal' },
 ];

@@ -30,6 +30,7 @@ const matIdx = args.indexOf('--material');
 const targetMaterial = matIdx >= 0 ? args[matIdx + 1] : null;
 const wantHdi = args.includes('--hdi');
 const wantEnig = args.includes('--enig');
+const wantImpedance = args.includes('--impedance');
 const stepIdx = args.indexOf('--hdi-step');
 const targetHdiStep = stepIdx >= 0 ? args[stepIdx + 1] : null;
 const icuIdx = args.indexOf('--inner-cu');
@@ -241,6 +242,30 @@ async function run() {
   }
   if (targetInnerCu) {
     console.log(`Clicked inner copper ${targetInnerCu}:`, await clickOption([targetInnerCu]));
+  }
+  if (wantImpedance) {
+    const impClicked = await evalJs(`(() => {
+      const rows = [...document.querySelectorAll('div, tr, section')];
+      for (const row of rows) {
+        const txt = (row.innerText || '').trim();
+        if (!/Impedance Control|Specify Stackup/i.test(txt) || txt.length > 260) continue;
+        const btns = [...row.querySelectorAll('button, label, span, div')];
+        for (const b of btns) {
+          if (b.offsetParent === null || b.children.length > 2) continue;
+          const bt = (b.innerText || '').trim();
+          if (/^Yes$/i.test(bt) || /±10%/i.test(bt)) {
+            const dis = b.closest('[disabled], .is-disabled, .disabled, [class*="disabled"]');
+            if (dis || b.disabled) continue;
+            b.scrollIntoView({ block: 'center' });
+            b.click();
+            return { clicked: bt, rowText: txt.slice(0, 80) };
+          }
+        }
+      }
+      return false;
+    })()`);
+    console.log('Clicked Impedance Control:', impClicked);
+    await sleep(3000);
   }
   if (targetVia) {
     const clickedVia = await clickOption([targetVia]);

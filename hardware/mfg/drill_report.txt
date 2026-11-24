@@ -1,5 +1,5 @@
 Drill report for rk_t4_mainboard.kicad_pcb
-Created on 2026-11-22T03:11:09+0000
+Created on 2026-11-24T03:38:27+0000
 
 Copper Layer Stackup:
     =============================================================
@@ -10,75 +10,77 @@ Copper Layer Stackup:
     L5 :  GND2                      in4
     L6 :  In5.Cu                    in5
     L7 :  In6.Cu                    in6
-    L8 :  VSYS_3V87                 in7
-    L9 :  In8.Cu                    in8
+    L8 :  PWR_SPLIT                 in7
+    L9 :  GND3                      in8
     L10:  In9.Cu                    in9
-    L11:  GND3                      in10
-    L12:  B.Cu                      back
+    L11:  In10.Cu                   in10
+    L12:  In11.Cu                   in11
+    L13:  GND4                      in12
+    L14:  B.Cu                      back
 
 
 Drill file 'rk_t4_mainboard.drl' contains
     plated through holes:
     =============================================================
-    T1  0.150mm  0.0059"  (73 holes)
+    T1  0.150mm  0.0059"  (71 holes)
 
-    Total plated holes count 73
+    Total plated holes count 71
 
 
 Drill file 'rk_t4_mainboard-front-in1.drl' contains
     holes connecting layer pair: 'F.Cu and GND' (blind vias):
     =============================================================
-    T1  0.080mm  0.0031"  (2211 holes)
+    T1  0.075mm  0.0030"  (2336 holes)
 
-    Total plated holes count 2211
+    Total plated holes count 2336
 
 
 Drill file 'rk_t4_mainboard-in1-in2.drl' contains
     holes connecting layer pair: 'GND and In2.Cu' (buried vias):
     =============================================================
-    T1  0.080mm  0.0031"  (1190 holes)
+    T1  0.075mm  0.0030"  (1244 holes)
 
-    Total plated holes count 1190
+    Total plated holes count 1244
 
 
 Drill file 'rk_t4_mainboard-in2-in3.drl' contains
     holes connecting layer pair: 'In2.Cu and In3.Cu' (buried vias):
     =============================================================
-    T1  0.080mm  0.0031"  (2771 holes)
+    T1  0.075mm  0.0030"  (2369 holes)
 
-    Total plated holes count 2771
+    Total plated holes count 2369
 
 
-Drill file 'rk_t4_mainboard-in3-in8.drl' contains
-    holes connecting layer pair: 'In3.Cu and In8.Cu' (buried vias):
+Drill file 'rk_t4_mainboard-in3-in10.drl' contains
+    holes connecting layer pair: 'In3.Cu and In10.Cu' (buried vias):
     =============================================================
-    T1  0.100mm  0.0039"  (967 holes)
+    T1  0.150mm  0.0059"  (1429 holes)
 
-    Total plated holes count 967
+    Total plated holes count 1429
 
 
-Drill file 'rk_t4_mainboard-in8-in9.drl' contains
-    holes connecting layer pair: 'In8.Cu and In9.Cu' (buried vias):
+Drill file 'rk_t4_mainboard-in10-in11.drl' contains
+    holes connecting layer pair: 'In10.Cu and In11.Cu' (buried vias):
     =============================================================
-    T1  0.080mm  0.0031"  (1685 holes)
+    T1  0.075mm  0.0030"  (1647 holes)
 
-    Total plated holes count 1685
+    Total plated holes count 1647
 
 
-Drill file 'rk_t4_mainboard-in9-in10.drl' contains
-    holes connecting layer pair: 'In9.Cu and GND3' (buried vias):
+Drill file 'rk_t4_mainboard-in11-in12.drl' contains
+    holes connecting layer pair: 'In11.Cu and GND4' (buried vias):
     =============================================================
-    T1  0.080mm  0.0031"  (371 holes)
+    T1  0.075mm  0.0030"  (405 holes)
 
-    Total plated holes count 371
+    Total plated holes count 405
 
 
-Drill file 'rk_t4_mainboard-in10-back.drl' contains
-    holes connecting layer pair: 'GND3 and B.Cu' (blind vias):
+Drill file 'rk_t4_mainboard-in12-back.drl' contains
+    holes connecting layer pair: 'GND4 and B.Cu' (blind vias):
     =============================================================
-    T1  0.080mm  0.0031"  (647 holes)
+    T1  0.075mm  0.0030"  (690 holes)
 
-    Total plated holes count 647
+    Total plated holes count 690
 
 
 Not plated through holes are merged with plated holes
