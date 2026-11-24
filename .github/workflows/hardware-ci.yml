@@ -136,7 +136,7 @@ jobs:
           node-version: '24'
       - name: Install Dependencies & Build Single-File 3D Viewer
         run: |
-          npm ci
+          npm install --no-audit --no-fund
           npm run build
       - name: Run Headless Chromium 3D Box3 Interference & Anti-Squash Audit
         run: |
