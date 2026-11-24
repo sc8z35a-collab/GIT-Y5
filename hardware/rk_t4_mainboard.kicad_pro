@@ -463,6 +463,10 @@
       {
         "netclass": "POWER_WIDE",
         "pattern": "VBAT_*"
+      },
+      {
+        "netclass": "POWER_WIDE",
+        "pattern": "VBUS_*"
       }
     ]
   },

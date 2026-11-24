@@ -1,10 +1,10 @@
 {
   "bodyWidthMm": 79.09,
   "bodyHeightMm": 162.72,
-  "bodyThicknessMm": 10.04,
+  "bodyThicknessMm": 10.9,
   "maxThicknessWithCameraMm": 12.87,
-  "cameraProtrusionMm": 2.83,
-  "totalCheckedMeshes": 2856,
+  "cameraProtrusionMm": 1.97,
+  "totalCheckedMeshes": 2813,
   "interferenceCount": 0,
   "interModuleCount": 0,
   "intraModuleCount": 0,
@@ -15,8 +15,8 @@
     "batteryRealisticSiC": true,
     "displayThicknessMm": 1.8,
     "coolingThicknessMm": 0.6,
-    "motherboardStackThicknessMm": 6.06,
-    "wirelessRearThicknessMm": 2.35
+    "motherboardStackThicknessMm": 7.03,
+    "wirelessRearThicknessMm": 3.21
   },
   "pairSummary": {},
   "moduleBounds": {
@@ -47,22 +47,22 @@
       "maxXmm": 39.6,
       "minYmm": -82.086,
       "maxYmm": 80.634,
-      "minZmm": -4.58,
+      "minZmm": -5.44,
       "maxZmm": 3.94,
       "sizeXmm": 79.09,
       "sizeYmm": 162.72,
-      "sizeZmm": 8.52
+      "sizeZmm": 9.38
     },
     "motherboard": {
       "minXmm": -0.65,
       "maxXmm": 34.25,
       "minYmm": -41.176,
       "maxYmm": 75.924,
-      "minZmm": -4.37,
-      "maxZmm": 1.69,
+      "minZmm": -5.18,
+      "maxZmm": 1.85,
       "sizeXmm": 34.9,
       "sizeYmm": 117.1,
-      "sizeZmm": 6.06
+      "sizeZmm": 7.03
     },
     "camera": {
       "minXmm": -32.47,
@@ -91,11 +91,11 @@
       "maxXmm": 36.22,
       "minYmm": -80.446,
       "maxYmm": 78.994,
-      "minZmm": -5.34,
+      "minZmm": -6.2,
       "maxZmm": -2.99,
       "sizeXmm": 72.44,
       "sizeYmm": 159.44,
-      "sizeZmm": 2.35
+      "sizeZmm": 3.21
     },
     "speaker": {
       "minXmm": 8.98,
@@ -143,6 +143,6 @@
     }
   },
   "interferences": [],
-  "totalSolidMeshes": 2856,
+  "totalSolidMeshes": 2813,
   "totalInterferences": 0
 }

@@ -101,7 +101,7 @@ export function buildFrameSystem(textures) {
     )
   );
   const railMesh = new THREE.Mesh(
-    extrudePlate(railShape, 0.852, {
+    extrudePlate(railShape, 0.938, {
       bevelSize: 0.036,
       bevelThickness: 0.036,
       bevelSegments: 5,
@@ -109,12 +109,12 @@ export function buildFrameSystem(textures) {
     }),
     matTitanium
   );
-  railMesh.position.z = -0.032; // World Z: [-0.458 .. +0.394] flush between front glass & Rev 4.0 rear ceramic!
+  railMesh.position.z = -0.075; // World Z: [-0.544 .. +0.394] flush between front glass & Rev 5.0 EVT rear ceramic!
   chassisGroup.add(railMesh);
 
   // 6 Insulated PEEK RF Antenna Split Bands inlaid cleanly across the Titanium perimeter
-  const sideBandGeo = new THREE.BoxGeometry(PHONE.RAIL_W + 0.018, 0.11, 0.80);
-  const topBotBandGeo = new THREE.BoxGeometry(0.11, PHONE.RAIL_W + 0.018, 0.80);
+  const sideBandGeo = new THREE.BoxGeometry(PHONE.RAIL_W + 0.018, 0.11, 0.88);
+  const topBotBandGeo = new THREE.BoxGeometry(0.11, PHONE.RAIL_W + 0.018, 0.88);
   [
     [-PHONE.W / 2 + PHONE.RAIL_W / 2,  6.40, sideBandGeo],
     [ PHONE.W / 2 - PHONE.RAIL_W / 2,  6.40, sideBandGeo],
@@ -124,7 +124,7 @@ export function buildFrameSystem(textures) {
     [ 2.05, -PHONE.H / 2 + PHONE.RAIL_W / 2, topBotBandGeo],
   ].forEach(([bx, by, geo]) => {
     const band = new THREE.Mesh(geo, matPeekAntenna);
-    band.position.set(bx, by, -0.032);
+    band.position.set(bx, by, -0.075);
     chassisGroup.add(band);
   });
 
@@ -141,7 +141,7 @@ export function buildFrameSystem(textures) {
 
   // Internal CNC-Milled Structural Midframe Deck (REAL 0.46mm alloy at Z = +0.194 -> [+0.171..+0.217])
   const webShape = createRoundedRectShape(PHONE.W - 0.56, PHONE.H - 0.56, PHONE.R - 0.26);
-  // Full milled through-pockets so Camera Bay, 5.14mm 6000mAh Battery, Ultrasonic FP, & Selfie/Earpiece seat cleanly!
+  // Full milled through-pockets so Camera Bay, 5.18mm 6000mAh Battery, Ultrasonic FP, Selfie/Earpiece, VCNL4040 & Top Mic seat cleanly!
   webShape.holes.push(
     createRoundedRectHole(CAMERA_BAY.W - 0.16, CAMERA_BAY.H - 0.16, 0.44, CAMERA_BAY.CENTER_X, CAMERA_BAY.CENTER_Y)
   );
@@ -153,6 +153,13 @@ export function buildFrameSystem(textures) {
   );
   webShape.holes.push(
     createRoundedRectHole(2.74, 0.86, 0.16, 0.16, DISPLAY_DIM.PUNCH_Y + 0.12)
+  );
+  // Optical Proximity/ALS aperture pocket for U810 (Vishay VCNL4040M3OE, 1.10mm tall) & Top Mic acoustic port for MK801 (MP34DT05TR-A, 1.00mm)
+  webShape.holes.push(
+    createRoundedRectHole(0.56, 0.36, 0.06, 2.10, 7.41)
+  );
+  webShape.holes.push(
+    createRoundedRectHole(0.46, 0.56, 0.06, 2.76, 7.39)
   );
 
   const webMesh = new THREE.Mesh(

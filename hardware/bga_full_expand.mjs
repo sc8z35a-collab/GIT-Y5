@@ -93,38 +93,46 @@ function mapRkPowerPin(name) {
   if (/^DDR_CH[01]_PLL_DVDD$/.test(name)) return 'VDDA_DDR_PLL_S0';
   if (/^DDR_CH[01]_PLL_AVDD1V8$/.test(name)) return 'AVCC_1V8_S0';
   if (/^PLL_AVDD1V8$/.test(name)) return 'AVCC_1V8_S0';
-  if (/^PLL_DVDD_0V75$/.test(name)) return 'VDD_0V75_S0_PLL';
+  // Rev 5.0 FIX: Rockchip Datasheet V1.7 names ball Y26 "PLL_DVDD0V75" (without underscore)!
+  if (/^PLL_DVDD_?0V75$/.test(name)) return 'VDD_0V75_S0_PLL';
   if (/^PMU_0V75/.test(name)) return 'VDD_0V75_S3';
   if (/^PMUIO1_1V8/.test(name)) return 'VCC_1V8_PMU_S3';
   if (/^PMUIO2_1V8/.test(name)) return 'VCC_1V8_PMU_S3';
   if (/^PMUIO2(_\d+)?$/.test(name)) return 'VCC_1V8_S3';
   if (/^OSC_1V8/.test(name)) return 'VCC_1V8_PMU_S3';
   if (/^EMMCIO_1V8/.test(name)) return 'VCC_1V8_S3';
-  if (/^VCCIO2(_1V8)?$/.test(name)) return 'VCCIO_SD_S0';
+  // Rev 5.0 FIX: RK T4 has NO microSD slot; tie VCCIO2 (GPIO4_D0..D5) directly to fixed 1.8V VCC_1V8_S0
+  // so SWD, KEY_VOL_DN, FG_ALRT_N, CHG_INT_N, HAPTIC_TRIG all operate cleanly in 1.8V IO domain!
+  if (/^VCCIO2(_1V8)?$/.test(name)) return 'VCC_1V8_S0';
   if (/^VCCIO[1456](_1V8)?(_\d+)?$/.test(name)) return 'VCC_1V8_S0';
   if (/^SARADC_AVDD_1V8/.test(name)) return 'AVCC_1V8_S0';
+  // Rev 5.0 FIX: Connect BOTH OTP_VCC1V8 AND OTP_VDDOTP_0V75 (ball AN8, mandatory for eFuse/BootROM!)
   if (/^OTP_VCC1V8/.test(name)) return 'AVCC_1V8_S0';
-  if (/^MIPI_DPHY.*_AVDD_1V2|^MIPI_DCPHY.*_1V2/.test(name)) return 'AVDD_1V2_S0';
-  if (/^MIPI_.*AVCC1V8|^MIPI_.*AVDD_1V8/.test(name)) return 'AVCC_1V8_S0';
-  if (/^MIPI_.*AVCC0V75|^MIPI_.*AVDD_0V75/.test(name)) return 'VDD_0V75_S0';
+  if (/^OTP_VDDOTP_0V75/.test(name)) return 'VDD_0V75_S0';
+  // Rev 5.0 FIX: Match MIPI_D/C_PHY0/1 power balls (AR27, AR33, AR34, AR35, AR30, AT30) with slash!
+  if (/^MIPI_D(\/)?C_?PHY\d_VDD_1V2|^MIPI_DPHY.*_AVDD_1V2/.test(name)) return 'AVDD_1V2_S0';
+  if (/^MIPI_D(\/)?C_?PHY\d_VDD_1V8|^MIPI_.*AVCC1V8|^MIPI_.*AVDD_1V8/.test(name)) return 'AVCC_1V8_S0';
+  if (/^MIPI_D(\/)?C_?PHY\d_VDD$|^MIPI_.*AVCC0V75|^MIPI_.*AVDD_0V75/.test(name)) return 'VDD_0V75_S0';
   if (/^TYPEC0_DP0_VDDH_1V8|^USB20_AVDD_1V8/.test(name)) return 'AVCC_1V8_S0';
   if (/^TYPEC0_DP0_VDD(A)?_0V85/.test(name)) return 'AVDD_0V85_S0';
   if (/^USB20_DVDD_0V75/.test(name)) return 'VDD_0V75_S0';
   if (/^USB20_AVDD_3V3/.test(name)) return 'AVDD_3V3_S0';
   if (/^PCIE20_.*AVDD_1V8/.test(name)) return 'AVCC_1V8_S0';
   if (/^PCIE20_.*AVDD_0V85/.test(name)) return 'AVDD_0V85_S0';
-  if (/^HDMI\/eDP_TX0_AVDD_0V75/.test(name)) return 'VDD_0V75_S0';
-  if (/^HDMI\/eDP_TX0_AVDD_1V8/.test(name)) return 'AVCC_1V8_S0';
+  // Rev 5.0 FIX: Match ALL HDMI/eDP_TX0_VDD* rails (AK12, AL14, AM13, AN12, AN10)!
+  if (/^HDMI\/eDP_TX0_(A)?VDD_0V75/.test(name)) return 'VDD_0V75_S0';
+  if (/^HDMI\/eDP_TX0_(A)?VDD(_IO|_CMN)?_1V8/.test(name)) return 'AVCC_1V8_S0';
   return null;
 }
 
 /**
- * Exact RK3588S2 Non-DDR, Non-Power Silicon Ball -> Board Net Mapping.
- * Every single ball below is verified directly against Rockchip RK3588S Datasheet V1.7 Table 2-1
- * and Radxa CM5 V2.21 Schematic.
+ * Exact RK3588S2 Non-DDR, Non-Power Silicon Ball -> Board Net Mapping (Rev 5.0 True EVT).
+ * Every single ball and peripheral mux (_M0/_M1/_M2/_M4) is verified directly against
+ * Rockchip RK3588S Datasheet V1.7 Table 2-1 (`hardware/bga_maps/rk3588s2_1253.json`)
+ * and audited automatically by `hardware/verify_erc.mjs`.
  */
-const RK_EXACT_SIGNAL_BALLS = {
-  // Clocks, Reset, Thermal Shutdown, Recovery, SARADC, PMIC SPI2 & Sleep Controls
+export const RK_EXACT_SIGNAL_BALLS = {
+  // Clocks, Reset, Thermal Shutdown, Recovery, SARADC, PMIC SPI2_M2 & Sleep Controls
   T41:  'CLK_24M_IN',
   T42:  'CLK_24M_OUT_R',
   AD38: 'CLK_32K_RTC',
@@ -136,14 +144,14 @@ const RK_EXACT_SIGNAL_BALLS = {
   AV13: 'THERM_SOC_ADC',
   AY15: 'THERM_CHG_ADC',
   AW13: 'THERM_RFPA_ADC',
-  W40:  'PMIC_SPI_CS0',
-  Y39:  'PMIC_SPI_CLK_SOC',
-  W39:  'PMIC_SPI_MOSI_SOC',
-  Y38:  'PMIC_SPI_MISO',
-  W41:  'PMIC_SLEEP1',
-  AD39: 'PMIC_SLEEP2',
-  AG36: 'PMIC_INT_L',
-  AG42: 'RTC_INT_L',
+  W40:  'PMIC_SPI_CS0',        // SPI2_CS0_M2
+  Y39:  'PMIC_SPI_CLK_SOC',    // SPI2_CLK_M2
+  W39:  'PMIC_SPI_MOSI_SOC',   // SPI2_MOSI_M2
+  Y38:  'PMIC_SPI_MISO',       // SPI2_MISO_M2
+  W41:  'PMIC_SLEEP1',         // PMIC_SLEEP1
+  AD39: 'PMIC_SLEEP2',         // PMIC_SLEEP2
+  W42:  'PMIC_INT_L',          // Dedicated PMIC_INT_L / GPIO0_A7_u (Rev 5.0 FIX!)
+  AG42: 'RTC_INT_L',           // GPIO0_B2_u
 
   // eMMC 5.1 HS400 (12 exact balls — Radxa CM5 V2.21 Page 19)
   Y41:  'EMMC_D0',
@@ -159,29 +167,31 @@ const RK_EXACT_SIGNAL_BALLS = {
   AC40: 'EMMC_DATA_STROBE',
   AD40: 'EMMC_RSTN',
 
-  // Fail-Safe Quad-SPI NOR Flash (FSPI_M2 mux — GPIO3_A/C, 6 individual lines!)
-  AV38: 'FSPI_CLK',
-  AU34: 'FSPI_CS0',
-  AR38: 'FSPI_D0',
-  AR37: 'FSPI_D1',
-  AT38: 'FSPI_D2',
-  AT40: 'FSPI_D3',
+  // Fail-Safe Quad-SPI NOR Flash (FSPI_M2 mux — GPIO3_A/C, 6 exact balls!)
+  AV38: 'FSPI_CLK',   // FSPI_CLK_M2
+  AU34: 'FSPI_CS0',   // FSPI_CS0N_M2
+  AR38: 'FSPI_D0',    // FSPI_D0_M2
+  AR37: 'FSPI_D1',    // FSPI_D1_M2
+  AT38: 'FSPI_D2',    // FSPI_D2_M2
+  AT40: 'FSPI_D3',    // FSPI_D3_M2
 
-  // Display: LTPO AMOLED MIPI DSI-2 (MIPI_DPHY0_TX — 10 exact balls) + Sync/Touch SPI4
+  // Display: LTPO AMOLED MIPI DSI-2 (MIPI_DPHY0_TX — 10 exact balls) + TPS65632 SWIRE + Touch SPI3_M1
   BB34: 'MIPI_DSI0_CLK_P', BA34: 'MIPI_DSI0_CLK_N',
   BB31: 'MIPI_DSI0_D0_P',  BA31: 'MIPI_DSI0_D0_N',
   BA32: 'MIPI_DSI0_D1_P',  BB32: 'MIPI_DSI0_D1_N',
   BA35: 'MIPI_DSI0_D2_P',  BB35: 'MIPI_DSI0_D2_N',
   BB37: 'MIPI_DSI0_D3_P',  BA37: 'MIPI_DSI0_D3_N',
-  AV40: 'LCD_TE_SYNC',
-  AW39: 'LCD_RST_N',
-  AV34: 'LCD_ERR_FG',
-  AY35: 'TP_INT_N',
-  AY19: 'TP_RST_N',
-  AH38: 'TP_SPI_CLK',
-  AM38: 'TP_SPI_MOSI',
-  AV31: 'TP_SPI_MISO',
-  AW30: 'TP_SPI_CS',
+  AV40: 'LCD_TE_SYNC',     // MIPI_TE0 / GPIO3_C2_d
+  AW39: 'LCD_RST_N',       // GPIO3_C3_d
+  AV34: 'LCD_ERR_FG',      // GPIO3_C5_u
+  AW38: 'OLED_PMIC_EN',    // GPIO3_C1_d -> TPS65632 EN
+  AV37: 'OLED_PMIC_CTRL',  // GPIO3_A6_d -> TPS65632 CTRL (SWIRE single-wire!)
+  AV35: 'TP_INT_N',        // GPIO3_B4_u
+  AY19: 'TP_RST_N',        // GPIO4_A3_d
+  AV22: 'TP_SPI_CLK',      // SPI3_CLK_M1 (Rev 5.0 FIX — true hardware SPI3_M1!)
+  AW22: 'TP_SPI_MOSI',     // SPI3_MOSI_M1
+  AU23: 'TP_SPI_MISO',     // SPI3_MISO_M1
+  AW23: 'TP_SPI_CS',       // SPI3_CS0_M1
 
   // 45MP Main Camera + RK1608B Pre-ISP (MIPI_DPHY0_RX — 10 exact balls)
   BB41: 'MIPI_CSI0_CLK_P', BA41: 'MIPI_CSI0_CLK_N',
@@ -204,100 +214,116 @@ const RK_EXACT_SIGNAL_BALLS = {
   AT41: 'MIPI_CSI2_D2_P',  AT42: 'MIPI_CSI2_D2_N',
   AP42: 'MIPI_CSI2_D3_P',  AP41: 'MIPI_CSI2_D3_N',
 
-  // Camera MCLKs, Resets, dToF / Spectral / Flash Controls
-  L38:  'CAM0_MCLK_SOC',
-  F37:  'CAM1_MCLK_SOC',
-  L37:  'CAM2_MCLK_SOC',
-  G38:  'CAM0_RST_N',
-  AT37: 'CAM1_RST_N',
-  AT15: 'CAM2_RST_N',
-  AV23: 'TOF_INT_N',
-  AV22: 'TOF_LPN',
-  AV27: 'FLICKER_INT_N',
-  AU23: 'CAM_FLASH_STROBE',
+  // Camera MCLKs, Resets, Discrete LDO Enable, dToF / Spectral / Flash Controls
+  L38:  'CAM0_MCLK_SOC',     // MIPI_CAMERA1_CLK_M0
+  F37:  'CAM1_MCLK_SOC',     // MIPI_CAMERA2_CLK_M0
+  L37:  'CAM2_MCLK_SOC',     // MIPI_CAMERA3_CLK_M0
+  G38:  'CAM0_RST_N',        // GPIO1_D7_u
+  AT37: 'CAM1_RST_N',        // GPIO3_A7_u
+  AV30: 'CAM2_RST_N',        // GPIO3_C6_u
+  AU22: 'CAM_LDO_EN',        // GPIO4_B1_u -> Discrete SGM2036 Camera LDO bank enable
+  AV23: 'TOF_INT_N',         // GPIO4_B3_u
+  AW19: 'TOF_LPN',           // GPIO4_A4_d
+  AV27: 'FLICKER_INT_N',     // GPIO4_B4_u
+  AT39: 'CAM_FLASH_STROBE',  // GPIO3_A4_d -> LM3644TT STROBE
+  AV39: 'CAM_FLASH_HWEN',    // GPIO3_B1_d -> LM3644TT HWEN (Rev 5.0 FIX!)
 
-  // USB-C 3.1 Gen2 + DP 1.4 Alt-Mode + USB 2.0 OTG + REXT (TYPEC0 — exact balls)
+  // USB-C 3.1 Gen1 + DP 1.4 Alt-Mode + USB 2.0 OTG + ALL Mandatory REXT/VBUSDET Balls!
   AY11: 'USB0_D_P',        AY10: 'USB0_D_N',
   BB11: 'USB3_SOC_TX0_P',  BA11: 'USB3_SOC_TX0_N',
   BB10: 'USB3_SOC_RX0_P',  BA10: 'USB3_SOC_RX0_N',
   BB14: 'USB3_SOC_TX1_P',  BA14: 'USB3_SOC_TX1_N',
   BB13: 'USB3_SOC_RX1_P',  BA13: 'USB3_SOC_RX1_N',
-  AU7:  'USB20_OTG_REXT',
-  AW11: 'TYPEC0_DP0_REXT',
-  AC38: 'USB_CC_INT_N',
+  AU7:  'USB20_OTG_REXT',      // 200R 1% to GND
+  AW11: 'TYPEC0_DP0_REXT',     // 8.2K 1% to GND
+  AW5:  'USB20_HOST0_REXT',    // 200R 1% to GND (Rev 5.0 FIX — Cellular Modem USB2 PHY!)
+  AU6:  'USB20_HOST1_REXT',    // 200R 1% to GND (Rev 5.0 FIX!)
+  AY3:  'HDMI_EDP_TX0_REXT',   // 200R 1% to GND (Rev 5.0 FIX!)
+  AV10: 'VBUS_VDC_DET',        // TYPEC0_USB20_VBUSDET <= 3.0V divided VBUS (Rev 5.0 FIX!)
+  AC38: 'USB_CC_INT_N',        // GPIO0_A4_u
 
-  // 5G Modem Qualcomm SDX62 (PCIE20_0 + USB2 Host0 + Controls)
-  H41:  'PCIE_MODEM_TX_P',  H42:  'PCIE_MODEM_TX_N',
-  J42:  'PCIE_MODEM_RX_P',  J41:  'PCIE_MODEM_RX_N',
-  L42:  'PCIE_MODEM_CLK_P', K41:  'PCIE_MODEM_CLK_N',
-  AW6:  'MODEM_USB_DP',     AV6:  'MODEM_USB_DN',
-  AU30: 'MODEM_PERST_N',
-  AW31: 'MODEM_WAKE_N',
+  // Cellular Modem Quectel EG800Q-EU (USB20_HOST0 + UART9_M2 + I2S1_M0 VoLTE PCM + Open-Drain PWRKEY/RESET)
+  AW6:  'MODEM_USB_DP',        // USB20_HOST0_DP
+  AV6:  'MODEM_USB_DN',        // USB20_HOST0_DM
+  AW30: 'MODEM_UART_TX',       // UART9_TX_M2 -> EG800Q MAIN_RXD
+  AV31: 'MODEM_UART_RX',       // UART9_RX_M2 <- EG800Q MAIN_TXD
+  H38:  'MODEM_PWRKEY_EN',     // GPIO1_A7_u -> Q701 BSS138 Gate -> EG800Q PWRKEY (open-drain!)
+  H39:  'MODEM_RESET_EN',      // GPIO1_B0_u -> Q702 BSS138 Gate -> EG800Q RESET_N (open-drain!)
+  AL39: 'MODEM_STATUS',        // GPIO0_D4_u <- EG800Q STATUS
+  AR39: 'MODEM_NET_STATUS',    // GPIO3_B0_u <- EG800Q NET_STATUS
 
-  // Wi-Fi 6E + BT 5.4 AP6275P (PCIE20_2 + UART6 + Controls)
+  // Wi-Fi 6E + BT 5.4 Ampak AP6275P (PCIE20_2 + Native PCIE20X1_2_M0 + UART6_M1 4-Wire BT HCI!)
   E41:  'PCIE_WIFI_TX_P',   D41:  'PCIE_WIFI_TX_N',
   D42:  'PCIE_WIFI_RX_P',   C42:  'PCIE_WIFI_RX_N',
   F41:  'PCIE_WIFI_CLK_P',  F42:  'PCIE_WIFI_CLK_N',
-  G40:  'WIFI_PERST_N',
-  L40:  'WIFI_WAKE_N',
-  AG38: 'BT_UART_RX',
-  AL38: 'BT_UART_TX',
+  AY27: 'WIFI_PERST_N',     // PCIE20X1_2_PERSTN_M0 / GPIO3_D1_d (Rev 5.0 Native M0!)
+  AW31: 'WIFI_WAKE_N',      // PCIE20X1_2_WAKEN_M0 / GPIO3_D0_u  (Rev 5.0 Native M0!)
+  AU30: 'WIFI_CLKREQ_N',    // PCIE20X1_2_CLKREQN_M0 / GPIO3_C7_u (Rev 5.0 Native M0!)
+  D39:  'WIFI_REG_ON',      // GPIO1_A6_d -> AP6275P WL_REG_ON
+  G37:  'BT_REG_ON',        // GPIO1_A4_d -> AP6275P BT_REG_ON
+  M40:  'BT_WAKE',          // GPIO1_A5_d -> AP6275P BT_WAKE
+  AG37: 'BT_HOST_WAKE',     // GPIO0_D3_u <- AP6275P BT_HOST_WAKE
+  L40:  'BT_UART_TX',       // UART6_TX_M1 -> AP6275P BT_UART_RXD (Rev 5.0 4-wire hardware UART6_M1!)
+  G40:  'BT_UART_RX',       // UART6_RX_M1 <- AP6275P BT_UART_TXD
+  D38:  'BT_UART_RTS_N',    // UART6_RTSN_M1 -> AP6275P BT_UART_CTS_N
+  L39:  'BT_UART_CTS_N',    // UART6_CTSN_M1 <- AP6275P BT_UART_RTS_N
 
-  // GNSS UART4 & NFC/eSE SPI0 (Android StrongBox Hardware Keymaster)
-  N41:  'GNSS_UART_RX',
-  R38:  'GNSS_UART_TX',
-  M37:  'ESE_SPI_CLK',
-  M38:  'ESE_SPI_MOSI',
-  G39:  'ESE_SPI_MISO',
-  M39:  'ESE_SPI_CS',
-  D40:  'NFC_IRQ',
-  AW22: 'NFC_DWL_REQ',
+  // GNSS u-blox MIA-M10Q (UART3_M0) & NFC PN7160 / STSAFE-A110 GPIOs
+  N41:  'GNSS_UART_TX',     // UART3_TX_M0 -> MIA-M10Q RXD (Rev 5.0 true UART3_M0!)
+  R38:  'GNSS_UART_RX',     // UART3_RX_M0 <- MIA-M10Q TXD
+  AH38: 'GNSS_RST_N',       // GPIO0_C3_d  -> MIA-M10Q RESET_N
+  D40:  'NFC_IRQ',          // GPIO1_B5_u  <- PN7160 IRQ
+  AH42: 'NFC_VEN',          // GPIO0_C6_u  -> PN7160 VEN (Rev 5.0 FIX!)
+  AM39: 'NFC_DWL_REQ',      // GPIO0_D5_u  -> PN7160 DWL_REQ
+  AG36: 'ESE_RST_N',        // GPIO0_C2_d  -> STSAFE-A110 RESET
 
-  // Audio: I2S0 (ES8388), I2S1 (Dual TAS2562 SmartPA), I2S2 (SDX62 VoLTE PCM), PDM0 (3-Mic ANC)
-  U36:  'I2S0_CODEC_MCLK',
-  M42:  'I2S0_CODEC_SCLK',
-  P39:  'I2S0_CODEC_LRCK',
-  P41:  'I2S0_CODEC_SDO',
-  N42:  'I2S0_CODEC_SDI',
-  AH41: 'I2S1_PA_SCLK',
-  AH42: 'I2S1_PA_LRCK',
-  AY27: 'I2S1_PA_SDO',
-  AY26: 'I2S1_PA_SDI',
-  AR39: 'PCM_MODEM_CLK',
-  AV39: 'PCM_MODEM_SYNC',
-  AW35: 'PCM_MODEM_TX',
-  AW34: 'PCM_MODEM_RX',
-  M41:  'PDM0_MIC_CLK',
-  P38:  'PDM0_MIC_BOT_TOP',
-  U38:  'PDM0_MIC_REAR_ZOOM',
+  // Audio: I2S0 (ES8388), I2S2_M1 (Dual TAS2562 SmartPA), I2S1_M0 (EG800Q VoLTE PCM), PDM0_M0 (3-Mic ANC)
+  U36:  'I2S0_CODEC_MCLK',  // I2S0_MCLK
+  M42:  'I2S0_CODEC_SCLK',  // I2S0_SCLK_TX
+  P39:  'I2S0_CODEC_LRCK',  // I2S0_LRCK_TX
+  P41:  'I2S0_CODEC_SDO',   // I2S0_SDO0
+  N42:  'I2S0_CODEC_SDI',   // I2S0_SDI0
+  AY35: 'I2S2_PA_SCLK',     // I2S2_SCLK_TX_M1 (Rev 5.0 FIX — true matched I2S2_M1!)
+  AW37: 'I2S2_PA_LRCK',     // I2S2_LRCK_TX_M1
+  AW35: 'I2S2_PA_SDO',      // I2S2_SDO_M1
+  AW34: 'I2S2_PA_SDI',      // I2S2_SDI_M1
+  AW18: 'PCM_MODEM_CLK',    // I2S1_SCLK_TX_M0 (Rev 5.0 FIX — true matched I2S1_M0!)
+  AV26: 'PCM_MODEM_SYNC',   // I2S1_LRCK_TX_M0
+  AT15: 'PCM_MODEM_TX',     // I2S1_SDO1_M0 (rockchip,i2s-tx-route)
+  AU15: 'PCM_MODEM_RX',     // I2S1_SDI0_M0
+  M41:  'PDM0_MIC_CLK',     // PDM0_CLK0_M0
+  P38:  'PDM0_MIC_BOT_TOP', // PDM0_SDI0_M0
+  U38:  'PDM0_MIC_REAR_ZOOM', // PDM0_SDI1_M0
 
-  // All 8 I2C Buses (I2C0..I2C7 — zero pin-mux overlap!)
-  AC37: 'I2C0_SCL',  AG41: 'I2C0_SDA',
-  AL39: 'I2C1_SCL',  AY31: 'I2C1_SDA',
-  AK39: 'I2C2_SCL',  AM40: 'I2C2_SDA',
-  AW19: 'I2C3_SCL',  AU15: 'I2C3_SDA',
-  AV37: 'I2C4_SCL',  D38:  'I2C4_SDA',
-  AV18: 'I2C5_SCL',  AW26: 'I2C5_SDA',
-  AG39: 'I2C6_SCL',  AL40: 'I2C6_SDA',
-  U37:  'I2C7_SCL',  L39:  'I2C7_SDA',
+  // All 8 Hardware I2C Buses (I2C0..I2C7 — 100% Matched _M* Groups, ZERO Overlap, ZERO Address Collisions!)
+  AH41: 'I2C0_SCL',  AG41: 'I2C0_SDA', // I2C0_M2: U207(0x42), U208(0x43)
+  P40:  'I2C1_SCL',  R39:  'I2C1_SDA', // I2C1_M4: U209(0x42)
+  AK39: 'I2C2_SCL',  AM40: 'I2C2_SDA', // I2C2_M0: U201(0x55), U202(0x6A)
+  AY34: 'I2C3_SCL',  AR36: 'I2C3_SDA', // I2C3_M1: U402(0x63), CAM_U1..U4/U7/U8
+  AG38: 'I2C4_SCL',  AL38: 'I2C4_SDA', // I2C4_M2: U601(0x22), U602(0x44), CAM_U5/U6/U9
+  AV18: 'I2C5_SCL',  AW26: 'I2C5_SDA', // I2C5_M2: Touch(0x5D), U710/PN7160(0x28), U716/STSAFE(0x20)
+  AG39: 'I2C6_SCL',  AL40: 'I2C6_SDA', // I2C6_M0: U102(0x51), U805(0x6A), U806(0x0C), U807(0x46), U809(0x35), U810(0x60), U715(0x44)
+  AY30: 'I2C7_SCL',  AY31: 'I2C7_SDA', // I2C7_M2: U801(0x10), U802(0x4C), U803(0x4D), U804(0x5A)
 
-  // Ultrasonic Fingerprint SPI1, Sensor/Key/Haptic IRQs, Debug UART2 & SWD
-  P40:  'FP_SPI_CLK',
-  R39:  'FP_SPI_CS',
-  U35:  'FP_SPI_MOSI',
-  AV35: 'FP_SPI_MISO',
-  AW37: 'FP_INT_N',
-  H38:  'FP_RST_N',
-  AW18: 'IMU_INT1',
-  AW23: 'ALS_PROX_INT_N',
-  AW27: 'SAR_INT_N',
-  AR1:  'FG_ALRT_N',
-  AT1:  'KEY_VOL_DN',
-  AU1:  'HAPTIC_TRIG',
-  AH39: 'UART2_DBG_TX',
-  AH40: 'UART2_DBG_RX',
-  AV2:  'JTAG_SWDIO',
-  AR2:  'JTAG_SWCLK',
+  // Ultrasonic Fingerprint SPI0_M2, Sensor/Key/Haptic/Charger IRQs, Debug UART2_M0 & SWD JTAG_M1!
+  M37:  'FP_SPI_CLK',       // SPI0_CLK_M2 (Rev 5.0 FIX — true matched SPI0_M2!)
+  M38:  'FP_SPI_MOSI',      // SPI0_MOSI_M2
+  G39:  'FP_SPI_MISO',      // SPI0_MISO_M2
+  M39:  'FP_SPI_CS',        // SPI0_CS0_M2
+  AM38: 'FP_INT_N',         // GPIO0_C1_d
+  AC37: 'FP_RST_N',         // GPIO0_B0_z
+  AW27: 'IMU_INT1',         // GPIO4_B0_d
+  AY26: 'ALS_PROX_INT_N',   // GPIO4_C1_d
+  U35:  'SAR_INT_N',        // GPIO1_C4_d
+  U37:  'HAPTIC_NRST',      // GPIO1_D0_d -> DRV2625 NRST (Rev 5.0 FIX!)
+  AU1:  'HAPTIC_TRIG',      // GPIO4_D4_u -> DRV2625 TRIG/INTZ
+  AR1:  'FG_ALRT_N',        // GPIO4_D5_d <- BQ27Z561 INT
+  AT1:  'KEY_VOL_DN',       // GPIO4_D3_u <- Side Key Vol-
+  AV1:  'CHG_INT_N',        // GPIO4_D2_u <- BQ25895 INT (Dedicated, NOT shorted to PMIC_INT_L!)
+  AH39: 'UART2_DBG_TX',     // UART2_TX_M0
+  AH40: 'UART2_DBG_RX',     // UART2_RX_M0
+  AR2:  'JTAG_SWDIO',       // JTAG_TMS_M1 (Rev 5.0 SWAP FIXED! AR2 = TMS/SWDIO!)
+  AV2:  'JTAG_SWCLK',       // JTAG_TCK_M1 (Rev 5.0 SWAP FIXED! AV2 = TCK/SWCLK!)
 };
 
 /**
@@ -398,19 +424,20 @@ export function buildEmmc51FullPins() {
  * Build exact 36-ball pin map for U802 / U803 (TI TAS2562YFPR DSBGA-36 SmartPA, SLASEI7A).
  * Maps all 36 physical balls (A1..F6), including distinct I2C address straps (0x4C / 0x4D),
  * DREG / GREG / PVDD-VBST internal boost rails, IV-sense (VSNS_P/N), and all 7 GND balls.
+ * Rev 5.0: Wired to RK3588S2 hardware I2S2_M1 (`I2S2_PA_*`) and outputs directly to filtered EMI nets.
  */
 export function buildTas2562FullPins({ ref, outP, outN, i2cAddrBit0 = false }) {
   const pins = {};
   const stats = { total: 0, gnd: 0, power: 0, signal: 0, nc: 0 };
   const map = {
     SDZ:    'VCC_1V8_S0', // Active-high hardware enable (controlled via I2C software shutdown)
-    SBCLK:  'I2S1_PA_SCLK',
-    FSYNC:  'I2S1_PA_LRCK',
+    SBCLK:  'I2S2_PA_SCLK',
+    FSYNC:  'I2S2_PA_LRCK',
     SCL:    'I2C7_SCL',
     SDA:    'I2C7_SDA',
     DREG:   `TAS_DREG_${ref}`,
-    SDOUT:  'I2S1_PA_SDI',
-    SDIN:   'I2S1_PA_SDO',
+    SDOUT:  'I2S2_PA_SDI',
+    SDIN:   'I2S2_PA_SDO',
     AD1:    'GND',
     AD0:    i2cAddrBit0 ? 'VCC_1V8_S0' : 'GND',
     IRQZ:   '', // Optional open-drain IRQ (internal pull-up, polled over I2C7)

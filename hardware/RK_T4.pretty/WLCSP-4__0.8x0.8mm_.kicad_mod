@@ -1,0 +1,11 @@
+(footprint "WLCSP-4__0.8x0.8mm_"
+  (version 20240108)
+  (generator "rk_t4_rev5_sch_generator")
+  (layer "F.Cu")
+  (attr smd)
+  (fp_rect (start -0.45 -0.45) (end 0.45 0.45) (stroke (width 0.08) (type solid)) (fill none) (layer "F.Fab"))
+  (pad "A1" smd circle (at -0.2000 -0.2000) (size 0.2 0.2) (layers "F.Cu" "F.Paste" "F.Mask"))
+  (pad "A2" smd circle (at 0.2000 -0.2000) (size 0.2 0.2) (layers "F.Cu" "F.Paste" "F.Mask"))
+  (pad "B1" smd circle (at -0.2000 0.2000) (size 0.2 0.2) (layers "F.Cu" "F.Paste" "F.Mask"))
+  (pad "B2" smd circle (at 0.2000 0.2000) (size 0.2 0.2) (layers "F.Cu" "F.Paste" "F.Mask"))
+)

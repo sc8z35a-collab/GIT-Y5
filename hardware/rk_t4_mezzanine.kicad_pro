@@ -133,8 +133,8 @@
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.12,
         "min_hole_to_hole": 0.16,
-        "min_microvia_diameter": 0.18,
-        "min_microvia_drill": 0.08,
+        "min_microvia_diameter": 0.16,
+        "min_microvia_drill": 0.075,
         "min_resolved_spokes": 1,
         "min_silk_clearance": 0.0,
         "min_text_height": 0.3,
@@ -367,17 +367,14 @@
       "GNSS_ANT_50": [
         "RF_CPWG_50"
       ],
-      "GNSS_LNA_OUT": [
+      "LTE_ANT_RF_RAW": [
         "RF_CPWG_50"
       ],
-      "GNSS_SAW_OUT": [
-        "RF_CPWG_50"
+      "MODEM_USB_DN": [
+        "PCIE_DIFF_85"
       ],
-      "MMW0_IF_50": [
-        "RF_CPWG_50"
-      ],
-      "MMW1_IF_50": [
-        "RF_CPWG_50"
+      "MODEM_USB_DP": [
+        "PCIE_DIFF_85"
       ],
       "NFC_ANT_N": [
         "RF_CPWG_50"
@@ -391,29 +388,23 @@
       "NFC_TX2": [
         "RF_CPWG_50"
       ],
-      "PCIE_MODEM_CLK_N": [
-        "PCIE_DIFF_85"
+      "NFC_VDD": [
+        "POWER_RF"
       ],
-      "PCIE_MODEM_CLK_P": [
-        "PCIE_DIFF_85"
+      "NFC_VDD_A": [
+        "POWER_RF"
       ],
-      "PCIE_MODEM_RX_N": [
-        "PCIE_DIFF_85"
+      "NFC_VDD_D": [
+        "POWER_RF"
       ],
-      "PCIE_MODEM_RX_P": [
-        "PCIE_DIFF_85"
+      "NFC_VDD_HF": [
+        "POWER_RF"
       ],
-      "PCIE_MODEM_TX_AC_N": [
-        "PCIE_DIFF_85"
+      "NFC_VDD_TX": [
+        "POWER_RF"
       ],
-      "PCIE_MODEM_TX_AC_P": [
-        "PCIE_DIFF_85"
-      ],
-      "PCIE_MODEM_TX_N": [
-        "PCIE_DIFF_85"
-      ],
-      "PCIE_MODEM_TX_P": [
-        "PCIE_DIFF_85"
+      "NFC_VDD_UP": [
+        "POWER_RF"
       ],
       "PCIE_WIFI_CLK_N": [
         "PCIE_DIFF_85"
@@ -439,83 +430,47 @@
       "PCIE_WIFI_TX_P": [
         "PCIE_DIFF_85"
       ],
-      "RF_ANT_DIV_50": [
-        "RF_CPWG_50"
-      ],
       "RF_ANT_MAIN_50": [
         "RF_CPWG_50"
       ],
-      "RF_ANT_UHB0_50": [
-        "RF_CPWG_50"
-      ],
-      "RF_ANT_UHB1_50": [
-        "RF_CPWG_50"
-      ],
-      "RF_DRX_LNA_IN": [
-        "RF_CPWG_50"
-      ],
-      "RF_PATH_DRX": [
-        "RF_CPWG_50"
-      ],
-      "RF_PATH_LB": [
-        "RF_CPWG_50"
-      ],
-      "RF_PATH_MHB": [
-        "RF_CPWG_50"
-      ],
-      "RF_PATH_UHB": [
-        "RF_CPWG_50"
-      ],
-      "SW_ET_PA": [
-        "POWER_RF"
-      ],
-      "SW_MDM_CX": [
-        "POWER_RF"
-      ],
-      "SW_MDM_MX": [
-        "POWER_RF"
-      ],
-      "SW_RF1": [
-        "POWER_RF"
-      ],
-      "SW_RF2": [
+      "VCC_1V8_GNSS": [
         "POWER_RF"
       ],
       "VCC_1V8_S3": [
         "POWER_RF"
       ],
-      "VCC_3V3_GNSS": [
-        "POWER_RF"
-      ],
       "VCC_3V3_S3": [
         "POWER_RF"
       ],
-      "VDD_MODEM_CX_0V8": [
-        "POWER_RF"
-      ],
-      "VDD_MODEM_MX_0V85": [
-        "POWER_RF"
-      ],
-      "VDD_RF1_1V0": [
-        "POWER_RF"
-      ],
-      "VDD_RF2_1V8": [
-        "POWER_RF"
-      ],
-      "VPA_ET_OUT": [
+      "VCC_3V3_WIFI": [
         "POWER_RF"
       ],
       "VSYS_3V87": [
         "POWER_RF"
       ],
-      "VSYS_3V87_WIFI": [
+      "WIFI_ABUCK_1P12": [
         "POWER_RF"
       ],
       "WIFI_ANT0_50": [
         "RF_CPWG_50"
       ],
+      "WIFI_ANT0_RAW": [
+        "RF_CPWG_50"
+      ],
       "WIFI_ANT1_50": [
         "RF_CPWG_50"
+      ],
+      "WIFI_ANT1_RAW": [
+        "RF_CPWG_50"
+      ],
+      "WIFI_ASR_VLX": [
+        "POWER_RF"
+      ],
+      "WIFI_CBUCK_0P9": [
+        "POWER_RF"
+      ],
+      "WIFI_CSR_VLX": [
+        "POWER_RF"
       ]
     },
     "netclass_patterns": [

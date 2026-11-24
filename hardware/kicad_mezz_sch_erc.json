@@ -1,0 +1,19 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-24T12:44:51+0000",
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "9.0.8",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/062f0fc4-fbc6-428c-8578-941bdfaeee6c",
+            "violations": []
+        }
+    ],
+    "source": "rk_t4_mezzanine.kicad_sch"
+}

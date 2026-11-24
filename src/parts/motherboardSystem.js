@@ -168,7 +168,11 @@ function createRealRoutedPcbTexture(boardName, mode = 'outer') {
  */
 function populateRealComponents(targetGroup, boardName, sideFilter, zSurface, zDir, textures, materials) {
   const parts = BOARD_PARTS.filter(
-    (p) => p.board === boardName && p.side === sideFilter && p.kind !== 'interposer'
+    (p) =>
+      p.board === boardName &&
+      p.side === sideFilter &&
+      p.kind !== 'interposer' &&
+      !/^J901[AB](_MB)?$/.test(p.ref || '')
   );
   if (!parts.length) return;
 
@@ -344,18 +348,18 @@ function populateRealComponents(targetGroup, boardName, sideFilter, zSurface, zD
 }
 
 /**
- * RK T4 — Commercial Android 14/15 Flagship 14-Layer 1.20mm 3+8+3 Staggered HDI Mainboard + 8L 0.80mm 5G RF Mezzanine (Rev 4.0)
- * 1:1 Data-Driven from hardware/rk_t4_netlist.json (742 Total Parts: 587 Main + 140 Mezz + 15 CamMod, 111/111 ERC Passed!)
+ * RK T4 — Commercial Android 14/15 Flagship 14-Layer 1.20mm 3+8+3 Staggered HDI Mainboard + 8L 0.80mm 5G RF Mezzanine (Rev 5.0 EVT)
+ * 1:1 Data-Driven from hardware/rk_t4_netlist.json (741 Total Parts: 617 Main + 109 Mezz + 15 CamMod, 102/102 Real-Silicon ERC Passed!)
  *
  * Deep Dissection Layers:
- *   1. Stamped Compartmentalized EMI Shielding Cages (with copper thermal patch & RF partition ribs)
- *   2. Stacked 8-Layer 0.80mm JLC08081H-1080A 5G NR Sub-6 / mmWave IF / Wi-Fi 6E / GNSS / NFC+StrongBox eSE Mezzanine (140 parts)
- *      (SDX62 + PMX65 + QET6100 + SDR735 + SKY58083 + SKY58255 + QM77048 + QDM5872 + QAT3555 + SX9331 + ST33J2M0 + SN220T)
- *   3. 160-Pin Perimeter Gold BGA Interposer Frame (with gleaming solder ball array)
+ *   1. Mainboard Right-Spine Stamped EMI Shield Cans (RF modules use factory-integrated EMI shields)
+ *   2. Stacked 8-Layer 0.80mm JLC08081H-1080A RF Mezzanine (109 parts: Quectel EG800Q-EU, Ampak AP6275P Wi-Fi 6E/BT 5.3,
+ *      u-blox MIA-M10Q GNSS, NXP PN7160 NFC, STSAFE-A110 eSE, Azoteq IQS7222A SAR)
+ *   3. Dual Mated Hirose DF40C(1.5)-40DS/DP 0.40mm Pitch BTB Connectors (J901A / J901B, 1.50mm mated height)
  *   4. Primary 14-Layer 1.20mm HDI Mainboard Top Component Strata (RK3588S2 1253-ball, 16GB LPDDR5X 496-ball, 3.10mm DDR corridor,
- *      RK806-1 + 10 Buck Inductors, 3x RK860 6A Bucks, BQ25895 + Dual BQ25970 + Dual TAS2562YFPR 36-ball SmartPA, LSM6DSO IMU)
- *   5. Exposed Inner 14-Layer 1oz/1oz Copper Routing & In7.Cu Split Power Plane Core (Zone A VDD2L + Zone B VSYS)
- *   6. Primary Mainboard Bottom Component Strata (256GB eMMC 5.1 153-FBGA, 16MB NOR, SGM3843 OLED, WL2868C, BGA Belly Caps!)
+ *      RK806-1 + 10 Buck Inductors, 3x RK860 6A Bucks, TI BQ25895 + BQ27Z561-R2, TUSB546-DCI + FUSB302B, ES8388 + Dual TAS2562YFPR 36-ball SmartPA)
+ *   5. Exposed Inner 14-Layer 1oz/1oz Copper Routing & In7.Cu Split Power Plane Core (Zone A VDD2L + Zone B VSYS + 22 PDN Pours)
+ *   6. Primary Mainboard Bottom Component Strata (256GB eMMC 5.1 153-FBGA, W25Q128JWPIQ, Dual SY8089, AW8697, ICM-42688-P, VCNL4040, MP34DT05)
  */
 export function buildMotherboardSystem(textures) {
   const root = new THREE.Group();
@@ -505,64 +509,61 @@ export function buildMotherboardSystem(textures) {
   registerLayer(mainBotGroup, [0, 0, 2.08]);
 
   // =========================================================================
-  // 4. 160-PIN SEGMENTED GOLD BGA INTERPOSER BARS (J901) — REAL FULL-HEIGHT SANDWICH STANDOFFS!
-  //    Placed strictly in 100% component-free corridors between mainboard top (-0.046) & mezzanine bottom (-0.236)!
+  // 4. DUAL HIROSE DF40C(1.5)-40DS/DP 0.4mm PITCH BTB SANDWICH CONNECTORS (J901A / J901B)
+  //    Exact 1.50mm mated height between mainboard top (-0.047) & mezzanine bottom (-0.197)!
   // =========================================================================
   const interposerGroup = new THREE.Group();
-  interposerGroup.position.z = -0.141;
+  interposerGroup.position.z = -0.122;
 
-  // Verified 100% component-free interposer bar zones [cx, cy, w, h] in 10mm units (1:1 with Mainboard & Mezzanine KiCad PCBs!):
-  const interposerBars = [
-    [ 0.06, 4.00, 2.00, 0.070], // North 20-Pin High-Speed PCIe/USB/Control BGA Interposer Bar
-    [-0.96, 1.66, 1.04, 0.070], // Mid-West 11-Pin RF/RFFE/PCM BGA Interposer Bar
-    [-0.87, 0.68, 0.98, 0.070], // South-West 10-Pin SIM/NFC/eSE BGA Interposer Bar
-    [ 1.33, 0.95, 0.070, 0.52], // South-East 7-Pin Heavy-Current Power/VSYS/GND Interposer Bar
+  const df40Pairs = [
+    [-0.96, 1.52], // J901A: Power / Audio / SIM / RFFE / GNSS / NFC / eSE 40-pin DF40C
+    [ 0.06, 3.86], // J901B: PCIe Gen2 / USB / UART / SDIO / Wi-Fi / BT 40-pin DF40C
   ];
-
-  const ballCoords = [];
-  interposerBars.forEach(([cx, cy, bw, bh]) => {
-    const bar = new THREE.Mesh(
-      extrudePlate(createRoundedRectShape(bw, bh, 0.02), 0.150, { bevelSize: 0.002, bevelThickness: 0.002 }),
-      materials.gold
+  const pinGeo = new THREE.BoxGeometry(0.018, 0.040, 0.036);
+  const pinInst = new THREE.InstancedMesh(pinGeo, materials.gold, df40Pairs.length * 40);
+  const dummy = new THREE.Object3D();
+  let pIdx = 0;
+  df40Pairs.forEach(([cx, cy]) => {
+    // Mainboard Receptacle DF40C-40DS (10.6 x 3.38 x 0.74mm, sits on Mainboard -0.048 .. -0.122)
+    const rcpt = new THREE.Mesh(
+      extrudePlate(createRoundedRectShape(1.06, 0.338, 0.03), 0.072, { bevelSize: 0.002, bevelThickness: 0.002 }),
+      materials.icEpoxy
     );
-    bar.position.set(cx, cy, 0);
-    interposerGroup.add(bar);
+    rcpt.position.set(cx, cy, +0.037);
+    interposerGroup.add(rcpt);
 
-    const cols = Math.max(2, Math.floor(bw / 0.10));
-    const rows = Math.max(1, Math.floor(bh / 0.10));
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const bx = cx - bw * 0.42 + (cols > 1 ? (c / (cols - 1)) * bw * 0.84 : 0);
-        const by = cy - bh * 0.42 + (rows > 1 ? (r / (rows - 1)) * bh * 0.84 : 0);
-        ballCoords.push([bx, by]);
-      }
+    // Mezzanine Plug DF40C-40DP (9.52 x 2.97 x 0.68mm, sits on Mezzanine -0.126 .. -0.196, 0.04mm mating gap!)
+    const plug = new THREE.Mesh(
+      extrudePlate(createRoundedRectShape(0.952, 0.297, 0.025), 0.068, { bevelSize: 0.002, bevelThickness: 0.002 }),
+      materials.btbGold
+    );
+    plug.position.set(cx, cy, -0.038);
+    interposerGroup.add(plug);
+
+    // 40 gold 0.40mm-pitch gull-wing solder leads per connector
+    for (let i = 0; i < 20; i++) {
+      const lx = cx - 0.38 + i * 0.040;
+      dummy.position.set(lx, cy + 0.165, +0.056);
+      dummy.updateMatrix();
+      pinInst.setMatrixAt(pIdx++, dummy.matrix);
+      dummy.position.set(lx, cy - 0.165, +0.056);
+      dummy.updateMatrix();
+      pinInst.setMatrixAt(pIdx++, dummy.matrix);
     }
   });
-
-  const ballGeo = new THREE.SphereGeometry(0.011, 6, 6);
-  const ballInst = new THREE.InstancedMesh(ballGeo, materials.tinCap, ballCoords.length * 2);
-  const dummy = new THREE.Object3D();
-  let bIdx = 0;
-  ballCoords.forEach(([bx, by]) => {
-    dummy.position.set(bx, by, +0.084);
-    dummy.updateMatrix();
-    ballInst.setMatrixAt(bIdx++, dummy.matrix);
-    dummy.position.set(bx, by, -0.084);
-    dummy.updateMatrix();
-    ballInst.setMatrixAt(bIdx++, dummy.matrix);
-  });
-  ballInst.instanceMatrix.needsUpdate = true;
-  interposerGroup.add(ballInst);
+  pinInst.instanceMatrix.needsUpdate = true;
+  interposerGroup.add(pinInst);
 
   root.add(interposerGroup);
   registerLayer(interposerGroup, [0, 0, -0.08]);
 
   // =========================================================================
-  // 5. STACKED 8-LAYER 0.800mm JLC08081H-1080A RF MEZZANINE BOARD (Z = -0.276 -> [-0.316..-0.236])
-  //    Mezz top silicon (U707 0.88mm) -> [-0.405..-0.317]; Mezz bot (L715 0.85mm) -> [-0.235..-0.150], clears U101 (-0.139)!
+  // 5. STACKED 8-LAYER 0.800mm JLC08081H-1080A RF MEZZANINE BOARD (Z = -0.237 -> [-0.277..-0.197])
+  //    Mezz bot (U716 0.55mm -> [-0.196..-0.141]) clears U101 (-0.139)!
+  //    Mezz top (EG800Q-EU 2.40mm integrated shield -> [-0.518..-0.278]) clears NFC (-0.530)!
   // =========================================================================
   const mezzGroup = new THREE.Group();
-  mezzGroup.position.z = -0.276;
+  mezzGroup.position.z = -0.237;
   const mezzPcb = new THREE.Mesh(
     extrudePlate(createMezzanineShape(), 0.080, { bevelSize: 0.006, bevelThickness: 0.006 }),
     matMezzPcb
@@ -575,39 +576,17 @@ export function buildMotherboardSystem(textures) {
   registerLayer(mezzGroup, [0, 0, -1.05]);
 
   // =========================================================================
-  // 6. COMPARTMENTALIZED STAMPED EMI SHIELDING CAGES (Z: [-0.437..-0.414], clears U707 -0.405 & NFC -0.448!)
+  // 6. MAINBOARD RIGHT-SPINE EMI SHIELD CANS (EG800Q-EU, AP6275P & MIA-M10Q have integrated factory shields!)
   // =========================================================================
   const shieldsGroup = new THREE.Group();
-  shieldsGroup.position.z = -0.422;
-
-  const s1Shape = createRoundedRectShape(2.74, 2.86, 0.09);
-  const s1Cut = new THREE.Path();
-  s1Cut.moveTo(-1.14, -1.05);
-  s1Cut.lineTo(-1.14, -0.42);
-  s1Cut.lineTo(-0.36, -0.42);
-  s1Cut.lineTo(-0.36, -1.05);
-  s1Cut.closePath();
-  s1Shape.holes.push(s1Cut);
-  const shield1 = new THREE.Mesh(
-    extrudePlate(s1Shape, 0.016, { bevelSize: 0.003, bevelThickness: 0.003 }),
-    matEmiSteel
-  );
-  shield1.position.set(-0.08, 2.38, 0);
-  shieldsGroup.add(shield1);
-
-  const copperPatch = new THREE.Mesh(
-    extrudePlate(createRoundedRectShape(1.18, 1.24, 0.05), 0.006, { bevelSize: 0.001, bevelThickness: 0.001 }),
-    matEmiCopper
-  );
-  copperPatch.position.set(-0.82, 2.96, -0.012);
-  shieldsGroup.add(copperPatch);
+  shieldsGroup.position.z = -0.164;
 
   // Charging / Dual Charge-Pump EMI & Thermal Shield Can on Right Spine (world Z: -0.164, clears tall spine inductors -0.139!)
   const shield2 = new THREE.Mesh(
     extrudePlate(createRoundedRectShape(0.76, 2.38, 0.06), 0.022, { bevelSize: 0.004, bevelThickness: 0.004 }),
     matEmiSteel
   );
-  shield2.position.set(1.22, -1.35, 0.258);
+  shield2.position.set(1.22, -1.35, 0);
   shieldsGroup.add(shield2);
 
   // Audio Codec + Dual SmartPA Shield Can on Lower Spine
@@ -615,7 +594,7 @@ export function buildMotherboardSystem(textures) {
     extrudePlate(createRoundedRectShape(0.76, 1.48, 0.05), 0.022, { bevelSize: 0.004, bevelThickness: 0.004 }),
     matEmiCopper
   );
-  shield3.position.set(1.22, -4.18, 0.258);
+  shield3.position.set(1.22, -4.18, 0);
   shieldsGroup.add(shield3);
 
   root.add(shieldsGroup);
