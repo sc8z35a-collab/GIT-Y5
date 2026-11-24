@@ -28,15 +28,20 @@ function createLogicBoardShape() {
 }
 
 /**
- * Stacked 8-Layer RF/5G/Wi-Fi/GNSS/NFC Mezzanine Board outline (exact 1:1 with hardware/generate_board.mjs).
+ * Stacked 8-Layer RF/LTE/Wi-Fi/GNSS/NFC Mezzanine Board outline (exact 1:1 with hardware/route_mezzanine_rf.mjs).
  */
 function createMezzanineShape() {
   const s = new THREE.Shape();
-  s.moveTo(-1.55, 0.60);
-  s.lineTo(1.44, 0.60);
-  s.lineTo(1.44, 4.07);
-  s.lineTo(-0.98, 4.07);
-  s.lineTo(-1.55, 3.95);
+  s.moveTo(-1.80,  0.24);
+  s.lineTo( 0.84,  0.24);
+  s.lineTo( 0.84, -1.36);
+  s.lineTo( 1.58, -1.36);
+  s.lineTo( 1.58,  4.52);
+  s.lineTo( 1.44,  4.68);
+  s.lineTo( 1.14,  4.72);
+  s.lineTo(-0.52,  4.72);
+  s.lineTo(-0.52,  4.08);
+  s.lineTo(-1.80,  4.08);
   s.closePath();
   return s;
 }
@@ -48,17 +53,17 @@ function createMezzanineShape() {
 function createRealRoutedPcbTexture(boardName, mode = 'outer') {
   const isMain = boardName === 'main';
   const w = isMain ? 768 : 640;
-  const h = isMain ? 1536 : 768;
+  const h = isMain ? 1536 : 1024;
   const canvas = document.createElement('canvas');
   canvas.width = w;
   canvas.height = h;
   const ctx = canvas.getContext('2d');
 
   // Bounding boxes in mm matching extrudePlate normalized planar UVs
-  const minX = isMain ? -18.2 : -15.5;
-  const maxX = isMain ? 16.6 : 14.4;
-  const minY = isMain ? -68.9 : 6.0;
-  const maxY = isMain ? 48.1 : 39.7;
+  const minX = isMain ? -18.2 : -18.0;
+  const maxX = isMain ? 16.6 : 15.8;
+  const minY = isMain ? -68.9 : -13.6;
+  const maxY = isMain ? 48.1 : 47.2;
 
   const mapX = (xMm) => ((xMm - minX) / (maxX - minX)) * w;
   const mapY = (yMm) => (1 - (yMm - minY) / (maxY - minY)) * h;
@@ -353,7 +358,7 @@ function populateRealComponents(targetGroup, boardName, sideFilter, zSurface, zD
  *
  * Deep Dissection Layers:
  *   1. Mainboard Right-Spine Stamped EMI Shield Cans (RF modules use factory-integrated EMI shields)
- *   2. Stacked 8-Layer 0.80mm JLC08081H-1080A RF Mezzanine (109 parts: Quectel EG800Q-EU, Ampak AP6275P Wi-Fi 6E/BT 5.3,
+ *   2. Stacked 8-Layer 0.80mm JLC08081H-1080A RF Mezzanine (111 parts: Quectel EG25-G/EC25-J LTE Cat 4 Dual-Ant, Ampak AP6275P Wi-Fi 6E/BT 5.4,
  *      u-blox MIA-M10Q GNSS, NXP PN7160 NFC, STSAFE-A110 eSE, Azoteq IQS7222A SAR)
  *   3. Dual Mated Hirose DF40C(1.5)-40DS/DP 0.40mm Pitch BTB Connectors (J901A / J901B, 1.50mm mated height)
  *   4. Primary 14-Layer 1.20mm HDI Mainboard Top Component Strata (RK3588S2 1253-ball, 16GB LPDDR5X 496-ball, 3.10mm DDR corridor,
@@ -560,7 +565,7 @@ export function buildMotherboardSystem(textures) {
   // =========================================================================
   // 5. STACKED 8-LAYER 0.800mm JLC08081H-1080A RF MEZZANINE BOARD (Z = -0.237 -> [-0.277..-0.197])
   //    Mezz bot (U716 0.55mm -> [-0.196..-0.141]) clears U101 (-0.139)!
-  //    Mezz top (EG800Q-EU 2.40mm integrated shield -> [-0.518..-0.278]) clears NFC (-0.530)!
+  //    Mezz top (EG25-G/EC25-J 2.40mm integrated shield -> [-0.518..-0.278]) clears NFC (-0.530)!
   // =========================================================================
   const mezzGroup = new THREE.Group();
   mezzGroup.position.z = -0.237;
@@ -576,7 +581,7 @@ export function buildMotherboardSystem(textures) {
   registerLayer(mezzGroup, [0, 0, -1.05]);
 
   // =========================================================================
-  // 6. MAINBOARD RIGHT-SPINE EMI SHIELD CANS (EG800Q-EU, AP6275P & MIA-M10Q have integrated factory shields!)
+  // 6. MAINBOARD RIGHT-SPINE EMI SHIELD CANS (EG25-G/EC25-J, AP6275P & MIA-M10Q have integrated factory shields!)
   // =========================================================================
   const shieldsGroup = new THREE.Group();
   shieldsGroup.position.z = -0.164;

@@ -18,7 +18,7 @@
  *                 SGM2036-3.3 + Ultrasonic Fingerprint SPI0_M2
  *   - Camera:     Sony LYT-818 45MP + RK1608B + DW9786 OIS + IMX355 + IMX615 + VL53L8CX dToF + TCS3408 Flicker +
  *                 Discrete SGM2036 Low-Noise RF LDO Bank (inline Pi-filters!) + TI LM3644TT (0x63, HWEN wired)
- *   - RF Mezz:    Dual Hirose DF40C-40DS/DP (80-pin 1.50mm mated BTB) + Quectel EG800Q-EU (LTE Cat 1 bis + VoLTE PCM) +
+ *   - RF Mezz:    Dual Hirose DF40C-40DS/DP (80-pin 1.50mm mated BTB) + Quectel EG25-G (LTE Cat 4 150/50Mbps Global+Japan B1/3/8/18/19/26/28/41, Dual-Ant MIMO + VoLTE PCM, pin-compatible w/ EC25-J) +
  *                 Ampak AP6275P (Wi-Fi 6E PCIe + BT 5.4 4-Wire UART6_M1, 3.3V VBAT!) + u-blox MIA-M10Q-00B (GNSS) +
  *                 NXP PN7160A1HN (NFC 0x28) + ST STSAFE-A110 (Secure Element 0x20) + Azoteq IQS7222A001QNR (1.8V SAR 0x44)
  *   - Audio/Sens: Everest ES8388 (0x10) + Dual TI TAS2562YFPR (Full 36-Ball, I2S2_M1, 0x4C/0x4D) + ST MP34DT05TR-A PDM +
@@ -1230,58 +1230,70 @@ addPart({
 
 // ============================================================================
 // SUBSYSTEM 7B: STACKED 8-LAYER RF MEZZANINE BOARD (100% PUBLIC-DATASHEET SILICON!)
-//   Quectel EG800Q-EU + Ampak AP6275P + u-blox MIA-M10Q-00B + NXP PN7160A1HN +
-//   ST STSAFE-A110 + Azoteq IQS7222A001QNR
+//   Quectel EG25-G (EC25-J Japan drop-in) + Ampak AP6275P + u-blox MIA-M10Q-00B +
+//   NXP PN7160A1HN + ST STSAFE-A110 + Azoteq IQS7222A001QNR
 // ============================================================================
-// 1. Quectel EG800Q-EU LTE Cat 1 bis Cellular Modem (109-pin LGA, 17.7x15.8x2.40mm)
+// 1. Quectel EG25-G Global + Japan LTE Cat 4 Cellular Modem (144-pin LGA, 29.0x32.0x2.40mm)
+//    Bands: LTE-FDD B1/2/3/4/5/7/8/12/13/18/19/20/25/26/28 + TDD B38/39/40/41 (150/50 Mbps, 2x2 DL MIMO)
+//    100% pin-to-pin drop-in compatible with Quectel EC25-J (Japan TELEC/JATE)!
+const EG25G_PINS = {
+  '6': 'MODEM_NET_STATUS', '7': 'EG_VDD_EXT_1V8', '8': 'GND', '9': 'GND', '10': 'GND',
+  '13': 'USIM1_DET', '14': 'USIM1_VCC', '15': 'USIM1_IO', '16': 'USIM1_CLK', '17': 'USIM1_RST',
+  '19': 'GND', '20': 'EG_RESET_N', '21': 'EG_PWRKEY_N', '22': 'GND',
+  '24': 'PCM_MODEM_TX', '25': 'PCM_MODEM_RX', '26': 'PCM_MODEM_SYNC', '27': 'PCM_MODEM_CLK',
+  '35': 'LTE_ANT_DIV_RAW', '36': 'GND',
+  '46': 'GND', '48': 'GND', '49': 'LTE_ANT_RF_RAW',
+  '50': 'GND', '51': 'GND', '52': 'GND', '53': 'GND', '54': 'GND', '56': 'GND',
+  '57': 'VSYS_3V87', '58': 'VSYS_3V87', '59': 'VSYS_3V87', '60': 'VSYS_3V87',
+  '61': 'MODEM_STATUS', '67': 'MODEM_UART_RX', '68': 'MODEM_UART_TX',
+  '69': 'MODEM_USB_DP', '70': 'MODEM_USB_DN', '71': 'VCC_3V3_S3', '72': 'GND',
+};
+for (let gp = 85; gp <= 112; gp++) EG25G_PINS[String(gp)] = 'GND';
+
 addPart({
-  ref: 'U701', mpn: 'EG800Q-EU', manufacturer: 'Quectel',
-  category: 'Modem-LTE', kind: 'ic', value: 'Quectel EG800Q-EU LTE Cat 1 bis + VoLTE PCM (109-LGA)', pkg: 'LGA-109 (17.7x15.8mm)',
-  board: 'mezz', side: 'top', x: -5.6, y: 30.8, w: 17.7, h: 15.8, t: 2.40,
+  ref: 'U701', mpn: 'EG25-G', manufacturer: 'Quectel',
+  category: 'Modem-LTE', kind: 'ic', value: 'Quectel EG25-G Global+Japan LTE Cat 4 150Mbps Dual-Ant + VoLTE PCM (EC25-J Pin-Compat, 144-LGA)', pkg: 'LGA-144 (29.0x32.0mm)',
+  board: 'mezz', side: 'top', x: -0.6, y: 17.3, w: 29.0, h: 32.0, t: 2.40, rot: 270,
   subsystem: 'Cellular-RF',
-  pins: {
-    '1': 'GND', '7': 'EG_PWRKEY_N', '10': 'GND',
-    '11': 'USIM1_IO', '12': 'USIM1_RST', '13': 'USIM1_CLK', '14': 'USIM1_VCC',
-    '15': 'EG_RESET_N', '16': 'MODEM_NET_STATUS', '17': 'MODEM_UART_TX', '18': 'MODEM_UART_RX',
-    '24': 'EG_VDD_EXT_1V8', '25': 'MODEM_STATUS', '27': 'GND',
-    '30': 'PCM_MODEM_CLK', '31': 'PCM_MODEM_SYNC', '32': 'PCM_MODEM_TX', '33': 'PCM_MODEM_RX',
-    '34': 'GND', '35': 'LTE_ANT_RF_RAW', '36': 'GND', '37': 'GND', '40': 'GND', '41': 'GND',
-    '42': 'VSYS_3V87', '43': 'VSYS_3V87', '45': 'GND', '46': 'GND', '47': 'GND', '48': 'GND',
-    '59': 'MODEM_USB_DP', '60': 'MODEM_USB_DN', '61': 'VCC_3V3_S3',
-    '70': 'GND', '71': 'GND', '72': 'GND', '73': 'GND', '79': 'USIM1_DET',
-    '88': 'GND', '89': 'GND', '90': 'GND', '91': 'GND', '92': 'GND', '93': 'GND', '94': 'GND', '95': 'GND',
-  },
+  pins: EG25G_PINS,
 });
-// Mandatory Quectel Open-Drain BSS138 Drivers for PWRKEY & RESET_N + VBAT Burst Bulk Caps!
+// Mandatory Quectel Open-Drain BSS138 Drivers for PWRKEY & RESET_N (on right-spine tab) + VDD_EXT bypass!
 addPart({
   ref: 'Q701', mpn: 'BSS138', manufacturer: 'onsemi',
-  category: 'MOSFET', kind: 'ic', value: 'Open-Drain PWRKEY Driver for EG800Q', pkg: 'SOT-23 (2.9x2.4mm)',
-  board: 'mezz', side: 'top', x: -6.2, y: 12.6, w: 2.9, h: 2.4, t: 0.90,
+  category: 'MOSFET', kind: 'ic', value: 'Open-Drain PWRKEY Driver for EG25-G/EC25-J', pkg: 'SOT-23 (2.9x2.4mm)',
+  board: 'mezz', side: 'top', x: 10.4, y: -4.6, w: 2.9, h: 2.4, t: 0.90,
   subsystem: 'Cellular-RF', pins: { '1': 'MODEM_PWRKEY_EN', '2': 'GND', '3': 'EG_PWRKEY_N' },
 });
 addPart({
   ref: 'Q702', mpn: 'BSS138', manufacturer: 'onsemi',
-  category: 'MOSFET', kind: 'ic', value: 'Open-Drain RESET_N Driver for EG800Q', pkg: 'SOT-23 (2.9x2.4mm)',
-  board: 'mezz', side: 'top', x: -6.2, y: 9.2, w: 2.9, h: 2.4, t: 0.90,
+  category: 'MOSFET', kind: 'ic', value: 'Open-Drain RESET_N Driver for EG25-G/EC25-J', pkg: 'SOT-23 (2.9x2.4mm)',
+  board: 'mezz', side: 'top', x: 13.8, y: -4.6, w: 2.9, h: 2.4, t: 0.90,
   subsystem: 'Cellular-RF', pins: { '1': 'MODEM_RESET_EN', '2': 'GND', '3': 'EG_RESET_N' },
 });
-addRes({ value: '100K', pkg: '0201', board: 'mezz', x: -8.4, y: 12.6, subsystem: 'Cellular-RF', net1: 'MODEM_PWRKEY_EN', net2: 'GND' });
-addRes({ value: '100K', pkg: '0201', board: 'mezz', x: -8.4, y: 9.2,  subsystem: 'Cellular-RF', net1: 'MODEM_RESET_EN',  net2: 'GND' });
-addCap({ value: '1uF',  pkg: '0201', board: 'mezz', x: -8.4, y: 14.0, subsystem: 'Cellular-RF', netP: 'EG_VDD_EXT_1V8' });
-// Series 100pF C0G DC-Blocking Cap on LTE Main RF -> MHF4 J701 (ZERO shunt dead-short!)
-addCap({ ref: 'C701', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: -13.6, y: 11.4, subsystem: 'Cellular-RF', netP: 'LTE_ANT_RF_RAW', netN: 'RF_ANT_MAIN_50' });
+addRes({ value: '100K', pkg: '0201', board: 'mezz', side: 'bot', x: 10.2, y: 5.4, subsystem: 'Cellular-RF', net1: 'MODEM_PWRKEY_EN', net2: 'GND' });
+addRes({ value: '100K', pkg: '0201', board: 'mezz', side: 'bot', x: 12.2, y: 5.4, subsystem: 'Cellular-RF', net1: 'MODEM_RESET_EN',  net2: 'GND' });
+addCap({ value: '1uF',  pkg: '0201', board: 'mezz', side: 'bot', x: -7.2, y: 33.4, subsystem: 'Cellular-RF', netP: 'EG_VDD_EXT_1V8' });
+// Dual 50-Ohm Cellular RF Paths: Series 100pF C0G DC-Blocking Caps -> MHF4 J701 (ANT_MAIN) & J702 (ANT_DIV/MIMO)!
+addCap({ ref: 'C701', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 10.2, y: 1.0, subsystem: 'Cellular-RF', netP: 'LTE_ANT_RF_RAW', netN: 'RF_ANT_MAIN_50' });
 addPart({
   ref: 'J701', mpn: '20449-001E', manufacturer: 'I-PEX',
-  category: 'RF-Coax', kind: 'coax', value: 'LTE Main Antenna MHF4', pkg: 'MHF4-RECEPT',
-  board: 'mezz', side: 'top', x: -13.6, y: 8.6, w: 2.0, h: 2.0, t: 0.80,
+  category: 'RF-Coax', kind: 'coax', value: 'LTE Main Antenna MHF4 (ANT_MAIN)', pkg: 'MHF4-RECEPT',
+  board: 'mezz', side: 'top', x: 10.2, y: -1.4, w: 2.0, h: 2.0, t: 0.80,
   subsystem: 'Cellular-RF', pins: { '1': 'RF_ANT_MAIN_50', '2': 'GND', '3': 'GND' },
+});
+addCap({ ref: 'C702', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 13.8, y: 1.0, subsystem: 'Cellular-RF', netP: 'LTE_ANT_DIV_RAW', netN: 'RF_ANT_DIV_50' });
+addPart({
+  ref: 'J702', mpn: '20449-001E', manufacturer: 'I-PEX',
+  category: 'RF-Coax', kind: 'coax', value: 'LTE Diversity/MIMO Antenna MHF4 (ANT_DIV)', pkg: 'MHF4-RECEPT',
+  board: 'mezz', side: 'top', x: 13.8, y: -1.4, w: 2.0, h: 2.0, t: 0.80,
+  subsystem: 'Cellular-RF', pins: { '1': 'RF_ANT_DIV_50', '2': 'GND', '3': 'GND' },
 });
 
 // 2. Ampak AP6275P Wi-Fi 6E 2x2 MIMO + Bluetooth 5.4 (50-pin LGA 15.0x13.0x1.55mm, VBAT=VCC_3V3_S3 <= 3.8V!)
 addPart({
   ref: 'U707', mpn: 'AP6275P', manufacturer: 'Ampak/Broadcom',
   category: 'WiFi-BT', kind: 'ic', value: 'Wi-Fi 6E 2x2 MIMO + BT 5.4 (3.3V VBAT!)', pkg: 'LGA-50 (15.0x13.0mm)',
-  board: 'mezz', side: 'top', x: 5.8, y: 14.2, w: 15.0, h: 13.0, t: 1.55,
+  board: 'mezz', side: 'top', x: 6.4, y: 39.4, w: 15.0, h: 13.0, t: 1.55,
   subsystem: 'WiFi-BT',
   pins: {
     '1': 'GND', '2': 'WIFI_ANT0_RAW', '3': 'GND', '4': 'GND', '5': 'GND', '6': 'GND', '7': 'GND', '8': 'GND',
@@ -1296,33 +1308,33 @@ addPart({
     '49': 'BT_WAKE', '50': 'BT_HOST_WAKE',
   },
 });
-// Mandatory AP6275P 37.4MHz XTAL (Y702), Internal Buck Inductors (L711/L712), PCIe TX AC Caps (C753/C754), 3.3V Bead & DC-Block RF Caps!
+// Mandatory AP6275P 37.4MHz XTAL (Y702, bot under U707), Internal Buck Inductors (L711/L712, top right of U707), PCIe TX AC Caps, 3.3V Bead & DC-Block RF Caps!
 addPart({
   ref: 'Y702', mpn: 'NX2016SA-37.4M', manufacturer: 'NDK',
   category: 'Crystal', kind: 'xtal', value: '37.400MHz ±10ppm Wi-Fi 6E XTAL', pkg: 'SMD-2016',
-  board: 'mezz', side: 'top', x: 5.4, y: 22.0, w: 2.0, h: 1.6, t: 0.50,
+  board: 'mezz', side: 'bot', x: 8.2, y: 39.2, w: 2.0, h: 1.6, t: 0.50,
   subsystem: 'WiFi-BT', pins: { '1': 'WIFI_37M_XI', '2': 'GND', '3': 'WIFI_37M_XO', '4': 'GND' },
 });
-addCap({ value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 3.8, y: 22.4, subsystem: 'WiFi-BT', netP: 'WIFI_37M_XI' });
-addCap({ value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 3.8, y: 21.4, subsystem: 'WiFi-BT', netP: 'WIFI_37M_XO' });
-addInd({ ref: 'L711', value: '2.2uH', current: '1.5A', pkg: 'IND_1608', board: 'mezz', x: 8.2,  y: 22.0, subsystem: 'WiFi-BT', net1: 'WIFI_CSR_VLX', net2: 'WIFI_CBUCK_0P9' });
-addInd({ ref: 'L712', value: '2.2uH', current: '1.5A', pkg: 'IND_1608', board: 'mezz', x: 10.6, y: 22.0, subsystem: 'WiFi-BT', net1: 'WIFI_ASR_VLX', net2: 'WIFI_ABUCK_1P12' });
-addCap({ value: '4.7uF', pkg: '0402', board: 'mezz', x: 8.2,  y: 23.4, subsystem: 'WiFi-BT', netP: 'WIFI_CBUCK_0P9' });
-addCap({ value: '4.7uF', pkg: '0402', board: 'mezz', x: 10.6, y: 23.4, subsystem: 'WiFi-BT', netP: 'WIFI_ABUCK_1P12' });
-addBead({ board: 'mezz', x: 12.6, y: 22.0, subsystem: 'WiFi-BT', net1: 'VCC_3V3_S3', net2: 'VCC_3V3_WIFI' });
-addCap({ value: '10uF', pkg: '0402', board: 'mezz', x: 12.6, y: 23.4, subsystem: 'WiFi-BT', netP: 'VCC_3V3_WIFI' });
-addCap({ ref: 'C753', value: '100nF', pkg: '0201', board: 'mezz', x: 5.4, y: 23.6, subsystem: 'WiFi-BT', netP: 'PCIE_WIFI_TX_P', netN: 'PCIE_WIFI_TX_AC_P' });
-addCap({ ref: 'C754', value: '100nF', pkg: '0201', board: 'mezz', x: 6.4, y: 23.6, subsystem: 'WiFi-BT', netP: 'PCIE_WIFI_TX_N', netN: 'PCIE_WIFI_TX_AC_N' });
-addCap({ ref: 'C705', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: -2.8, y: 18.6, subsystem: 'WiFi-BT', netP: 'WIFI_ANT0_RAW', netN: 'WIFI_ANT0_50' });
-addCap({ ref: 'C706', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: -2.8, y: 15.2, subsystem: 'WiFi-BT', netP: 'WIFI_ANT1_RAW', netN: 'WIFI_ANT1_50' });
-addPart({ ref: 'J705', mpn: '20449-001E', manufacturer: 'I-PEX', category: 'RF-Coax', kind: 'coax', value: 'Wi-Fi 6E ANT0 MHF4', pkg: 'MHF4-RECEPT', board: 'mezz', side: 'top', x: -3.2, y: 11.4, w: 2.0, h: 2.0, t: 0.80, subsystem: 'WiFi-BT', pins: { '1': 'WIFI_ANT0_50', '2': 'GND', '3': 'GND' } });
-addPart({ ref: 'J706', mpn: '20449-001E', manufacturer: 'I-PEX', category: 'RF-Coax', kind: 'coax', value: 'Wi-Fi 6E ANT1 MHF4', pkg: 'MHF4-RECEPT', board: 'mezz', side: 'top', x: -3.2, y: 8.6,  w: 2.0, h: 2.0, t: 0.80, subsystem: 'WiFi-BT', pins: { '1': 'WIFI_ANT1_50', '2': 'GND', '3': 'GND' } });
+addCap({ value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', side: 'bot', x: 6.6, y: 39.8, subsystem: 'WiFi-BT', netP: 'WIFI_37M_XI' });
+addCap({ value: '12pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', side: 'bot', x: 6.6, y: 38.6, subsystem: 'WiFi-BT', netP: 'WIFI_37M_XO' });
+addInd({ ref: 'L711', value: '2.2uH', current: '1.5A', pkg: 'IND_1608', board: 'mezz', side: 'top', x: 14.8, y: 35.4, rot: 90, subsystem: 'WiFi-BT', net1: 'WIFI_CSR_VLX', net2: 'WIFI_CBUCK_0P9' });
+addInd({ ref: 'L712', value: '2.2uH', current: '1.5A', pkg: 'IND_1608', board: 'mezz', side: 'top', x: 14.8, y: 38.2, rot: 90, subsystem: 'WiFi-BT', net1: 'WIFI_ASR_VLX', net2: 'WIFI_ABUCK_1P12' });
+addCap({ value: '4.7uF', pkg: '0402', board: 'mezz', side: 'bot', x: 11.4, y: 35.6, subsystem: 'WiFi-BT', netP: 'WIFI_CBUCK_0P9' });
+addCap({ value: '4.7uF', pkg: '0402', board: 'mezz', side: 'bot', x: 11.4, y: 38.2, subsystem: 'WiFi-BT', netP: 'WIFI_ABUCK_1P12' });
+addBead({ board: 'mezz', side: 'bot', x: 11.4, y: 41.2, subsystem: 'WiFi-BT', net1: 'VCC_3V3_S3', net2: 'VCC_3V3_WIFI' });
+addCap({ value: '10uF', pkg: '0402', board: 'mezz', side: 'bot', x: 13.0, y: 41.2, subsystem: 'WiFi-BT', netP: 'VCC_3V3_WIFI' });
+addCap({ ref: 'C753', value: '100nF', pkg: '0201', board: 'mezz', side: 'bot', x: 8.2, y: 42.6, subsystem: 'WiFi-BT', netP: 'PCIE_WIFI_TX_P', netN: 'PCIE_WIFI_TX_AC_P' });
+addCap({ ref: 'C754', value: '100nF', pkg: '0201', board: 'mezz', side: 'bot', x: 9.6, y: 42.6, subsystem: 'WiFi-BT', netP: 'PCIE_WIFI_TX_N', netN: 'PCIE_WIFI_TX_AC_N' });
+addCap({ ref: 'C705', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: -1.8, y: 44.2, subsystem: 'WiFi-BT', netP: 'WIFI_ANT0_RAW', netN: 'WIFI_ANT0_50' });
+addCap({ ref: 'C706', value: '100pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: -1.8, y: 39.2, subsystem: 'WiFi-BT', netP: 'WIFI_ANT1_RAW', netN: 'WIFI_ANT1_50' });
+addPart({ ref: 'J705', mpn: '20449-001E', manufacturer: 'I-PEX', category: 'RF-Coax', kind: 'coax', value: 'Wi-Fi 6E ANT0 MHF4', pkg: 'MHF4-RECEPT', board: 'mezz', side: 'top', x: -3.4, y: 44.2, w: 2.0, h: 2.0, t: 0.80, subsystem: 'WiFi-BT', pins: { '1': 'WIFI_ANT0_50', '2': 'GND', '3': 'GND' } });
+addPart({ ref: 'J706', mpn: '20449-001E', manufacturer: 'I-PEX', category: 'RF-Coax', kind: 'coax', value: 'Wi-Fi 6E ANT1 MHF4', pkg: 'MHF4-RECEPT', board: 'mezz', side: 'top', x: -3.4, y: 39.2, w: 2.0, h: 2.0, t: 0.80, subsystem: 'WiFi-BT', pins: { '1': 'WIFI_ANT1_50', '2': 'GND', '3': 'GND' } });
 
 // 3. u-blox MIA-M10Q-00B Multi-GNSS SiP (54-pin LGA 4.5x4.5x1.00mm, Integrated LNA+SAW+DC-block!)
 addPart({
   ref: 'U708', mpn: 'MIA-M10Q-00B', manufacturer: 'u-blox',
   category: 'GNSS', kind: 'ic', value: 'Multi-GNSS L1 SiP (Integrated LNA+SAW, 1.8V)', pkg: 'LGA-54 (4.5x4.5mm)',
-  board: 'mezz', side: 'top', x: -11.4, y: 18.8, w: 4.5, h: 4.5, t: 1.00,
+  board: 'mezz', side: 'top', x: -7.8, y: 36.6, w: 4.5, h: 4.5, t: 1.00,
   subsystem: 'GNSS',
   pins: {
     A1: 'GND', A2: 'GND', A3: 'GND', A5: 'GND', A8: 'GND', A9: 'GND',
@@ -1336,12 +1348,12 @@ addPart({
     J4: 'VCC_1V8_GNSS', J5: 'VCC_1V8_GNSS', J6: 'GND', J8: 'GND', J9: 'GND',
   },
 });
-addBead({ board: 'mezz', x: -7.2, y: 19.6, subsystem: 'GNSS', net1: 'VCC_1V8_S3', net2: 'VCC_1V8_GNSS' });
-addCap({ value: '1uF', pkg: '0201', board: 'mezz', x: -7.2, y: 18.4, subsystem: 'GNSS', netP: 'VCC_1V8_GNSS' });
+addBead({ board: 'mezz', side: 'bot', x: -7.2, y: 36.6, subsystem: 'GNSS', net1: 'VCC_1V8_S3', net2: 'VCC_1V8_GNSS' });
+addCap({ value: '1uF', pkg: '0201', board: 'mezz', side: 'bot', x: -7.2, y: 35.4, subsystem: 'GNSS', netP: 'VCC_1V8_GNSS' });
 addPart({
   ref: 'J707', mpn: '20449-001E', manufacturer: 'I-PEX',
   category: 'RF-Coax', kind: 'coax', value: 'GNSS L1 MHF4 Port', pkg: 'MHF4-RECEPT',
-  board: 'mezz', side: 'top', x: -11.4, y: 14.2, w: 2.0, h: 2.0, t: 0.80,
+  board: 'mezz', side: 'top', x: -3.4, y: 34.4, w: 2.0, h: 2.0, t: 0.80,
   subsystem: 'GNSS', pins: { '1': 'GNSS_ANT_50', '2': 'GND', '3': 'GND' },
 });
 
@@ -1349,7 +1361,7 @@ addPart({
 addPart({
   ref: 'U710', mpn: 'PN7160A1HN', manufacturer: 'NXP',
   category: 'NFC', kind: 'ic', value: 'NFC Forum Controller (I2C5 0x28, 27.12MHz)', pkg: 'HVQFN-40 (6.0x6.0mm)',
-  board: 'mezz', side: 'top', x: 9.8, y: 34.4, w: 6.0, h: 6.0, t: 0.85,
+  board: 'mezz', side: 'top', x: -14.2, y: 36.6, w: 6.0, h: 6.0, t: 0.85,
   subsystem: 'NFC',
   pins: {
     '1': 'GND', '2': 'NFC_DWL_REQ', '3': 'GND', '4': 'GND', '5': 'I2C5_SDA', '6': 'VCC_1V8_S3',
@@ -1363,33 +1375,33 @@ addPart({
 addPart({
   ref: 'Y701', mpn: 'NX2016SA-27.12M', manufacturer: 'NDK',
   category: 'Crystal', kind: 'xtal', value: '27.120MHz ±10ppm NFC XTAL', pkg: 'SMD-2016',
-  board: 'mezz', side: 'top', x: 5.0, y: 34.4, w: 2.0, h: 1.6, t: 0.50,
+  board: 'mezz', side: 'bot', x: -14.6, y: 36.6, w: 2.0, h: 1.6, t: 0.50,
   subsystem: 'NFC', pins: { '1': 'NFC_27M_XI', '2': 'GND', '3': 'NFC_27M_XO', '4': 'GND' },
 });
-addCap({ value: '12pF',  voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 5.0, y: 36.2, subsystem: 'NFC', netP: 'NFC_27M_XI' });
-addCap({ value: '12pF',  voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 5.0, y: 32.6, subsystem: 'NFC', netP: 'NFC_27M_XO' });
+addCap({ value: '12pF',  voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', side: 'bot', x: -14.6, y: 38.4, subsystem: 'NFC', netP: 'NFC_27M_XI' });
+addCap({ value: '12pF',  voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', side: 'bot', x: -14.6, y: 34.8, subsystem: 'NFC', netP: 'NFC_27M_XO' });
 // Mandatory PN7160 Internal Regulator Decoupling Caps + EMC LC Filter + RX Sensing Resistors -> TE Gold Springs!
 ['NFC_VDD_UP', 'NFC_VDD_TX', 'NFC_VMID', 'NFC_VDD_HF', 'NFC_VDD_A', 'NFC_VDD', 'NFC_VDD_D'].forEach((net, idx) => {
-  addCap({ value: idx === 1 ? '4.7uF' : '1uF', pkg: '0201', board: 'mezz', side: 'bot', x: 6.2 + idx * 1.1, y: 35.6, subsystem: 'NFC', netP: net });
+  addCap({ value: idx === 1 ? '4.7uF' : '1uF', pkg: '0201', board: 'mezz', side: 'bot', x: -16.4 + idx * 1.0, y: 39.8, subsystem: 'NFC', netP: net });
 });
-addInd({ ref: 'L701', value: '0.56uH', current: '0.5A', pkg: 'IND_1608', board: 'mezz', x: 6.6, y: 29.4, subsystem: 'NFC', net1: 'NFC_TX1', net2: 'NFC_ANT_P' });
-addInd({ ref: 'L702', value: '0.56uH', current: '0.5A', pkg: 'IND_1608', board: 'mezz', x: 6.6, y: 27.6, subsystem: 'NFC', net1: 'NFC_TX2', net2: 'NFC_ANT_N' });
-addCap({ value: '180pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 8.6, y: 29.4, subsystem: 'NFC', netP: 'NFC_ANT_P' });
-addCap({ value: '180pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 8.6, y: 27.6, subsystem: 'NFC', netP: 'NFC_ANT_N' });
-addRes({ value: '1K', pkg: '0201', board: 'mezz', x: 9.8, y: 29.4, subsystem: 'NFC', net1: 'NFC_ANT_P', net2: 'NFC_RXP' });
-addRes({ value: '1K', pkg: '0201', board: 'mezz', x: 9.8, y: 27.6, subsystem: 'NFC', net1: 'NFC_ANT_N', net2: 'NFC_RXN' });
-addPart({ ref: 'J708A', mpn: '2329497-2', manufacturer: 'TE Connectivity', category: 'Connector', kind: 'goldpad', value: 'NFC Coil Contact Spring +', pkg: 'TE-2329497-2', board: 'mezz', side: 'top', x: 12.2, y: 29.4, w: 2.7, h: 1.0, t: 0.90, subsystem: 'NFC', pins: { '1': 'NFC_ANT_P' } });
-addPart({ ref: 'J708B', mpn: '2329497-2', manufacturer: 'TE Connectivity', category: 'Connector', kind: 'goldpad', value: 'NFC Coil Contact Spring -', pkg: 'TE-2329497-2', board: 'mezz', side: 'top', x: 12.2, y: 27.6, w: 2.7, h: 1.0, t: 0.90, subsystem: 'NFC', pins: { '1': 'NFC_ANT_N' } });
+addInd({ ref: 'L701', value: '0.56uH', current: '0.5A', pkg: 'IND_1608', board: 'mezz', x: 10.0, y: -7.4, subsystem: 'NFC', net1: 'NFC_TX1', net2: 'NFC_ANT_P' });
+addInd({ ref: 'L702', value: '0.56uH', current: '0.5A', pkg: 'IND_1608', board: 'mezz', x: 10.0, y: -9.2, subsystem: 'NFC', net1: 'NFC_TX2', net2: 'NFC_ANT_N' });
+addCap({ value: '180pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 11.8, y: -7.4, subsystem: 'NFC', netP: 'NFC_ANT_P' });
+addCap({ value: '180pF', voltage: '50V', diel: 'C0G', pkg: '0201', board: 'mezz', x: 11.8, y: -9.2, subsystem: 'NFC', netP: 'NFC_ANT_N' });
+addRes({ value: '1K', pkg: '0201', board: 'mezz', x: 13.2, y: -7.4, subsystem: 'NFC', net1: 'NFC_ANT_P', net2: 'NFC_RXP' });
+addRes({ value: '1K', pkg: '0201', board: 'mezz', x: 13.2, y: -9.2, subsystem: 'NFC', net1: 'NFC_ANT_N', net2: 'NFC_RXN' });
+addPart({ ref: 'J708A', mpn: '2329497-2', manufacturer: 'TE Connectivity', category: 'Connector', kind: 'goldpad', value: 'NFC Coil Contact Spring +', pkg: 'TE-2329497-2', board: 'mezz', side: 'top', x: 12.2, y: -10.8, w: 2.7, h: 1.0, t: 0.90, subsystem: 'NFC', pins: { '1': 'NFC_ANT_P' } });
+addPart({ ref: 'J708B', mpn: '2329497-2', manufacturer: 'TE Connectivity', category: 'Connector', kind: 'goldpad', value: 'NFC Coil Contact Spring -', pkg: 'TE-2329497-2', board: 'mezz', side: 'top', x: 12.2, y: -12.2, w: 2.7, h: 1.0, t: 0.90, subsystem: 'NFC', pins: { '1': 'NFC_ANT_N' } });
 
 // 5. STMicroelectronics STSAFE-A110 Hardware Secure Element (Replaces NDA ST33J2M0! I2C5 0x20!)
 addPart({
   ref: 'U716', mpn: 'STSAFE-A110', manufacturer: 'STMicroelectronics',
   category: 'SecureElement', kind: 'ic', value: 'Common Criteria EAL5+ Hardware Secure Element (0x20)', pkg: 'UFDFPN8 (2.0x3.0mm)',
-  board: 'mezz', side: 'bot', x: -11.6, y: 34.4, w: 2.0, h: 3.0, t: 0.55,
+  board: 'mezz', side: 'bot', x: -11.6, y: 32.4, w: 2.0, h: 3.0, t: 0.55,
   subsystem: 'Security',
   pins: { '2': 'VCC_1V8_S3', '4': 'GND', '5': 'I2C5_SDA', '7': 'I2C5_SCL', '8': 'ESE_RST_N' },
 });
-addCap({ value: '100nF', pkg: '0201', board: 'mezz', side: 'bot', x: -9.4, y: 34.4, subsystem: 'Security', netP: 'VCC_1V8_S3' });
+addCap({ value: '100nF', pkg: '0201', board: 'mezz', side: 'bot', x: -9.4, y: 32.4, subsystem: 'Security', netP: 'VCC_1V8_S3' });
 
 // 6. Azoteq IQS7222A001QNR Native 1.8V Capacitive SAR Sensor (Replaces NDA SX9331! I2C6 0x44, RF-Choke Isolated!)
 addPart({
@@ -1556,19 +1568,20 @@ addPart({
 // THERMAL SENSORS, BOARD-ID, SIM1 ESD (EXACT USON-14), BACKSIDE SPINE PDN CAPS
 // ============================================================================
 const ntcZones = [
-  { rt: 'RT101', rp: 'R131', net: 'THERM_SOC_ADC',  board: 'main', x: 14.8, y: 34.4, sub: 'Thermal' },
-  { rt: 'RT201', rp: 'R132', net: 'THERM_CHG_ADC',  board: 'main', x: 14.5, y: -16.6, sub: 'Thermal' },
-  { rt: 'RT701', rp: 'R133', net: 'THERM_RFPA_ADC', board: 'mezz', x: -8.4, y: 11.0, sub: 'Thermal' },
+  { rt: 'RT101', rp: 'R131', net: 'THERM_SOC_ADC',  board: 'main', side: 'top', x: 14.8, y: 34.4, sub: 'Thermal' },
+  { rt: 'RT201', rp: 'R132', net: 'THERM_CHG_ADC',  board: 'main', side: 'top', x: 14.5, y: -16.6, sub: 'Thermal' },
+  { rt: 'RT701', rp: 'R133', net: 'THERM_RFPA_ADC', board: 'mezz', side: 'bot', x: -8.4, y: 11.8, sub: 'Thermal' },
 ];
 ntcZones.forEach((n) => {
+  const s = n.side || 'top';
   addPart({
     ref: n.rt, mpn: 'NCP03XH103F05RL', manufacturer: 'Murata',
     category: 'Thermistor', kind: 'res', value: '10K NTC ±1% B=3380', pkg: '0201',
-    board: n.board, side: 'top', x: n.x, y: n.y, w: 0.60, h: 0.30, t: 0.26,
+    board: n.board, side: s, x: n.x, y: n.y, w: 0.60, h: 0.30, t: 0.26,
     subsystem: n.sub, pins: { '1': n.net, '2': 'GND' },
   });
-  addRes({ ref: n.rp, value: '10K', tol: '1%', pkg: '0201', board: n.board, x: n.x, y: n.y - 0.65, subsystem: n.sub, net1: n.net, net2: 'VCC_1V8_S3' });
-  addCap({ value: '100nF', pkg: '0201', board: n.board, x: n.x + 0.85, y: n.y, subsystem: n.sub, netP: n.net });
+  addRes({ ref: n.rp, value: '10K', tol: '1%', pkg: '0201', board: n.board, side: s, x: n.x, y: n.y - 0.65, subsystem: n.sub, net1: n.net, net2: 'VCC_1V8_S3' });
+  addCap({ value: '100nF', pkg: '0201', board: n.board, side: s, x: n.x + 0.85, y: n.y, subsystem: n.sub, netP: n.net });
 });
 
 // Board-ID Divider (REV 5.0 EVT -> SARADC_IN1)

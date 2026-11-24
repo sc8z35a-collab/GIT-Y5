@@ -29,13 +29,13 @@
     ]
   },
   "counts": {
-    "footprints": 109,
-    "pads": 571,
-    "activeNets": 97,
-    "totalSegments": 2185,
-    "totalVias": 600,
-    "rfCpwgFenceVias": 35,
-    "rfShieldPerimeterVias": 73,
+    "footprints": 111,
+    "pads": 611,
+    "activeNets": 99,
+    "totalSegments": 1808,
+    "totalVias": 714,
+    "rfCpwgFenceVias": 98,
+    "rfShieldPerimeterVias": 98,
     "unroutedInnerNets": 0
   },
   "rfPaths": [
@@ -47,8 +47,8 @@
       "cpwgGapMm": 0.15,
       "topPads": 2,
       "botPads": 0,
-      "cpwgLengthMm": 24.202,
-      "delayPs": 138.82,
+      "cpwgLengthMm": 10.314,
+      "delayPs": 59.16,
       "topCpwgComplete": true,
       "mode": "Pure F.Cu 50Ω CPWG"
     },
@@ -60,8 +60,34 @@
       "cpwgGapMm": 0.15,
       "topPads": 2,
       "botPads": 0,
-      "cpwgLengthMm": 4.341,
-      "delayPs": 24.9,
+      "cpwgLengthMm": 1.769,
+      "delayPs": 10.15,
+      "topCpwgComplete": true,
+      "mode": "Pure F.Cu 50Ω CPWG"
+    },
+    {
+      "net": "LTE_ANT_DIV_RAW",
+      "z0TargetOhm": 50,
+      "z0ActualOhm": 50.1,
+      "widthMm": 0.09,
+      "cpwgGapMm": 0.15,
+      "topPads": 2,
+      "botPads": 0,
+      "cpwgLengthMm": 37.475,
+      "delayPs": 214.96,
+      "topCpwgComplete": true,
+      "mode": "Pure F.Cu 50Ω CPWG"
+    },
+    {
+      "net": "RF_ANT_DIV_50",
+      "z0TargetOhm": 50,
+      "z0ActualOhm": 50.1,
+      "widthMm": 0.09,
+      "cpwgGapMm": 0.15,
+      "topPads": 2,
+      "botPads": 0,
+      "cpwgLengthMm": 1.769,
+      "delayPs": 10.15,
       "topCpwgComplete": true,
       "mode": "Pure F.Cu 50Ω CPWG"
     },
@@ -73,8 +99,8 @@
       "cpwgGapMm": 0.15,
       "topPads": 2,
       "botPads": 0,
-      "cpwgLengthMm": 2.435,
-      "delayPs": 13.97,
+      "cpwgLengthMm": 1.795,
+      "delayPs": 10.3,
       "topCpwgComplete": true,
       "mode": "Pure F.Cu 50Ω CPWG"
     },
@@ -86,8 +112,8 @@
       "cpwgGapMm": 0.15,
       "topPads": 2,
       "botPads": 0,
-      "cpwgLengthMm": 8.576,
-      "delayPs": 49.19,
+      "cpwgLengthMm": 2.415,
+      "delayPs": 13.85,
       "topCpwgComplete": true,
       "mode": "Pure F.Cu 50Ω CPWG"
     },
@@ -99,8 +125,8 @@
       "cpwgGapMm": 0.15,
       "topPads": 2,
       "botPads": 0,
-      "cpwgLengthMm": 3.995,
-      "delayPs": 22.92,
+      "cpwgLengthMm": 2.395,
+      "delayPs": 13.74,
       "topCpwgComplete": true,
       "mode": "Pure F.Cu 50Ω CPWG"
     },
@@ -112,10 +138,10 @@
       "cpwgGapMm": 0.15,
       "topPads": 2,
       "botPads": 0,
-      "cpwgLengthMm": 0,
-      "delayPs": 0,
-      "topCpwgComplete": false,
-      "mode": "F.Cu 50Ω CPWG + Coax Via Tap"
+      "cpwgLengthMm": 2.415,
+      "delayPs": 13.85,
+      "topCpwgComplete": true,
+      "mode": "Pure F.Cu 50Ω CPWG"
     },
     {
       "net": "GNSS_ANT_50",
@@ -125,8 +151,8 @@
       "cpwgGapMm": 0.15,
       "topPads": 2,
       "botPads": 0,
-      "cpwgLengthMm": 7.043,
-      "delayPs": 40.4,
+      "cpwgLengthMm": 5.46,
+      "delayPs": 31.32,
       "topCpwgComplete": true,
       "mode": "Pure F.Cu 50Ω CPWG"
     },
@@ -138,10 +164,10 @@
       "cpwgGapMm": 0.15,
       "topPads": 2,
       "botPads": 0,
-      "cpwgLengthMm": 7.985,
-      "delayPs": 45.8,
-      "topCpwgComplete": true,
-      "mode": "Pure F.Cu 50Ω CPWG"
+      "cpwgLengthMm": 0,
+      "delayPs": 0,
+      "topCpwgComplete": false,
+      "mode": "F.Cu 50Ω CPWG + Coax Via Tap"
     },
     {
       "net": "NFC_TX2",
@@ -164,8 +190,8 @@
       "cpwgGapMm": 0.15,
       "topPads": 4,
       "botPads": 0,
-      "cpwgLengthMm": 6.157,
-      "delayPs": 35.31,
+      "cpwgLengthMm": 6.836,
+      "delayPs": 39.21,
       "topCpwgComplete": true,
       "mode": "Pure F.Cu 50Ω CPWG"
     },
@@ -177,8 +203,8 @@
       "cpwgGapMm": 0.15,
       "topPads": 4,
       "botPads": 0,
-      "cpwgLengthMm": 6.157,
-      "delayPs": 35.31,
+      "cpwgLengthMm": 10.68,
+      "delayPs": 61.26,
       "topCpwgComplete": true,
       "mode": "Pure F.Cu 50Ω CPWG"
     }

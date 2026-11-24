@@ -1,10 +1,10 @@
 {
   "summary": {
-    "auditedAt": "2026-11-24T07:22:24.521Z",
+    "auditedAt": "2026-11-24T13:21:48.603Z",
     "totalBomLines": 31,
-    "totalPlacementsPerBoard": 109,
+    "totalPlacementsPerBoard": 111,
     "physicalComponentLines": 30,
-    "physicalPlacementsPerBoard": 107,
+    "physicalPlacementsPerBoard": 109,
     "pcbCopperPadLines": 1,
     "pcbCopperPadCount": 2,
     "byStatus": {
@@ -14,14 +14,14 @@
       "PCB_COPPER_PAD_ONLY": 1
     },
     "byStatusPlacements": {
-      "IN_STOCK_5X": 82,
-      "OUT_OF_STOCK": 9,
+      "IN_STOCK_5X": 83,
+      "OUT_OF_STOCK": 10,
       "NOT_IN_JLCPCB_LIBRARY": 16,
       "PCB_COPPER_PAD_ONLY": 2
     },
     "basicLibraryLines": 0,
     "extendedLibraryLines": 26,
-    "inStockMatchedPartsCost5BoardsUsd": 96.65,
+    "inStockMatchedPartsCost5BoardsUsd": 96.68,
     "lcscCodeMismatches": []
   },
   "items": [
@@ -43,7 +43,7 @@
         "brand": "HRS(Hirose)",
         "package": "SMD,P=0.4mm",
         "libraryType": "expand",
-        "stockCount": 23463,
+        "stockCount": 23041,
         "unitPriceUsd5x": 0.398,
         "extCostUsd5x": 3.98,
         "category": "Board-to-Board and Backplane Connector"
@@ -51,26 +51,26 @@
       "lcscInputCheck": null
     },
     {
-      "mpn": "EG800Q-EU",
+      "mpn": "EG25-G",
       "designators": [
         "U701"
       ],
       "qty": 1,
-      "footprint": "LGA-109 (17.7x15.8mm)",
+      "footprint": "LGA-144 (29.0x32.0mm)",
       "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C17701907",
-        "model": "EG800Q-EU",
-        "brand": "Quectel",
-        "package": "LGA-109_17.7X15.8mm",
+        "lcscCode": "C9900022634",
+        "model": "EG25-G",
+        "brand": "JLCPCB Assembly",
+        "package": "LCC-LGA-144",
         "libraryType": "expand",
         "stockCount": 0,
         "unitPriceUsd5x": 0.0398,
         "extCostUsd5x": 0.199,
-        "category": "New Arrivals"
+        "category": "SMT"
       },
       "lcscInputCheck": null
     },
@@ -92,7 +92,7 @@
         "brand": "Jiangsu Changjing Electronics Technology Co., Ltd.",
         "package": "SOT-23",
         "libraryType": "expand",
-        "stockCount": 244038,
+        "stockCount": 242973,
         "unitPriceUsd5x": 0.0204,
         "extCostUsd5x": 0.204,
         "category": "MOSFETs"
@@ -117,7 +117,7 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 2165479,
+        "stockCount": 2164195,
         "unitPriceUsd5x": 0.0021,
         "extCostUsd5x": 0.021,
         "category": "Chip Resistor - Surface Mount"
@@ -126,7 +126,7 @@
         "code": "C106224",
         "model": "RC0201FR-07100KL",
         "brand": "YAGEO",
-        "stockCount": 2165479,
+        "stockCount": 2164195,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -155,7 +155,7 @@
         "brand": "Murata Electronics",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 3263901,
+        "stockCount": 3279968,
         "unitPriceUsd5x": 0.0043,
         "extCostUsd5x": 0.172,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
@@ -164,7 +164,7 @@
         "code": "C76930",
         "model": "GRM033R60J105MEA2D",
         "brand": "Murata Electronics",
-        "stockCount": 3263901,
+        "stockCount": 3279968,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -173,12 +173,13 @@
       "mpn": "GRM0335C1H101JA01D",
       "designators": [
         "C701",
+        "C702",
         "C705",
         "C706"
       ],
-      "qty": 3,
+      "qty": 4,
       "footprint": "0201",
-      "lcscInput": "",
+      "lcscInput": "C76922",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -188,22 +189,30 @@
         "brand": "Murata Electronics",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 253567,
+        "stockCount": 252641,
         "unitPriceUsd5x": 0.0067,
-        "extCostUsd5x": 0.1005,
+        "extCostUsd5x": 0.134,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": null
+      "lcscInputCheck": {
+        "code": "C76922",
+        "model": "GRM0335C1H101JA01D",
+        "brand": "Murata Electronics",
+        "stockCount": 252641,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
     },
     {
       "mpn": "20449-001E",
       "designators": [
         "J701",
+        "J702",
         "J705",
         "J706",
         "J707"
       ],
-      "qty": 4,
+      "qty": 5,
       "footprint": "MHF4-RECEPT",
       "lcscInput": "",
       "status": "OUT_OF_STOCK",
@@ -217,7 +226,7 @@
         "libraryType": "expand",
         "stockCount": 0,
         "unitPriceUsd5x": 0.5913,
-        "extCostUsd5x": 11.826,
+        "extCostUsd5x": 14.7825,
         "category": "Coaxial Connectors (RF)"
       },
       "lcscInputCheck": null
@@ -239,7 +248,7 @@
         "brand": "AMPAK Tech",
         "package": "-",
         "libraryType": "expand",
-        "stockCount": 275,
+        "stockCount": 255,
         "unitPriceUsd5x": 15.79,
         "extCostUsd5x": 78.95,
         "category": "WiFi Modules"
@@ -280,7 +289,7 @@
         "brand": "Murata Electronics",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 181996,
+        "stockCount": 181574,
         "unitPriceUsd5x": 0.0045,
         "extCostUsd5x": 0.09,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
@@ -289,7 +298,7 @@
         "code": "C85890",
         "model": "GRM0335C1H120JA01D",
         "brand": "Murata Electronics",
-        "stockCount": 181996,
+        "stockCount": 181574,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -312,7 +321,7 @@
         "brand": "Murata Electronics",
         "package": "0806",
         "libraryType": "expand",
-        "stockCount": 4105,
+        "stockCount": 4067,
         "unitPriceUsd5x": 0.1247,
         "extCostUsd5x": 1.247,
         "category": "Inductors (SMD)"
@@ -321,7 +330,7 @@
         "code": "C337891",
         "model": "DFE201610E-2R2M=P2",
         "brand": "Murata Electronics",
-        "stockCount": 4105,
+        "stockCount": 4067,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -344,7 +353,7 @@
         "brand": "Murata Electronics",
         "package": "0402",
         "libraryType": "expand",
-        "stockCount": 60634,
+        "stockCount": 47192,
         "unitPriceUsd5x": 0.0294,
         "extCostUsd5x": 0.294,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
@@ -353,7 +362,7 @@
         "code": "C335105",
         "model": "GRM155R61A475MEAAD",
         "brand": "Murata Electronics",
-        "stockCount": 60634,
+        "stockCount": 47192,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -376,7 +385,7 @@
         "brand": "Murata Electronics",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 36150,
+        "stockCount": 36086,
         "unitPriceUsd5x": 0.0164,
         "extCostUsd5x": 0.164,
         "category": "Ferrite Beads"
@@ -385,7 +394,7 @@
         "code": "C97850",
         "model": "BLM03AG121SN1D",
         "brand": "Murata Electronics",
-        "stockCount": 36150,
+        "stockCount": 36086,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -407,7 +416,7 @@
         "brand": "Murata Electronics",
         "package": "0402",
         "libraryType": "expand",
-        "stockCount": 526848,
+        "stockCount": 524556,
         "unitPriceUsd5x": 0.0397,
         "extCostUsd5x": 0.1985,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
@@ -416,7 +425,7 @@
         "code": "C77000",
         "model": "GRM155R61A106ME44D",
         "brand": "Murata Electronics",
-        "stockCount": 526848,
+        "stockCount": 524556,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -469,7 +478,7 @@
         "brand": "Murata Electronics",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 1919382,
+        "stockCount": 1918158,
         "unitPriceUsd5x": 0.0033,
         "extCostUsd5x": 0.528,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
@@ -478,7 +487,7 @@
         "code": "C76934",
         "model": "GRM033R61A104KE15D",
         "brand": "Murata Electronics",
-        "stockCount": 1919382,
+        "stockCount": 1918158,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -578,7 +587,7 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 1011572,
+        "stockCount": 1009634,
         "unitPriceUsd5x": 0.0015,
         "extCostUsd5x": 0.015,
         "category": "Chip Resistor - Surface Mount"
@@ -587,7 +596,7 @@
         "code": "C138165",
         "model": "RC0201FR-071KL",
         "brand": "YAGEO",
-        "stockCount": 1011572,
+        "stockCount": 1009634,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -600,7 +609,7 @@
       ],
       "qty": 2,
       "footprint": "TE-2329497-2",
-      "lcscInput": "",
+      "lcscInput": "C693052",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -615,7 +624,14 @@
         "extCostUsd5x": 1.219,
         "category": "Antenna spring"
       },
-      "lcscInputCheck": null
+      "lcscInputCheck": {
+        "code": "C693052",
+        "model": "2329497-2",
+        "brand": "TE Connectivity",
+        "stockCount": 52,
+        "libraryType": "expand",
+        "matchesMpn": true
+      }
     },
     {
       "mpn": "STSAFE-A110",
@@ -715,7 +731,7 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 149267,
+        "stockCount": 149019,
         "unitPriceUsd5x": 0.0013,
         "extCostUsd5x": 0.013,
         "category": "Chip Resistor - Surface Mount"
@@ -740,7 +756,7 @@
         "brand": "Murata Electronics",
         "package": "0402",
         "libraryType": "expand",
-        "stockCount": 41346,
+        "stockCount": 41576,
         "unitPriceUsd5x": 0.0281,
         "extCostUsd5x": 0.281,
         "category": "Inductors (SMD)"
@@ -786,7 +802,7 @@
         "brand": "Murata Electronics",
         "package": "0402",
         "libraryType": "expand",
-        "stockCount": 159795,
+        "stockCount": 157212,
         "unitPriceUsd5x": 0.1933,
         "extCostUsd5x": 8.6985,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
@@ -795,7 +811,7 @@
         "code": "C415703",
         "model": "GRM155R60J226ME11D",
         "brand": "Murata Electronics",
-        "stockCount": 159795,
+        "stockCount": 157212,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -842,7 +858,7 @@
         "brand": "Murata Electronics",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 59067,
+        "stockCount": 44033,
         "unitPriceUsd5x": 0.0139,
         "extCostUsd5x": 0.0695,
         "category": "NTC Thermistors"
@@ -851,7 +867,7 @@
         "code": "C98098",
         "model": "NCP03XH103F05RL",
         "brand": "Murata Electronics",
-        "stockCount": 59067,
+        "stockCount": 44033,
         "libraryType": "expand",
         "matchesMpn": true
       }
@@ -873,7 +889,7 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 2853118,
+        "stockCount": 2851663,
         "unitPriceUsd5x": 0.0015,
         "extCostUsd5x": 0.0075,
         "category": "Chip Resistor - Surface Mount"
@@ -882,7 +898,7 @@
         "code": "C106225",
         "model": "RC0201FR-0710KL",
         "brand": "YAGEO",
-        "stockCount": 2853118,
+        "stockCount": 2851663,
         "libraryType": "expand",
         "matchesMpn": true
       }

@@ -367,6 +367,9 @@
       "GNSS_ANT_50": [
         "RF_CPWG_50"
       ],
+      "LTE_ANT_DIV_RAW": [
+        "RF_CPWG_50"
+      ],
       "LTE_ANT_RF_RAW": [
         "RF_CPWG_50"
       ],
@@ -429,6 +432,9 @@
       ],
       "PCIE_WIFI_TX_P": [
         "PCIE_DIFF_85"
+      ],
+      "RF_ANT_DIV_50": [
+        "RF_CPWG_50"
       ],
       "RF_ANT_MAIN_50": [
         "RF_CPWG_50"
@@ -521,6 +527,10 @@
       {
         "netclass": "POWER_WIDE",
         "pattern": "VBAT_*"
+      },
+      {
+        "netclass": "POWER_WIDE",
+        "pattern": "VBUS_*"
       }
     ]
   },

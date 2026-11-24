@@ -64,6 +64,7 @@ const NETCLASS_SPECS = {
 
 const RF_CPWG_NETS = new Set([
   'LTE_ANT_RF_RAW', 'RF_ANT_MAIN_50',
+  'LTE_ANT_DIV_RAW', 'RF_ANT_DIV_50',
   'WIFI_ANT0_RAW', 'WIFI_ANT0_50', 'WIFI_ANT1_RAW', 'WIFI_ANT1_50',
   'GNSS_ANT_50',
   'NFC_TX1', 'NFC_TX2', 'NFC_ANT_P', 'NFC_ANT_N',
@@ -79,11 +80,16 @@ function classifyMezzNet(name) {
 }
 
 const OUTLINE_POLY = [
-  [-15.5,  6.0],
-  [ 14.4,  6.0],
-  [ 14.4, 40.7],
-  [ -9.8, 40.7],
-  [-15.5, 39.5],
+  [-18.0,   2.4],
+  [  8.4,   2.4],
+  [  8.4, -13.6],
+  [ 15.8, -13.6],
+  [ 15.8,  45.2],
+  [ 14.4,  46.8],
+  [ 11.4,  47.2],
+  [ -5.2,  47.2],
+  [ -5.2,  40.8],
+  [-18.0,  40.8],
 ];
 
 const SIG_LAYERS = ['In2.Cu', 'In3.Cu', 'In4.Cu', 'In5.Cu'];
@@ -92,9 +98,9 @@ const SIG_PREF = [0, 1, 0, 1];
 const ALL_CU = ['F.Cu', 'In1.Cu', 'In2.Cu', 'In3.Cu', 'In4.Cu', 'In5.Cu', 'In6.Cu', 'B.Cu'];
 
 const GRID_IN = 0.25;
-const GX0 = -15.50, GY0 = 6.00;
-const NX = Math.ceil((14.40 - GX0) / GRID_IN) + 2;
-const NY = Math.ceil((40.70 - GY0) / GRID_IN) + 2;
+const GX0 = -18.00, GY0 = -13.60;
+const NX = Math.ceil((15.80 - GX0) / GRID_IN) + 2;
+const NY = Math.ceil((47.20 - GY0) / GRID_IN) + 2;
 const gxToX = (gx) => +(GX0 + gx * GRID_IN).toFixed(4);
 const gyToY = (gy) => +(GY0 + gy * GRID_IN).toFixed(4);
 const xToGx = (x) => Math.round((x - GX0) / GRID_IN);
@@ -102,8 +108,8 @@ const yToGy = (y) => Math.round((y - GY0) / GRID_IN);
 const cellKey = (gx, gy) => gy * NX + gx;
 
 const RF_GRID = 0.20;
-const RF_NX = Math.ceil((14.40 - GX0) / RF_GRID) + 2;
-const RF_NY = Math.ceil((40.70 - GY0) / RF_GRID) + 2;
+const RF_NX = Math.ceil((15.80 - GX0) / RF_GRID) + 2;
+const RF_NY = Math.ceil((47.20 - GY0) / RF_GRID) + 2;
 const rgxToX = (gx) => +(GX0 + gx * RF_GRID).toFixed(4);
 const rgyToY = (gy) => +(GY0 + gy * RF_GRID).toFixed(4);
 const xToRgx = (x) => Math.round((x - GX0) / RF_GRID);
@@ -1316,7 +1322,8 @@ for (const fp of footprints) {
   for (const p of fp.pads) {
     const rrr = p.shape === 'roundrect' ? ' (roundrect_rratio 0.25)' : '';
     const netAttr = p.netId > 0 ? ` (net ${p.netId} "${p.netName}")` : '';
-    out.push(`    (pad "${p.padNum}" smd ${p.shape} (at ${fmt(p.lx)} ${fmt(-p.ly)}) (size ${fmt(p.origPw ?? p.pw)} ${fmt(p.origPh ?? p.ph)}) (layers "${fl}" "${paste}" "${mask}")${rrr}${netAttr} (uuid "${uuid()}"))`);
+    const padRot = fp.rot ? ` ${fp.rot}` : '';
+    out.push(`    (pad "${p.padNum}" smd ${p.shape} (at ${fmt(p.lx)} ${fmt(-p.ly)}${padRot}) (size ${fmt(p.origPw ?? p.pw)} ${fmt(p.origPh ?? p.ph)}) (layers "${fl}" "${paste}" "${mask}")${rrr}${netAttr} (uuid "${uuid()}"))`);
   }
   out.push(`  )`);
 }
@@ -1332,7 +1339,16 @@ for (const v of allVias) {
 
 // Solid RF Reference GND Planes (In1.Cu, In6.Cu) + Coplanar GND Copper Pours (F.Cu, B.Cu, remove ALL unconnected islands!)
 const zonePts = [
-  [-15.20,  6.30], [ 14.10,  6.30], [ 14.10, 40.40], [ -9.75, 40.40], [-15.20, 39.25],
+  [-17.70,   2.70],
+  [  8.70,   2.70],
+  [  8.70, -13.30],
+  [ 15.50, -13.30],
+  [ 15.50,  45.05],
+  [ 14.25,  46.50],
+  [ 11.35,  46.90],
+  [ -4.90,  46.90],
+  [ -4.90,  40.50],
+  [-17.70,  40.50],
 ];
 const zPtsStr = zonePts.map(([x, y]) => `(xy ${fmt(x)} ${fmt(toKiCadY(y))})`).join(' ');
 for (const [zLayer, zClr, minThk, islMode] of [

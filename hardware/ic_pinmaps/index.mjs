@@ -203,39 +203,76 @@ function makeHiroseBm28(nSig, vertical = false) {
 }
 
 // ---------------------------------------------------------------------------
-// Quectel EG800Q-EU (109-pin LGA, 17.7x15.8mm — Hardware Design V1.1)
+// Quectel EG25-G (144-pin LGA, 29.0x32.0x2.40mm — Hardware Design V1.4)
+// 100% pin-to-pin drop-in compatible with Quectel EC25-J (Japan TELEC/JATE)!
+// Global + Japan LTE Cat 4 (150/50 Mbps, B1/3/8/18/19/26/28/41, Dual-Ant MIMO, VoLTE PCM)
 // ---------------------------------------------------------------------------
-function makeEg800qPads() {
-  // 64 perimeter pins (16 per side, 0.90mm pitch) + 45 inner thermal/GND LGA pads (65..109)
-  const egNames = {
-    1: 'GND', 7: 'PWRKEY', 10: 'GND', 11: 'USIM_DATA', 12: 'USIM_RST', 13: 'USIM_CLK', 14: 'USIM_VDD',
-    15: 'RESET_N', 16: 'NET_STATUS', 17: 'MAIN_RXD', 18: 'MAIN_TXD', 22: 'MAIN_CTS', 23: 'MAIN_RTS',
-    24: 'VDD_EXT', 25: 'STATUS', 27: 'GND', 30: 'PCM_CLK', 31: 'PCM_SYNC', 32: 'PCM_DIN', 33: 'PCM_DOUT',
-    34: 'GND', 35: 'ANT_MAIN', 36: 'GND', 37: 'GND', 40: 'GND', 41: 'GND', 42: 'VBAT_1', 43: 'VBAT_2',
-    45: 'GND', 46: 'GND', 47: 'GND', 48: 'GND', 59: 'USB_DP', 60: 'USB_DM', 61: 'USB_VBUS',
-    70: 'GND', 71: 'GND', 72: 'GND', 73: 'GND', 79: 'USIM_DET', 82: 'USB_BOOT',
-    88: 'GND', 89: 'GND', 90: 'GND', 91: 'GND', 92: 'GND', 93: 'GND', 94: 'GND', 95: 'GND',
+function makeEg25gPads() {
+  const eg25Names = {
+    1: 'WAKEUP_IN', 2: 'AP_READY', 3: 'RESERVED_3', 4: 'W_DISABLE_N', 5: 'NET_MODE',
+    6: 'NET_STATUS', 7: 'VDD_EXT', 8: 'GND', 9: 'GND', 10: 'USIM_GND',
+    11: 'DBG_RXD', 12: 'DBG_TXD', 13: 'USIM_PRESENCE', 14: 'USIM_VDD', 15: 'USIM_DATA',
+    16: 'USIM_CLK', 17: 'USIM_RST', 18: 'RESERVED_18',
+    19: 'GND', 20: 'RESET_N', 21: 'PWRKEY', 22: 'GND', 23: 'SD_INS_DET',
+    24: 'PCM_IN', 25: 'PCM_OUT', 26: 'PCM_SYNC', 27: 'PCM_CLK',
+    28: 'SDC2_DATA3', 29: 'SDC2_DATA2', 30: 'SDC2_DATA1', 31: 'SDC2_DATA0',
+    32: 'SDC2_CLK', 33: 'SDC2_CMD', 34: 'VDD_SDIO', 35: 'ANT_DIV', 36: 'GND',
+    37: 'BT_RTS', 38: 'BT_TXD', 39: 'BT_RXD', 40: 'BT_CTS',
+    41: 'I2C_SCL', 42: 'I2C_SDA', 43: 'RESERVED_43', 44: 'ADC1', 45: 'ADC0',
+    46: 'GND', 47: 'ANT_GNSS', 48: 'GND', 49: 'ANT_MAIN',
+    50: 'GND', 51: 'GND', 52: 'GND', 53: 'GND', 54: 'GND',
+    55: 'RESERVED_55', 56: 'GND', 57: 'VBAT_RF_1', 58: 'VBAT_RF_2',
+    59: 'VBAT_BB_1', 60: 'VBAT_BB_2', 61: 'STATUS', 62: 'RI', 63: 'DCD',
+    64: 'CTS', 65: 'RTS', 66: 'DTR', 67: 'TXD', 68: 'RXD',
+    69: 'USB_DP', 70: 'USB_DM', 71: 'USB_VBUS', 72: 'GND',
+    115: 'USB_BOOT', 118: 'WLAN_SLP_CLK', 119: 'EPHY_RST_N', 120: 'EPHY_INT_N',
+    121: 'SGMII_MDATA', 122: 'SGMII_MCLK', 123: 'SGMII_TX_M', 124: 'SGMII_TX_P',
+    125: 'SGMII_RX_P', 126: 'SGMII_RX_M', 127: 'PM_ENABLE', 128: 'USIM2_VDD',
+    129: 'SDC1_DATA3', 130: 'SDC1_DATA2', 131: 'SDC1_DATA1', 132: 'SDC1_DATA0',
+    133: 'SDC1_CLK', 134: 'SDC1_CMD', 135: 'WAKE_ON_WIRELESS', 136: 'WLAN_EN',
+    137: 'COEX_UART_RX', 138: 'COEX_UART_TX', 139: 'BT_EN',
   };
+  for (let p = 85; p <= 112; p++) eg25Names[p] = 'GND';
+
+  // 72 outer perimeter pads (18 per side, 1.10mm pitch, 0.60x1.20mm pads -> 0.50mm inter-pad gap!)
   const pads = makeQfn4Side({
-    w: 17.7, h: 15.8,
-    nLeft: 16, nBot: 16, nRight: 16, nTop: 16,
-    pitchX: 0.90, pitchY: 0.80,
-    padW: 0.45, padL: 0.80, inset: 0.20,
-    pinNames: egNames,
+    w: 29.0, h: 32.0,
+    nLeft: 18, nBot: 18, nRight: 18, nTop: 18,
+    pitchX: 1.10, pitchY: 1.10,
+    padW: 0.60, padL: 1.20, inset: 0.20,
+    pinNames: eg25Names,
   });
-  // Inner LGA array pins 65..109 (5 rows x 9 cols, 1.30mm pitch, 0.65x0.65mm pads -> huge clearance)
-  let num = 65;
-  for (let r = 0; r < 5; r++) {
-    for (let c = 0; c < 9; c++) {
-      const p = String(num++);
+
+  // Pins 73..84: 12 inner RESERVED pads (6 left col + 6 right col, left unconnected per Quectel Note 1)
+  for (let i = 0; i < 6; i++) {
+    const pL = String(73 + i);
+    const pR = String(79 + i);
+    const y = +(5.0 - i * 2.0).toFixed(4);
+    pads.push({ padNum: pL, pinName: `RSVD_${pL}`, lx: -10.2, ly: y, pw: 0.60, ph: 0.60, shape: 'roundrect' });
+    pads.push({ padNum: pR, pinName: `RSVD_${pR}`, lx: +10.2, ly: y, pw: 0.60, ph: 0.60, shape: 'roundrect' });
+  }
+
+  // Pins 85..112: 28 central thermal & RF shielding GND array pads (4 rows x 7 cols, 2.20mm pitch, 1.20x1.20mm)
+  let gNum = 85;
+  for (let r = 0; r < 4; r++) {
+    for (let c = 0; c < 7; c++) {
+      const p = String(gNum++);
       pads.push({
-        padNum: p,
-        pinName: egNames[p] || `RSVD_${p}`,
-        lx: +(-5.2 + c * 1.30).toFixed(4),
-        ly: +(2.6 - r * 1.30).toFixed(4),
-        pw: 0.65, ph: 0.65, shape: 'roundrect',
+        padNum: p, pinName: 'GND',
+        lx: +(-6.6 + c * 2.20).toFixed(4),
+        ly: +(3.3 - r * 2.20).toFixed(4),
+        pw: 1.20, ph: 1.20, shape: 'roundrect', thermal: true,
       });
     }
+  }
+
+  // Pins 113..144: 32 inner LGA pads (16 top inner row 113..128 + 16 bottom inner row 129..144, 1.00mm pitch)
+  for (let i = 0; i < 16; i++) {
+    const pTop = String(113 + i);
+    const pBot = String(129 + i);
+    const x = +(-7.5 + i * 1.00).toFixed(4);
+    pads.push({ padNum: pTop, pinName: eg25Names[pTop] || `RSVD_${pTop}`, lx: x, ly: +10.2, pw: 0.55, ph: 0.55, shape: 'roundrect' });
+    pads.push({ padNum: pBot, pinName: eg25Names[pBot] || `RSVD_${pBot}`, lx: x, ly: -10.2, pw: 0.55, ph: 0.55, shape: 'roundrect' });
   }
   return pads;
 }
@@ -782,10 +819,10 @@ export const VERIFIED_PINMAPS = {
   },
 
   // 31. Mezzanine Active Modules & ICs (100% Public Datasheets, Purchasable!)
-  'EG800Q-EU': {
-    datasheet: 'Quectel EG800Q-EU Hardware Design V1.1 (109-pin LGA 17.7x15.8x2.40mm, LTE Cat 1 bis)',
+  'EG25-G': {
+    datasheet: 'Quectel EG25-G Hardware Design V1.4 / EC2x&EG2x-G Compatible Design V1.2 (144-pin LGA 29.0x32.0x2.40mm, Global+Japan LTE Cat 4 150/50Mbps, EC25-J pin-compatible)',
     ioVoltageV: 1.8,
-    pads: makeEg800qPads(),
+    pads: makeEg25gPads(),
   },
   'AP6275P': {
     datasheet: 'Ampak AP6275P Datasheet V1.2 (50-pin LGA 15.0x13.0x1.55mm, VBAT max 3.8V -> 3.3V!)',

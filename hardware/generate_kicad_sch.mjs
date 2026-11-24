@@ -12,7 +12,7 @@
  *        ├─ `hardware/display_camera_usb.kicad_sch`  (TPS65632 + Camera LDOs + LM3644 + BTBs + TPD4S480 + FUSB302 + TUSB546 + DF40C)
  *        └─ `hardware/audio_sensors_io.kicad_sch`    (ES8388 + Dual TAS2562 36B + MP34DT05 + DRV2625 + IMU/Mag/Baro/Hall/VCNL4040 + Keys)
  *   2. RF Mezzanine Sheet: `hardware/rk_t4_mezzanine.kicad_sch`
- *        (Dual Hirose DF40C-40DP + Quectel EG800Q-EU + Ampak AP6275P + u-blox MIA-M10Q + NXP PN7160 + STSAFE-A110 + Azoteq IQS7222A)
+ *        (Dual Hirose DF40C-40DP + Quectel EG25-G/EC25-J + Ampak AP6275P + u-blox MIA-M10Q + NXP PN7160 + STSAFE-A110 + Azoteq IQS7222A)
  *
  * Every single component uses its exact official manufacturer datasheet pin numbers & names,
  * exact 2.54mm grid alignment, PWR_FLAG drivers on every power rail, and explicit no_connect
@@ -376,7 +376,7 @@ for (const sd of mainSheetDefs) {
 const mezzRootUuid = detUuid(200);
 const mezzRes = writeComponentSheet({
   filePath: path.join(HW_DIR, 'rk_t4_mezzanine.kicad_sch'),
-  title: 'RK T4 Rev 5.0 EVT — 8-Layer RF Mezzanine (EG800Q-EU + AP6275P + MIA-M10Q + PN7160 + STSAFE-A110 + IQS7222A)',
+  title: 'RK T4 Rev 5.0 EVT — 8-Layer RF Mezzanine (EG25-G/EC25-J + AP6275P + MIA-M10Q + PN7160 + STSAFE-A110 + IQS7222A)',
   rev: '5.0 EVT',
   projectName: 'rk_t4_mezzanine',
   rootUuid: mezzRootUuid,

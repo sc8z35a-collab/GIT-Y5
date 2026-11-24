@@ -4,7 +4,7 @@
   "bodyThicknessMm": 10.9,
   "maxThicknessWithCameraMm": 12.87,
   "cameraProtrusionMm": 1.97,
-  "totalCheckedMeshes": 2813,
+  "totalCheckedMeshes": 2818,
   "interferenceCount": 0,
   "interModuleCount": 0,
   "intraModuleCount": 0,
@@ -143,6 +143,6 @@
     }
   },
   "interferences": [],
-  "totalSolidMeshes": 2813,
+  "totalSolidMeshes": 2818,
   "totalInterferences": 0
 }

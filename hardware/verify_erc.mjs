@@ -79,9 +79,9 @@ for (const [ref, desc] of [
   ['J901B_MB', 'Hirose DF40C-40DS Mainboard Mezzanine BTB-B'],
   ['J901A', 'Hirose DF40C-40DP Mezzanine BTB-A Plug'],
   ['J901B', 'Hirose DF40C-40DP Mezzanine BTB-B Plug'],
-  ['U701', 'Quectel EG800Q-EU LTE Cat 1 bis + VoLTE PCM Modem'],
-  ['Q701', 'onsemi BSS138 Open-Drain EG800Q PWRKEY Driver'],
-  ['Q702', 'onsemi BSS138 Open-Drain EG800Q RESET_N Driver'],
+  ['U701', 'Quectel EG25-G Global+Japan LTE Cat 4 150Mbps Dual-Ant + VoLTE PCM (EC25-J Pin-Compat)'],
+  ['Q701', 'onsemi BSS138 Open-Drain EG25-G/EC25-J PWRKEY Driver'],
+  ['Q702', 'onsemi BSS138 Open-Drain EG25-G/EC25-J RESET_N Driver'],
   ['U707', 'Ampak AP6275P Wi-Fi 6E + BT 5.4 (3.3V VBAT, 37.4MHz XTAL)'],
   ['U708', 'u-blox MIA-M10Q-00B Multi-GNSS SiP (Integrated LNA+SAW)'],
   ['U710', 'NXP PN7160A1HN NFC Controller (0x28)'],
@@ -274,12 +274,13 @@ assert(diffMissing.length === 0, `All ${diffPrefixes.size} differential pairs ma
 const floatingNets = Object.entries(nets).filter(([, nodes]) => nodes.length < 2).map(([n, nodes]) => `${n}(${nodes[0]})`);
 assert(floatingNets.length === 0, `Zero floating single-node nets (${Object.keys(nets).length} total nets)${floatingNets.length ? ': ' + floatingNets.join(', ') : ''}`);
 
-// 11. Physical Board-Boundary Fit (Main L-Shape & RF Mezzanine)
+// 11. Physical Board-Boundary Fit (Main L-Shape & RF Mezzanine L-Shape)
 const outOfBounds = [];
 for (const c of components) {
   if (c.board === 'cam_mod') continue;
-  const rw = c.rot === 90 ? c.h : c.w;
-  const rh = c.rot === 90 ? c.w : c.h;
+  const isR90 = Math.abs((c.rot || 0) % 180) === 90;
+  const rw = isR90 ? c.h : c.w;
+  const rh = isR90 ? c.w : c.h;
   const x0 = c.x - rw / 2, x1 = c.x + rw / 2;
   const y0 = c.y - rh / 2, y1 = c.y + rh / 2;
   if (c.board === 'main') {
@@ -287,8 +288,9 @@ for (const c of components) {
     const inSpine = x0 >= 7.6 && x1 <= 16.5 && y0 >= -69.0 && y1 <= 4.0;
     if (!inUpper && !inSpine) outOfBounds.push(`${c.ref} (${c.x},${c.y} ${rw}x${rh})`);
   } else if (c.board === 'mezz') {
-    const inMezz = x0 >= -15.5 && x1 <= 14.4 && y0 >= 6.0 && y1 <= 40.7;
-    if (!inMezz) outOfBounds.push(`${c.ref} [mezz] (${c.x},${c.y} ${rw}x${rh})`);
+    const inMezzHead = x0 >= -18.0 && x1 <= 15.8 && y0 >= 2.4 && y1 <= 47.2 && !(x0 < -5.2 && y1 > 40.8);
+    const inMezzTab = x0 >= 8.4 && x1 <= 15.8 && y0 >= -13.6 && y1 <= 2.8;
+    if (!inMezzHead && !inMezzTab) outOfBounds.push(`${c.ref} [mezz] (${c.x},${c.y} ${rw}x${rh})`);
   }
 }
 assert(outOfBounds.length === 0, `All Main & Mezzanine PCB components physically fit inside board outlines${outOfBounds.length ? ': ' + outOfBounds.join(', ') : ''}`);
@@ -297,13 +299,15 @@ assert(outOfBounds.length === 0, `All Main & Mezzanine PCB components physically
 const collisions = [];
 for (let i = 0; i < components.length; i++) {
   const a = components[i];
-  const aw = a.rot === 90 ? a.h : a.w;
-  const ah = a.rot === 90 ? a.w : a.h;
+  const aR90 = Math.abs((a.rot || 0) % 180) === 90;
+  const aw = aR90 ? a.h : a.w;
+  const ah = aR90 ? a.w : a.h;
   for (let j = i + 1; j < components.length; j++) {
     const b = components[j];
     if (a.board !== b.board || a.side !== b.side) continue;
-    const bw = b.rot === 90 ? b.h : b.w;
-    const bh = b.rot === 90 ? b.w : b.h;
+    const bR90 = Math.abs((b.rot || 0) % 180) === 90;
+    const bw = bR90 ? b.h : b.w;
+    const bh = bR90 ? b.w : b.h;
     const overlapX = (aw + bw) / 2 - Math.abs(a.x - b.x);
     const overlapY = (ah + bh) / 2 - Math.abs(a.y - b.y);
     if (overlapX > 0.05 && overlapY > 0.05) {

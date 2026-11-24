@@ -1,6 +1,6 @@
 {
   "board": "RK T4 Rev 5.0 (True EVT) 14-Layer 1.20mm 1oz/1oz Mainboard",
-  "generatedAt": "2026-11-24T12:44:52.185Z",
+  "generatedAt": "2026-11-24T13:28:12.465Z",
   "assumptions": {
     "copperThicknessUm": 35,
     "operatingTempC": 75,

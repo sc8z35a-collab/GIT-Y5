@@ -191,9 +191,9 @@ const dts = `// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 \t\treset-gpios = ${rkGpio('WIFI_REG_ON', 'GPIO_ACTIVE_LOW')}
 \t};
 
-\t/* Cellular Modem Quectel EG800Q-EU Control Interface (Open-Drain BSS138 Q701/Q702) */
+\t/* Cellular Modem Quectel EG25-G / EC25-J Control Interface (Open-Drain BSS138 Q701/Q702) */
 \tcellular-modem-ctrl {
-\t\tcompatible = "quectel,eg800q-ctrl";
+\t\tcompatible = "quectel,eg25";
 \t\tpwrkey-gpios = ${rkGpio('MODEM_PWRKEY_EN', 'GPIO_ACTIVE_HIGH')}
 \t\treset-gpios = ${rkGpio('MODEM_RESET_EN', 'GPIO_ACTIVE_HIGH')}
 \t\tstatus-gpios = ${rkGpio('MODEM_STATUS', 'GPIO_ACTIVE_HIGH')}
@@ -705,7 +705,7 @@ const dts = `// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 };
 
 /* ============================================================================
- * AUDIO INTERFACES (I2S0 ES8388, I2S1_M0 EG800Q VoLTE, I2S2_M1 Dual TAS2562, PDM0_M0)
+ * AUDIO INTERFACES (I2S0 ES8388, I2S1_M0 EG25-G VoLTE, I2S2_M1 Dual TAS2562, PDM0_M0)
  * ============================================================================ */
 &i2s0_8ch {
 \tstatus = "okay";
@@ -733,7 +733,7 @@ const dts = `// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 };
 
 /* ============================================================================
- * UARTS (UART2_M0 Debug, UART3_M0 GNSS MIA-M10Q, UART6_M1 BT 5.4, UART9_M2 EG800Q)
+ * UARTS (UART2_M0 Debug, UART3_M0 GNSS MIA-M10Q, UART6_M1 BT 5.4, UART9_M2 EG25-G)
  * ============================================================================ */
 &uart2 {
 \tstatus = "okay";
@@ -774,7 +774,7 @@ const dts = `// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 };
 
 /* ============================================================================
- * HIGH-SPEED INTERFACES (PCIE20_2 Wi-Fi 6E AP6275P, USB20_HOST0 EG800Q, TYPEC0)
+ * HIGH-SPEED INTERFACES (PCIE20_2 Wi-Fi 6E AP6275P, USB20_HOST0 EG25-G, TYPEC0)
  * ============================================================================ */
 &combphy2_psu {
 \tstatus = "okay";
@@ -788,7 +788,7 @@ const dts = `// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 \tvpcie3v3-supply = <&vcc_3v3_s3>;
 };
 
-&u2phy2_host { status = "okay"; }; /* USB20_HOST0 -> Quectel EG800Q-EU (REXT U101.AW5=200R) */
+&u2phy2_host { status = "okay"; }; /* USB20_HOST0 -> Quectel EG25-G / EC25-J (REXT U101.AW5=200R) */
 &usb_host0_ehci { status = "okay"; };
 &usb_host0_ohci { status = "okay"; };
 

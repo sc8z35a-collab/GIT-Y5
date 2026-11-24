@@ -342,5 +342,5 @@ run()
   .catch((err) => { console.error('ERROR:', err); process.exitCode = 1; })
   .finally(() => {
     try { chrome.kill('SIGKILL'); } catch {}
-    fs.rmSync(USER_DATA, { recursive: true, force: true });
+    try { fs.rmSync(USER_DATA, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 }); } catch {}
   });
