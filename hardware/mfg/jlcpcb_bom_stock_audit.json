@@ -1,27 +1,29 @@
 {
   "summary": {
-    "auditedAt": "2026-11-24T03:37:54.440Z",
-    "totalBomLines": 94,
-    "totalPlacementsPerBoard": 587,
-    "physicalComponentLines": 91,
-    "physicalPlacementsPerBoard": 579,
-    "pcbCopperPadLines": 3,
-    "pcbCopperPadCount": 8,
+    "auditedAt": "2026-11-24T07:29:20.030Z",
+    "totalBomLines": 99,
+    "totalPlacementsPerBoard": 617,
+    "physicalComponentLines": 98,
+    "physicalPlacementsPerBoard": 611,
+    "pcbCopperPadLines": 1,
+    "pcbCopperPadCount": 6,
     "byStatus": {
-      "IN_STOCK_5X": 64,
-      "OUT_OF_STOCK": 15,
-      "PCB_COPPER_PAD_ONLY": 3,
-      "NOT_IN_JLCPCB_LIBRARY": 12
+      "IN_STOCK_5X": 73,
+      "OUT_OF_STOCK": 17,
+      "PCB_COPPER_PAD_ONLY": 1,
+      "NOT_IN_JLCPCB_LIBRARY": 7,
+      "LOW_STOCK_UNDER_5X": 1
     },
     "byStatusPlacements": {
-      "IN_STOCK_5X": 481,
+      "IN_STOCK_5X": 528,
       "OUT_OF_STOCK": 18,
-      "PCB_COPPER_PAD_ONLY": 8,
-      "NOT_IN_JLCPCB_LIBRARY": 80
+      "PCB_COPPER_PAD_ONLY": 6,
+      "NOT_IN_JLCPCB_LIBRARY": 64,
+      "LOW_STOCK_UNDER_5X": 1
     },
     "basicLibraryLines": 0,
-    "extendedLibraryLines": 79,
-    "inStockMatchedPartsCost5BoardsUsd": 635.12,
+    "extendedLibraryLines": 91,
+    "inStockMatchedPartsCost5BoardsUsd": 726.4,
     "lcscCodeMismatches": []
   },
   "items": [
@@ -32,7 +34,7 @@
       ],
       "qty": 1,
       "footprint": "FCCSP1253L (17x17mm)",
-      "lcscInput": "C55160500",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -47,14 +49,7 @@
         "extCostUsd5x": 285.918,
         "category": "Microcontrollers (MCU/MPU/SOC)"
       },
-      "lcscInputCheck": {
-        "code": "C55160500",
-        "model": "RK3588S2",
-        "brand": "Rockchip",
-        "stockCount": 122,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "ABM12W-24.0000MHZ-8-B1U-T3",
@@ -63,7 +58,7 @@
       ],
       "qty": 1,
       "footprint": "SMD-2016",
-      "lcscInput": "C6455310",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -78,14 +73,7 @@
         "extCostUsd5x": 7.493,
         "category": "Crystals"
       },
-      "lcscInputCheck": {
-        "code": "C6455310",
-        "model": "ABM12W-24.0000MHZ-8-B1U-T3",
-        "brand": "Abracon LLC",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "GRM0335C1H120JA01D",
@@ -97,7 +85,7 @@
       ],
       "qty": 4,
       "footprint": "0201",
-      "lcscInput": "C85890",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -112,14 +100,7 @@
         "extCostUsd5x": 0.09,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": {
-        "code": "C85890",
-        "model": "GRM0335C1H120JA01D",
-        "brand": "Murata Electronics",
-        "stockCount": 181996,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-071ML",
@@ -128,7 +109,7 @@
       ],
       "qty": 1,
       "footprint": "0201",
-      "lcscInput": "C295786",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -138,19 +119,12 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 2127424,
+        "stockCount": 2116316,
         "unitPriceUsd5x": 0.0014,
         "extCostUsd5x": 0.007,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C295786",
-        "model": "RC0201FR-071ML",
-        "brand": "YAGEO",
-        "stockCount": 2127424,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-0722RL",
@@ -161,15 +135,11 @@
         "R303",
         "R401",
         "R402",
-        "R403",
-        "R1007",
-        "R1008",
-        "R1009",
-        "R1010"
+        "R403"
       ],
-      "qty": 11,
+      "qty": 7,
       "footprint": "0201",
-      "lcscInput": "C155743",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -179,19 +149,12 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 1262633,
-        "unitPriceUsd5x": 0.0019,
-        "extCostUsd5x": 0.1045,
+        "stockCount": 1263281,
+        "unitPriceUsd5x": 0.0018,
+        "extCostUsd5x": 0.063,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C155743",
-        "model": "RC0201FR-0722RL",
-        "brand": "YAGEO",
-        "stockCount": 1262633,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "HYM8563TS",
@@ -199,8 +162,8 @@
         "U102"
       ],
       "qty": 1,
-      "footprint": "MSOP-8 (3.0x4.9mm)",
-      "lcscInput": "C5156238",
+      "footprint": "MSOP-8 (4.9x3.0mm)",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -215,14 +178,7 @@
         "extCostUsd5x": 0.199,
         "category": "New Arrivals"
       },
-      "lcscInputCheck": {
-        "code": "C5156238",
-        "model": "HYM8563TS",
-        "brand": "Haoyu Microelectronics",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "FC-12M 32.7680KA-A3",
@@ -231,7 +187,7 @@
       ],
       "qty": 1,
       "footprint": "SMD-2012",
-      "lcscInput": "C1985290",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -246,14 +202,7 @@
         "extCostUsd5x": 1.3425,
         "category": "Crystals"
       },
-      "lcscInputCheck": {
-        "code": "C1985290",
-        "model": "FC-12M 32.7680KA-A3",
-        "brand": "Seiko Epson",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-0747KL",
@@ -262,7 +211,7 @@
       ],
       "qty": 1,
       "footprint": "0201",
-      "lcscInput": "C138139",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -272,19 +221,12 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 379569,
+        "stockCount": 379494,
         "unitPriceUsd5x": 0.002,
         "extCostUsd5x": 0.01,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C138139",
-        "model": "RC0201FR-0747KL",
-        "brand": "YAGEO",
-        "stockCount": 379569,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-0710KL",
@@ -293,21 +235,22 @@
         "R103",
         "R104",
         "R230",
-        "R201",
+        "R237",
+        "R238",
+        "R1003",
         "R304",
         "R305",
         "R306",
         "R307",
-        "R1001",
+        "R1004",
         "R131",
         "R132",
         "R110",
-        "R111",
         "R1013"
       ],
-      "qty": 15,
+      "qty": 16,
       "footprint": "0201",
-      "lcscInput": "C106225",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -317,19 +260,12 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 2881120,
+        "stockCount": 2853138,
         "unitPriceUsd5x": 0.0015,
-        "extCostUsd5x": 0.1125,
+        "extCostUsd5x": 0.12,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C106225",
-        "model": "RC0201FR-0710KL",
-        "brand": "YAGEO",
-        "stockCount": 2881120,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "BAT54C",
@@ -338,7 +274,7 @@
       ],
       "qty": 1,
       "footprint": "SOT-23 (2.9x2.4mm)",
-      "lcscInput": "C2135",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -348,56 +284,53 @@
         "brand": "Jiangsu Changjing Electronics Technology Co., Ltd.",
         "package": "SOT-23",
         "libraryType": "expand",
-        "stockCount": 133431,
+        "stockCount": 129246,
         "unitPriceUsd5x": 0.0246,
         "extCostUsd5x": 0.123,
         "category": "Schottky Diodes"
       },
-      "lcscInputCheck": {
-        "code": "C2135",
-        "model": "BAT54C",
-        "brand": "Jiangsu Changjing Electronics Technology Co., Ltd.",
-        "stockCount": 133431,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "GRM155R61A106ME44D",
       "designators": [
         "C103",
-        "C1129",
-        "C1132",
-        "C1235",
-        "C1236",
-        "C1237",
-        "C1238",
-        "C1262",
-        "C1263",
-        "C1264",
-        "C1265",
-        "C1272",
-        "C1276",
-        "C1277",
-        "C1281",
-        "C1410",
-        "C1413",
-        "C1416",
-        "C1419",
-        "C1422",
-        "C1425",
-        "C1428",
-        "C1431",
-        "C1434",
-        "C1437",
-        "C1440",
-        "C1443",
-        "C1446",
-        "C1449"
+        "C1136",
+        "C1139",
+        "C1189",
+        "C1191",
+        "C1243",
+        "C1244",
+        "C1245",
+        "C1246",
+        "C1286",
+        "C1288",
+        "C1289",
+        "C1290",
+        "C1296",
+        "C1300",
+        "C1304",
+        "C1305",
+        "C1309",
+        "C1321",
+        "C1394",
+        "C1397",
+        "C1400",
+        "C1403",
+        "C1406",
+        "C1409",
+        "C1412",
+        "C1415",
+        "C1418",
+        "C1421",
+        "C1424",
+        "C1427",
+        "C1430",
+        "C1433"
       ],
-      "qty": 29,
+      "qty": 33,
       "footprint": "0402",
-      "lcscInput": "C77000",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -407,19 +340,12 @@
         "brand": "Murata Electronics",
         "package": "0402",
         "libraryType": "expand",
-        "stockCount": 529131,
+        "stockCount": 526848,
         "unitPriceUsd5x": 0.0318,
-        "extCostUsd5x": 4.611,
+        "extCostUsd5x": 5.247,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": {
-        "code": "C77000",
-        "model": "GRM155R61A106ME44D",
-        "brand": "Murata Electronics",
-        "stockCount": 529131,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "GRM033R61A104KE15D",
@@ -442,73 +368,77 @@
         "C1022",
         "C1023",
         "C1024",
-        "C215",
-        "C216",
         "C211",
-        "C212",
-        "C1134",
+        "C1141",
+        "C206",
+        "C207",
+        "C208",
         "C201",
+        "C1180",
+        "C1183",
+        "C1184",
+        "C1185",
+        "C1186",
+        "C1187",
         "C1188",
-        "C1190",
-        "C1192",
-        "C1194",
-        "C1239",
-        "C1240",
-        "C1241",
-        "C1242",
-        "C1245",
-        "C1246",
+        "C1196",
+        "C1198",
+        "C1200",
+        "C1202",
         "C1247",
+        "C1248",
+        "C1249",
+        "C1250",
+        "C1253",
+        "C1254",
+        "C1255",
+        "C1269",
+        "C1272",
+        "C1275",
+        "C1278",
+        "C1281",
+        "C1284",
+        "C1287",
         "C601",
         "C602",
-        "C1268",
+        "C1293",
         "C603",
         "C604",
         "C605",
         "C606",
-        "C1271",
-        "C1274",
-        "C1275",
-        "C1279",
-        "C1280",
-        "C1283",
-        "C1284",
-        "C1365",
-        "C1366",
-        "C1368",
-        "C1369",
-        "C1370",
-        "C1371",
-        "C1372",
-        "C1373",
-        "C1379",
-        "C1382",
-        "C1385",
-        "C1388",
-        "C1391",
-        "C1394",
-        "C1396",
-        "C1397",
-        "C1398",
+        "C1299",
+        "C1302",
+        "C1303",
+        "C1307",
+        "C1308",
+        "C1310",
+        "C1311",
+        "C1312",
+        "C1313",
+        "C1317",
+        "C1318",
+        "C1319",
+        "C1389",
+        "C1390",
+        "C1392",
+        "C1393",
+        "C1395",
         "C1399",
-        "C1402",
+        "C1401",
+        "C1405",
+        "C1407",
         "C1411",
-        "C1415",
+        "C1413",
         "C1417",
-        "C1421",
+        "C1419",
         "C1423",
-        "C1427",
+        "C1425",
         "C1429",
-        "C1433",
-        "C1435",
-        "C1439",
-        "C1441",
-        "C1445",
-        "C1447"
+        "C1431"
       ],
-      "qty": 81,
+      "qty": 85,
       "footprint": "0201",
-      "lcscInput": "C76934",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -518,19 +448,12 @@
         "brand": "Murata Electronics",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 1925423,
+        "stockCount": 1919382,
         "unitPriceUsd5x": 0.0033,
-        "extCostUsd5x": 1.3365,
+        "extCostUsd5x": 1.4025,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": {
-        "code": "C76934",
-        "model": "GRM033R61A104KE15D",
-        "brand": "Murata Electronics",
-        "stockCount": 1925423,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-070RL",
@@ -540,7 +463,7 @@
       ],
       "qty": 2,
       "footprint": "0201",
-      "lcscInput": "C106227",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -550,19 +473,12 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 1208165,
+        "stockCount": 1197991,
         "unitPriceUsd5x": 0.0024,
         "extCostUsd5x": 0.024,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C106227",
-        "model": "RC0201FR-070RL",
-        "brand": "YAGEO",
-        "stockCount": 1208165,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-07100RL",
@@ -576,15 +492,12 @@
         "R223",
         "R224",
         "R225",
-        "R1002",
-        "R1003",
-        "R1004",
-        "R1005",
-        "R1006"
+        "R208",
+        "R209"
       ],
-      "qty": 14,
+      "qty": 11,
       "footprint": "0201",
-      "lcscInput": "C77623",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -594,50 +507,43 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 1665448,
+        "stockCount": 1665346,
         "unitPriceUsd5x": 0.0022,
-        "extCostUsd5x": 0.154,
+        "extCostUsd5x": 0.121,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C77623",
-        "model": "RC0201FR-07100RL",
-        "brand": "YAGEO",
-        "stockCount": 1665448,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "ESD5451N",
+      "mpn": "TPD1E05U06DPYR",
       "designators": [
-        "D102"
+        "D102",
+        "D201",
+        "D403A",
+        "D403B",
+        "D1001",
+        "D1002",
+        "D1003",
+        "D1004"
       ],
-      "qty": 1,
-      "footprint": "DFN1006",
-      "lcscInput": "C53055800",
+      "qty": 8,
+      "footprint": "X1SON-2 (1.0x0.6mm)",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C53055800",
-        "model": "ESD5451N",
-        "brand": "hongjiacheng",
-        "package": "DFN1006-2L",
+        "lcscCode": "C436349",
+        "model": "TPD1E05U06DPYR",
+        "brand": "Texas Instruments",
+        "package": "X1SON-2(0.6x1)",
         "libraryType": "expand",
-        "stockCount": 735991,
-        "unitPriceUsd5x": 0.0062,
-        "extCostUsd5x": 0.031,
+        "stockCount": 89812,
+        "unitPriceUsd5x": 0.05,
+        "extCostUsd5x": 2,
         "category": "ESD and Surge Protection (TVS/ESD)"
       },
-      "lcscInputCheck": {
-        "code": "C53055800",
-        "model": "ESD5451N",
-        "brand": "hongjiacheng",
-        "stockCount": 735991,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-07240RL",
@@ -646,12 +552,13 @@
         "R309",
         "R310",
         "R311",
+        "R1002",
         "R301",
         "R302"
       ],
-      "qty": 6,
+      "qty": 7,
       "footprint": "0201",
-      "lcscInput": "C155745",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -661,28 +568,25 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 218591,
+        "stockCount": 218141,
         "unitPriceUsd5x": 0.0016,
-        "extCostUsd5x": 0.048,
+        "extCostUsd5x": 0.056,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C155745",
-        "model": "RC0201FR-07240RL",
-        "brand": "YAGEO",
-        "stockCount": 218591,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-07200RL",
       "designators": [
-        "R601"
+        "R601",
+        "R603",
+        "R604",
+        "R605",
+        "R1001"
       ],
-      "qty": 1,
+      "qty": 5,
       "footprint": "0201",
-      "lcscInput": "C274337",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -692,19 +596,12 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 48778,
+        "stockCount": 48678,
         "unitPriceUsd5x": 0.0016,
-        "extCostUsd5x": 0.008,
+        "extCostUsd5x": 0.04,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C274337",
-        "model": "RC0201FR-07200RL",
-        "brand": "YAGEO",
-        "stockCount": 48778,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-0782KL",
@@ -713,7 +610,7 @@
       ],
       "qty": 1,
       "footprint": "0201",
-      "lcscInput": "C273288",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -728,14 +625,7 @@
         "extCostUsd5x": 0.015,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C273288",
-        "model": "RC0201FR-0782KL",
-        "brand": "YAGEO",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "TP_0.8MM_ENIG",
@@ -766,33 +656,36 @@
         "C1009",
         "C1011",
         "C1012",
-        "C1172",
-        "C1187",
-        "C1189",
-        "C1191",
-        "C1193",
-        "C1270",
-        "C1273",
-        "C1278",
-        "C1282",
-        "C1285",
-        "C1412",
+        "C1179",
+        "C1190",
+        "C1195",
+        "C1197",
+        "C1199",
+        "C1201",
+        "C1295",
+        "C1297",
+        "C1298",
+        "C1301",
+        "C1306",
+        "C1316",
+        "C1320",
+        "C1396",
+        "C1398",
+        "C1402",
+        "C1404",
+        "C1408",
+        "C1410",
         "C1414",
-        "C1418",
+        "C1416",
         "C1420",
-        "C1424",
+        "C1422",
         "C1426",
-        "C1430",
-        "C1432",
-        "C1436",
-        "C1438",
-        "C1442",
-        "C1444",
-        "C1448"
+        "C1428",
+        "C1432"
       ],
-      "qty": 31,
+      "qty": 34,
       "footprint": "0201",
-      "lcscInput": "C76930",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -802,19 +695,12 @@
         "brand": "Murata Electronics",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 3283127,
+        "stockCount": 3263901,
         "unitPriceUsd5x": 0.0043,
-        "extCostUsd5x": 0.6665,
+        "extCostUsd5x": 0.731,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": {
-        "code": "C76930",
-        "model": "GRM033R60J105MEA2D",
-        "brand": "Murata Electronics",
-        "stockCount": 3283127,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "GRM022R60J104ME15",
@@ -875,34 +761,34 @@
         "C1100",
         "C1102",
         "C1103",
-        "C1196",
-        "C1197",
-        "C1199",
-        "C1200",
-        "C1201",
-        "C1202",
         "C1204",
         "C1205",
         "C1207",
+        "C1208",
         "C1209",
         "C1210",
         "C1212",
-        "C1214",
+        "C1213",
         "C1215",
         "C1217",
         "C1218",
-        "C1219",
         "C1220",
         "C1222",
         "C1223",
         "C1225",
+        "C1226",
         "C1227",
         "C1228",
-        "C1230"
+        "C1230",
+        "C1231",
+        "C1233",
+        "C1235",
+        "C1236",
+        "C1238"
       ],
       "qty": 80,
       "footprint": "01005",
-      "lcscInput": "C913613",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "VARIANT_MPN",
       "matchScore": 85,
@@ -917,14 +803,7 @@
         "extCostUsd5x": 2.16,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": {
-        "code": "C913613",
-        "model": "GRM022R60J104ME15L",
-        "brand": "Murata Electronics",
-        "stockCount": 22265,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "GRM022R60J103ME15",
@@ -953,32 +832,30 @@
         "C1098",
         "C1101",
         "C1104",
-        "C1195",
-        "C1198",
+        "C1133",
+        "C1134",
         "C1203",
         "C1206",
-        "C1208",
         "C1211",
-        "C1213",
+        "C1214",
         "C1216",
+        "C1219",
         "C1221",
         "C1224",
-        "C1226",
         "C1229",
-        "C1374",
-        "C1375",
-        "C1376",
-        "C1377",
-        "C1380",
-        "C1383",
-        "C1386",
-        "C1389",
-        "C1392",
-        "C1395",
-        "C1400",
-        "C1401"
+        "C1232",
+        "C1234",
+        "C1237",
+        "C1270",
+        "C1273",
+        "C1276",
+        "C1279",
+        "C1282",
+        "C1285",
+        "C1314",
+        "C1315"
       ],
-      "qty": 48,
+      "qty": 46,
       "footprint": "01005",
       "lcscInput": "",
       "status": "NOT_IN_JLCPCB_LIBRARY",
@@ -994,7 +871,7 @@
       ],
       "qty": 1,
       "footprint": "QFN-68 (7x7mm)",
-      "lcscInput": "C5156483",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1004,19 +881,12 @@
         "brand": "Rockchip",
         "package": "QFN-68(7x7)",
         "libraryType": "expand",
-        "stockCount": 246,
+        "stockCount": 231,
         "unitPriceUsd5x": 3.9389,
         "extCostUsd5x": 19.6945,
         "category": "Power Management - Specialized"
       },
-      "lcscInputCheck": {
-        "code": "C5156483",
-        "model": "RK806-1",
-        "brand": "Rockchip",
-        "stockCount": 246,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "DFE201610E-0R22M=P2",
@@ -1061,23 +931,16 @@
         "C1125",
         "C1126",
         "C1127",
-        "C1128",
-        "C1130",
-        "C1131",
-        "C1133",
-        "C1146",
-        "C1147",
-        "C1148",
-        "C1149",
-        "C1150",
-        "C1151",
+        "C1135",
+        "C1137",
+        "C1138",
+        "C1140",
+        "C1153",
         "C1154",
         "C1155",
         "C1156",
         "C1157",
         "C1158",
-        "C1159",
-        "C1160",
         "C1161",
         "C1162",
         "C1163",
@@ -1089,17 +952,26 @@
         "C1169",
         "C1170",
         "C1171",
+        "C1172",
+        "C1173",
+        "C1174",
+        "C1175",
+        "C1176",
+        "C1177",
+        "C1178",
         "C204",
         "C205",
-        "C1186",
-        "C1231",
-        "C1232",
-        "C1233",
-        "C1234"
+        "C1192",
+        "C1193",
+        "C1194",
+        "C1239",
+        "C1240",
+        "C1241",
+        "C1242"
       ],
-      "qty": 58,
+      "qty": 60,
       "footprint": "0402",
-      "lcscInput": "C415703",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1109,19 +981,12 @@
         "brand": "Murata Electronics",
         "package": "0402",
         "libraryType": "expand",
-        "stockCount": 160052,
+        "stockCount": 159781,
         "unitPriceUsd5x": 0.1411,
-        "extCostUsd5x": 40.919,
+        "extCostUsd5x": 42.33,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": {
-        "code": "C415703",
-        "model": "GRM155R60J226ME11D",
-        "brand": "Murata Electronics",
-        "stockCount": 160052,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "DFE201610E-0R47M=P2",
@@ -1149,7 +1014,7 @@
       ],
       "qty": 1,
       "footprint": "0201",
-      "lcscInput": "C295715",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1159,19 +1024,12 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 64861,
+        "stockCount": 64916,
         "unitPriceUsd5x": 0.0015,
         "extCostUsd5x": 0.0075,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C295715",
-        "model": "RC0201FR-07110KL",
-        "brand": "YAGEO",
-        "stockCount": 64861,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-07100KL",
@@ -1183,11 +1041,12 @@
         "R213",
         "R204",
         "R207",
+        "R236",
         "R1014"
       ],
-      "qty": 8,
+      "qty": 9,
       "footprint": "0201",
-      "lcscInput": "C106224",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1197,56 +1056,51 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 2176582,
+        "stockCount": 2165499,
         "unitPriceUsd5x": 0.0021,
-        "extCostUsd5x": 0.084,
+        "extCostUsd5x": 0.0945,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C106224",
-        "model": "RC0201FR-07100KL",
-        "brand": "YAGEO",
-        "stockCount": 2176582,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "AZ5825-01F",
+      "mpn": "GRM0335C1H101JA01D",
       "designators": [
-        "D201"
+        "C215",
+        "C216",
+        "C1128",
+        "C1129",
+        "C1130",
+        "C1131",
+        "C1132",
+        "C212"
       ],
-      "qty": 1,
-      "footprint": "DFN1006",
-      "lcscInput": "C2905641",
+      "qty": 8,
+      "footprint": "0201",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C2905641",
-        "model": "AZ5825-01F",
-        "brand": "TECH PUBLIC",
-        "package": "DFN1006-2(0402)",
+        "lcscCode": "C76922",
+        "model": "GRM0335C1H101JA01D",
+        "brand": "Murata Electronics",
+        "package": "0201",
         "libraryType": "expand",
-        "stockCount": 9293,
-        "unitPriceUsd5x": 0.048,
-        "extCostUsd5x": 0.24,
-        "category": "ESD and Surge Protection (TVS/ESD)"
+        "stockCount": 253567,
+        "unitPriceUsd5x": 0.0067,
+        "extCostUsd5x": 0.268,
+        "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": {
-        "code": "C2905641",
-        "model": "AZ5825-01F",
-        "brand": "TECH PUBLIC",
-        "stockCount": 9293,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "BLM03AG121SN1D",
       "designators": [
         "FB201",
         "FB301",
+        "FB1001",
+        "FB1002",
         "FB1003",
         "FB1004",
         "FB1005",
@@ -1254,13 +1108,11 @@
         "FB1007",
         "FB1008",
         "FB1009",
-        "FB1010",
-        "FB1011",
-        "FB1012"
+        "FB1010"
       ],
       "qty": 12,
       "footprint": "0201",
-      "lcscInput": "C97850",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1275,14 +1127,7 @@
         "extCostUsd5x": 0.984,
         "category": "Ferrite Beads"
       },
-      "lcscInputCheck": {
-        "code": "C97850",
-        "model": "BLM03AG121SN1D",
-        "brand": "Murata Electronics",
-        "stockCount": 36150,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "SY8089AAAC",
@@ -1292,7 +1137,7 @@
       ],
       "qty": 2,
       "footprint": "SOT23-5",
-      "lcscInput": "C78988",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1302,19 +1147,12 @@
         "brand": "Silergy Corp",
         "package": "SOT-23-5",
         "libraryType": "expand",
-        "stockCount": 39893,
+        "stockCount": 39787,
         "unitPriceUsd5x": 0.1419,
         "extCostUsd5x": 1.419,
         "category": "DC-DC Converters"
       },
-      "lcscInputCheck": {
-        "code": "C78988",
-        "model": "SY8089AAAC",
-        "brand": "Silergy Corp",
-        "stockCount": 39893,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "DFE201610E-2R2M=P2",
@@ -1324,7 +1162,7 @@
       ],
       "qty": 2,
       "footprint": "IND_2016",
-      "lcscInput": "C337891",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1339,45 +1177,31 @@
         "extCostUsd5x": 1.247,
         "category": "Inductors (SMD)"
       },
-      "lcscInputCheck": {
-        "code": "C337891",
-        "model": "DFE201610E-2R2M=P2",
-        "brand": "Murata Electronics",
-        "stockCount": 4105,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "RC0201FR-0756KL",
+      "mpn": "RC0201FR-07499KL",
       "designators": [
         "R211"
       ],
       "qty": 1,
       "footprint": "0201",
-      "lcscInput": "C474417",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C474417",
-        "model": "RC0201FR-0756KL",
+        "lcscCode": "C138138",
+        "model": "RC0201FR-07499KL",
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 24784,
-        "unitPriceUsd5x": 0.0015,
-        "extCostUsd5x": 0.0075,
+        "stockCount": 7,
+        "unitPriceUsd5x": 0.0019,
+        "extCostUsd5x": 0.0095,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C474417",
-        "model": "RC0201FR-0756KL",
-        "brand": "YAGEO",
-        "stockCount": 24784,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-07120KL",
@@ -1386,7 +1210,7 @@
       ],
       "qty": 1,
       "footprint": "0201",
-      "lcscInput": "C274344",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1401,50 +1225,41 @@
         "extCostUsd5x": 0.01,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C274344",
-        "model": "RC0201FR-07120KL",
-        "brand": "YAGEO",
-        "stockCount": 4308,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "GRM033R60J225ME15D",
       "designators": [
-        "C1135",
-        "C1136",
-        "C1137",
-        "C1138",
-        "C1139",
-        "C1140",
-        "C1141",
         "C1142",
         "C1143",
         "C1144",
         "C1145",
+        "C1146",
+        "C1147",
+        "C1148",
+        "C1149",
+        "C1150",
+        "C1151",
+        "C1152",
         "C301",
-        "C1248",
-        "C1249",
-        "C1250",
-        "C1251",
-        "C1252",
-        "C1253",
-        "C1254",
-        "C1255",
         "C1256",
         "C1257",
         "C1258",
         "C1259",
         "C1260",
         "C1261",
+        "C1262",
+        "C1263",
+        "C1264",
+        "C1265",
         "C1266",
-        "C1267"
+        "C1267",
+        "C1291",
+        "C1292"
       ],
-      "qty": 28,
+      "qty": 26,
       "footprint": "0201",
-      "lcscInput": "C398930",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1456,35 +1271,19 @@
         "libraryType": "expand",
         "stockCount": 12716,
         "unitPriceUsd5x": 0.0398,
-        "extCostUsd5x": 5.572,
+        "extCostUsd5x": 5.174,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": {
-        "code": "C398930",
-        "model": "GRM033R60J225ME15D",
-        "brand": "Murata Electronics",
-        "stockCount": 12716,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "GRM188R61E226ME15D",
       "designators": [
-        "C1152",
-        "C1153",
-        "C203",
-        "C1173",
-        "C1174",
-        "C1175",
-        "C1176",
-        "C1177",
-        "C1178",
-        "C1179",
-        "C1180",
-        "C1185"
+        "C1159",
+        "C1160",
+        "C203"
       ],
-      "qty": 12,
+      "qty": 3,
       "footprint": "0603",
       "lcscInput": "",
       "status": "NOT_IN_JLCPCB_LIBRARY",
@@ -1500,8 +1299,8 @@
         "U209"
       ],
       "qty": 2,
-      "footprint": "WLCSP-20 (2.5x2.0mm)",
-      "lcscInput": "C5156489",
+      "footprint": "WLCSP-20 (1.65x2.05mm)",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1511,19 +1310,12 @@
         "brand": "Rockchip",
         "package": "WLCSP-20",
         "libraryType": "expand",
-        "stockCount": 4488,
+        "stockCount": 4463,
         "unitPriceUsd5x": 0.5651,
         "extCostUsd5x": 5.651,
         "category": "DC-DC Converters"
       },
-      "lcscInputCheck": {
-        "code": "C5156489",
-        "model": "RK860-2",
-        "brand": "Rockchip",
-        "stockCount": 4488,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "DFE201610E-0R24M=P2",
@@ -1547,8 +1339,8 @@
         "U208"
       ],
       "qty": 1,
-      "footprint": "WLCSP-20 (2.5x2.0mm)",
-      "lcscInput": "C5156487",
+      "footprint": "WLCSP-20 (1.65x2.05mm)",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1558,19 +1350,12 @@
         "brand": "Rockchip",
         "package": "WLCSP-20",
         "libraryType": "expand",
-        "stockCount": 5758,
+        "stockCount": 5743,
         "unitPriceUsd5x": 0.6879,
         "extCostUsd5x": 3.4395,
         "category": "DC-DC Converters"
       },
-      "lcscInputCheck": {
-        "code": "C5156487",
-        "model": "RK860-3",
-        "brand": "Rockchip",
-        "stockCount": 5758,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "BM25-4S/2-V(51)",
@@ -1578,8 +1363,8 @@
         "J201"
       ],
       "qty": 1,
-      "footprint": "BTB-8P-PWR",
-      "lcscInput": "C424578",
+      "footprint": "BM25-4S/2",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1589,19 +1374,12 @@
         "brand": "HRS(Hirose)",
         "package": "SMD",
         "libraryType": "expand",
-        "stockCount": 11365,
+        "stockCount": 11387,
         "unitPriceUsd5x": 0.1672,
         "extCostUsd5x": 0.836,
         "category": "Board-to-Board and Backplane Connector"
       },
-      "lcscInputCheck": {
-        "code": "C424578",
-        "model": "BM25-4S/2-V(51)",
-        "brand": "HRS(Hirose)",
-        "stockCount": 11365,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "WSL08055L000FEA",
@@ -1610,7 +1388,7 @@
       ],
       "qty": 1,
       "footprint": "0805-4T",
-      "lcscInput": "C4119955",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1625,14 +1403,34 @@
         "extCostUsd5x": 2.3825,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C4119955",
-        "model": "WSL08055L000FEA",
-        "brand": "Vishay Intertech",
-        "stockCount": 0,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "RC0201FR-071KL",
+      "designators": [
+        "R210",
+        "R810",
+        "R811",
+        "R812"
+      ],
+      "qty": 4,
+      "footprint": "0201",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C138165",
+        "model": "RC0201FR-071KL",
+        "brand": "YAGEO",
+        "package": "0201",
         "libraryType": "expand",
-        "matchesMpn": true
-      }
+        "stockCount": 1011472,
+        "unitPriceUsd5x": 0.0015,
+        "extCostUsd5x": 0.03,
+        "category": "Chip Resistor - Surface Mount"
+      },
+      "lcscInputCheck": null
     },
     {
       "mpn": "BQ27Z561-R2",
@@ -1640,7 +1438,7 @@
         "U201"
       ],
       "qty": 1,
-      "footprint": "DSBGA-12 (1.6x1.6mm)",
+      "footprint": "DSBGA-12 (1.69x2.07mm)",
       "lcscInput": "",
       "status": "NOT_IN_JLCPCB_LIBRARY",
       "matchType": "NO_MATCH",
@@ -1655,7 +1453,7 @@
       ],
       "qty": 1,
       "footprint": "WQFN-24 (4x4mm)",
-      "lcscInput": "C80200",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1670,14 +1468,7 @@
         "extCostUsd5x": 8.615,
         "category": "Battery Management"
       },
-      "lcscInputCheck": {
-        "code": "C80200",
-        "model": "BQ25895RTWR",
-        "brand": "Texas Instruments",
-        "stockCount": 6582,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "DFE201610E-1R0M=P2",
@@ -1686,7 +1477,7 @@
       ],
       "qty": 1,
       "footprint": "IND_2520",
-      "lcscInput": "C161082",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1696,19 +1487,12 @@
         "brand": "Murata Electronics",
         "package": "0806",
         "libraryType": "expand",
-        "stockCount": 18803,
+        "stockCount": 18798,
         "unitPriceUsd5x": 0.1371,
         "extCostUsd5x": 0.6855,
         "category": "Inductors (SMD)"
       },
-      "lcscInputCheck": {
-        "code": "C161082",
-        "model": "DFE201610E-1R0M=P2",
-        "brand": "Murata Electronics",
-        "stockCount": 18803,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "GRM155R61A475MEAA",
@@ -1716,21 +1500,20 @@
         "C202",
         "C1181",
         "C1182",
-        "C1183",
-        "C1184",
-        "C1243",
-        "C1244",
-        "C1269",
-        "C1378",
-        "C1381",
-        "C1384",
-        "C1387",
-        "C1390",
-        "C1393"
+        "C1251",
+        "C1252",
+        "C1268",
+        "C1271",
+        "C1274",
+        "C1277",
+        "C1280",
+        "C1283",
+        "C607",
+        "C1294"
       ],
-      "qty": 14,
+      "qty": 13,
       "footprint": "0402",
-      "lcscInput": "C335105",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "VARIANT_MPN",
       "matchScore": 85,
@@ -1740,19 +1523,12 @@
         "brand": "Murata Electronics",
         "package": "0402",
         "libraryType": "expand",
-        "stockCount": 60744,
+        "stockCount": 60634,
         "unitPriceUsd5x": 0.0294,
-        "extCostUsd5x": 2.058,
+        "extCostUsd5x": 1.911,
         "category": "Multilayer Ceramic Capacitors MLCC - SMD/SMT"
       },
-      "lcscInputCheck": {
-        "code": "C335105",
-        "model": "GRM155R61A475MEAAD",
-        "brand": "Murata Electronics",
-        "stockCount": 60744,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-07130RL",
@@ -1761,7 +1537,7 @@
       ],
       "qty": 1,
       "footprint": "0201",
-      "lcscInput": "C273314",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1776,55 +1552,91 @@
         "extCostUsd5x": 0.0105,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C273314",
-        "model": "RC0201FR-07130RL",
-        "brand": "YAGEO",
-        "stockCount": 916,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "BQ25970YFFR",
+      "mpn": "RC0201FR-07523KL",
       "designators": [
-        "U203",
-        "U204"
+        "R231"
       ],
-      "qty": 2,
-      "footprint": "WLP-56 (3.2x3.4mm)",
-      "lcscInput": "C2879485",
+      "qty": 1,
+      "footprint": "0201",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C474762",
+        "model": "RC0201FR-07523KL",
+        "brand": "YAGEO",
+        "package": "0201",
+        "libraryType": "expand",
+        "stockCount": 0,
+        "unitPriceUsd5x": 0.001,
+        "extCostUsd5x": 0.005,
+        "category": "Chip Resistor - Surface Mount"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "RC0201FR-07301KL",
+      "designators": [
+        "R232"
+      ],
+      "qty": 1,
+      "footprint": "0201",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C2879485",
-        "model": "BQ25970YFFR",
-        "brand": "Texas Instruments",
-        "package": "DSBGA-56",
+        "lcscCode": "C77621",
+        "model": "RC0201FR-07301KL",
+        "brand": "YAGEO",
+        "package": "0201",
         "libraryType": "expand",
-        "stockCount": 3250,
-        "unitPriceUsd5x": 5.4719,
-        "extCostUsd5x": 54.719,
-        "category": "Battery Management"
+        "stockCount": 7459,
+        "unitPriceUsd5x": 0.0023,
+        "extCostUsd5x": 0.0115,
+        "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C2879485",
-        "model": "BQ25970YFFR",
-        "brand": "Texas Instruments",
-        "stockCount": 3250,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "NCP03XH103F05RL",
+      "designators": [
+        "RT202",
+        "RT101",
+        "RT201"
+      ],
+      "qty": 3,
+      "footprint": "0201",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C98098",
+        "model": "NCP03XH103F05RL",
+        "brand": "Murata Electronics",
+        "package": "0201",
         "libraryType": "expand",
-        "matchesMpn": true
-      }
+        "stockCount": 59067,
+        "unitPriceUsd5x": 0.0139,
+        "extCostUsd5x": 0.2085,
+        "category": "NTC Thermistors"
+      },
+      "lcscInputCheck": null
     },
     {
       "mpn": "SISA14DN-T1-GE3",
       "designators": [
-        "Q201"
+        "Q201A",
+        "Q201B"
       ],
-      "qty": 1,
-      "footprint": "PowerPAK-1212",
-      "lcscInput": "C727488",
+      "qty": 2,
+      "footprint": "PowerPAK-1212-8",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1835,18 +1647,11 @@
         "package": "PowerPAK1212-8",
         "libraryType": "expand",
         "stockCount": 6096,
-        "unitPriceUsd5x": 0.4423,
-        "extCostUsd5x": 2.2115,
+        "unitPriceUsd5x": 0.3473,
+        "extCostUsd5x": 3.473,
         "category": "MOSFETs"
       },
-      "lcscInputCheck": {
-        "code": "C727488",
-        "model": "SISA14DN-T1-GE3",
-        "brand": "Vishay Intertech",
-        "stockCount": 6096,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-07510KL",
@@ -1855,7 +1660,7 @@
       ],
       "qty": 1,
       "footprint": "0201",
-      "lcscInput": "C295805",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1865,19 +1670,12 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 30087,
+        "stockCount": 29017,
         "unitPriceUsd5x": 0.002,
         "extCostUsd5x": 0.01,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C295805",
-        "model": "RC0201FR-07510KL",
-        "brand": "YAGEO",
-        "stockCount": 30087,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "RC0201FR-07150KL",
@@ -1886,7 +1684,7 @@
       ],
       "qty": 1,
       "footprint": "0201",
-      "lcscInput": "C274346",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1896,45 +1694,62 @@
         "brand": "YAGEO",
         "package": "0201",
         "libraryType": "expand",
-        "stockCount": 158850,
+        "stockCount": 158772,
         "unitPriceUsd5x": 0.0016,
         "extCostUsd5x": 0.008,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C274346",
-        "model": "RC0201FR-07150KL",
-        "brand": "YAGEO",
-        "stockCount": 158850,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "P9222-R",
+      "mpn": "BQ51013BRHLR",
       "designators": [
         "U205"
       ],
       "qty": 1,
-      "footprint": "WLCSP-52 (3.2x3.5mm)",
+      "footprint": "VQFN-20 (4.5x3.5mm)",
       "lcscInput": "",
-      "status": "NOT_IN_JLCPCB_LIBRARY",
-      "matchType": "NO_MATCH",
-      "rawCandidateCount": 1,
-      "bestMatch": null,
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C55663",
+        "model": "BQ51013BRHLR",
+        "brand": "Texas Instruments",
+        "package": "VQFN-20(4.5x3.5)",
+        "libraryType": "expand",
+        "stockCount": 797,
+        "unitPriceUsd5x": 4.0307,
+        "extCostUsd5x": 20.1535,
+        "category": "Wireless Charge-Discharge ICs"
+      },
       "lcscInputCheck": null
     },
     {
-      "mpn": "WPC_SPRING_2P",
+      "mpn": "2329497-2",
       "designators": [
-        "J202"
+        "J202A",
+        "J202B",
+        "J802A",
+        "J802B"
       ],
-      "qty": 1,
-      "footprint": "PAD-2P",
+      "qty": 4,
+      "footprint": "TE-2329497-2",
       "lcscInput": "",
-      "status": "PCB_COPPER_PAD_ONLY",
-      "matchType": "NONE_NEEDED",
-      "bestMatch": null,
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C693052",
+        "model": "2329497-2",
+        "brand": "TE Connectivity",
+        "package": "-",
+        "libraryType": "expand",
+        "stockCount": 52,
+        "unitPriceUsd5x": 0.1219,
+        "extCostUsd5x": 2.438,
+        "category": "Antenna spring"
+      },
       "lcscInputCheck": null
     },
     {
@@ -1944,7 +1759,7 @@
       ],
       "qty": 1,
       "footprint": "VQFN-7 (2x2mm)",
-      "lcscInput": "C915088",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1959,14 +1774,7 @@
         "extCostUsd5x": 19.916,
         "category": "DC-DC Converters"
       },
-      "lcscInputCheck": {
-        "code": "C915088",
-        "model": "TPS61022RWUR",
-        "brand": "Texas Instruments",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "DFE201610E-1R0M=P2",
@@ -1978,7 +1786,7 @@
       ],
       "qty": 4,
       "footprint": "IND_2016",
-      "lcscInput": "C161082",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -1988,19 +1796,36 @@
         "brand": "Murata Electronics",
         "package": "0806",
         "libraryType": "expand",
-        "stockCount": 18803,
+        "stockCount": 18798,
         "unitPriceUsd5x": 0.1371,
         "extCostUsd5x": 2.742,
         "category": "Inductors (SMD)"
       },
-      "lcscInputCheck": {
-        "code": "C161082",
-        "model": "DFE201610E-1R0M=P2",
-        "brand": "Murata Electronics",
-        "stockCount": 18803,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "RC0201FR-07732KL",
+      "designators": [
+        "R235"
+      ],
+      "qty": 1,
+      "footprint": "0201",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C474823",
+        "model": "RC0201FR-07732KL",
+        "brand": "YAGEO",
+        "package": "0201",
         "libraryType": "expand",
-        "matchesMpn": true
-      }
+        "stockCount": 0,
+        "unitPriceUsd5x": 0.002,
+        "extCostUsd5x": 0.01,
+        "category": "Chip Resistor - Surface Mount"
+      },
+      "lcscInputCheck": null
     },
     {
       "mpn": "K3LK7K70BM-BGCP",
@@ -2009,7 +1834,7 @@
       ],
       "qty": 1,
       "footprint": "FBGA-496 (12.4x14.0mm)",
-      "lcscInput": "C50327268",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -2024,14 +1849,7 @@
         "extCostUsd5x": 283.445,
         "category": "DDR SDRAM"
       },
-      "lcscInputCheck": {
-        "code": "C50327268",
-        "model": "K3LK7K70BM-BGCP",
-        "brand": "Samsung",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "KLMAG1JETD-B041",
@@ -2040,7 +1858,7 @@
       ],
       "qty": 1,
       "footprint": "FBGA-153 (11.5x13.0mm)",
-      "lcscInput": "C499919",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -2050,65 +1868,186 @@
         "brand": "Samsung",
         "package": "FBGA-153",
         "libraryType": "expand",
-        "stockCount": 332,
+        "stockCount": 330,
         "unitPriceUsd5x": 20.9327,
         "extCostUsd5x": 104.6635,
         "category": "eMMC"
       },
-      "lcscInputCheck": {
-        "code": "C499919",
-        "model": "KLMAG1JETD-B041",
-        "brand": "Samsung",
-        "stockCount": 332,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "W25Q128JWPQ",
+      "mpn": "W25Q128JWPIQ",
       "designators": [
         "U303"
       ],
       "qty": 1,
       "footprint": "WSON-8 (5x6mm)",
       "lcscInput": "",
-      "status": "NOT_IN_JLCPCB_LIBRARY",
-      "matchType": "NO_MATCH",
-      "rawCandidateCount": 0,
-      "bestMatch": null,
-      "lcscInputCheck": null
-    },
-    {
-      "mpn": "WL2868C-20/TR",
-      "designators": [
-        "U401",
-        "U403"
-      ],
-      "qty": 2,
-      "footprint": "QFN-20 (3x3mm)",
-      "lcscInput": "C2941884",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C2941884",
-        "model": "WL2868C-20/TR",
-        "brand": "WILLSEMI(Will Semicon)",
-        "package": "CSP-20L",
+        "lcscCode": "C2689660",
+        "model": "W25Q128JWPIQ",
+        "brand": "Winbond Elec",
+        "package": "WSON-8-EP(5x6)",
         "libraryType": "expand",
-        "stockCount": 2172,
-        "unitPriceUsd5x": 0.796,
-        "extCostUsd5x": 7.96,
-        "category": "Power Management - Specialized"
+        "stockCount": 4569,
+        "unitPriceUsd5x": 4.9855,
+        "extCostUsd5x": 24.9275,
+        "category": "NOR FLASH"
       },
-      "lcscInputCheck": {
-        "code": "C2941884",
-        "model": "WL2868C-20/TR",
-        "brand": "WILLSEMI(Will Semicon)",
-        "stockCount": 2172,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SGM2036-1.05YUDH4G/TR",
+      "designators": [
+        "U401A"
+      ],
+      "qty": 1,
+      "footprint": "UTDFN-1x1",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C700352",
+        "model": "SGM2036-1.05YUDH4G/TR",
+        "brand": "SGMICRO",
+        "package": "UTDFN-1x1-4L",
         "libraryType": "expand",
-        "matchesMpn": true
-      }
+        "stockCount": 0,
+        "unitPriceUsd5x": 0.2765,
+        "extCostUsd5x": 1.3825,
+        "category": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SGM2036-1.2YUDH4G/TR",
+      "designators": [
+        "U401B"
+      ],
+      "qty": 1,
+      "footprint": "UTDFN-1x1",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C700360",
+        "model": "SGM2036-1.2YUDH4G/TR",
+        "brand": "SGMICRO",
+        "package": "UTDFN-4-EP(1x1)",
+        "libraryType": "expand",
+        "stockCount": 10261,
+        "unitPriceUsd5x": 0.2601,
+        "extCostUsd5x": 1.3005,
+        "category": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SGM2036-2.8YUDH4G/TR",
+      "designators": [
+        "U401C",
+        "U401D",
+        "U401E",
+        "U401F",
+        "U403C",
+        "U403D",
+        "U403E"
+      ],
+      "qty": 7,
+      "footprint": "UTDFN-1x1",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C700394",
+        "model": "SGM2036-2.8YUDH4G/TR",
+        "brand": "SGMICRO",
+        "package": "UTDFN-1x1-4L",
+        "libraryType": "expand",
+        "stockCount": 4923,
+        "unitPriceUsd5x": 0.2852,
+        "extCostUsd5x": 9.982,
+        "category": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SGM2036-1.8YUDH4G/TR",
+      "designators": [
+        "U401G"
+      ],
+      "qty": 1,
+      "footprint": "UTDFN-1x1",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C403705",
+        "model": "SGM2036-1.8YUDH4G/TR",
+        "brand": "SGMICRO",
+        "package": "UTDFN-1x1-4L",
+        "libraryType": "expand",
+        "stockCount": 4719,
+        "unitPriceUsd5x": 0.2601,
+        "extCostUsd5x": 1.3005,
+        "category": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SGM2036-0.9YUDH4G/TR",
+      "designators": [
+        "U403A"
+      ],
+      "qty": 1,
+      "footprint": "UTDFN-1x1",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C700349",
+        "model": "SGM2036-0.9YUDH4G/TR",
+        "brand": "SGMICRO",
+        "package": "UTDFN-4L(1x1)",
+        "libraryType": "expand",
+        "stockCount": 0,
+        "unitPriceUsd5x": 0.2266,
+        "extCostUsd5x": 1.133,
+        "category": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "SGM2036-1.1YUDH4G/TR",
+      "designators": [
+        "U403B"
+      ],
+      "qty": 1,
+      "footprint": "UTDFN-1x1",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C700358",
+        "model": "SGM2036-1.1YUDH4G/TR",
+        "brand": "SGMICRO",
+        "package": "UTDFN-4L(1x1)",
+        "libraryType": "expand",
+        "stockCount": 0,
+        "unitPriceUsd5x": 0.2266,
+        "extCostUsd5x": 1.133,
+        "category": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators"
+      },
+      "lcscInputCheck": null
     },
     {
       "mpn": "LM3644TT",
@@ -2116,8 +2055,8 @@
         "U402"
       ],
       "qty": 1,
-      "footprint": "DSBGA-12 (2x1.5mm)",
-      "lcscInput": "C213568",
+      "footprint": "DSBGA-12 (1.32x1.72mm)",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "VARIANT_MPN",
       "matchScore": 85,
@@ -2132,230 +2071,170 @@
         "extCostUsd5x": 1.859,
         "category": "LED Drivers"
       },
-      "lcscInputCheck": {
-        "code": "C213568",
-        "model": "LM3644TTYFFR",
-        "brand": "Texas Instruments",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "BM28B0.6-40DS/2-0.35V",
+      "mpn": "BM28B0.6-40DS/2-0.35V(53)",
       "designators": [
         "J401",
         "J501",
         "J601"
       ],
       "qty": 3,
-      "footprint": "BTB-40P",
-      "lcscInput": "C9900012820",
-      "status": "OUT_OF_STOCK",
+      "footprint": "BM28B0.6-40DS",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C9900012820",
-        "model": "BM28B0.6-40DS/2-0.35V",
-        "brand": "JLCPCB Assembly",
-        "package": "SMD",
+        "lcscCode": "C6132015",
+        "model": "BM28B0.6-40DS/2-0.35V(53)",
+        "brand": "HRS(Hirose)",
+        "package": "SMD,P=0.35mm",
         "libraryType": "expand",
-        "stockCount": 0,
-        "unitPriceUsd5x": 0.0007,
-        "extCostUsd5x": 0.0105,
-        "category": "SMT"
+        "stockCount": 20,
+        "unitPriceUsd5x": 1.9736,
+        "extCostUsd5x": 29.604,
+        "category": "Board-to-Board and Backplane Connector"
       },
-      "lcscInputCheck": {
-        "code": "C9900012820",
-        "model": "BM28B0.6-40DS/2-0.35V",
-        "brand": "JLCPCB Assembly",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "ESD5344D-10/TR",
+      "mpn": "TPD4E05U06DQAR",
       "designators": [
         "D401",
         "D402",
         "D404",
         "D405",
         "D406",
-        "D407"
+        "D407",
+        "D601",
+        "D602"
       ],
-      "qty": 6,
-      "footprint": "DFN2510",
-      "lcscInput": "C239666",
+      "qty": 8,
+      "footprint": "USON-10 (2.5x1.0mm)",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C239666",
-        "model": "ESD5344D-10/TR",
-        "brand": "WILLSEMI(Will Semicon)",
+        "lcscCode": "C22390021",
+        "model": "TPD4E05U06DQAR",
+        "brand": "DOWO",
         "package": "DFN2510-10L",
         "libraryType": "expand",
-        "stockCount": 314,
-        "unitPriceUsd5x": 0.0369,
-        "extCostUsd5x": 1.107,
+        "stockCount": 70711,
+        "unitPriceUsd5x": 0.0289,
+        "extCostUsd5x": 1.156,
         "category": "ESD and Surge Protection (TVS/ESD)"
       },
-      "lcscInputCheck": {
-        "code": "C239666",
-        "model": "ESD5344D-10/TR",
-        "brand": "WILLSEMI(Will Semicon)",
-        "stockCount": 314,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "ESD5342N",
-      "designators": [
-        "D403"
-      ],
-      "qty": 1,
-      "footprint": "DFN1006",
-      "lcscInput": "C28646343",
-      "status": "IN_STOCK_5X",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C28646343",
-        "model": "ESD5342N",
-        "brand": "TECH PUBLIC",
-        "package": "DFN-3(1x0.6)",
-        "libraryType": "expand",
-        "stockCount": 10000,
-        "unitPriceUsd5x": 0.0418,
-        "extCostUsd5x": 0.209,
-        "category": "ESD and Surge Protection (TVS/ESD)"
-      },
-      "lcscInputCheck": {
-        "code": "C28646343",
-        "model": "ESD5342N",
-        "brand": "TECH PUBLIC",
-        "stockCount": 10000,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "BM28B0.6-30DS/2-0.35V",
+      "mpn": "BM28B0.6-30DS/2-0.35V(53)",
       "designators": [
         "J402"
       ],
       "qty": 1,
-      "footprint": "BTB-30P",
-      "lcscInput": "C424571",
+      "footprint": "BM28B0.6-30DS",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
-      "matchType": "VARIANT_MPN",
-      "matchScore": 85,
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C424571",
-        "model": "BM28B0.6-30DS/2-0.35V(51)",
+        "lcscCode": "C3643247",
+        "model": "BM28B0.6-30DS/2-0.35V(53)",
         "brand": "HRS(Hirose)",
         "package": "SMD,P=0.35mm",
         "libraryType": "expand",
-        "stockCount": 74938,
-        "unitPriceUsd5x": 0.2,
-        "extCostUsd5x": 1,
+        "stockCount": 47,
+        "unitPriceUsd5x": 2.2193,
+        "extCostUsd5x": 11.0965,
         "category": "Board-to-Board and Backplane Connector"
       },
-      "lcscInputCheck": {
-        "code": "C424571",
-        "model": "BM28B0.6-30DS/2-0.35V(51)",
-        "brand": "HRS(Hirose)",
-        "stockCount": 74938,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "BM28B0.6-20DS/2-0.35V",
+      "mpn": "BM28B0.6-20DS/2-0.35V(53)",
       "designators": [
         "J404"
       ],
       "qty": 1,
-      "footprint": "BTB-20P",
-      "lcscInput": "C424567",
+      "footprint": "BM28B0.6-20DS",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
-      "matchType": "VARIANT_MPN",
-      "matchScore": 85,
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C424567",
-        "model": "BM28B0.6-20DS/2-0.35V(51)",
+        "lcscCode": "C3640279",
+        "model": "BM28B0.6-20DS/2-0.35V(53)",
         "brand": "HRS(Hirose)",
         "package": "SMD,P=0.35mm",
         "libraryType": "expand",
-        "stockCount": 23891,
-        "unitPriceUsd5x": 0.2344,
-        "extCostUsd5x": 1.172,
+        "stockCount": 469,
+        "unitPriceUsd5x": 0.4717,
+        "extCostUsd5x": 2.3585,
         "category": "Board-to-Board and Backplane Connector"
       },
-      "lcscInputCheck": {
-        "code": "C424567",
-        "model": "BM28B0.6-20DS/2-0.35V(51)",
-        "brand": "HRS(Hirose)",
-        "stockCount": 23891,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "BM28B0.6-24DS/2-0.35V",
+      "mpn": "BM28B0.6-24DS/2-0.35V(53)",
       "designators": [
         "J403"
       ],
       "qty": 1,
-      "footprint": "BTB-24P",
-      "lcscInput": "C9900209467",
-      "status": "OUT_OF_STOCK",
+      "footprint": "BM28B0.6-24DS",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C9900209467",
-        "model": "BM28B0.6-24DS/2-0.35V(##)",
-        "brand": "JLCPCB Assembly",
-        "package": "SMD,P=0.35mm,24P",
+        "lcscCode": "C5577343",
+        "model": "BM28B0.6-24DS/2-0.35V(53)",
+        "brand": "HRS(Hirose)",
+        "package": "SMD,P=0.35mm",
         "libraryType": "expand",
-        "stockCount": 0,
-        "unitPriceUsd5x": 0.0398,
-        "extCostUsd5x": 0.199,
-        "category": "SMT"
+        "stockCount": 153,
+        "unitPriceUsd5x": 1.5674,
+        "extCostUsd5x": 7.837,
+        "category": "Board-to-Board and Backplane Connector"
       },
-      "lcscInputCheck": {
-        "code": "C9900209467",
-        "model": "BM28B0.6-24DS/2-0.35V(##)",
-        "brand": "JLCPCB Assembly",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "SGM3843YTQ24G/TR",
+      "mpn": "TPS65632RTER",
       "designators": [
         "U501"
       ],
       "qty": 1,
-      "footprint": "TQFN-24 (3x3mm)",
+      "footprint": "WQFN-16 (3x3mm)",
       "lcscInput": "",
-      "status": "NOT_IN_JLCPCB_LIBRARY",
-      "matchType": "NO_MATCH",
-      "rawCandidateCount": 0,
-      "bestMatch": null,
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C2659312",
+        "model": "TPS65632RTER",
+        "brand": "Texas Instruments",
+        "package": "WQFN-16-EP(3x3)",
+        "libraryType": "expand",
+        "stockCount": 0,
+        "unitPriceUsd5x": 1.402,
+        "extCostUsd5x": 7.01,
+        "category": "Power Management - Specialized"
+      },
       "lcscInputCheck": null
     },
     {
       "mpn": "DFE201610E-4R7M=P2",
       "designators": [
-        "L501"
+        "L501",
+        "L503"
       ],
-      "qty": 1,
+      "qty": 2,
       "footprint": "IND_2016",
-      "lcscInput": "C882598",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -2367,17 +2246,24 @@
         "libraryType": "expand",
         "stockCount": 4969,
         "unitPriceUsd5x": 0.147,
-        "extCostUsd5x": 0.735,
+        "extCostUsd5x": 1.47,
         "category": "Power Inductors"
       },
-      "lcscInputCheck": {
-        "code": "C882598",
-        "model": "DFE201610E-4R7M=P2",
-        "brand": "Murata Electronics",
-        "stockCount": 4969,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "DFE201610E-10M=P2",
+      "designators": [
+        "L502"
+      ],
+      "qty": 1,
+      "footprint": "IND_1608",
+      "lcscInput": "",
+      "status": "NOT_IN_JLCPCB_LIBRARY",
+      "matchType": "NO_MATCH",
+      "rawCandidateCount": 0,
+      "bestMatch": null,
+      "lcscInputCheck": null
     },
     {
       "mpn": "SGM2036-3.0YUDH4G/TR",
@@ -2386,7 +2272,7 @@
       ],
       "qty": 1,
       "footprint": "UTDFN-1x1",
-      "lcscInput": "C503224",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -2401,14 +2287,7 @@
         "extCostUsd5x": 1.3005,
         "category": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators"
       },
-      "lcscInputCheck": {
-        "code": "C503224",
-        "model": "SGM2036-3.0YUDH4G/TR",
-        "brand": "SGMICRO",
-        "stockCount": 4829,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "DLM0NSN900HY2D",
@@ -2421,7 +2300,7 @@
       ],
       "qty": 5,
       "footprint": "03025",
-      "lcscInput": "C882594",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -2431,19 +2310,12 @@
         "brand": "Murata Electronics",
         "package": "SMD-4P,0.8x0.6mm",
         "libraryType": "expand",
-        "stockCount": 241649,
+        "stockCount": 241529,
         "unitPriceUsd5x": 0.04,
         "extCostUsd5x": 1,
         "category": "Common Mode Filters"
       },
-      "lcscInputCheck": {
-        "code": "C882594",
-        "model": "DLM0NSN900HY2D",
-        "brand": "Murata Electronics",
-        "stockCount": 241649,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "SGM2036-3.3YUDH4G/TR",
@@ -2452,7 +2324,7 @@
       ],
       "qty": 1,
       "footprint": "UTDFN-1x1",
-      "lcscInput": "C81114",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -2467,58 +2339,54 @@
         "extCostUsd5x": 1.3005,
         "category": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators"
       },
-      "lcscInputCheck": {
-        "code": "C81114",
-        "model": "SGM2036-3.3YUDH4G/TR",
-        "brand": "SGMICRO",
-        "stockCount": 14127,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "BM28B0.6-16DS/2-0.35V",
+      "mpn": "BM28B0.6-16DS/2-0.35V(53)",
       "designators": [
         "J502"
       ],
       "qty": 1,
-      "footprint": "BTB-16P",
-      "lcscInput": "C424565",
+      "footprint": "BM28B0.6-16DS",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
-      "matchType": "VARIANT_MPN",
-      "matchScore": 85,
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C424565",
-        "model": "BM28B0.6-16DS/2-0.35V(51)",
+        "lcscCode": "C3654276",
+        "model": "BM28B0.6-16DS/2-0.35V(53)",
         "brand": "HRS(Hirose)",
         "package": "SMD,P=0.35mm",
         "libraryType": "expand",
-        "stockCount": 13815,
-        "unitPriceUsd5x": 0.1594,
-        "extCostUsd5x": 0.797,
+        "stockCount": 47,
+        "unitPriceUsd5x": 2.0424,
+        "extCostUsd5x": 10.212,
         "category": "Board-to-Board and Backplane Connector"
       },
-      "lcscInputCheck": {
-        "code": "C424565",
-        "model": "BM28B0.6-16DS/2-0.35V(51)",
-        "brand": "HRS(Hirose)",
-        "stockCount": 13815,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "TPD4S480RSMR",
+      "mpn": "TPD4S480RUKR",
       "designators": [
         "U603"
       ],
       "qty": 1,
-      "footprint": "VQFN-20 (2.6x2.6mm)",
+      "footprint": "WQFN-20 (3x3mm)",
       "lcscInput": "",
-      "status": "NOT_IN_JLCPCB_LIBRARY",
-      "matchType": "NO_MATCH",
-      "rawCandidateCount": 0,
-      "bestMatch": null,
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C43131250",
+        "model": "TPD4S480RUKR",
+        "brand": "Texas Instruments",
+        "package": "QFN-20(3x3)",
+        "libraryType": "expand",
+        "stockCount": 2347,
+        "unitPriceUsd5x": 1.7246,
+        "extCostUsd5x": 8.623,
+        "category": "Power Management - Specialized"
+      },
       "lcscInputCheck": null
     },
     {
@@ -2528,7 +2396,7 @@
       ],
       "qty": 1,
       "footprint": "MLP-14 (2.5x2.5mm)",
-      "lcscInput": "C132291",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -2538,19 +2406,12 @@
         "brand": "onsemi",
         "package": "WFQFN-14(2.5x2.5)",
         "libraryType": "expand",
-        "stockCount": 18476,
+        "stockCount": 18906,
         "unitPriceUsd5x": 0.8058,
         "extCostUsd5x": 4.029,
         "category": "USB Converters"
       },
-      "lcscInputCheck": {
-        "code": "C132291",
-        "model": "FUSB302BMPX",
-        "brand": "onsemi",
-        "stockCount": 18476,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "TUSB546-DCI",
@@ -2559,7 +2420,7 @@
       ],
       "qty": 1,
       "footprint": "WQFN-40 (4x6mm)",
-      "lcscInput": "C2652398",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "VARIANT_MPN",
       "matchScore": 85,
@@ -2574,77 +2435,31 @@
         "extCostUsd5x": 49.134,
         "category": "USB Converters"
       },
-      "lcscInputCheck": {
-        "code": "C2652398",
-        "model": "TUSB546-DCIRNQT",
-        "brand": "Texas Instruments",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "TPD4E05U06DQAR",
-      "designators": [
-        "D601",
-        "D602"
-      ],
-      "qty": 2,
-      "footprint": "DFN2510",
-      "lcscInput": "C22390021",
-      "status": "IN_STOCK_5X",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C22390021",
-        "model": "TPD4E05U06DQAR",
-        "brand": "DOWO",
-        "package": "DFN2510-10L",
-        "libraryType": "expand",
-        "stockCount": 70742,
-        "unitPriceUsd5x": 0.0289,
-        "extCostUsd5x": 0.289,
-        "category": "ESD and Surge Protection (TVS/ESD)"
-      },
-      "lcscInputCheck": {
-        "code": "C22390021",
-        "model": "TPD4E05U06DQAR",
-        "brand": "DOWO",
-        "stockCount": 70742,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "SMF24A",
+      "mpn": "SMF12A",
       "designators": [
         "D603"
       ],
       "qty": 1,
       "footprint": "SOD-123FL",
-      "lcscInput": "C169430",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C169430",
-        "model": "SMF24A",
-        "brand": "Shandong Jingdao Microelectronics",
+        "lcscCode": "C2943870",
+        "model": "SMF12A",
+        "brand": "GOODWORK",
         "package": "SOD-123FL",
         "libraryType": "expand",
-        "stockCount": 97513,
-        "unitPriceUsd5x": 0.0228,
-        "extCostUsd5x": 0.114,
+        "stockCount": 58283,
+        "unitPriceUsd5x": 0.0269,
+        "extCostUsd5x": 0.1345,
         "category": "ESD and Surge Protection (TVS/ESD)"
       },
-      "lcscInputCheck": {
-        "code": "C169430",
-        "model": "SMF24A",
-        "brand": "Shandong Jingdao Microelectronics",
-        "stockCount": 97513,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "ES8388",
@@ -2653,7 +2468,7 @@
       ],
       "qty": 1,
       "footprint": "QFN-28 (4x4mm)",
-      "lcscInput": "C365736",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -2663,50 +2478,36 @@
         "brand": "Everest-semi(Everest Semiconductor)",
         "package": "QFN-28-EP(4x4)",
         "libraryType": "expand",
-        "stockCount": 34736,
+        "stockCount": 34941,
         "unitPriceUsd5x": 1.1088,
         "extCostUsd5x": 5.544,
         "category": "ADCs/DACs - Special Purpose"
       },
-      "lcscInputCheck": {
-        "code": "C365736",
-        "model": "ES8388",
-        "brand": "Everest-semi(Everest Semiconductor)",
-        "stockCount": 34736,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "SPH0655LM4H-1",
+      "mpn": "MP34DT05TR-A",
       "designators": [
         "MK801"
       ],
       "qty": 1,
-      "footprint": "LGA-5 (3.5x2.65mm)",
-      "lcscInput": "C9900006270",
-      "status": "OUT_OF_STOCK",
+      "footprint": "HCLGA-4LD (3.0x4.0mm)",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C9900006270",
-        "model": "SPH0655LM4H-1",
-        "brand": "JLCPCB Assembly",
-        "package": "SMD",
+        "lcscCode": "C2688664",
+        "model": "MP34DT05TR-A",
+        "brand": "STMicroelectronics",
+        "package": "HCLGA-4LD(3x4)",
         "libraryType": "expand",
-        "stockCount": 0,
-        "unitPriceUsd5x": 0.0007,
-        "extCostUsd5x": 0.0035,
-        "category": "SMT"
+        "stockCount": 106,
+        "unitPriceUsd5x": 2.121,
+        "extCostUsd5x": 10.605,
+        "category": "MEMS Microphones"
       },
-      "lcscInputCheck": {
-        "code": "C9900006270",
-        "model": "SPH0655LM4H-1",
-        "brand": "JLCPCB Assembly",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
       "mpn": "TAS2562YFPR",
@@ -2716,7 +2517,7 @@
       ],
       "qty": 2,
       "footprint": "DSBGA-36 (2.41x2.43mm)",
-      "lcscInput": "C2879588",
+      "lcscInput": "",
       "status": "OUT_OF_STOCK",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -2731,309 +2532,13 @@
         "extCostUsd5x": 24.518,
         "category": "Audio Amplifiers"
       },
-      "lcscInputCheck": {
-        "code": "C2879588",
-        "model": "TAS2562YFPR",
-        "brand": "Texas Instruments",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "EARPIECE_PAD_2P",
-      "designators": [
-        "J802"
-      ],
-      "qty": 1,
-      "footprint": "PAD-2P",
-      "lcscInput": "",
-      "status": "PCB_COPPER_PAD_ONLY",
-      "matchType": "NONE_NEEDED",
-      "bestMatch": null,
       "lcscInputCheck": null
-    },
-    {
-      "mpn": "DRV2625YFFR",
-      "designators": [
-        "U804"
-      ],
-      "qty": 1,
-      "footprint": "DSBGA-9 (1.5x1.5mm)",
-      "lcscInput": "C553134",
-      "status": "IN_STOCK_5X",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C553134",
-        "model": "DRV2625YFFR",
-        "brand": "Texas Instruments",
-        "package": "DSBGA-9",
-        "libraryType": "expand",
-        "stockCount": 119,
-        "unitPriceUsd5x": 1.0826,
-        "extCostUsd5x": 5.413,
-        "category": "Gate Drivers"
-      },
-      "lcscInputCheck": {
-        "code": "C553134",
-        "model": "DRV2625YFFR",
-        "brand": "Texas Instruments",
-        "stockCount": 119,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "LSM6DSOTR",
-      "designators": [
-        "U805"
-      ],
-      "qty": 1,
-      "footprint": "LGA-14 (2.5x3.0mm)",
-      "lcscInput": "C2655100",
-      "status": "IN_STOCK_5X",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C2655100",
-        "model": "LSM6DSOTR",
-        "brand": "STMicroelectronics",
-        "package": "LGA-14(2.5x3)",
-        "libraryType": "expand",
-        "stockCount": 23369,
-        "unitPriceUsd5x": 3.993,
-        "extCostUsd5x": 19.965,
-        "category": "Accelerometers"
-      },
-      "lcscInputCheck": {
-        "code": "C2655100",
-        "model": "LSM6DSOTR",
-        "brand": "STMicroelectronics",
-        "stockCount": 23369,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "AK09918C",
-      "designators": [
-        "U806"
-      ],
-      "qty": 1,
-      "footprint": "WLCSP-4 (0.8x0.8mm)",
-      "lcscInput": "C2655004",
-      "status": "IN_STOCK_5X",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C2655004",
-        "model": "AK09918C",
-        "brand": "Asahi Kasei Microdevices",
-        "package": "WLCSP-4(0.8x0.8)",
-        "libraryType": "expand",
-        "stockCount": 1986,
-        "unitPriceUsd5x": 0.3915,
-        "extCostUsd5x": 1.9575,
-        "category": "3D Magnetic Sensors"
-      },
-      "lcscInputCheck": {
-        "code": "C2655004",
-        "model": "AK09918C",
-        "brand": "Asahi Kasei Microdevices",
-        "stockCount": 1986,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "BMP581",
-      "designators": [
-        "U807"
-      ],
-      "qty": 1,
-      "footprint": "LGA-10 (2.0x2.0mm)",
-      "lcscInput": "C5362283",
-      "status": "IN_STOCK_5X",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C5362283",
-        "model": "BMP581",
-        "brand": "Bosch Sensortec",
-        "package": "LGA-10(2x2)",
-        "libraryType": "expand",
-        "stockCount": 8624,
-        "unitPriceUsd5x": 2.1685,
-        "extCostUsd5x": 10.8425,
-        "category": "Pressure Sensors"
-      },
-      "lcscInputCheck": {
-        "code": "C5362283",
-        "model": "BMP581",
-        "brand": "Bosch Sensortec",
-        "stockCount": 8624,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "TMAG5273A1QDBVR",
-      "designators": [
-        "U809"
-      ],
-      "qty": 1,
-      "footprint": "SOT23-6",
-      "lcscInput": "C3716049",
-      "status": "IN_STOCK_5X",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C3716049",
-        "model": "TMAG5273A1QDBVR",
-        "brand": "Texas Instruments",
-        "package": "SOT-23-6",
-        "libraryType": "expand",
-        "stockCount": 3350,
-        "unitPriceUsd5x": 3.5721,
-        "extCostUsd5x": 17.8605,
-        "category": "3D Magnetic Sensors"
-      },
-      "lcscInputCheck": {
-        "code": "C3716049",
-        "model": "TMAG5273A1QDBVR",
-        "brand": "Texas Instruments",
-        "stockCount": 3350,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "TCS3701FNM",
-      "designators": [
-        "U810"
-      ],
-      "qty": 1,
-      "footprint": "OLGA-8 (2.0x2.4mm)",
-      "lcscInput": "",
-      "status": "NOT_IN_JLCPCB_LIBRARY",
-      "matchType": "NO_MATCH",
-      "rawCandidateCount": 0,
-      "bestMatch": null,
-      "lcscInputCheck": null
-    },
-    {
-      "mpn": "SFH 4059-QS",
-      "designators": [
-        "D802"
-      ],
-      "qty": 1,
-      "footprint": "SMD-1005",
-      "lcscInput": "C6473705",
-      "status": "OUT_OF_STOCK",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C6473705",
-        "model": "SFH 4059-QS",
-        "brand": "OSRAM Opto Semicon",
-        "package": "1206",
-        "libraryType": "expand",
-        "stockCount": 0,
-        "unitPriceUsd5x": 0.8795,
-        "extCostUsd5x": 4.3975,
-        "category": "Infrared LED Emitters"
-      },
-      "lcscInputCheck": {
-        "code": "C6473705",
-        "model": "SFH 4059-QS",
-        "brand": "OSRAM Opto Semicon",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "SIDE_KEY_BTB_6P",
-      "designators": [
-        "J801"
-      ],
-      "qty": 1,
-      "footprint": "BTB-6P",
-      "lcscInput": "",
-      "status": "NOT_IN_JLCPCB_LIBRARY",
-      "matchType": "NO_MATCH",
-      "rawCandidateCount": 0,
-      "bestMatch": null,
-      "lcscInputCheck": null
-    },
-    {
-      "mpn": "RC0201FR-071KL",
-      "designators": [
-        "R810",
-        "R811",
-        "R812"
-      ],
-      "qty": 3,
-      "footprint": "0201",
-      "lcscInput": "C138165",
-      "status": "IN_STOCK_5X",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C138165",
-        "model": "RC0201FR-071KL",
-        "brand": "YAGEO",
-        "package": "0201",
-        "libraryType": "expand",
-        "stockCount": 1011324,
-        "unitPriceUsd5x": 0.0015,
-        "extCostUsd5x": 0.0225,
-        "category": "Chip Resistor - Surface Mount"
-      },
-      "lcscInputCheck": {
-        "code": "C138165",
-        "model": "RC0201FR-071KL",
-        "brand": "YAGEO",
-        "stockCount": 1011324,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
-    },
-    {
-      "mpn": "PESD5V0S4UD",
-      "designators": [
-        "D801"
-      ],
-      "qty": 1,
-      "footprint": "SOT-23-6 (2.9x2.8mm)",
-      "lcscInput": "C2987082",
-      "status": "IN_STOCK_5X",
-      "matchType": "EXACT_MPN",
-      "matchScore": 100,
-      "bestMatch": {
-        "lcscCode": "C2987082",
-        "model": "PESD5V0S4UD",
-        "brand": "TECH PUBLIC",
-        "package": "SOT-23-6",
-        "libraryType": "expand",
-        "stockCount": 3100,
-        "unitPriceUsd5x": 0.1519,
-        "extCostUsd5x": 0.7595,
-        "category": "ESD and Surge Protection (TVS/ESD)"
-      },
-      "lcscInputCheck": {
-        "code": "C2987082",
-        "model": "PESD5V0S4UD",
-        "brand": "TECH PUBLIC",
-        "stockCount": 3100,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
     },
     {
       "mpn": "RC0201FR-0722KL",
       "designators": [
+        "R1005",
+        "R1006",
         "R901",
         "R902",
         "R911",
@@ -3049,13 +2554,11 @@
         "R961",
         "R962",
         "R971",
-        "R972",
-        "R1011",
-        "R1012"
+        "R972"
       ],
       "qty": 18,
       "footprint": "0201",
-      "lcscInput": "C474416",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
@@ -3070,78 +2573,248 @@
         "extCostUsd5x": 0.198,
         "category": "Chip Resistor - Surface Mount"
       },
-      "lcscInputCheck": {
-        "code": "C474416",
-        "model": "RC0201FR-0722KL",
-        "brand": "YAGEO",
-        "stockCount": 228012,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "NCP03XH103F05RL",
+      "mpn": "DRV2625YFFR",
       "designators": [
-        "RT101",
-        "RT201"
+        "U804"
       ],
-      "qty": 2,
-      "footprint": "0201",
-      "lcscInput": "C98098",
+      "qty": 1,
+      "footprint": "DSBGA-9 (1.5x1.5mm)",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C98098",
-        "model": "NCP03XH103F05RL",
-        "brand": "Murata Electronics",
-        "package": "0201",
+        "lcscCode": "C553134",
+        "model": "DRV2625YFFR",
+        "brand": "Texas Instruments",
+        "package": "DSBGA-9",
         "libraryType": "expand",
-        "stockCount": 59067,
-        "unitPriceUsd5x": 0.0139,
-        "extCostUsd5x": 0.139,
-        "category": "NTC Thermistors"
+        "stockCount": 117,
+        "unitPriceUsd5x": 1.0826,
+        "extCostUsd5x": 5.413,
+        "category": "Gate Drivers"
       },
-      "lcscInputCheck": {
-        "code": "C98098",
-        "model": "NCP03XH103F05RL",
-        "brand": "Murata Electronics",
-        "stockCount": 59067,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     },
     {
-      "mpn": "PESD5V0S1BL",
+      "mpn": "LSM6DSOTR",
       "designators": [
-        "D1001",
-        "D1002"
+        "U805"
       ],
-      "qty": 2,
-      "footprint": "DFN1006",
-      "lcscInput": "C2912556",
+      "qty": 1,
+      "footprint": "LGA-14 (2.5x3.0mm)",
+      "lcscInput": "",
       "status": "IN_STOCK_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
-        "lcscCode": "C2912556",
-        "model": "PESD5V0S1BL",
-        "brand": "TECH PUBLIC",
-        "package": "DFN1006-2(0402)",
+        "lcscCode": "C2655100",
+        "model": "LSM6DSOTR",
+        "brand": "STMicroelectronics",
+        "package": "LGA-14(2.5x3)",
         "libraryType": "expand",
-        "stockCount": 71656,
-        "unitPriceUsd5x": 0.0166,
-        "extCostUsd5x": 0.166,
+        "stockCount": 23369,
+        "unitPriceUsd5x": 3.993,
+        "extCostUsd5x": 19.965,
+        "category": "Accelerometers"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "AK09918C",
+      "designators": [
+        "U806"
+      ],
+      "qty": 1,
+      "footprint": "WLCSP-4 (0.8x0.8mm)",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C2655004",
+        "model": "AK09918C",
+        "brand": "Asahi Kasei Microdevices",
+        "package": "WLCSP-4(0.8x0.8)",
+        "libraryType": "expand",
+        "stockCount": 1986,
+        "unitPriceUsd5x": 0.3915,
+        "extCostUsd5x": 1.9575,
+        "category": "3D Magnetic Sensors"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "BMP581",
+      "designators": [
+        "U807"
+      ],
+      "qty": 1,
+      "footprint": "LGA-10 (2.0x2.0mm)",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C5362283",
+        "model": "BMP581",
+        "brand": "Bosch Sensortec",
+        "package": "LGA-10(2x2)",
+        "libraryType": "expand",
+        "stockCount": 8615,
+        "unitPriceUsd5x": 2.1685,
+        "extCostUsd5x": 10.8425,
+        "category": "Pressure Sensors"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "TMAG5273A1QDBVR",
+      "designators": [
+        "U809"
+      ],
+      "qty": 1,
+      "footprint": "SOT-23-6 (2.9x2.8mm)",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C3716049",
+        "model": "TMAG5273A1QDBVR",
+        "brand": "Texas Instruments",
+        "package": "SOT-23-6",
+        "libraryType": "expand",
+        "stockCount": 3270,
+        "unitPriceUsd5x": 3.5721,
+        "extCostUsd5x": 17.8605,
+        "category": "3D Magnetic Sensors"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "VCNL4040M3OE",
+      "designators": [
+        "U810"
+      ],
+      "qty": 1,
+      "footprint": "SMD-8 (4.0x2.0mm)",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C142526",
+        "model": "VCNL4040M3OE",
+        "brand": "Vishay Intertech",
+        "package": "SMD-8P",
+        "libraryType": "expand",
+        "stockCount": 10406,
+        "unitPriceUsd5x": 1.5707,
+        "extCostUsd5x": 7.8535,
+        "category": "Ambient Light Sensors"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "BM28B0.6-6DS/2-0.35V(53)",
+      "designators": [
+        "J801"
+      ],
+      "qty": 1,
+      "footprint": "BM28B0.6-6DS",
+      "lcscInput": "",
+      "status": "OUT_OF_STOCK",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C3641586",
+        "model": "BM28B0.6-6DS/2-0.35V(53)",
+        "brand": "HRS(Hirose)",
+        "package": "SMD,P=0.35mm",
+        "libraryType": "expand",
+        "stockCount": 0,
+        "unitPriceUsd5x": 1.3381,
+        "extCostUsd5x": 6.6905,
+        "category": "Board-to-Board and Backplane Connector"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "PESD5V0S4UD",
+      "designators": [
+        "D801"
+      ],
+      "qty": 1,
+      "footprint": "SOT-23-6 (2.9x2.8mm)",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C2987082",
+        "model": "PESD5V0S4UD",
+        "brand": "TECH PUBLIC",
+        "package": "SOT-23-6",
+        "libraryType": "expand",
+        "stockCount": 3100,
+        "unitPriceUsd5x": 0.1519,
+        "extCostUsd5x": 0.7595,
         "category": "ESD and Surge Protection (TVS/ESD)"
       },
-      "lcscInputCheck": {
-        "code": "C2912556",
-        "model": "PESD5V0S1BL",
-        "brand": "TECH PUBLIC",
-        "stockCount": 71656,
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "DF40C-40DS-0.4V(51)",
+      "designators": [
+        "J901A_MB",
+        "J901B_MB"
+      ],
+      "qty": 2,
+      "footprint": "DF40C-40DS",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C424644",
+        "model": "DF40C-40DS-0.4V(51)",
+        "brand": "HRS(Hirose)",
+        "package": "SMD,P=0.4mm",
         "libraryType": "expand",
-        "matchesMpn": true
-      }
+        "stockCount": 13567,
+        "unitPriceUsd5x": 0.3522,
+        "extCostUsd5x": 3.522,
+        "category": "Board-to-Board and Backplane Connector"
+      },
+      "lcscInputCheck": null
+    },
+    {
+      "mpn": "RC0201FR-0720KL",
+      "designators": [
+        "R111"
+      ],
+      "qty": 1,
+      "footprint": "0201",
+      "lcscInput": "",
+      "status": "IN_STOCK_5X",
+      "matchType": "EXACT_MPN",
+      "matchScore": 100,
+      "bestMatch": {
+        "lcscCode": "C295787",
+        "model": "RC0201FR-0720KL",
+        "brand": "YAGEO",
+        "package": "0201",
+        "libraryType": "expand",
+        "stockCount": 1478465,
+        "unitPriceUsd5x": 0.0019,
+        "extCostUsd5x": 0.0095,
+        "category": "Chip Resistor - Surface Mount"
+      },
+      "lcscInputCheck": null
     },
     {
       "mpn": "TPD6E05U06RVZR",
@@ -3149,9 +2822,9 @@
         "D701"
       ],
       "qty": 1,
-      "footprint": "USON-14 (3.5x1.4mm)",
-      "lcscInput": "C962978",
-      "status": "OUT_OF_STOCK",
+      "footprint": "USON-14 (3.5x1.35mm)",
+      "lcscInput": "",
+      "status": "LOW_STOCK_UNDER_5X",
       "matchType": "EXACT_MPN",
       "matchScore": 100,
       "bestMatch": {
@@ -3160,19 +2833,12 @@
         "brand": "Texas Instruments",
         "package": "USON-14(1.4x3.5)",
         "libraryType": "expand",
-        "stockCount": 0,
+        "stockCount": 1,
         "unitPriceUsd5x": 0.9057,
         "extCostUsd5x": 4.5285,
         "category": "ESD and Surge Protection (TVS/ESD)"
       },
-      "lcscInputCheck": {
-        "code": "C962978",
-        "model": "TPD6E05U06RVZR",
-        "brand": "Texas Instruments",
-        "stockCount": 0,
-        "libraryType": "expand",
-        "matchesMpn": true
-      }
+      "lcscInputCheck": null
     }
   ]
 }

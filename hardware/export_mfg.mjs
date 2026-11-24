@@ -44,7 +44,7 @@ if (fs.existsSync(AUDIT_PATH)) {
 const BOARDS = {
   main: {
     key: 'main',
-    title: 'RK T4 Mainboard (14-Layer 1.200mm 3+8+3 Staggered HDI, Rev 4.0)',
+    title: 'RK T4 Mainboard (14-Layer 1.200mm 3+8+3 Staggered HDI, Rev 5.0 EVT)',
     pcbPath: path.join(HW_DIR, 'rk_t4_mainboard.kicad_pcb'),
     drcPath: path.join(HW_DIR, 'kicad_drc_report.json'),
     gerberDir: path.join(MFG_DIR, 'gerbers'),
@@ -65,7 +65,7 @@ const BOARDS = {
   },
   mezz: {
     key: 'mezz',
-    title: 'RK T4 5G RF Mezzanine (8-Layer 0.800mm JLC08081H-1080A CPWG, Rev 4.0)',
+    title: 'RK T4 5G RF Mezzanine (8-Layer 0.800mm JLC08081H-1080A CPWG, Rev 5.0 EVT)',
     pcbPath: path.join(HW_DIR, 'rk_t4_mezzanine.kicad_pcb'),
     drcPath: path.join(HW_DIR, 'kicad_mezz_drc_report.json'),
     gerberDir: path.join(MFG_DIR, 'gerbers_mezz'),
@@ -213,4 +213,4 @@ print(f"   Packaged {len(os.listdir(src_dir))} files into {zip_path} ({os.path.g
 
 if (boardArg === 'main' || boardArg === 'both') exportBoard(BOARDS.main);
 if (boardArg === 'mezz' || boardArg === 'both') exportBoard(BOARDS.mezz);
-console.log('\nAll requested Rev 4.0 manufacturing packages generated cleanly!');
+console.log('\nAll requested Rev 5.0 EVT manufacturing packages generated cleanly!');

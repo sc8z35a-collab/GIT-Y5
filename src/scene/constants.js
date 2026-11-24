@@ -6,7 +6,7 @@
 export const PHONE = {
   W: 7.50,       // 75.0 mm width (flagship 6.78" class)
   H: 16.20,      // 162.0 mm height (houses real 28cm3 6000mAh Si-C pack + bottom bay!)
-  T: 1.004,      // 10.04 mm honest non-squashed body thickness (1.20mm 14L HDI + 0.80mm 8L Mezz + 5.18mm 6000mAh Si-C!)
+  T: 1.090,      // 10.90 mm honest Rev 5.0 EVT thickness (1.20mm 14L HDI + 1.50mm DF40C + 0.80mm 8L Mezz + 2.40mm EG800Q-EU!)
   R: 0.92,       // 9.2 mm corner radius
   RAIL_W: 0.24,  // 2.4 mm CNC Grade-5 titanium perimeter wall
 };
@@ -66,7 +66,7 @@ export const BOTTOM_BAY = {
   SPEAKER:{ x:  2.06, y: -6.86, w: 2.30, h: 1.72, t: 0.36 },
 };
 
-// Honest Uncompressed Z-Stack (Body: -5.34mm .. +4.70mm = 10.04mm; zero squashing, zero overlaps!)
+// Honest Uncompressed Z-Stack (Body: -6.20mm .. +4.70mm = 10.90mm Rev 5.0 EVT; zero squashing, zero overlaps!)
 export const Z_STACK = {
   DISPLAY_GLASS:    0.440, // 0.60mm Ceramic Shield Cover Glass [+0.410 .. +0.470]
   DISPLAY_TOUCH:    0.394, // 0.08mm OCA + Capacitive Touch [+0.390 .. +0.398]
@@ -85,9 +85,9 @@ export const Z_STACK = {
 
   WIRELESS_FERRITE: -0.306, // 0.14mm Nanocrystalline Ferrite [-0.313 .. -0.299]
   WIRELESS_COIL:    -0.336, // 0.36mm 14-Turn Spiral Copper Coil [-0.354 .. -0.318]
-  WIRELESS_NFC:     -0.452, // 0.08mm Etched Copper NFC Loop [-0.456 .. -0.448] (clears 1.20+0.80mm sandwich!)
+  WIRELESS_NFC:     -0.534, // 0.08mm Etched Copper NFC Loop [-0.538 .. -0.530] (clears 2.40mm EG800Q-EU -0.518!)
   WIRELESS_MAG:     -0.384, // 0.24mm 18-Segment Alignment Magnets [-0.396 .. -0.372] (lower battery region only)
-  REAR_GLASS:       -0.498, // 0.72mm Matte Ceramic Rear Glass [-0.534 .. -0.462]
+  REAR_GLASS:       -0.584, // 0.72mm Matte Ceramic Rear Glass [-0.620 .. -0.548] (10.90mm total honest EVT stack!)
 };
 
 /**

@@ -34,6 +34,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { RK3588S2_MAP, LPDDR5X_MAP, EMMC51_MAP, TAS2562_MAP } from './bga_full_expand.mjs';
+import { getVerifiedFootprintPads } from './ic_pinmaps/index.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -120,9 +121,9 @@ const OUTLINE_POLY = [
 ];
 
 // Split Power Plane on In7.Cu (L8):
-//   Zone A: VDD2L_0V9_DDR_S3 solid island directly covering U301 (45+ balls) & DDR decoupling!
-//   Zone B: VSYS_3V87 main 10A power plane covering the entire rest of the L-shaped PCB (0.60mm moat!).
-const VDD2L_ZONE_BOUNDS = { x0: -18.10, x1: -0.45, y0: 15.50, y1: 35.50 };
+//   Zone A: VDD2L_0V9_DDR_S3 solid island directly covering U301 (45+ balls, y>=17.5) & DDR decoupling!
+//   Zone B: VSYS_3V87 main 10A power plane covering the entire rest of the L-shaped PCB including J901A_MB (y=15.2)!
+const VDD2L_ZONE_BOUNDS = { x0: -18.10, x1: -0.45, y0: 17.00, y1: 35.50 };
 const VDD2L_ZONE_POLY = [
   [VDD2L_ZONE_BOUNDS.x0, VDD2L_ZONE_BOUNDS.y1],
   [VDD2L_ZONE_BOUNDS.x1, VDD2L_ZONE_BOUNDS.y1],
@@ -132,21 +133,13 @@ const VDD2L_ZONE_POLY = [
 // Clean non-self-intersecting polygon for VSYS_3V87 Zone B (0.35mm board inset + 0.60mm moat around Zone A!)
 const VSYS_ZONE_POLY = [
   [-18.15, 47.65], [16.15, 47.65], [16.15, -68.65], [7.95, -68.65], [7.95, 3.35],
-  [-18.15, 3.35],  [-18.15, 14.90], [0.15, 14.90],  [0.15, 36.10],  [-18.15, 36.10],
+  [-18.15, 3.35],  [-18.15, 16.40], [0.15, 16.40],  [0.15, 36.10],  [-18.15, 36.10],
 ];
 
 function pointInVdd2lZone(x, y, margin = 0.25) {
   return x >= VDD2L_ZONE_BOUNDS.x0 + margin && x <= VDD2L_ZONE_BOUNDS.x1 - margin &&
          y >= VDD2L_ZONE_BOUNDS.y0 + margin && y <= VDD2L_ZONE_BOUNDS.y1 - margin;
 }
-
-// 4 verified 100% component-free Mezzanine Interposer bars shared 1:1 by Mainboard, Mezzanine & 3D!
-const INTERPOSER_BARS = [
-  { name: 'NORTH',      cx:  0.60, cy: 40.00, w: 20.0, h: 0.70, horiz: true,  count: 20 },
-  { name: 'MID_WEST',   cx: -9.60, cy: 16.60, w: 10.4, h: 0.70, horiz: true,  count: 11 },
-  { name: 'SOUTH_WEST', cx: -8.70, cy:  6.80, w:  9.8, h: 0.70, horiz: true,  count: 10 },
-  { name: 'SOUTH_EAST', cx: 13.30, cy:  9.50, w: 0.70, h:  5.2, horiz: false, count:  7 },
-];
 
 // Routing Grid: 0.20mm pitch (EXACT half-divisor of 0.40mm BGA pitch!)
 const GRID = 0.20;
@@ -277,10 +270,9 @@ function insetOrthoPolygon(poly, inset) {
 }
 
 // ============================================================================
-// 3. BUILD 100% 1:1 PHYSICAL FOOTPRINTS & PAD DATABASE (ALL ICs & CONNECTORS!)
+// 3. BUILD 100% OFFICIAL MANUFACTURER DATASHEET 1:1 FOOTPRINTS (ZERO FALLBACK!)
 // ============================================================================
 const mainComps = data.components.filter((c) => c.board === 'main');
-const j901Orig = data.components.find((c) => c.ref === 'J901');
 
 const netNameToId = new Map([['', 0]]);
 const idToNetName = [''];
@@ -291,311 +283,6 @@ function getNetId(name) {
     idToNetName.push(name);
   }
   return netNameToId.get(name);
-}
-
-// Precompute target centroids for non-BGA pin-to-slot assignment
-const mainNetCoords = new Map();
-for (const c of mainComps) {
-  for (const net of Object.values(c.pins)) {
-    if (!net) continue;
-    if (!mainNetCoords.has(net)) mainNetCoords.set(net, []);
-    mainNetCoords.get(net).push({ ref: c.ref, x: c.x, y: c.y });
-  }
-}
-
-function getNetTargetForComp(net, excludeRef, fallbackX, fallbackY) {
-  const list = (mainNetCoords.get(net) || []).filter((p) => p.ref !== excludeRef);
-  if (!list.length) return { x: fallbackX, y: fallbackY };
-  return {
-    x: list.reduce((s, p) => s + p.x, 0) / list.length,
-    y: list.reduce((s, p) => s + p.y, 0) / list.length,
-  };
-}
-
-// Coupled Diff-Pair-Aware Pin-to-Slot Assigner:
-// Ensures EVERY high-speed differential pair (*_P / *_N) lands on physically ADJACENT pads!
-function assignPinsToSlots(comp, pinEntries, slots, fillUnusedAsNc = false) {
-  const rot = (comp.rot || 0) * (Math.PI / 180);
-  const cos = Math.cos(rot), sin = Math.sin(rot);
-  const slotWorld = slots.map((s, idx) => ({
-    ...s, idx,
-    wx: comp.x + s.lx * cos - s.ly * sin,
-    wy: comp.y + s.lx * sin + s.ly * cos,
-  }));
-  const thermalSlot = slotWorld.find((s) => s.thermal);
-  const used = new Set();
-  const assignments = [];
-  const remainingPins = [];
-
-  for (const [pinName, netName] of pinEntries) {
-    if (thermalSlot && !used.has(thermalSlot.idx) && netName === 'GND') {
-      used.add(thermalSlot.idx);
-      assignments.push({ pinName, netName, ...thermalSlot });
-    } else {
-      remainingPins.push([pinName, netName]);
-    }
-  }
-
-  // Group *_P and *_N diff pairs so they are assigned to adjacent physical slots!
-  const byNet = new Map();
-  for (const entry of remainingPins) {
-    if (entry[1] && !byNet.has(entry[1])) byNet.set(entry[1], entry);
-  }
-  const pairedSkip = new Set();
-  const diffUnits = []; // { pEntry, nEntry, tx, ty }
-  const singleUnits = [];
-  for (const entry of remainingPins) {
-    if (pairedSkip.has(entry)) continue;
-    const [, netName] = entry;
-    if (netName && netName.endsWith('_P') && /^(MIPI_|USB3_|USBC_|PCIE_|USB0_D_|MODEM_USB_)/.test(netName)) {
-      const partner = byNet.get(netName.slice(0, -2) + '_N');
-      if (partner && partner !== entry) {
-        pairedSkip.add(partner);
-        const tgt = getNetTargetForComp(netName, comp.ref, comp.x, comp.y);
-        diffUnits.push({ pEntry: entry, nEntry: partner, tx: tgt.x, ty: tgt.y });
-        continue;
-      }
-    }
-    if (netName && netName.endsWith('_DP') && /^(MODEM_USB_)/.test(netName)) {
-      const partner = byNet.get(netName.slice(0, -3) + '_DN');
-      if (partner && partner !== entry) {
-        pairedSkip.add(partner);
-        const tgt = getNetTargetForComp(netName, comp.ref, comp.x, comp.y);
-        diffUnits.push({ pEntry: entry, nEntry: partner, tx: tgt.x, ty: tgt.y });
-        continue;
-      }
-    }
-    const tgt = getNetTargetForComp(netName, comp.ref, comp.x, comp.y);
-    const isPlane = netName === 'GND' || netName === 'VSYS_3V87';
-    // Force J901 VSYS_3V87 pin into East half (x >= +2.0) directly inside In7.Cu Zone B!
-    const forceEast = comp.ref === 'J901' && netName === 'VSYS_3V87';
-    singleUnits.push({
-      entry,
-      tx: forceEast ? 10.0 : tgt.x,
-      ty: forceEast ? 40.0 : tgt.y,
-      prio: forceEast ? -1 : isPlane ? 2 : 1,
-    });
-  }
-
-  // 1. Assign coupled differential pairs FIRST to adjacent non-thermal slots!
-  for (const du of diffUnits) {
-    let bestP = null, bestN = null, bestScore = Infinity;
-    for (const s1 of slotWorld) {
-      if (used.has(s1.idx) || s1.thermal) continue;
-      // Find closest unused neighbor slot s2
-      let near = null, nearD = Infinity;
-      for (const s2 of slotWorld) {
-        if (s2.idx === s1.idx || used.has(s2.idx) || s2.thermal) continue;
-        const d12 = Math.hypot(s1.wx - s2.wx, s1.wy - s2.wy);
-        if (d12 < nearD) { nearD = d12; near = s2; }
-      }
-      if (!near) continue;
-      const dTgt = Math.hypot((s1.wx + near.wx) * 0.5 - du.tx, (s1.wy + near.wy) * 0.5 - du.ty);
-      const score = dTgt + nearD * 4.0;
-      if (score < bestScore) { bestScore = score; bestP = s1; bestN = near; }
-    }
-    if (!bestP || !bestN) throw new Error(`Out of diff-pair pad slots on ${comp.ref}`);
-    used.add(bestP.idx); used.add(bestN.idx);
-    assignments.push({ pinName: du.pEntry[0], netName: du.pEntry[1], ...bestP });
-    assignments.push({ pinName: du.nEntry[0], netName: du.nEntry[1], ...bestN });
-  }
-
-  // 2. Assign all remaining single pins
-  singleUnits.sort((a, b) => a.prio - b.prio);
-  for (const item of singleUnits) {
-    let bestSlot = null, bestScore = Infinity;
-    for (const s of slotWorld) {
-      if (used.has(s.idx)) continue;
-      const d = Math.hypot(s.wx - item.tx, s.wy - item.ty);
-      if (d < bestScore) { bestScore = d; bestSlot = s; }
-    }
-    if (!bestSlot) throw new Error(`Out of pad slots on ${comp.ref}`);
-    used.add(bestSlot.idx);
-    assignments.push({ pinName: item.entry[0], netName: item.entry[1], ...bestSlot });
-  }
-
-  // 3. Emit any remaining physical IC/BTB pins as true physical NC SMD pads (100% 1:1 footprint!)
-  if (fillUnusedAsNc) {
-    let ncIdx = 1;
-    for (const s of slotWorld) {
-      if (used.has(s.idx)) continue;
-      used.add(s.idx);
-      assignments.push({ pinName: `NC_${ncIdx++}`, netName: '', ...s });
-    }
-  }
-  return assignments;
-}
-
-// Exact datasheet physical pin count for every QFN / LGA / WLCSP / DSBGA / BTB package!
-function getFullPhysicalPinCount(c, activePinCount) {
-  const pkg = c.pkg || '';
-  if (pkg.startsWith('01005') || pkg.startsWith('0201') || pkg.startsWith('0402') || pkg.startsWith('0603') || pkg.startsWith('0805') || pkg.startsWith('IND_') || pkg.startsWith('SMD-') || pkg.startsWith('DFN1006') || pkg.startsWith('SOD-')) {
-    return activePinCount;
-  }
-  const m = /(?:QFN|WQFN|VQFN|TQFN|MLP|LGA|OLGA|DSBGA|WLCSP|WLP|BTB|WSON|USON|MSOP|SOT23|SOT-23|DFN)-?(\d+)/i.exec(pkg);
-  if (!m) return activePinCount;
-  const declared = parseInt(m[1], 10);
-  if (declared <= activePinCount || declared > 200) return activePinCount;
-  // Verify package dimensions can physically fit `declared` pads with >= 0.08mm pad-to-pad clearance
-  const w = c.w, h = c.h;
-  if (pkg.startsWith('BTB')) {
-    const L = Math.max(w, h);
-    const perRow = Math.ceil(declared / 2);
-    const pitch = (L - 0.6) / Math.max(1, perRow - 1);
-    return pitch >= 0.28 ? declared : activePinCount;
-  }
-  if (pkg.includes('DSBGA') || pkg.includes('WLCSP') || pkg.includes('BGA')) {
-    const cols = Math.ceil(Math.sqrt((declared * w) / h));
-    const rows = Math.ceil(declared / cols);
-    const pMin = Math.min((w - 0.44) / Math.max(1, cols - 1), (h - 0.44) / Math.max(1, rows - 1));
-    return pMin >= 0.30 ? declared : activePinCount;
-  }
-  // 4-sided QFN/LGA (plus 1 exposed thermal pad if body >= 4mm)
-  const hasEp = Object.values(c.pins).includes('GND') && Math.min(w, h) >= 4.0 && declared >= 16;
-  const perim = 2 * (w + h) - 8 * 0.45;
-  const avgPitch = perim / declared;
-  return avgPitch >= 0.28 ? (hasEp ? declared + 1 : declared) : activePinCount;
-}
-
-function generateSlotsForComp(c, pinCount) {
-  const w = c.w, h = c.h, pkg = c.pkg || '';
-  if (pinCount === 1) {
-    const d = Math.min(0.55, Math.min(w, h) * 0.78);
-    return [{ lx: 0, ly: 0, pw: d, ph: d, shape: 'circle' }];
-  }
-  if (pinCount === 2) {
-    const horiz = w >= h;
-    const L = horiz ? w : h, S = horiz ? h : w;
-    let pw, ph, off;
-    if (pkg.startsWith('01005'))      { pw = 0.11; ph = 0.14; off = 0.115; }
-    else if (pkg.startsWith('0201'))  { pw = 0.17; ph = 0.21; off = 0.165; }
-    else if (pkg.startsWith('0402'))  { pw = 0.32; ph = 0.38; off = 0.28; }
-    else if (pkg.startsWith('0603'))  { pw = 0.46; ph = 0.62; off = 0.49; }
-    else {
-      pw = +(Math.min(L * 0.30, L * 0.5 - 0.12)).toFixed(3);
-      ph = +(S * 0.72).toFixed(3);
-      off = +(L * 0.5 - pw * 0.5 - 0.08).toFixed(3);
-      if (2 * off - pw < 0.14) { pw = +((L - 0.30) * 0.5).toFixed(3); off = +(pw * 0.5 + 0.08).toFixed(3); }
-    }
-    if (horiz) return [{ lx: -off, ly: 0, pw, ph, shape: 'roundrect' }, { lx: +off, ly: 0, pw, ph, shape: 'roundrect' }];
-    return [{ lx: 0, ly: +off, pw: ph, ph: pw, shape: 'roundrect' }, { lx: 0, ly: -off, pw: ph, ph: pw, shape: 'roundrect' }];
-  }
-  if (pinCount === 3) {
-    const horiz = w >= h;
-    const inset = +(Math.min(0.10, Math.min(w, h) * 0.06)).toFixed(3);
-    if (horiz) {
-      const pw = +(Math.min(0.60, w * 0.24)).toFixed(3);
-      const ph = +(Math.min(0.70, h * 0.27)).toFixed(3);
-      const ox = +(w * 0.5 - pw * 0.5 - inset).toFixed(3);
-      const oy = +(h * 0.5 - ph * 0.5 - inset).toFixed(3);
-      return [
-        { lx: -ox, ly: +oy, pw, ph, shape: 'roundrect' },
-        { lx: -ox, ly: -oy, pw, ph, shape: 'roundrect' },
-        { lx: +ox, ly: 0,   pw, ph, shape: 'roundrect' },
-      ];
-    }
-    const pw = +(Math.min(0.60, w * 0.27)).toFixed(3);
-    const ph = +(Math.min(0.70, h * 0.24)).toFixed(3);
-    const ox = +(w * 0.5 - pw * 0.5 - inset).toFixed(3);
-    const oy = +(h * 0.5 - ph * 0.5 - inset).toFixed(3);
-    return [
-      { lx: -ox, ly: -oy, pw, ph, shape: 'roundrect' },
-      { lx: +ox, ly: -oy, pw, ph, shape: 'roundrect' },
-      { lx: 0,   ly: +oy, pw, ph, shape: 'roundrect' },
-    ];
-  }
-  if (pinCount === 4) {
-    const insetX = Math.min(0.10, w * 0.10), insetY = Math.min(0.10, h * 0.10);
-    const usableW = w - 2 * insetX, usableH = h - 2 * insetY;
-    const pw = +(Math.max(0.16, Math.min(0.46, (usableW - 0.13) * 0.5))).toFixed(3);
-    const ph = +(Math.max(0.16, Math.min(0.46, (usableH - 0.13) * 0.5))).toFixed(3);
-    const ox = +((usableW - pw) * 0.5).toFixed(3), oy = +((usableH - ph) * 0.5).toFixed(3);
-    return [
-      { lx: -ox, ly: +oy, pw, ph, shape: 'roundrect' }, { lx: +ox, ly: +oy, pw, ph, shape: 'roundrect' },
-      { lx: -ox, ly: -oy, pw, ph, shape: 'roundrect' }, { lx: +ox, ly: -oy, pw, ph, shape: 'roundrect' },
-    ];
-  }
-  if (
-    pkg.startsWith('BTB') || pkg.startsWith('DFN2510') || pkg.startsWith('SOT23') ||
-    pkg.startsWith('SOT-23-6') || pkg.startsWith('MSOP-8') || pkg.startsWith('USON-14') ||
-    pkg.startsWith('WSON') || pkg.startsWith('DFN-8')
-  ) {
-    const horiz = w >= h;
-    const n1 = Math.ceil(pinCount / 2), n2 = Math.floor(pinCount / 2);
-    const slots = [];
-    if (horiz) {
-      const marginX = Math.min(0.32, w * 0.06);
-      const spanX = w - 2 * marginX;
-      const pitch = n1 > 1 ? spanX / (n1 - 1) : 0;
-      const pw = +(Math.max(0.15, Math.min(0.40, n1 > 1 ? pitch - 0.12 : 0.35))).toFixed(3);
-      const ph = +(Math.max(0.22, Math.min(0.52, (h - 0.30) * 0.36))).toFixed(3);
-      const oy = +(h * 0.5 - ph * 0.5 - 0.10).toFixed(3);
-      for (let i = 0; i < n1; i++) slots.push({ lx: +(n1 > 1 ? -spanX * 0.5 + i * pitch : 0).toFixed(4), ly: +oy, pw, ph, shape: 'roundrect' });
-      for (let i = 0; i < n2; i++) slots.push({ lx: +(n2 > 1 ? -spanX * 0.5 + i * (spanX / (n2 - 1)) : 0).toFixed(4), ly: -oy, pw, ph, shape: 'roundrect' });
-    } else {
-      const marginY = Math.min(0.32, h * 0.06);
-      const spanY = h - 2 * marginY;
-      const pitch = n1 > 1 ? spanY / (n1 - 1) : 0;
-      const ph = +(Math.max(0.15, Math.min(0.40, n1 > 1 ? pitch - 0.12 : 0.35))).toFixed(3);
-      const pw = +(Math.max(0.22, Math.min(0.52, (w - 0.30) * 0.36))).toFixed(3);
-      const ox = +(w * 0.5 - pw * 0.5 - 0.10).toFixed(3);
-      for (let i = 0; i < n1; i++) slots.push({ lx: -ox, ly: +(n1 > 1 ? spanY * 0.5 - i * pitch : 0).toFixed(4), pw, ph, shape: 'roundrect' });
-      for (let i = 0; i < n2; i++) slots.push({ lx: +ox, ly: +(n2 > 1 ? spanY * 0.5 - i * (spanY / (n2 - 1)) : 0).toFixed(4), pw, ph, shape: 'roundrect' });
-    }
-    return slots;
-  }
-  if (pkg.includes('BGA') || pkg.includes('CSP') || pkg.includes('WLP')) {
-    let cols = Math.ceil(Math.sqrt((pinCount * w) / h));
-    let rows = Math.ceil(pinCount / cols);
-    while (cols * rows < pinCount) cols++;
-    const marginX = Math.min(0.55, Math.max(0.22, w * 0.08));
-    const marginY = Math.min(0.55, Math.max(0.22, h * 0.08));
-    const spanX = w - 2 * marginX, spanY = h - 2 * marginY;
-    const pitchX = cols > 1 ? spanX / (cols - 1) : 0;
-    const pitchY = rows > 1 ? spanY / (rows - 1) : 0;
-    const minPitch = Math.min(cols > 1 ? pitchX : 99, rows > 1 ? pitchY : 99);
-    const dia = +(Math.max(0.18, Math.min(0.28, minPitch - 0.13))).toFixed(3);
-    const slots = [];
-    for (let r = 0; r < rows; r++) {
-      for (let col = 0; col < cols; col++) {
-        if (slots.length >= pinCount) break;
-        const lx = cols > 1 ? -spanX * 0.5 + col * pitchX : 0;
-        const ly = rows > 1 ? spanY * 0.5 - r * pitchY : 0;
-        slots.push({ lx: +lx.toFixed(4), ly: +ly.toFixed(4), pw: dia, ph: dia, shape: 'circle', isInterior: r > 0 && r < rows - 1 && col > 0 && col < cols - 1 });
-      }
-    }
-    return slots;
-  }
-  // 4-sided QFN / WQFN / VQFN / TQFN / MLP / LGA / OLGA
-  const hasGnd = Object.values(c.pins).includes('GND');
-  const useThermal = hasGnd && Math.min(w, h) >= 4.0 && pinCount >= 16;
-  const perimCount = useThermal ? pinCount - 1 : pinCount;
-  const totalPerim = 2 * (w + h);
-  let nHoriz = Math.max(1, Math.round((perimCount * w) / totalPerim));
-  let nVert = Math.max(1, Math.ceil((perimCount - 2 * nHoriz) / 2));
-  while (2 * nHoriz + 2 * nVert < perimCount) { if (w >= h) nHoriz++; else nVert++; }
-  const nTop = nHoriz, nBot = nHoriz, nLeft = nVert, nRight = Math.max(0, perimCount - nTop - nBot - nLeft);
-  const edgeInset = 0.08;
-  const padLen = +(Math.max(0.22, Math.min(0.42, Math.min(w, h) * 0.11))).toFixed(3);
-  const maxPadW = 0.20;
-  const cornerClear = +(edgeInset + padLen + maxPadW * 0.5 + 0.14).toFixed(3);
-  const spanX = Math.max(0.2, w - 2 * cornerClear), spanY = Math.max(0.2, h - 2 * cornerClear);
-  const pitchX = nTop > 1 ? spanX / (nTop - 1) : 0.6;
-  const pitchY = nLeft > 1 ? spanY / (nLeft - 1) : 0.6;
-  const padW = +(Math.max(0.14, Math.min(maxPadW, Math.min(pitchX, pitchY) - 0.11))).toFixed(3);
-  const oy = +(h * 0.5 - edgeInset - padLen * 0.5).toFixed(3);
-  const ox = +(w * 0.5 - edgeInset - padLen * 0.5).toFixed(3);
-  const slots = [];
-  for (let i = 0; i < nTop; i++)   slots.push({ lx: +(nTop > 1 ? -spanX * 0.5 + i * (spanX / (nTop - 1)) : 0).toFixed(4), ly: +oy, pw: padW, ph: padLen, shape: 'roundrect' });
-  for (let i = 0; i < nRight; i++) slots.push({ lx: +ox, ly: +(nRight > 1 ? spanY * 0.5 - i * (spanY / (nRight - 1)) : 0).toFixed(4), pw: padLen, ph: padW, shape: 'roundrect' });
-  for (let i = 0; i < nBot; i++)   slots.push({ lx: +(nBot > 1 ? spanX * 0.5 - i * (spanX / (nBot - 1)) : 0).toFixed(4), ly: -oy, pw: padW, ph: padLen, shape: 'roundrect' });
-  for (let i = 0; i < nLeft; i++)  slots.push({ lx: -ox, ly: +(nLeft > 1 ? -spanY * 0.5 + i * (spanY / (nLeft - 1)) : 0).toFixed(4), pw: padLen, ph: padW, shape: 'roundrect' });
-  if (useThermal) {
-    const epW = +(Math.max(0.6, w - 2 * (edgeInset + padLen + 0.25))).toFixed(3);
-    const epH = +(Math.max(0.6, h - 2 * (edgeInset + padLen + 0.25))).toFixed(3);
-    slots.push({ lx: 0, ly: 0, pw: epW, ph: epH, shape: 'roundrect', thermal: true });
-  }
-  return slots;
 }
 
 const footprints = [];
@@ -636,63 +323,31 @@ for (const c of mainComps) {
   if (c.ref === 'U302') { addExactBgaFootprint(c, EMMC51_MAP,   false, true);  continue; }
   if (c.ref === 'U802' || c.ref === 'U803') { addExactBgaFootprint(c, TAS2562_MAP, false, false); continue; }
 
-  const pinEntries = Object.entries(c.pins);
-  const fullCount = getFullPhysicalPinCount(c, pinEntries.length);
-  const slots = generateSlotsForComp(c, fullCount);
-  const assigned = assignPinsToSlots(c, pinEntries, slots, fullCount > pinEntries.length);
+  // STRICT ZERO-FALLBACK OFFICIAL DATASHEET PINMAP: throws if any IC/active/connector is unverified!
+  const verifiedPads = getVerifiedFootprintPads(c);
   const rot = c.rot || 0;
   const rad = (rot * Math.PI) / 180, cos = Math.cos(rad), sin = Math.sin(rad);
   const layer = c.side === 'top' ? 'F.Cu' : 'B.Cu';
+  const isFineBga = /DSBGA|WLCSP|WLP/i.test(c.pkg || '');
   const fpPads = [];
-  assigned.forEach((p, idx) => {
+  for (const p of verifiedPads) {
     const wx = +(c.x + p.lx * cos - p.ly * sin).toFixed(4);
     const wy = +(c.y + p.lx * sin + p.ly * cos).toFixed(4);
     const isRot90 = Math.abs(rot % 180) === 90;
     const padObj = {
-      id: allPads.length, ref: c.ref, padNum: String(idx + 1), pinName: p.pinName,
-      netName: p.netName, netId: getNetId(p.netName), side: c.side, layer,
+      id: allPads.length, ref: c.ref, padNum: String(p.padNum), pinName: p.pinName || String(p.padNum),
+      netName: p.netName || '', netId: getNetId(p.netName || ''), side: c.side, layer,
       lx: p.lx, ly: p.ly, pw: p.pw, ph: p.ph, shape: p.shape,
       wx, wy, ww: isRot90 ? p.ph : p.pw, wh: isRot90 ? p.pw : p.ph, rot,
-      isBga04: false, isFullBga: false,
+      isBga04: isFineBga && p.shape === 'circle', isFullBga: isFineBga,
     };
     fpPads.push(padObj);
     allPads.push(padObj);
-  });
+  }
   footprints.push({
     ref: c.ref, mpn: c.mpn, pkg: c.pkg, value: c.value,
     side: c.side, x: c.x, y: c.y, w: c.w, h: c.h, rot,
-    pads: fpPads, isInterposer: false, isFullBga: false,
-  });
-}
-
-// Add J901 Interposer Mainboard Landing Pads (48 BGA pads inside the 4 verified bars!)
-{
-  const j901Slots = [];
-  for (const bar of INTERPOSER_BARS) {
-    const n = bar.count, dia = 0.22;
-    if (bar.horiz) {
-      const span = bar.w - 0.70, pitch = n > 1 ? span / (n - 1) : 0;
-      for (let i = 0; i < n; i++) j901Slots.push({ lx: +(bar.cx - span * 0.5 + i * pitch).toFixed(4), ly: +bar.cy.toFixed(4), pw: dia, ph: dia, shape: 'circle' });
-    } else {
-      const span = bar.h - 0.70, pitch = n > 1 ? span / (n - 1) : 0;
-      for (let i = 0; i < n; i++) j901Slots.push({ lx: +bar.cx.toFixed(4), ly: +(bar.cy + span * 0.5 - i * pitch).toFixed(4), pw: dia, ph: dia, shape: 'circle' });
-    }
-  }
-  const assignedJ901 = assignPinsToSlots({ ref: 'J901', x: 0, y: 0, rot: 0 }, Object.entries(j901Orig.pins), j901Slots, false);
-  const fpPads = [];
-  assignedJ901.forEach((p, idx) => {
-    const padObj = {
-      id: allPads.length, ref: 'J901', padNum: String(idx + 1), pinName: p.pinName,
-      netName: p.netName, netId: getNetId(p.netName), side: 'top', layer: 'F.Cu',
-      lx: p.lx, ly: p.ly, pw: p.pw, ph: p.ph, shape: 'circle',
-      wx: p.lx, wy: p.ly, ww: p.pw, wh: p.ph, rot: 0, isBga04: false, isFullBga: false,
-    };
-    fpPads.push(padObj);
-    allPads.push(padObj);
-  });
-  footprints.push({
-    ref: 'J901', mpn: j901Orig.mpn, pkg: 'BGA-48-INTERPOSER-4BAR', value: 'RF-Mezzanine-48P-BGA-Interposer-Landing',
-    side: 'top', x: 0, y: 0, w: 0, h: 0, rot: 0, pads: fpPads, isInterposer: true, isFullBga: false,
+    pads: fpPads, isInterposer: false, isFullBga: isFineBga,
   });
 }
 
@@ -846,8 +501,8 @@ function isViaStrictlyLegal(type, x, y, dia, drill, l1, l2, netId, allowPadOverl
 
 function isLayerSegLegal(layer, x1, y1, x2, y2, width, netId) {
   const hw = width * 0.5;
-  const minX = Math.min(x1, x2) - hw - 0.22, maxX = Math.max(x1, x2) + hw + 0.22;
-  const minY = Math.min(y1, y2) - hw - 0.22, maxY = Math.max(y1, y2) + hw + 0.22;
+  const minX = Math.min(x1, x2) - hw - 0.45, maxX = Math.max(x1, x2) + hw + 0.45;
+  const minY = Math.min(y1, y2) - hw - 0.45, maxY = Math.max(y1, y2) + hw + 0.45;
   for (const [px, py] of [[x1, y1], [x2, y2], [(x1 + x2) * 0.5, (y1 + y2) * 0.5]]) {
     if (!pointInPoly(px, py) || distPointToPolyEdges(px, py) < RULES.copperEdgeClearance + hw + 0.01) return false;
   }
@@ -2122,12 +1777,15 @@ function isGoalPocketOpen(netId, goalS, goalGx, goalGy, startSt, useTempBlock) {
 // s: 0=In2(A1), 1=In3(A1), 2=In5(B), 3=In6(B), 4=In9(A2), 5=In10(A2), 6=In11(Bot)
 function getLayerMultiplier(netClass, s) {
   if (netClass === 'DDR_SE_40' || netClass === 'DDR_DIFF_80') {
-    return (s === 0 || s === 1 || s === 4 || s === 5) ? 0.94 : 1.38;
+    return (s === 1 || s === 4 || s === 5) ? 0.90 : (s === 0 ? 1.18 : 1.35);
   }
   if (netClass === 'EMMC_SE_50' || netClass === 'PCIE_DIFF_85' || netClass === 'USB3_DIFF_90' || netClass === 'MIPI_DIFF_100') {
-    return (s === 2 || s === 3) ? 0.88 : 1.32;
+    return (s === 2 || s === 3) ? 0.86 : (s === 0 ? 1.75 : 1.28);
   }
-  return 1.0;
+  if (netClass === 'POWER_WIDE') {
+    return (s === 5 || s === 6 || s === 3 || s === 2) ? 0.86 : (s === 0 ? 2.40 : 1.05);
+  }
+  return (s === 2 || s === 3 || s === 4 || s === 5) ? 0.92 : (s === 0 ? 1.85 : 1.05);
 }
 
 const DDR_GY_MIN = yToGy(11.0);
@@ -2594,11 +2252,13 @@ if (process.env.USE_STAGE3_CACHE === '1' && fs.existsSync(STAGE3_CACHE_PATH)) {
     }
   }
   loadedStage3Cache = true;
-  console.log(`  Loaded 493/493 Stage-3 routed cache from ${STAGE3_CACHE_PATH} in ${Date.now() - t3}ms!`);
+  console.log(`  Loaded ${netListToRoute.length}/${netListToRoute.length} Stage-3 routed cache from ${STAGE3_CACHE_PATH} in ${Date.now() - t3}ms!`);
 }
 
-const MAX_ITERS = loadedStage3Cache ? 0 : 42;
+const MAX_ITERS = loadedStage3Cache ? 0 : 52;
 let failedNets = [];
+let prevBestConf = Infinity, staleIters = 0;
+let bestPfConf = Infinity, bestPfSnap = null;
 for (let iter = 1; iter <= MAX_ITERS; iter++) {
   const tIt = Date.now();
   const presentFac = Math.min(500, 2.2 * Math.pow(1.22, iter - 1));
@@ -2615,31 +2275,49 @@ for (let iter = 1; iter <= MAX_ITERS; iter++) {
   const conf = updateHistoryAndCountConflicts();
   const conflictNets = netListToRoute.filter((n) => n.routedNodes.length === 0 || netHasConflictHDI(n));
   console.log(`  PF iter ${String(iter).padStart(2)}: rerouted=${rerouted}, segConf=${conf.segConf}, viaConf=${conf.viaConf}, conflictNets=${conflictNets.length}, failed=${failedNets.length} (${((Date.now() - tIt) / 1000).toFixed(1)}s)`);
+  if (failedNets.length === 0 && conf.total < bestPfConf) {
+    bestPfConf = conf.total;
+    bestPfSnap = netListToRoute.map((nb) => ({ nb, nodes: nb.routedNodes.slice(), vias: nb.routedVias.slice(), paths: nb.paths.slice() }));
+  }
   if (conf.total === 0 && conflictNets.length === 0 && failedNets.length === 0) {
     console.log(`  >>> CONVERGED TO ZERO CONFLICTS (100% ROUTED) IN ${iter} ITERATIONS (${((Date.now() - t3) / 1000).toFixed(2)}s)!`);
     break;
   }
-  // Smooth sequential neighbor negotiation (iter >= 10, every 3 iters) — NEVER mass-rips 200 nets at once!
-  if (iter >= 10 && iter % 3 === 0 && conflictNets.length > 0 && conflictNets.length <= 160) {
-    if (conflictNets.length <= 45) {
-      // Targeted single-conflict-net local swap: unblock one corner-trapped net + its <=6 immediate blockers at a time!
-      for (const cn of conflictNets) {
-        const localNbs = [...collectBlockingNeighbors([cn])]
-          .map((oid) => netById.get(oid))
-          .filter((nb) => nb && nb.netId !== cn.netId && nb.terminals.length <= 12)
-          .slice(0, 6);
-        ripUpNetPF(cn);
-        for (const nb of localNbs) ripUpNetPF(nb);
-        routeSingleNetHDI(cn, presentFac * 1.4, false);
-        for (const nb of localNbs) routeSingleNetHDI(nb, presentFac * 1.4, false);
-      }
-    } else {
-      const neighbors = collectBlockingNeighbors(conflictNets);
-      for (const oid of neighbors) {
-        const nb = netById.get(oid);
-        if (nb) { ripUpNetPF(nb); routeSingleNetHDI(nb, presentFac * 1.4, false); }
-      }
+  if (conf.total < prevBestConf) { prevBestConf = conf.total; staleIters = 0; }
+  else staleIters++;
+  if (iter >= 28 && staleIters >= 7 && conflictNets.length <= 65) {
+    console.log(`  PF plateau at iter ${iter} (conf=${conf.total}, best=${bestPfConf}, conflictNets=${conflictNets.length}) -> advancing to Guided R&R + Stage 3.2!`);
+    break;
+  }
+  // Gentle local deadlock breaker (iter 12..MAX_ITERS-5, every 3 iters): top 16 conflicted nets x <=3 blockers ONLY!
+  if (iter >= 12 && iter <= MAX_ITERS - 5 && iter % 3 === 0 && conflictNets.length > 0 && conflictNets.length <= 120) {
+    const swapTargets = conflictNets
+      .slice()
+      .sort((a, b) => a.terminals.length - b.terminals.length)
+      .slice(0, 16);
+    for (const cn of swapTargets) {
+      const localNbs = [...collectBlockingNeighbors([cn])]
+        .map((oid) => netById.get(oid))
+        .filter((nb) => nb && nb.netId !== cn.netId && nb.terminals.length <= 8)
+        .slice(0, 3);
+      ripUpNetPF(cn);
+      for (const nb of localNbs) ripUpNetPF(nb);
+      routeSingleNetHDI(cn, presentFac * 1.35, false);
+      for (const nb of localNbs) routeSingleNetHDI(nb, presentFac * 1.35, false);
     }
+  }
+}
+// Restore lowest-conflict PF state if final iter had higher conflicts
+if (!loadedStage3Cache && bestPfSnap) {
+  const curConf = netListToRoute.filter((n) => n.routedNodes.length === 0 || netHasConflictHDI(n)).length;
+  const bestConfNets = bestPfSnap.filter((s) => s.nodes.length === 0).length;
+  if (bestConfNets === 0 && bestPfConf < updateHistoryAndCountConflicts().total) {
+    for (const s of bestPfSnap) ripUpNetPF(s.nb);
+    for (const s of bestPfSnap) {
+      s.nb.routedNodes = s.nodes; s.nb.routedVias = s.vias; s.nb.paths = s.paths;
+      commitNetPF(s.nb);
+    }
+    console.log(`  Restored best PF state (conf=${bestPfConf}, was conflictNets=${curConf}) before strictZeroConflictFinish.`);
   }
 }
 
@@ -2824,9 +2502,9 @@ function tryDisplaceAndRoute(unNet, victimList, allowDepth2 = true) {
   return false;
 }
 
-function runGuidedRR(maxRounds = 5) {
+function runGuidedRR(maxRounds = 5, targetList = netListToRoute) {
   for (let round = 1; round <= maxRounds; round++) {
-    const stillUn = netListToRoute.filter((n) => n.routedNodes.length === 0);
+    const stillUn = targetList.filter((n) => n.routedNodes.length === 0);
     if (stillUn.length === 0) break;
     let recovered = 0;
     for (const unNet of stillUn) {
@@ -2856,17 +2534,19 @@ function runGuidedRR(maxRounds = 5) {
       }
       if (done) recovered++;
     }
-    console.log(`  Guided R&R round ${round}: recovered=${recovered}, remainingUnrouted=${netListToRoute.filter((n) => n.routedNodes.length === 0).length}`);
+    if (targetList === netListToRoute) {
+      console.log(`  Guided R&R round ${round}: recovered=${recovered}, remainingUnrouted=${netListToRoute.filter((n) => n.routedNodes.length === 0).length}`);
+    }
     if (recovered === 0) break;
   }
 }
 
 runGuidedRR(5);
 
-// Targeted Sub-PathFinder Polish Loop
-for (let polish = 1; polish <= 3; polish++) {
+// Targeted Sub-PathFinder Polish Loop (only if >24 unrouted nets remain; <=24 handled faster & cleaner per-net in Stage 3.2!)
+for (let polish = 1; polish <= 1; polish++) {
   const unNets = netListToRoute.filter((n) => n.routedNodes.length === 0);
-  if (unNets.length === 0) break;
+  if (unNets.length === 0 || unNets.length <= 24) break;
   const activeMap = new Map();
   for (const un of unNets) {
     activeMap.set(un.netId, un);
@@ -2878,7 +2558,7 @@ for (let polish = 1; polish <= 3; polish++) {
   const hop1 = [];
   for (const un of unNets) {
     for (const pfProbe of [35.0, 90.0]) {
-      for (const nb of findExactPathBlockers(un, pfProbe + polish * 20, 10).slice(0, 8)) {
+      for (const nb of findExactPathBlockers(un, pfProbe + polish * 20, 10).slice(0, 4)) {
         if (!activeMap.has(nb.netId)) { activeMap.set(nb.netId, nb); hop1.push(nb); }
       }
     }
@@ -2889,19 +2569,7 @@ for (let polish = 1; polish <= 3; polish++) {
       }
     }
   }
-  if (polish >= 2 && activeMap.size < 85) {
-    for (const h1 of hop1) {
-      for (const oid of collectBlockingNeighbors([h1])) {
-        const nb = netById.get(oid);
-        if (nb && nb.terminals.length <= 8 && !activeMap.has(nb.netId)) {
-          activeMap.set(nb.netId, nb);
-          if (activeMap.size >= 100) break;
-        }
-      }
-      if (activeMap.size >= 100) break;
-    }
-  }
-  const activeNets = [...activeMap.values()];
+  const activeNets = [...activeMap.values()].slice(0, 72);
   const beforeUnCount = unNets.length;
   const fullSnaps = netListToRoute.map((nb) => ({ nb, nodes: nb.routedNodes.slice(), vias: nb.routedVias.slice(), paths: nb.paths.slice() }));
 
@@ -2912,8 +2580,8 @@ for (let polish = 1; polish <= 3; polish++) {
   for (const nb of activeNets) ripUpNetPF(nb);
   stampFrozenMultiPinTrees(9);
 
-  for (let subIt = 1; subIt <= 14; subIt++) {
-    const pf = Math.min(600, 12.0 * Math.pow(1.30, subIt - 1));
+  for (let subIt = 1; subIt <= 10; subIt++) {
+    const pf = Math.min(600, 12.0 * Math.pow(1.35, subIt - 1));
     for (const nb of activeNets) {
       if (subIt === 1 || nb.routedNodes.length === 0 || netHasConflictHDI(nb)) {
         ripUpNetPF(nb);
@@ -2935,98 +2603,100 @@ for (let polish = 1; polish <= 3; polish++) {
   }
 }
 
-// Stage 3.2: Final Last-Net Precision Solver (closes the final 1-2 nets to 493/493 = 100.00%!)
-{
+// Stage 3.2: Final Last-Net Precision Solver (closes remaining nets up to 24 to 100.00%!)
+for (let pass32 = 1; pass32 <= 3; pass32++) {
   const remUn = netListToRoute.filter((n) => n.routedNodes.length === 0);
-  if (remUn.length > 0 && remUn.length <= 3) {
-    console.log(`  Stage 3.2 Final Last-Net Precision Solver on ${remUn.map((n) => n.netName).join(', ')}...`);
-    for (const unNet of remUn) {
-      if (unNet.routedNodes.length > 0) continue;
-      if (routeSingleNetHDI(unNet, 115.0, true)) continue;
-      const termBlockers = [...collectBlockingNeighbors([unNet])]
-        .map((oid) => netById.get(oid))
-        .filter((nb) => nb && nb.routedNodes.length > 0 && nb.terminals.length <= 10)
-        .sort((a, b) => a.terminals.length - b.terminals.length);
-      if (diffLeaderOf.has(unNet.netId)) {
-        const pNet = netById.get(diffLeaderOf.get(unNet.netId));
-        if (pNet && pNet.routedNodes.length > 0 && !termBlockers.includes(pNet)) termBlockers.unshift(pNet);
+  if (remUn.length === 0 || remUn.length > 24) break;
+  console.log(`  Stage 3.2 (pass ${pass32}) Final Precision Solver on ${remUn.length} nets: ${remUn.map((n) => n.netName).join(', ')}...`);
+  const arenaCap = pass32 === 1 ? 30 : pass32 === 2 ? 46 : 64;
+  for (const unNet of remUn) {
+    if (unNet.routedNodes.length > 0) continue;
+    const tUn = Date.now();
+    if (routeSingleNetHDI(unNet, 115.0, true)) continue;
+    const maxTermLim = pass32 === 1 ? 10 : 120;
+    const termBlockers = [...collectBlockingNeighbors([unNet])]
+      .map((oid) => netById.get(oid))
+      .filter((nb) => nb && nb.routedNodes.length > 0 && nb.terminals.length <= maxTermLim)
+      .sort((a, b) => a.terminals.length - b.terminals.length);
+    if (diffLeaderOf.has(unNet.netId)) {
+      const pNet = netById.get(diffLeaderOf.get(unNet.netId));
+      if (pNet && pNet.routedNodes.length > 0 && !termBlockers.includes(pNet)) termBlockers.unshift(pNet);
+    }
+    let solved = false;
+    const allExactSet = new Map();
+    // 1. Multi-Corridor (pf, hW) Exact Blocker Sweep (4 fast diverse corridors)
+    for (const [pf, hW] of [[2.5, 1.15], [16.0, 1.40], [75.0, 1.25], [220.0, 1.85]]) {
+      const eb = findExactPathBlockers(unNet, pf, pass32 === 1 ? 10 : 40, hW);
+      for (const b of eb) allExactSet.set(b.netId, b);
+      if (eb.length > 0 && eb.length <= 10 && tryDisplaceAndRoute(unNet, eb, true)) {
+        solved = true; break;
       }
-      let solved = false;
-      const allExactSet = new Map();
-      // 1. Multi-Corridor (pf, hW) Exact Blocker Sweep
-      for (const [pf, hW] of [[1.2, 1.05], [3.0, 1.15], [7.0, 1.30], [18.0, 1.45], [40.0, 1.60], [85.0, 1.20], [160.0, 1.50], [280.0, 2.0]]) {
-        const eb = findExactPathBlockers(unNet, pf, 10, hW);
-        for (const b of eb) allExactSet.set(b.netId, b);
-        if (eb.length > 0 && eb.length <= 10 && tryDisplaceAndRoute(unNet, eb, true)) {
-          solved = true; break;
+    }
+    const exactList = [...allExactSet.values()];
+    // 2. Mixed Terminal-Corner + Corridor Blocker Singles & Pairs
+    if (!solved) {
+      for (let i = 0; i < Math.min(5, termBlockers.length) && !solved; i++) {
+        if (tryDisplaceAndRoute(unNet, [termBlockers[i]], true)) { solved = true; break; }
+        for (let j = i + 1; j < Math.min(5, termBlockers.length) && !solved; j++) {
+          if (tryDisplaceAndRoute(unNet, [termBlockers[i], termBlockers[j]], true)) solved = true;
+        }
+        for (let j = 0; j < Math.min(4, exactList.length) && !solved; j++) {
+          if (termBlockers[i].netId !== exactList[j].netId &&
+              tryDisplaceAndRoute(unNet, [termBlockers[i], exactList[j]], true)) {
+            solved = true;
+          }
         }
       }
-      const exactList = [...allExactSet.values()];
-      // 2. Mixed Terminal-Corner + Corridor Blocker Singles, Pairs & Triples
-      if (!solved) {
-        for (let i = 0; i < Math.min(8, termBlockers.length) && !solved; i++) {
-          if (tryDisplaceAndRoute(unNet, [termBlockers[i]], true)) { solved = true; break; }
-          for (let j = i + 1; j < Math.min(8, termBlockers.length) && !solved; j++) {
-            if (tryDisplaceAndRoute(unNet, [termBlockers[i], termBlockers[j]], true)) solved = true;
-          }
-          for (let j = 0; j < Math.min(6, exactList.length) && !solved; j++) {
-            if (termBlockers[i].netId !== exactList[j].netId &&
-                tryDisplaceAndRoute(unNet, [termBlockers[i], exactList[j]], true)) {
-              solved = true;
-            }
+    }
+    // 3. Sealed Micro-Arena Negotiation (freezes ALL non-arena nets as hard walls so 0 external conflicts possible!)
+    if (!solved) {
+      const arenaMap = new Map([[unNet.netId, unNet]]);
+      for (const b of termBlockers) arenaMap.set(b.netId, b);
+      for (const b of exactList.slice(0, 14)) arenaMap.set(b.netId, b);
+      for (const b of [...termBlockers, ...exactList.slice(0, 6)]) {
+        for (const oid of collectBlockingNeighbors([b])) {
+          const nb = netById.get(oid);
+          if (nb && nb.terminals.length <= 8 && !arenaMap.has(nb.netId)) {
+            arenaMap.set(nb.netId, nb);
+            if (arenaMap.size >= arenaCap) break;
           }
         }
+        if (arenaMap.size >= arenaCap) break;
       }
-      // 3. Sealed Micro-Arena Negotiation (freezes ALL ~455 non-arena nets as hard walls so 0 external conflicts possible!)
-      if (!solved) {
-        const arenaMap = new Map([[unNet.netId, unNet]]);
-        for (const b of termBlockers) arenaMap.set(b.netId, b);
-        for (const b of exactList.slice(0, 14)) arenaMap.set(b.netId, b);
-        for (const b of [...termBlockers, ...exactList.slice(0, 6)]) {
-          for (const oid of collectBlockingNeighbors([b])) {
-            const nb = netById.get(oid);
-            if (nb && nb.terminals.length <= 6 && !arenaMap.has(nb.netId)) {
-              arenaMap.set(nb.netId, nb);
-              if (arenaMap.size >= 40) break;
-            }
-          }
-          if (arenaMap.size >= 40) break;
-        }
-        const arenaNets = [...arenaMap.values()];
-        const beforeCnt = netListToRoute.filter((n) => n.routedNodes.length === 0).length;
-        const fullSnaps = netListToRoute.map((nb) => ({ nb, nodes: nb.routedNodes.slice(), vias: nb.routedVias.slice(), paths: nb.paths.slice() }));
+      const arenaNets = [...arenaMap.values()];
+      const beforeCnt = netListToRoute.filter((n) => n.routedNodes.length === 0).length;
+      const fullSnaps = netListToRoute.map((nb) => ({ nb, nodes: nb.routedNodes.slice(), vias: nb.routedVias.slice(), paths: nb.paths.slice() }));
 
-        for (let s = 0; s < NUM_SIG; s++) for (let i = 0; i < segHist[s].length; i++) segHist[s][i] = Math.max(1.0, segHist[s][i] * 0.25);
-        for (let vz = 0; vz < 3; vz++) for (let i = 0; i < vzHist[vz].length; i++) vzHist[vz][i] = Math.max(1.0, vzHist[vz][i] * 0.25);
+      for (let s = 0; s < NUM_SIG; s++) for (let i = 0; i < segHist[s].length; i++) segHist[s][i] = Math.max(1.0, segHist[s][i] * 0.25);
+      for (let vz = 0; vz < 3; vz++) for (let i = 0; i < vzHist[vz].length; i++) vzHist[vz][i] = Math.max(1.0, vzHist[vz][i] * 0.25);
 
-        for (const nb of arenaNets) ripUpNetPF(nb);
-        // Freeze every remaining committed net on the board (>=1 terminal) as an impenetrable wall!
-        stampFrozenMultiPinTrees(1);
-        for (let mIt = 1; mIt <= 18; mIt++) {
-          const pf = Math.min(600, 8.0 * Math.pow(1.28, mIt - 1));
-          for (const nb of arenaNets) {
-            if (mIt === 1 || nb.routedNodes.length === 0 || netHasConflictHDI(nb)) {
-              ripUpNetPF(nb);
-              routeSingleNetHDI(nb, pf, false, 0, true);
-            }
-          }
-          const c = updateHistoryAndCountConflicts();
-          if (c.total === 0 && arenaNets.every((n) => n.routedNodes.length > 0 && !netHasConflictHDI(n))) break;
-        }
-        strictZeroConflictFinish(netListToRoute, new Set([unNet.netId]));
-        runGuidedRR(3);
-        const afterCnt = netListToRoute.filter((n) => n.routedNodes.length === 0).length;
-        console.log(`  Stage 3.2 Micro-Arena (${unNet.netName}, arena=${arenaNets.length}): unrouted ${beforeCnt} -> ${afterCnt}`);
-        if (afterCnt >= beforeCnt) {
-          for (const s of fullSnaps) ripUpNetPF(s.nb);
-          for (const s of fullSnaps) {
-            s.nb.routedNodes = s.nodes; s.nb.routedVias = s.vias; s.nb.paths = s.paths;
-            commitNetPF(s.nb);
+      for (const nb of arenaNets) ripUpNetPF(nb);
+      // Freeze every remaining committed net on the board (>=1 terminal) as an impenetrable wall!
+      stampFrozenMultiPinTrees(1);
+      for (let mIt = 1; mIt <= 14; mIt++) {
+        const pf = Math.min(600, 8.0 * Math.pow(1.32, mIt - 1));
+        for (const nb of arenaNets) {
+          if (mIt === 1 || nb.routedNodes.length === 0 || netHasConflictHDI(nb)) {
+            ripUpNetPF(nb);
+            routeSingleNetHDI(nb, pf, false, 0, true);
           }
         }
-      } else {
-        console.log(`  Stage 3.2 Solved ${unNet.netName} via Multi-Corridor Displacement!`);
+        const c = updateHistoryAndCountConflicts();
+        if (c.total === 0 && arenaNets.every((n) => n.routedNodes.length > 0 && !netHasConflictHDI(n))) break;
       }
+      strictZeroConflictFinish(arenaNets, new Set([unNet.netId]));
+      runGuidedRR(2, arenaNets);
+      const afterCnt = netListToRoute.filter((n) => n.routedNodes.length === 0).length;
+      console.log(`  Stage 3.2 Micro-Arena (${unNet.netName}, arena=${arenaNets.length}): unrouted ${beforeCnt} -> ${afterCnt} (${((Date.now() - tUn) / 1000).toFixed(1)}s)`);
+      if (afterCnt >= beforeCnt) {
+        for (const s of fullSnaps) ripUpNetPF(s.nb);
+        for (const s of fullSnaps) {
+          s.nb.routedNodes = s.nodes; s.nb.routedVias = s.vias; s.nb.paths = s.paths;
+          commitNetPF(s.nb);
+        }
+      }
+    } else {
+      console.log(`  Stage 3.2 Solved ${unNet.netName} via Multi-Corridor Displacement (${((Date.now() - tUn) / 1000).toFixed(1)}s)!`);
     }
   }
 }
@@ -3040,12 +2710,17 @@ for (const netObj of netListToRoute) {
   }
 }
 console.log(`Stage 3 Complete: routed=${netListToRoute.length - finalUnrouted}/${netListToRoute.length} (unrouted=${finalUnrouted}) in ${((Date.now() - t3) / 1000).toFixed(2)}s`);
-if (!loadedStage3Cache && finalUnrouted === 0 && (process.env.WRITE_STAGE3_CACHE === '1' || process.env.ONLY_STEP_35A === '1')) {
+if (!loadedStage3Cache && finalUnrouted === 0 && (process.env.WRITE_STAGE3_CACHE === '1' || process.env.ONLY_STEP_35A === '1' || process.env.ONLY_STAGE3 === '1')) {
   const dump = {};
   for (const netObj of netListToRoute) {
     dump[netObj.netName] = { nodes: netObj.routedNodes, vias: netObj.routedVias, paths: netObj.paths };
   }
   fs.writeFileSync(STAGE3_CACHE_PATH, JSON.stringify(dump));
+  console.log(`  Saved ${netListToRoute.length}/${netListToRoute.length} Stage-3 cache -> ${STAGE3_CACHE_PATH}`);
+}
+if (process.env.ONLY_STAGE3 === '1') {
+  console.log(`ONLY_STAGE3=1: exiting cleanly (finalUnrouted=${finalUnrouted}).`);
+  process.exit(finalUnrouted === 0 ? 0 : 1);
 }
 
 // ============================================================================
@@ -3314,7 +2989,9 @@ function tryShortenOutlierNet(o, allowPushShove = true) {
 }
 
 const STAGE35A_CACHE_PATH = path.join(HW_DIR, '.stage35a_shortened_cache.json');
-if (process.env.USE_STAGE3_CACHE === '1' && fs.existsSync(STAGE35A_CACHE_PATH)) {
+if (process.env.USE_P12_CACHE === '1' || process.env.USE_STAGE35_CACHE === '1') {
+  // Skipped: downstream Phase 1+2 / Stage 3.5 final cache already supersedes Stage 3.5A!
+} else if (process.env.USE_STAGE3_CACHE === '1' && fs.existsSync(STAGE35A_CACHE_PATH)) {
   const cached35a = JSON.parse(fs.readFileSync(STAGE35A_CACHE_PATH, 'utf8'));
   shortenedCount = cached35a.__shortenedCount || 204;
   for (const netObj of netListToRoute) {
@@ -3392,12 +3069,23 @@ function routeSubsetLocalPF(subsetNets, maxIters = 18, maxPops = 85000) {
     vzHist[vz][k] += amt;
   };
 
+  const isLongNet = (v) => {
+    if (v.terminals.length < 2) return false;
+    const t0 = v.terminals[0], t1 = v.terminals[1];
+    return Math.abs(t0.gx - t1.gx) + Math.abs(t0.gy - t1.gy) > 90;
+  };
+  const routeLocalVictim = (v, pf, iter) => {
+    const hW = isLongNet(v) ? (iter >= 6 ? 1.45 : 1.32) : (iter >= 5 ? 1.16 : 0);
+    if (routeSingleNetHDI(v, pf, false, hW, true, maxPops)) return true;
+    return routeSingleNetHDI(v, pf, false, Math.max(hW, 1.55), true, Math.max(maxPops * 2, 200000));
+  };
+
   let failed = false;
   let failNet = null;
   let failNetName = '';
   const initOrder = subsetNets.slice().sort((a, b) => b.terminals.length - a.terminals.length);
   for (const v of initOrder) {
-    if (!routeSingleNetHDI(v, 1.8, false, 0, true, maxPops)) { failed = true; failNet = v; failNetName = `i0:${v.netName}`; break; }
+    if (!routeLocalVictim(v, 1.8, 0)) { failed = true; failNet = v; failNetName = `i0:${v.netName}`; break; }
   }
 
   // Smooth Stage-3 proven PF schedule
@@ -3420,11 +3108,10 @@ function routeSubsetLocalPF(subsetNets, maxIters = 18, maxPops = 85000) {
     }
 
     const pf = Math.min(180, 2.0 * Math.pow(1.24, iter - 1));
-    const hW = iter >= 4 ? 1.18 : 0;
     confNets.sort((a, b) => b.routedNodes.length - a.routedNodes.length);
     for (const v of confNets) {
       ripUpNetPF(v);
-      if (!routeSingleNetHDI(v, pf, false, hW, true, maxPops)) { failed = true; failNet = v; failNetName = `i${iter}:${v.netName}`; break; }
+      if (!routeLocalVictim(v, pf, iter)) { failed = true; failNet = v; failNetName = `i${iter}:${v.netName}`; break; }
     }
   }
 
@@ -3496,7 +3183,7 @@ function tryShortenSingleNet(o, maxAllowedEff) {
 
 // Stage 3.5A-Plus: Local-PF + 1-Hop External Expansion Outlier Shortener!
 // Slashes stubborn group-max outliers (CH0A_DQ6, CH0A_CK_P, CH1C_DQ2, CH1C_CK_N, CH1C_DQ14) BEFORE Global Phase 1!
-{
+if (process.env.USE_P12_CACHE !== '1' && process.env.USE_STAGE35_CACHE !== '1') {
   const busGrps35a = matchGroups.filter((g) => g.type.startsWith('LPDDR5X') || g.type === 'eMMC-5.1');
   const busGrpOf35a = new Map();
   for (const g of busGrps35a) {
@@ -4560,13 +4247,42 @@ if (process.env.ONLY_STEP_35A === '1') {
   process.exit(0);
 }
 
+const STAGE35_P12_CACHE_PATH = path.join(HW_DIR, '.stage35_p12_cache.json');
+const STAGE35_FINAL_CACHE_PATH = path.join(HW_DIR, '.stage35_final_cache.json');
+let loadedP12Cache = false, loadedFinal35Cache = false;
+function loadTuningCache(filePath) {
+  const cached = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  for (const netObj of netListToRoute) {
+    const entry = cached[netObj.netName];
+    if (entry) restoreNetTuningState(netObj, entry);
+  }
+}
+function saveTuningCache(filePath) {
+  const dump = {};
+  for (const netObj of netListToRoute) {
+    if (netObj.routedNodes.length > 0) dump[netObj.netName] = snapNetTuningState(netObj);
+  }
+  fs.writeFileSync(filePath, JSON.stringify(dump));
+}
+if (process.env.USE_STAGE35_CACHE === '1' && fs.existsSync(STAGE35_FINAL_CACHE_PATH)) {
+  loadTuningCache(STAGE35_FINAL_CACHE_PATH);
+  loadedFinal35Cache = true;
+  loadedP12Cache = true;
+  console.log(`  Loaded Stage-3.5 final tuned cache from ${STAGE35_FINAL_CACHE_PATH} in ${Date.now() - t35}ms!`);
+} else if (process.env.USE_P12_CACHE === '1' && fs.existsSync(STAGE35_P12_CACHE_PATH)) {
+  loadTuningCache(STAGE35_P12_CACHE_PATH);
+  loadedP12Cache = true;
+  console.log(`  Loaded Stage-3.5 Phase 1+2 cache from ${STAGE35_P12_CACHE_PATH} in ${Date.now() - t35}ms!`);
+}
+
+const busGroups = matchGroups.filter((g) => g.type.startsWith('LPDDR5X') || g.type === 'eMMC-5.1');
 // ============================================================================
 // GLOBAL PHASE 1: Macro Open-Bay Trombone Splicing & Active Detours across ALL
 // 13 Bus Groups (sorted globally by SHORTEST physical length first so 6-13mm
 // corridor-trapped nets get first pick of In3.Cu escape vias!) BEFORE ANY
 // serpentine meander teeth are placed in the U301<->U101 corridor!
 // ============================================================================
-const busGroups = matchGroups.filter((g) => g.type.startsWith('LPDDR5X') || g.type === 'eMMC-5.1');
+if (!loadedP12Cache) {
 const globalShortTasks = [];
 for (const grp of busGroups) {
   const routedObjs = grp.nets.map((n) => netObjByName.get(n)).filter((o) => o && o.routedNodes.length > 0);
@@ -4689,6 +4405,12 @@ for (const grp of matchGroups) {
   }
   grp._bumps = grpBumps;
 }
+} // end if (!loadedP12Cache)
+if (!loadedP12Cache && (process.env.WRITE_P12_CACHE === '1' || process.env.ONLY_P12 === '1')) {
+  saveTuningCache(STAGE35_P12_CACHE_PATH);
+  console.log(`  Saved Stage-3.5 Phase 1+2 cache -> ${STAGE35_P12_CACHE_PATH}`);
+  if (process.env.ONLY_P12 === '1') process.exit(0);
+}
 
 // ============================================================================
 // GLOBAL PHASE 3 (STAGE 3.5E): WHOLE-GROUP RIP-UP, EXACT BLOCKER-ESCAPE DETOUR,
@@ -4775,21 +4497,35 @@ function polishNetToTarget(o, targetEffLen, allowOv = 0.22, allowDetour = false)
 
 function validateAndCommitSwap(o, ownGrp, curEff, preBus, preDiff, isDiffTarget) {
   let oldDefSum = 0, newDefSum = 0;
+  const ownPre = ownGrp ? preBus.get(ownGrp) : null;
+  const closingHugeFail = !isDiffTarget && ownPre && ownPre.skew > 5.0;
   for (const [g, pre] of preBus.entries()) {
     const post = getGroupStats(g);
     if (post.objs.length !== pre.objs.length) return { ok: false, reason: `unrouted in ${g.name}` };
-    if (post.max > pre.max + 0.35) return { ok: false, reason: `max grew ${g.name} ${pre.max.toFixed(2)}->${post.max.toFixed(2)}` };
+    const ownSpecLim = g.type === 'LPDDR5X-CA' ? 3.50 : g.type === 'eMMC-5.1' ? 0.65 : 2.30;
+    const gWasFailing = pre.skew > ownSpecLim;
+    const allowMaxGrow = (g === ownGrp && gWasFailing && post.skew < Math.min(pre.skew - 0.8, ownSpecLim + 0.15))
+      ? 0.90
+      : (gWasFailing ? 1.50 : 0.35);
+    if (post.max > pre.max + allowMaxGrow) return { ok: false, reason: `max grew ${g.name} ${pre.max.toFixed(2)}->${post.max.toFixed(2)}` };
     if (pre.skew <= 0.56 && post.skew > 0.66) return { ok: false, reason: `closed regressed ${g.name} ${post.skew.toFixed(2)}` };
+    const effSpecLim = (closingHugeFail && g.type === 'LPDDR5X-CA') ? 4.55 : ownSpecLim;
+    if (!gWasFailing && post.skew > effSpecLim) return { ok: false, reason: `spec regressed ${g.name} ${post.skew.toFixed(2)}` };
     oldDefSum += pre.deficitSum;
     newDefSum += post.deficitSum;
   }
+  const ownDiffGrp = !isDiffTarget ? diffGroupOfNet.get(o.netId) : null;
+  const maxRawDiff = closingHugeFail ? 1.00 : 0.32;
   for (const [g, pre] of preDiff.entries()) {
     const post = getGroupStats(g);
-    if (pre.skew <= 0.20 && post.skew > 0.32) return { ok: false, reason: `diff regressed ${g.name} ${post.skew.toFixed(2)}` };
+    if (g === ownDiffGrp && ownGrp && preBus.has(ownGrp) && preBus.get(ownGrp).skew > groupSpecLimitMm(ownGrp)) continue;
+    if (pre.skew <= 0.20 && post.skew > maxRawDiff) return { ok: false, reason: `diff regressed ${g.name} ${post.skew.toFixed(2)}` };
     if (isDiffTarget && g === ownGrp && post.skew > pre.skew - 0.15) return { ok: false, reason: `diff no gain` };
   }
   if (!isDiffTarget) {
-    if (newDefSum >= oldDefSum - 0.35) {
+    const allSpecPass = [...preBus.keys()].every((g) => getGroupStats(g).skew <= groupSpecLimitMm(g));
+    const ownImprovedSkew = ownGrp && preBus.has(ownGrp) && getGroupStats(ownGrp).skew < preBus.get(ownGrp).skew - 1.5;
+    if (!allSpecPass && !ownImprovedSkew && newDefSum >= oldDefSum - 0.35) {
       return { ok: false, reason: `defSum ${oldDefSum.toFixed(2)}->${newDefSum.toFixed(2)} (gainO=${(measureEffLengthMm(o) - curEff).toFixed(2)})` };
     }
   }
@@ -4801,7 +4537,8 @@ function executeVictimSwap(o, victims, targetEffLen, ownGrp, isDiffTarget = fals
   const extra = getExtraBaseMm(o, false);
   const rawTarget = targetEffLen - extra;
   const curRaw = curEff - extra;
-  const allowOv = isDiffTarget ? 0.14 : 0.22;
+  const ownIsFailing = !isDiffTarget && ownGrp && getGroupStats(ownGrp).skew > (ownGrp.type === 'LPDDR5X-CA' ? 3.50 : ownGrp.type === 'eMMC-5.1' ? 0.65 : 2.30);
+  const allowOv = isDiffTarget ? 0.14 : (ownIsFailing ? 0.80 : 0.22);
 
   const preBus = new Map();
   const preDiff = new Map();
@@ -4830,35 +4567,37 @@ function executeVictimSwap(o, victims, targetEffLen, ownGrp, isDiffTarget = fals
   let oOk = false;
   let usedPreferredWp = false;
   if (preferredWp) {
-    const dw = tryTwoLegWaypointRoute(o, preferredWp, rawTarget, {
-      minLenMm: Math.max(0, curRaw - 1.5),
-      allowOvershootMm: allowOv,
-      maxPops: 40000,
-      protectNets: allVictims,
-    });
-    if (dw) {
-      o.routedNodes = dw.nodes; o.routedVias = dw.vias; o.paths = dw.paths; o.polylines = dw.polylines;
-      commitNetPF(o);
-      oOk = !netHasConflictHDI(o);
-      if (oOk) usedPreferredWp = true;
-      else ripUpNetPF(o);
+    for (const pNets of [allVictims, null]) {
+      const dw = tryTwoLegWaypointRoute(o, preferredWp, rawTarget, {
+        minLenMm: Math.max(0, curRaw - 1.5),
+        allowOvershootMm: allowOv + 0.10,
+        maxPops: 60000,
+        protectNets: pNets,
+      });
+      if (dw) {
+        o.routedNodes = dw.nodes; o.routedVias = dw.vias; o.paths = dw.paths; o.polylines = dw.polylines;
+        commitNetPF(o);
+        oOk = !netHasConflictHDI(o);
+        if (oOk) { usedPreferredWp = true; break; }
+        ripUpNetPF(o);
+      }
     }
   }
-  if (!oOk) oOk = routeSkeletonToTarget(o, targetEffLen, allowOv, 12, allVictims);
+  if (!oOk) oOk = routeSkeletonToTarget(o, targetEffLen, allowOv, 16, allVictims);
   const skelOEff = oOk ? measureEffLengthMm(o) : 0;
   const minSkelAccept = usedPreferredWp ? curEff - 1.5 : curEff + 0.15;
-  if (!oOk || skelOEff <= minSkelAccept || skelOEff > targetEffLen + 0.32) {
+  if (!oOk || skelOEff <= minSkelAccept || skelOEff > targetEffLen + (ownIsFailing ? 0.90 : 0.35)) {
     lastFail = `o skel fail (ok=${oOk} len=${skelOEff.toFixed(2)})`;
   } else {
     // Phase 2: Route ALL victims simultaneously around o via Smooth Local-PF + 1-Hop External Expansion!
-    let pfRes = routeSubsetLocalPF(allVictims, 14, 60000);
-    if (!pfRes.ok && pfRes.stuckNets.length >= 1 && pfRes.stuckNets.length <= 2) {
+    let pfRes = routeSubsetLocalPF(allVictims, 20, 80000);
+    if (!pfRes.ok && pfRes.stuckNets.length >= 1 && pfRes.stuckNets.length <= 3) {
       const extMap = new Map();
       const alreadyRouted = !pfRes.failed ? allVictims.filter((v) => v.routedNodes.length > 0 && !netHasConflictHDI(v)) : [];
       for (const u of pfRes.stuckNets) {
         ripUpNetPF(u);
         stampFrozenMultiPinTrees(4, pfRes.failed ? [o] : [o, ...alreadyRouted]);
-        if (routeSingleNetHDI(u, 3.5, false, 1.15, true, 60000)) {
+        if (routeSingleNetHDI(u, 3.5, false, 1.15, true, 70000)) {
           for (const id of collectExactPathConflicts(u)) {
             if (id === o.netId || victimIdSet.has(id) || extMap.has(id)) continue;
             const eb = netById.get(id);
@@ -4867,7 +4606,7 @@ function executeVictimSwap(o, victims, targetEffLen, ownGrp, isDiffTarget = fals
           ripUpNetPF(u);
         }
       }
-      const extList = [...extMap.values()].slice(0, 4);
+      const extList = [...extMap.values()].slice(0, 6);
       if (extList.length > 0) {
         for (const eb of extList) {
           registerSnap(eb);
@@ -4877,11 +4616,11 @@ function executeVictimSwap(o, victims, targetEffLen, ownGrp, isDiffTarget = fals
         if (!pfRes.failed) {
           for (const eb of extList) ripUpNetPF(eb);
           for (const u of pfRes.stuckNets) ripUpNetPF(u);
-          pfRes = routeSubsetLocalPF([...pfRes.stuckNets, ...extList], 14, 60000);
+          pfRes = routeSubsetLocalPF([...pfRes.stuckNets, ...extList], 18, 80000);
         }
-        if (!pfRes.ok && allVictims.length <= 16) {
+        if (!pfRes.ok && allVictims.length <= 22) {
           for (const nb of allVictims) ripUpNetPF(nb);
-          pfRes = routeSubsetLocalPF(allVictims, 15, 60000);
+          pfRes = routeSubsetLocalPF(allVictims, 22, 85000);
         }
       }
     }
@@ -4951,7 +4690,9 @@ function executeVictimSwap(o, victims, targetEffLen, ownGrp, isDiffTarget = fals
       let earlyMaxFail = '';
       for (const [g, pre] of preBus.entries()) {
         const post = getGroupStats(g);
-        if (post.max > pre.max + 0.35) { earlyMaxFail = `max grew ${g.name} ${pre.max.toFixed(2)}->${post.max.toFixed(2)}`; break; }
+        const ownSpecLim = g.type === 'LPDDR5X-CA' ? 3.50 : g.type === 'eMMC-5.1' ? 0.65 : 2.30;
+        const limGrow = pre.skew > ownSpecLim ? 1.50 : 0.35;
+        if (post.max > pre.max + limGrow) { earlyMaxFail = `max grew ${g.name} ${pre.max.toFixed(2)}->${post.max.toFixed(2)}`; break; }
       }
       if (earlyMaxFail) {
         lastFail = earlyMaxFail;
@@ -5094,23 +4835,23 @@ function tryBlockerEscapeDetour(o, targetEffLen, ownGrp, isDiffTarget = false) {
     const viaZ = Math.abs(LAYER_Z[SIG_LAYERS[s]] - LAYER_Z[SIG_LAYERS[t0.sLayer]])
                + Math.abs(LAYER_Z[SIG_LAYERS[s]] - LAYER_Z[SIG_LAYERS[t1.sLayer]]);
     const layerPen = isDdr ? ((s === 0 || s === 1 || s === 4 || s === 5) ? 0 : 1.5) : ((s === 2 || s === 3) ? 0 : 1.0);
-    for (let gy = Math.max(yLo, midGy - radY); gy <= Math.min(yHi, midGy + radY); gy += 3) {
-      for (let gx = Math.max(4, midGx - radX); gx <= Math.min(NX - 5, midGx + radX); gx += 3) {
+    for (let gy = Math.max(yLo, midGy - radY); gy <= Math.min(yHi, midGy + radY); gy += 2) {
+      for (let gx = Math.max(4, midGx - radX); gx <= Math.min(NX - 5, midGx + radX); gx += 2) {
         if (!isCellFreeForMeander(s, gx, gy, nid)) continue;
         const estRaw = baseMm + ((Math.abs(gx - t0.gx) + Math.abs(gy - t0.gy)) + (Math.abs(gx - t1.gx) + Math.abs(gy - t1.gy))) * GRID + viaZ;
-        if (estRaw < curRaw + 0.6 || estRaw > rawTarget + 0.15) continue;
+        if (estRaw < curRaw + 0.5 || estRaw > rawTarget - 0.10) continue;
         let open5 = 0;
         for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) {
           if (isCellFreeForMeander(s, gx + dx, gy + dy, nid)) open5++;
         }
-        if (open5 < 9) continue;
+        if (open5 < 5) continue;
         const secKey = `${s},${gx >> 3},${gy >> 3}`;
-        const scFull = Math.abs(estRaw - (rawTarget - 1.0)) + layerPen - open5 * 0.15;
+        const scFull = Math.abs(estRaw - (rawTarget - 1.2)) + layerPen - open5 * 0.15;
         const prevF = wpFullBuckets.get(secKey);
         if (!prevF || scFull < prevF.sc) wpFullBuckets.set(secKey, { s, gx, gy, sc: scFull });
         // Closer stepping-stone open-bay waypoints (cross fewer blockers, then bay-splice/meander fills the rest!)
-        if (deficit > 2.2 && open5 >= 13 && estRaw <= curRaw + 4.2) {
-          const scStep = Math.abs(estRaw - (curRaw + 2.4)) + layerPen - open5 * 0.22;
+        if (deficit > 1.0 && open5 >= 7 && estRaw <= curRaw + Math.min(6.5, deficit + 0.5)) {
+          const scStep = Math.abs(estRaw - (curRaw + Math.min(3.5, deficit * 0.55))) + layerPen - open5 * 0.22;
           const prevS = wpStepBuckets.get(secKey);
           if (!prevS || scStep < prevS.sc) wpStepBuckets.set(secKey, { s, gx, gy, sc: scStep });
         }
@@ -5122,7 +4863,7 @@ function tryBlockerEscapeDetour(o, targetEffLen, ownGrp, isDiffTarget = false) {
     for (const wp of bucketMap.values()) byLayer.get(wp.s)?.push(wp);
     for (const arr of byLayer.values()) arr.sort((a, b) => a.sc - b.sc);
     const out = [];
-    for (let rank = 0; rank < 3 && out.length < limit; rank++) {
+    for (let rank = 0; rank < 5 && out.length < limit; rank++) {
       for (const s of layers) {
         const arr = byLayer.get(s);
         if (arr && arr[rank]) { out.push(arr[rank]); if (out.length >= limit) break; }
@@ -5136,14 +4877,14 @@ function tryBlockerEscapeDetour(o, targetEffLen, ownGrp, isDiffTarget = false) {
     const k = `${wp.s},${wp.gx},${wp.gy}`;
     if (!wpSeen.has(k)) { wpSeen.add(k); pickedOpenWps.push(wp); }
   };
-  for (const wp of pickInterleaved(wpFullBuckets, 5)) addUniqueWp(wp);
-  for (const wp of pickInterleaved(wpStepBuckets, 4)) addUniqueWp(wp);
+  for (const wp of pickInterleaved(wpStepBuckets, 12)) addUniqueWp(wp);
+  for (const wp of pickInterleaved(wpFullBuckets, 14)) addUniqueWp(wp);
   if (pickedOpenWps.length === 0) return false;
   const triedBlockerKeys = new Set();
   let swapTries = 0;
 
   for (const tier of [1, 2]) {
-    if (swapTries >= 10) break;
+    if (swapTries >= 36) break;
     const frozenExtras = [];
     if (tier === 1) {
       for (const grp of busGroups) {
@@ -5154,13 +4895,13 @@ function tryBlockerEscapeDetour(o, targetEffLen, ownGrp, isDiffTarget = false) {
     }
 
     for (const wp of pickedOpenWps) {
-      if (swapTries >= 10) break;
+      if (swapTries >= 36) break;
       const snapO = snapNetTuningState(o);
       ripUpNetPF(o);
       stampFrozenMultiPinTrees(4, frozenExtras);
       const wpState = wp.s * STATE_STRIDE + cellKey(wp.gx, wp.gy);
       const leg1 = routePairHDI(nid, o.netClass, t0.sLayer, t0.gx, t0.gy, new Set([wpState]), wp.s, wp.gx, wp.gy, 2.5, false, [], {
-        isDdr: false, maxPops: 30000, hW: 1.50, useTempBlock: true,
+        isDdr: false, maxPops: 35000, hW: 1.45, useTempBlock: true,
       });
       let blockerIds = null;
       if (leg1) {
@@ -5171,7 +4912,7 @@ function tryBlockerEscapeDetour(o, targetEffLen, ownGrp, isDiffTarget = false) {
           tempBlockStamp[ls][lk] = curTempBlock;
         }
         const leg2 = routePairHDI(nid, o.netClass, t1.sLayer, t1.gx, t1.gy, new Set([wpState]), wp.s, wp.gx, wp.gy, 2.5, false, leg1.vias, {
-          isDdr: false, maxPops: 30000, hW: 1.50, useTempBlock: true,
+          isDdr: false, maxPops: 35000, hW: 1.45, useTempBlock: true,
         });
         if (leg2) {
           leg2.states.reverse();
@@ -5190,7 +4931,7 @@ function tryBlockerEscapeDetour(o, targetEffLen, ownGrp, isDiffTarget = false) {
         }
       }
       restoreNetTuningState(o, snapO);
-      if (!blockerIds || blockerIds.size === 0 || blockerIds.size > 13) continue;
+      if (!blockerIds || blockerIds.size > 16) continue;
 
       const blockers = [...blockerIds].map((id) => netById.get(id)).filter((nb) => nb && nb.routedNodes.length > 0 && nb.netId !== nid && nb.terminals.length <= 3);
       if (blockers.length !== blockerIds.size) continue;
@@ -5557,15 +5298,16 @@ function tryMidRouteBlockerSplice(o, targetEffLen, ownGrp, deepMode = false) {
       }
 
       let accepted = false;
+      let failWhy = spliceOk ? '' : 'spliceFail';
       if (spliceOk) {
-        let pfRes = routeSubsetLocalPF(allVictims, 14, 60000);
-        if (!pfRes.ok && pfRes.stuckNets.length >= 1 && pfRes.stuckNets.length <= 2) {
+        let pfRes = routeSubsetLocalPF(allVictims, 20, 80000);
+        if (!pfRes.ok && pfRes.stuckNets.length >= 1 && pfRes.stuckNets.length <= 3) {
           const extMap = new Map();
           const alreadyRouted = !pfRes.failed ? allVictims.filter((v) => v.routedNodes.length > 0 && !netHasConflictHDI(v)) : [];
           for (const u of pfRes.stuckNets) {
             ripUpNetPF(u);
             stampFrozenMultiPinTrees(4, pfRes.failed ? [o] : [o, ...alreadyRouted]);
-            if (routeSingleNetHDI(u, 3.5, false, 1.15, true, 60000)) {
+            if (routeSingleNetHDI(u, 3.5, false, 1.15, true, 70000)) {
               for (const id of collectExactPathConflicts(u)) {
                 if (id === nid || victimIdSet.has(id) || extMap.has(id)) continue;
                 const eb = netById.get(id);
@@ -5574,17 +5316,17 @@ function tryMidRouteBlockerSplice(o, targetEffLen, ownGrp, deepMode = false) {
               ripUpNetPF(u);
             }
           }
-          const extList = [...extMap.values()].slice(0, 3);
+          const extList = [...extMap.values()].slice(0, 5);
           if (extList.length > 0) {
             for (const eb of extList) { regSnap(eb); allVictims.push(eb); victimIdSet.add(eb.netId); }
             if (!pfRes.failed) {
               for (const eb of extList) ripUpNetPF(eb);
               for (const u of pfRes.stuckNets) ripUpNetPF(u);
-              pfRes = routeSubsetLocalPF([...pfRes.stuckNets, ...extList], 14, 60000);
+              pfRes = routeSubsetLocalPF([...pfRes.stuckNets, ...extList], 18, 80000);
             }
-            if (!pfRes.ok && allVictims.length <= 12) {
+            if (!pfRes.ok && allVictims.length <= 20) {
               for (const nb of allVictims) ripUpNetPF(nb);
-              pfRes = routeSubsetLocalPF(allVictims, 15, 60000);
+              pfRes = routeSubsetLocalPF(allVictims, 20, 85000);
             }
           }
         }
@@ -5594,6 +5336,7 @@ function tryMidRouteBlockerSplice(o, targetEffLen, ownGrp, deepMode = false) {
             pfRes = { ok: false, reason: 'post-verify conflict', stuckNets: [], failed: false };
           }
         }
+        if (!pfRes.ok) failWhy = `localPF(${allVictims.length}): ${pfRes.reason}`;
         if (pfRes.ok) {
           for (let sp = 0; sp < 2; sp++) {
             for (const nb of allVictims) {
@@ -5605,7 +5348,7 @@ function tryMidRouteBlockerSplice(o, targetEffLen, ownGrp, deepMode = false) {
           }
           let maxBlowup = false;
           for (const [g, pre] of preBus.entries()) {
-            if (getGroupStats(g).max > pre.max + 0.35) { maxBlowup = true; break; }
+            if (getGroupStats(g).max > pre.max + 0.35) { maxBlowup = true; failWhy = `maxBlowup ${g.name}`; break; }
           }
           if (!maxBlowup) {
             polishNetToTarget(o, targetEffLen, 0.22, false);
@@ -5636,11 +5379,14 @@ function tryMidRouteBlockerSplice(o, targetEffLen, ownGrp, deepMode = false) {
             if (vRes.ok) {
               totalBaySplices++;
               accepted = true;
+            } else {
+              failWhy = vRes.reason;
             }
           }
         }
       }
       if (accepted) return true;
+      if (DIAG_35E && failWhy && failWhy !== 'spliceFail') console.log(`      [DIAG MidSplice ${o.netName} an(s=${an.s}) wp(s=${wp.s}) b=${blockers.length}] FAIL: ${failWhy}`);
       // Atomic rollback of o + all victims (re-adds removedMidCells cleanly via restoreNetTuningState!)
       ripUpNetPF(o);
       for (const nb of allVictims) ripUpNetPF(nb);
@@ -5650,9 +5396,285 @@ function tryMidRouteBlockerSplice(o, targetEffLen, ownGrp, deepMode = false) {
   return false;
 }
 
-// Execute Stage 3.5E across up to 5 iterative closure rounds (540s time budget)
+// Monotonic In-Place Group Shrink & Re-Match:
+// When a byte group has 1-2 short nets trapped while the other 11-12 nets were bloated to 18-23mm
+// by earlier meanders/bay-splices (even though Manhattan distances are only 5-13mm!), shrink every
+// net in the group ONE-BY-ONE in strictZero mode (3 passes, longest-first!). Each shrunk net frees
+// its old bay-splices & buried vias, allowing the remaining nets to collapse to ~13-16mm, and then
+// re-matches the group (diff pairs first!) tightly around the new much shorter max!
+function tryWholeGroupResetAndClose(grp) {
+  const pre = getGroupStats(grp);
+  const grpObjs = pre.objs.slice();
+  if (grpObjs.length < 2) return false;
+
+  const innerDiffs = new Set();
+  for (const nb of grpObjs) {
+    const dg = diffGroupOfNet.get(nb.netId);
+    if (dg) innerDiffs.add(dg);
+  }
+  const allGroupSnaps = new Map();
+  const regGrpSnap = (x) => {
+    if (!allGroupSnaps.has(x.netId)) allGroupSnaps.set(x.netId, { net: x, snap: snapNetTuningState(x) });
+  };
+  for (const nb of grpObjs) regGrpSnap(nb);
+
+  // Pass 1..4: Monotonically shorten every net in grp ONE-BY-ONE (strictZero=true, zero risk of unrouted!)
+  for (let pass = 0; pass < 4; pass++) {
+    let anyShrunk = false;
+    const ordered = grpObjs.slice().sort((a, b) => measureEffLengthMm(b) - measureEffLengthMm(a));
+    for (const nb of ordered) {
+      const before = measureEffLengthMm(nb);
+      if (tryShortenSingleNet(nb, 0)) {
+        if (measureEffLengthMm(nb) < before - 0.15) anyShrunk = true;
+      }
+    }
+    if (!anyShrunk) break;
+  }
+
+  // Pass 5: Blocker-Pushing Shorten on the longest outlier nets in grp (push 1..12 blockers aside so max drops from 21.6mm -> ~15mm!)
+  const tryBlockerPushShorten = (nb, targetLim) => {
+    const curL = measureEffLengthMm(nb);
+    if (curL <= targetLim) return false;
+    const nid = nb.netId;
+    const probeSnap = snapNetTuningState(nb);
+    // Freeze multi-pin nets + already-closed other bus groups on tier 1, only multi-pin on tier 2
+    for (const tier of [1, 2]) {
+      const frozenExtras = [];
+      if (tier === 1) {
+        for (const og of busGroups) {
+          if (og === grp) continue;
+          const ost = getGroupStats(og);
+          if (ost.skew <= 0.60) for (const no of ost.objs) frozenExtras.push(no);
+        }
+      }
+      ripUpNetPF(nb);
+      stampFrozenMultiPinTrees(4, frozenExtras);
+      let blockerIds = null;
+      let probeLen = Infinity;
+      if (routeSingleNetHDI(nb, 2.2, false, 1.05, true, 65000, true)) {
+        nb.polylines = extractNetPolylines(nb);
+        probeLen = measureEffLengthMm(nb);
+        if (probeLen < curL - 0.50) blockerIds = collectExactPathConflicts(nb);
+      }
+      ripUpNetPF(nb);
+      restoreNetTuningState(nb, probeSnap);
+      if (!blockerIds || blockerIds.size === 0 || blockerIds.size > 14) {
+        if (DIAG_35E) console.log(`      [DIAG PushShorten ${nb.netName} t${tier}] probeLen=${probeLen.toFixed(2)} b=${blockerIds ? blockerIds.size : 'null'}`);
+        continue;
+      }
+
+      const blockers = [...blockerIds].map((id) => netById.get(id)).filter((b) => b && b.routedNodes.length > 0 && b.netId !== nid && b.terminals.length <= 3);
+      if (blockers.length !== blockerIds.size) {
+        if (DIAG_35E) console.log(`      [DIAG PushShorten ${nb.netName} t${tier}] multi-pin blocker filtered (${blockers.length}/${blockerIds.size})`);
+        continue;
+      }
+
+      const preB = new Map();
+      const preD = new Map();
+      const bSnaps = new Map();
+      const regB = (x) => {
+        regGrpSnap(x);
+        if (!bSnaps.has(x.netId)) bSnaps.set(x.netId, { net: x, snap: snapNetTuningState(x) });
+        const bg = busGroupOfNet.get(x.netId);
+        if (bg && bg !== grp && !preB.has(bg)) preB.set(bg, getGroupStats(bg));
+        const dg = diffGroupOfNet.get(x.netId);
+        if (dg && !preD.has(dg)) preD.set(dg, getGroupStats(dg));
+      };
+      regB(nb);
+      const allV = blockers.slice();
+      const vIds = new Set(allV.map((v) => v.netId));
+      for (const v of allV) regB(v);
+
+      ripUpNetPF(nb);
+      for (const v of allV) ripUpNetPF(v);
+      let okShort = false;
+      let whyFail = 'routeNbFail';
+      if (routeSingleNetHDI(nb, 120.0, true, 1.01, false, 90000, true)) {
+        nb.polylines = extractNetPolylines(nb);
+        const newL = measureEffLengthMm(nb);
+        if (!netHasConflictHDI(nb) && newL < curL - 0.45) {
+          let pf = routeSubsetLocalPF(allV, 20, 90000);
+          if (!pf.ok && pf.stuckNets.length >= 1 && pf.stuckNets.length <= 3) {
+            const extMap = new Map();
+            const already = !pf.failed ? allV.filter((v) => v.routedNodes.length > 0 && !netHasConflictHDI(v)) : [];
+            for (const u of pf.stuckNets) {
+              ripUpNetPF(u);
+              stampFrozenMultiPinTrees(4, pf.failed ? [nb] : [nb, ...already]);
+              if (routeSingleNetHDI(u, 3.5, false, 1.15, true, 70000)) {
+                for (const id of collectExactPathConflicts(u)) {
+                  if (id === nid || vIds.has(id) || extMap.has(id)) continue;
+                  const eb = netById.get(id);
+                  if (eb && eb.routedNodes.length > 0 && eb.terminals.length <= 3) extMap.set(id, eb);
+                }
+                ripUpNetPF(u);
+              }
+            }
+            const extL = [...extMap.values()].slice(0, 5);
+            if (extL.length > 0) {
+              for (const eb of extL) { regB(eb); allV.push(eb); vIds.add(eb.netId); }
+              if (!pf.failed) {
+                for (const eb of extL) ripUpNetPF(eb);
+                for (const u of pf.stuckNets) ripUpNetPF(u);
+                pf = routeSubsetLocalPF([...pf.stuckNets, ...extL], 18, 90000);
+              }
+              if (!pf.ok && allV.length <= 22) {
+                for (const v of allV) ripUpNetPF(v);
+                pf = routeSubsetLocalPF(allV, 22, 95000);
+              }
+            }
+          }
+          if (!pf.ok) whyFail = `localPF(${allV.length}): ${pf.reason}`;
+          if (pf.ok) {
+            for (const v of allV) v.polylines = extractNetPolylines(v);
+            if (!allV.some((v) => v.routedNodes.length === 0 || netHasConflictHDI(v))) {
+              for (const v of allV) {
+                const bg = busGroupOfNet.get(v.netId);
+                const dg = diffGroupOfNet.get(v.netId);
+                if (bg && bg !== grp) tryShortenSingleNet(v, preB.get(bg).max + 0.12);
+                else if (dg && !grp.nets.includes(v.netName)) tryShortenSingleNet(v, preD.get(dg).max + 0.12);
+              }
+              for (const v of allV) {
+                const bg = busGroupOfNet.get(v.netId);
+                const dg = diffGroupOfNet.get(v.netId);
+                if (bg && bg !== grp) {
+                  const tgt = preB.get(bg).max;
+                  if (tgt - measureEffLengthMm(v) > 0.35) polishNetToTarget(v, tgt, 0.20, (tgt - measureEffLengthMm(v)) > 1.2);
+                } else if (dg && !grp.nets.includes(v.netName)) {
+                  const tgt = preD.get(dg).max;
+                  if (tgt - measureEffLengthMm(v) > 0.16) polishNetToTarget(v, tgt, 0.14, (tgt - measureEffLengthMm(v)) > 1.2);
+                }
+              }
+              let extOk = true;
+              for (const [bg, pst] of preB.entries()) {
+                const nst = getGroupStats(bg);
+                const lim = groupSpecLimitMm(bg);
+                if (nst.max > pst.max + 0.35 || (pst.skew <= 0.60 && nst.skew > 0.70) || (pst.skew <= lim && nst.skew > lim)) {
+                  extOk = false; whyFail = `extBus ${bg.name} ${pst.max.toFixed(2)}->${nst.max.toFixed(2)} skew=${nst.skew.toFixed(2)}`; break;
+                }
+              }
+              if (extOk) {
+                for (const [dg, pst] of preD.entries()) {
+                  if (dg.nets.some((n) => grp.nets.includes(n))) continue;
+                  const nst = getGroupStats(dg);
+                  if (pst.skew <= 0.22 && nst.skew > 0.34) { extOk = false; whyFail = `extDiff ${dg.name}=${nst.skew.toFixed(2)}`; break; }
+                }
+              }
+              if (extOk) {
+                const postGrpMax = getGroupStats(grp).max;
+                if (postGrpMax <= curL + 0.10) {
+                  console.log(`    [PushShorten ${grp.name}] ${nb.netName}: ${curL.toFixed(2)}->${newL.toFixed(2)}mm (b=${allV.length}, grpMax=${postGrpMax.toFixed(2)})`);
+                  okShort = true;
+                } else {
+                  whyFail = `grpMax grew ${curL.toFixed(2)}->${postGrpMax.toFixed(2)}`;
+                }
+              }
+            } else {
+              whyFail = 'postConf';
+            }
+          }
+        } else {
+          whyFail = `newL=${newL.toFixed(2)} vs curL=${curL.toFixed(2)}`;
+        }
+      }
+      if (okShort) return true;
+      if (DIAG_35E) console.log(`      [DIAG PushShorten ${nb.netName} t${tier} b=${blockers.length}] FAIL: ${whyFail}`);
+      ripUpNetPF(nb);
+      for (const v of allV) ripUpNetPF(v);
+      for (const { net, snap } of bSnaps.values()) restoreNetTuningState(net, snap);
+    }
+    return false;
+  };
+
+  const prePush = getGroupStats(grp);
+  const topLong = grpObjs.slice().sort((a, b) => measureEffLengthMm(b) - measureEffLengthMm(a)).slice(0, 5);
+  console.log(`  [InPlace-Shrink ${grp.name} after Pass1-4] min=${prePush.min.toFixed(2)} max=${prePush.max.toFixed(2)} top5=${topLong.map((x) => `${x.netName.replace('LPDDR5X_', '')}:${measureEffLengthMm(x).toFixed(1)}`).join(', ')}`);
+  for (let ps = 0; ps < 12; ps++) {
+    const st = getGroupStats(grp);
+    if (st.skew <= groupSpecLimitMm(grp) - 0.10) break;
+    const longest = grpObjs.slice().sort((a, b) => measureEffLengthMm(b) - measureEffLengthMm(a));
+    let pushedAny = false;
+    for (const nb of longest.slice(0, 4)) {
+      if (measureEffLengthMm(nb) <= st.min + 1.8) break;
+      if (tryBlockerPushShorten(nb, st.min + 1.8)) {
+        // Re-run quick monotonic in-place shrink on grp now that blockers moved!
+        for (const x of grpObjs) tryShortenSingleNet(x, 0);
+        pushedAny = true;
+        break;
+      }
+    }
+    if (!pushedAny) break;
+  }
+
+  const shortSt = getGroupStats(grp);
+  // Polish short nets up to new shorter max (diff pairs first, then shortest-first!)
+  for (let pr = 0; pr < 2; pr++) {
+    const curSt = getGroupStats(grp);
+    const tgt = curSt.max;
+    const sorted = sortShortNets(curSt);
+    for (const nb of sorted) {
+      const def = tgt - measureEffLengthMm(nb);
+      if (def > 0.40) polishNetToTarget(nb, tgt, 0.22, def > 1.0);
+    }
+  }
+  // Lock inner diff pairs (WCK/RDQS/CK) cleanly within <= 0.35mm so fineTrim closes them to <0.05mm!
+  for (const dg of innerDiffs) {
+    const pairObjs = dg.nets.map((n) => netObjByName.get(n)).filter((x) => x && x.routedNodes.length > 0);
+    if (pairObjs.length !== 2) continue;
+    const l0 = measureEffLengthMm(pairObjs[0]), l1 = measureEffLengthMm(pairObjs[1]);
+    if (Math.abs(l0 - l1) > 0.16) {
+      const [shorter, longer] = l0 < l1 ? [pairObjs[0], pairObjs[1]] : [pairObjs[1], pairObjs[0]];
+      const tgt = measureEffLengthMm(longer);
+      polishNetToTarget(shorter, tgt, 0.14, (tgt - measureEffLengthMm(shorter)) > 0.9);
+      const l0b = measureEffLengthMm(pairObjs[0]), l1b = measureEffLengthMm(pairObjs[1]);
+      if (Math.abs(l0b - l1b) > 0.35) {
+        // Also try shortening the longer partner of the diff pair slightly!
+        const [sh2, lg2] = l0b < l1b ? [pairObjs[0], pairObjs[1]] : [pairObjs[1], pairObjs[0]];
+        tryShortenSingleNet(lg2, measureEffLengthMm(sh2));
+        const l0c = measureEffLengthMm(pairObjs[0]), l1c = measureEffLengthMm(pairObjs[1]);
+        if (Math.abs(l0c - l1c) > 0.16) {
+          const [sh3, lg3] = l0c < l1c ? [pairObjs[0], pairObjs[1]] : [pairObjs[1], pairObjs[0]];
+          polishNetToTarget(sh3, measureEffLengthMm(lg3), 0.14, true);
+        }
+      }
+    }
+  }
+
+  const post = getGroupStats(grp);
+  let diffsOk = true;
+  let badDiff = '';
+  for (const dg of innerDiffs) {
+    const ds = getGroupStats(dg);
+    if (ds.skew > 0.42) { diffsOk = false; badDiff = `${dg.name}=${ds.skew.toFixed(2)}`; break; }
+  }
+  const noConf = !grpObjs.some((nb) => nb.routedNodes.length === 0 || netHasConflictHDI(nb));
+  let ok = false;
+  if (noConf && diffsOk && post.skew < pre.skew - 0.25) {
+    console.log(`  [Stage 3.5E InPlace-Shrink] ${grp.name}: max ${pre.max.toFixed(2)}->${shortSt.max.toFixed(2)}->${post.max.toFixed(2)}mm, skew ${pre.skew.toFixed(2)}->${post.skew.toFixed(2)}mm (min=${post.min.toFixed(2)})`);
+    ok = true;
+  } else {
+    console.log(`      [DIAG InPlace-Shrink ${grp.name}] REJECT: noConf=${noConf} diffsOk=${diffsOk}(${badDiff}) preMax=${pre.max.toFixed(2)}->shortMax=${shortSt.max.toFixed(2)}->postMax=${post.max.toFixed(2)} preSkew=${pre.skew.toFixed(2)}->postSkew=${post.skew.toFixed(2)}`);
+  }
+
+  if (!ok) {
+    for (const { net } of allGroupSnaps.values()) ripUpNetPF(net);
+    for (const { net, snap } of allGroupSnaps.values()) restoreNetTuningState(net, snap);
+  }
+  return ok;
+}
+
+// Execute Stage 3.5E across up to 5 iterative closure rounds
 const t35eStart = Date.now();
-const STAGE35E_BUDGET_MS = 540000;
+const STAGE35E_BUDGET_MS = Number(process.env.STAGE35E_BUDGET_MS || 280000);
+const groupSpecLimitMm = (g) => (g.type === 'LPDDR5X-CA' ? 3.50 : g.type === 'eMMC-5.1' ? 0.65 : 2.30);
+const hasFailingSpecGroup = () => busGroups.some((g) => getGroupStats(g).skew > groupSpecLimitMm(g));
+const orderedOpenGroups = () => {
+  const onlyGrp = process.env.ONLY_GROUP || '';
+  const failingOnly = hasFailingSpecGroup();
+  return busGroups
+    .map((g) => ({ g, st: getGroupStats(g), lim: groupSpecLimitMm(g) }))
+    .filter(({ g, st, lim }) => (!onlyGrp || g.name === onlyGrp) && (failingOnly ? st.skew > lim : st.skew > 0.62))
+    .sort((a, b) => (b.st.skew - b.lim) - (a.st.skew - a.lim));
+};
 const countOpenBusNets = () => {
   let cnt = 0;
   for (const g of busGroups) {
@@ -5661,109 +5683,128 @@ const countOpenBusNets = () => {
   }
   return cnt;
 };
+const sortShortNets = (st) =>
+  st.objs.slice().sort((a, b) => {
+    const aDiff = /_(CK|WCK\d|RDQS\d)_[PN]$/.test(a.netName) ? 1 : 0;
+    const bDiff = /_(CK|WCK\d|RDQS\d)_[PN]$/.test(b.netName) ? 1 : 0;
+    if (aDiff !== bDiff) return aDiff - bDiff;
+    return measureEffLengthMm(a) - measureEffLengthMm(b);
+  });
 
+if (!loadedFinal35Cache || process.env.REFINE_STAGE35 === '1') {
+if (hasFailingSpecGroup() && process.env.SKIP_GROUP_RESET !== '1') {
+  for (const { g: grp } of orderedOpenGroups()) {
+    if (Date.now() - t35eStart > STAGE35E_BUDGET_MS) break;
+    tryWholeGroupResetAndClose(grp);
+  }
+}
 for (let eRound = 1; eRound <= 5; eRound++) {
   if (Date.now() - t35eStart > STAGE35E_BUDGET_MS) break;
   let anyProgress = false;
 
-  // Phase E0: Fast Global Mid-Route Blocker-Pushing Bay Splice across ALL open bus groups FIRST!
-  for (let msSweep = 0; msSweep < 2; msSweep++) {
-    let sweepProg = false;
-    for (const grp of busGroups) {
-      if (Date.now() - t35eStart > STAGE35E_BUDGET_MS) break;
-      const st = getGroupStats(grp);
-      if (st.skew <= 0.62) continue;
-      const shortNets = st.objs.slice().sort((a, b) => measureEffLengthMm(a) - measureEffLengthMm(b));
-      for (const o of shortNets) {
-        if (Date.now() - t35eStart > STAGE35E_BUDGET_MS) break;
-        for (let mTry = 0; mTry < 3; mTry++) {
-          const ms = getGroupStats(grp);
-          if (ms.max - measureEffLengthMm(o) <= 0.60) break;
-          const deep = countOpenBusNets() <= 2;
-          if (!tryMidRouteBlockerSplice(o, ms.max, grp, deep)) break;
-          anyProgress = true;
-          sweepProg = true;
-          console.log(`  [Stage 3.5E r${eRound} Mid-Splice-PF${deep ? '+Deep' : ''}] ${o.netName} -> ${measureEffLengthMm(o).toFixed(2)}mm (grp ${grp.name} skew=${getGroupStats(grp).skew.toFixed(2)}mm defSum=${getGroupStats(grp).deficitSum.toFixed(2)}mm)`);
-        }
-      }
-    }
-    if (!sweepProg || countOpenBusNets() === 0) break;
-  }
-
-  // Phase E0b: Dedicated Mid-Splice-PF+Deep finisher whenever <= 2 individual bus nets remain open!
-  if (countOpenBusNets() > 0 && countOpenBusNets() <= 2) {
-    for (let dSweep = 0; dSweep < 2; dSweep++) {
-      let dProg = false;
-      for (const grp of busGroups) {
+  // Phase E0: Fast Global Mid-Route Blocker-Pushing Bay Splice (normal then deep!) on failing groups FIRST!
+  // When REFINE_STAGE35=1, try Blocker-Escape FIRST since deep mid-splice already ran in the cached pass.
+  const netSkipLim = (grp) => {
+    const lim = groupSpecLimitMm(grp);
+    return getGroupStats(grp).skew > lim ? Math.max(0.60, lim - 0.15) : 0.60;
+  };
+  const runBlockerAndWall = () => {
+    let prog = false;
+    if (orderedOpenGroups().length > 0) {
+      for (const { g: grp } of orderedOpenGroups()) {
         if (Date.now() - t35eStart > STAGE35E_BUDGET_MS) break;
         const st = getGroupStats(grp);
-        if (st.skew <= 0.62) continue;
-        const shortNets = st.objs.slice().sort((a, b) => measureEffLengthMm(a) - measureEffLengthMm(b));
+        const shortNets = sortShortNets(st);
         for (const o of shortNets) {
           if (Date.now() - t35eStart > STAGE35E_BUDGET_MS) break;
-          for (let mTry = 0; mTry < 4; mTry++) {
-            const ms = getGroupStats(grp);
-            if (ms.max - measureEffLengthMm(o) <= 0.60) break;
-            if (!tryMidRouteBlockerSplice(o, ms.max, grp, true)) break;
+          const curSt = getGroupStats(grp);
+          if (curSt.max - measureEffLengthMm(o) <= netSkipLim(grp)) continue;
+          if (tryBlockerEscapeDetour(o, curSt.max, grp, false)) {
             anyProgress = true;
-            dProg = true;
-            console.log(`  [Stage 3.5E r${eRound} Mid-Splice-PF+Deep] ${o.netName} -> ${measureEffLengthMm(o).toFixed(2)}mm (grp ${grp.name} skew=${getGroupStats(grp).skew.toFixed(2)}mm defSum=${getGroupStats(grp).deficitSum.toFixed(2)}mm)`);
+            prog = true;
+            console.log(`  [Stage 3.5E r${eRound} Blocker-Escape] ${o.netName} -> ${measureEffLengthMm(o).toFixed(2)}mm (grp ${grp.name} skew=${getGroupStats(grp).skew.toFixed(2)}mm defSum=${getGroupStats(grp).deficitSum.toFixed(2)}mm)`);
+            continue;
+          }
+          const curSt2 = getGroupStats(grp);
+          if (curSt2.max - measureEffLengthMm(o) > netSkipLim(grp) && tryNeighborWallEscape(o, curSt2.max, grp, false)) {
+            anyProgress = true;
+            prog = true;
+            console.log(`  [Stage 3.5E r${eRound} Wall-Escape] ${o.netName} -> ${measureEffLengthMm(o).toFixed(2)}mm (grp ${grp.name} skew=${getGroupStats(grp).skew.toFixed(2)}mm defSum=${getGroupStats(grp).deficitSum.toFixed(2)}mm)`);
           }
         }
       }
-      if (!dProg || countOpenBusNets() === 0) break;
     }
-  }
-
-  // Phase E1+E2: Full Blocker-Escape + Prison-Wall fallback ONLY on nets still open after E0/E0b!
-  if (countOpenBusNets() > 0) {
-    for (const grp of busGroups) {
-      if (Date.now() - t35eStart > STAGE35E_BUDGET_MS) break;
-      const st = getGroupStats(grp);
-      if (st.skew <= 0.62) continue;
-      const shortNets = st.objs.slice().sort((a, b) => measureEffLengthMm(a) - measureEffLengthMm(b));
-      for (const o of shortNets) {
+    return prog;
+  };
+  const blockerFirst = process.env.REFINE_STAGE35 === '1' && process.env.MID_FIRST !== '1';
+  if (blockerFirst) runBlockerAndWall();
+  const deepModes = process.env.REFINE_STAGE35 === '1' ? [true] : [false, true];
+  for (const deep of deepModes) {
+    for (let msSweep = 0; msSweep < 2; msSweep++) {
+      let sweepProg = false;
+      for (const { g: grp } of orderedOpenGroups()) {
         if (Date.now() - t35eStart > STAGE35E_BUDGET_MS) break;
-        const curSt = getGroupStats(grp);
-        if (curSt.max - measureEffLengthMm(o) <= 0.60) continue;
-        if (tryBlockerEscapeDetour(o, curSt.max, grp, false)) {
-          anyProgress = true;
-          console.log(`  [Stage 3.5E r${eRound} Blocker-Escape] ${o.netName} -> ${measureEffLengthMm(o).toFixed(2)}mm (grp ${grp.name} skew=${getGroupStats(grp).skew.toFixed(2)}mm defSum=${getGroupStats(grp).deficitSum.toFixed(2)}mm)`);
-          continue;
-        }
-        const curSt2 = getGroupStats(grp);
-        if (curSt2.max - measureEffLengthMm(o) > 0.65 && tryNeighborWallEscape(o, curSt2.max, grp, false)) {
-          anyProgress = true;
-          console.log(`  [Stage 3.5E r${eRound} Wall-Escape] ${o.netName} -> ${measureEffLengthMm(o).toFixed(2)}mm (grp ${grp.name} skew=${getGroupStats(grp).skew.toFixed(2)}mm defSum=${getGroupStats(grp).deficitSum.toFixed(2)}mm)`);
+        const st = getGroupStats(grp);
+        const shortNets = sortShortNets(st);
+        for (const o of shortNets) {
+          if (Date.now() - t35eStart > STAGE35E_BUDGET_MS) break;
+          for (let mTry = 0; mTry < (deep ? 4 : 3); mTry++) {
+            const ms = getGroupStats(grp);
+            if (ms.max - measureEffLengthMm(o) <= netSkipLim(grp)) break;
+            if (!tryMidRouteBlockerSplice(o, ms.max, grp, deep)) break;
+            anyProgress = true;
+            sweepProg = true;
+            console.log(`  [Stage 3.5E r${eRound} Mid-Splice-PF${deep ? '+Deep' : ''}] ${o.netName} -> ${measureEffLengthMm(o).toFixed(2)}mm (grp ${grp.name} skew=${getGroupStats(grp).skew.toFixed(2)}mm defSum=${getGroupStats(grp).deficitSum.toFixed(2)}mm)`);
+          }
         }
       }
+      if (!sweepProg || orderedOpenGroups().length === 0) break;
     }
   }
 
+  // Phase E1+E2: Full Blocker-Escape + Prison-Wall fallback ONLY on groups still open after E0!
+  if (!blockerFirst) runBlockerAndWall();
+
   // E3: Final Diff-Pair Lock (ONLY for DIFF_* pairs > 0.35mm; <=0.35mm is closed cleanly by applyFineContinuousTrim!)
-  for (const grp of matchGroups) {
-    if (!grp.type.includes('DiffPair')) continue;
-    const st = getGroupStats(grp);
-    if (st.skew <= 0.35) continue;
-    const shortNet = st.objs.slice().sort((a, b) => measureEffLengthMm(a) - measureEffLengthMm(b))[0];
-    const rawT = st.max - getExtraBaseMm(shortNet, false);
-    if (tryMidRouteBaySplice(shortNet, rawT, 0.12)) { totalBaySplices++; anyProgress = true; }
-    const st2 = getGroupStats(grp);
-    if (st2.skew > 0.35 && tryActiveTromboneDetour(shortNet, st2.max - getExtraBaseMm(shortNet, false), true)) {
-      totalActiveDetours++; anyProgress = true;
+  const runDiffPairLock = () => {
+    let prog = false;
+    for (const grp of matchGroups) {
+      if (!grp.type.includes('DiffPair')) continue;
+      const st = getGroupStats(grp);
+      if (st.skew <= 0.35) continue;
+      const shortNet = st.objs.slice().sort((a, b) => measureEffLengthMm(a) - measureEffLengthMm(b))[0];
+      const rawT = st.max - getExtraBaseMm(shortNet, false);
+      if (tryMidRouteBaySplice(shortNet, rawT, 0.12)) { totalBaySplices++; prog = true; }
+      let stC = getGroupStats(grp);
+      if (stC.skew > 0.35 && tryMidRouteBlockerSplice(shortNet, stC.max, grp, true)) { prog = true; }
+      stC = getGroupStats(grp);
+      if (stC.skew > 0.35 && tryActiveTromboneDetour(shortNet, stC.max - getExtraBaseMm(shortNet, false), true)) {
+        totalActiveDetours++; prog = true;
+      }
+      stC = getGroupStats(grp);
+      if (stC.skew > 0.35 && tryNeighborWallEscape(shortNet, stC.max, grp, true)) { prog = true; }
+      stC = getGroupStats(grp);
+      if (stC.skew > 0.35 && tryBlockerEscapeDetour(shortNet, stC.max, grp, true)) { prog = true; }
     }
-    const st3 = getGroupStats(grp);
-    if (st3.skew > 0.35 && tryNeighborWallEscape(shortNet, st3.max, grp, true)) {
-      anyProgress = true;
-    }
-    const st4 = getGroupStats(grp);
-    if (st4.skew > 0.35 && tryBlockerEscapeDetour(shortNet, st4.max, grp, true)) {
-      anyProgress = true;
-    }
-  }
+    return prog;
+  };
+  if (runDiffPairLock()) anyProgress = true;
 
   if (!anyProgress) break;
 }
+// Always run one final Diff-Pair Lock pass even if STAGE35E_BUDGET_MS triggered mid-round!
+for (const grp of matchGroups) {
+  if (!grp.type.includes('DiffPair')) continue;
+  const st = getGroupStats(grp);
+  if (st.skew <= 0.35) continue;
+  const shortNet = st.objs.slice().sort((a, b) => measureEffLengthMm(a) - measureEffLengthMm(b))[0];
+  tryMidRouteBlockerSplice(shortNet, st.max, grp, true);
+}
+if (process.env.WRITE_STAGE35_CACHE === '1') {
+  saveTuningCache(STAGE35_FINAL_CACHE_PATH);
+  console.log(`  Saved Stage-3.5 final tuned cache -> ${STAGE35_FINAL_CACHE_PATH}`);
+}
+} // end if (!loadedFinal35Cache)
 
 // Pre-emit strict zero-conflict invariant audit (guards against any stale polyline or hidden PF conflict)
 {
@@ -5898,7 +5939,7 @@ function applyFineContinuousTrim(netObj, totalDeltaMm) {
   const nid = netObj.netId;
   const segs = netEmittedSegs.get(nid) || [];
   let added = 0;
-  for (let bump = 0; bump < 160 && totalDeltaMm - added >= 0.03; bump++) {
+  for (let bump = 0; bump < 240 && totalDeltaMm - added >= 0.03; bump++) {
     const rem = totalDeltaMm - added;
     const wantAmp = Math.min(2.60, +(rem * 0.5).toFixed(4));
     if (wantAmp < 0.015) break;
@@ -5908,12 +5949,19 @@ function applyFineContinuousTrim(netObj, totalDeltaMm) {
       ...(wantAmp > 1.00 ? [1.00] : []),
       ...(wantAmp > 0.65 ? [0.65] : []),
       ...(wantAmp > 0.44 ? [0.44] : []),
+      ...(wantAmp > 0.30 ? [0.30] : []),
       ...(wantAmp > 0.245 ? [0.245] : []),
+      ...(wantAmp > 0.19 ? [0.19] : []),
       ...(wantAmp > 0.16 ? [0.16] : []),
+      ...(wantAmp > 0.13 ? [0.13] : []),
       ...(wantAmp > 0.11 ? [0.11] : []),
+      ...(wantAmp > 0.09 ? [0.09] : []),
       ...(wantAmp > 0.075 ? [0.075] : []),
+      ...(wantAmp > 0.058 ? [0.058] : []),
       ...(wantAmp > 0.046 ? [0.046] : []),
-      ...(wantAmp > 0.030 ? [+(Math.min(wantAmp, 0.032)).toFixed(4)] : []),
+      ...(wantAmp > 0.032 ? [0.032] : []),
+      ...(wantAmp > 0.024 ? [0.024] : []),
+      ...(wantAmp > 0.018 ? [0.018] : []),
     ])].filter((a) => a >= 0.015 && 2 * a <= rem + 0.03);
     if (ampList.length === 0) break;
 
@@ -5924,15 +5972,15 @@ function applyFineContinuousTrim(netObj, totalDeltaMm) {
         const seg = segs[idx];
         const dx = seg.x2 - seg.x1, dy = seg.y2 - seg.y1;
         const L = Math.hypot(dx, dy);
-        if (L < 0.195 || (Math.abs(dx) > 1e-4 && Math.abs(dy) > 1e-4)) continue;
-        const baseToothHw = +(Math.max(0.0765, seg.width * 0.5 + RULES.minClearance * 0.5 + 0.003)).toFixed(4);
+        if (L < 0.172 || (Math.abs(dx) > 1e-4 && Math.abs(dy) > 1e-4)) continue;
+        const baseToothHw = +(Math.max(0.0755, seg.width * 0.5 + RULES.minClearance * 0.5 + 0.0025)).toFixed(4);
         const toothHw = (L >= 0.245 && tryAmp >= 0.195) ? Math.max(0.098, baseToothHw) : baseToothHw;
-        const minPos = toothHw + 0.021;
+        const minPos = toothHw + 0.010;
         if (L < 2 * minPos) continue;
         const ux = dx / L, uy = dy / L;
         const mid = L * 0.5;
         const posList = [mid];
-        for (let off = 0.08; mid - off >= minPos || mid + off <= L - minPos; off += 0.08) {
+        for (let off = 0.025; mid - off >= minPos || mid + off <= L - minPos; off += 0.025) {
           if (mid - off >= minPos) posList.push(mid - off);
           if (mid + off <= L - minPos) posList.push(mid + off);
         }
@@ -5959,6 +6007,110 @@ function applyFineContinuousTrim(netObj, totalDeltaMm) {
               innerSegCount += 4;
               fineTrims++;
               added += 2 * tryAmp;
+              placed = true;
+              break;
+            }
+          }
+          if (placed) break;
+        }
+      }
+      if (placed) break;
+    }
+    if (!placed) break;
+  }
+  return added;
+}
+
+// 45-degree Mitered Chevron Serpentine Trim (obtuse/90-deg apex, zero parallel legs, full DRC checks!)
+function isChevronLegal(layer, bx, by, px, py, ex, ey, width, nid, segs, excludeSeg) {
+  if (!isLayerSegLegal(layer, bx, by, px, py, width, nid) ||
+      !isLayerSegLegal(layer, px, py, ex, ey, width, nid)) return false;
+
+  const minSameSegDist = width + RULES.minClearance + 0.005;
+  const mx = (bx + ex) * 0.5, my = (by + ey) * 0.5;
+  const tdx = px - mx, tdy = py - my;
+  for (const os of segs) {
+    if (os === excludeSeg || os.layer !== layer) continue;
+    const sh1A = Math.hypot(os.x1 - excludeSeg.x1, os.y1 - excludeSeg.y1) < 1e-3;
+    const sh1B = Math.hypot(os.x2 - excludeSeg.x1, os.y2 - excludeSeg.y1) < 1e-3;
+    const sh2A = Math.hypot(os.x1 - excludeSeg.x2, os.y1 - excludeSeg.y2) < 1e-3;
+    const sh2B = Math.hypot(os.x2 - excludeSeg.x2, os.y2 - excludeSeg.y2) < 1e-3;
+    if (sh1A || sh1B || sh2A || sh2B) {
+      const cx = (sh1A || sh1B) ? excludeSeg.x1 : excludeSeg.x2;
+      const cy = (sh1A || sh1B) ? excludeSeg.y1 : excludeSeg.y2;
+      const ox = (sh1A || sh2A) ? os.x2 : os.x1;
+      const oy = (sh1A || sh2A) ? os.y2 : os.y1;
+      if ((ox - cx) * tdx + (oy - cy) * tdy > 1e-5) {
+        if (distSegToSeg(bx, by, px, py, os.x1, os.y1, os.x2, os.y2) < minSameSegDist) return false;
+        if (distSegToSeg(px, py, ex, ey, os.x1, os.y1, os.x2, os.y2) < minSameSegDist) return false;
+      }
+      continue;
+    }
+    if (distSegToSeg(bx, by, px, py, os.x1, os.y1, os.x2, os.y2) < minSameSegDist) return false;
+    if (distSegToSeg(px, py, ex, ey, os.x1, os.y1, os.x2, os.y2) < minSameSegDist) return false;
+  }
+
+  const minX = Math.min(bx, px, ex) - 0.35, maxX = Math.max(bx, px, ex) + 0.35;
+  const minY = Math.min(by, py, ey) - 0.35, maxY = Math.max(by, py, ey) + 0.35;
+  const hw = width * 0.5;
+  for (const v of viaHashByLayer[layer].queryBox(minX, minY, maxX, maxY)) {
+    if (v.netId !== nid) continue;
+    const req = hw + v.dia * 0.5 + RULES.minClearance + 0.008;
+    if (Math.sqrt(distPointToSegSq(v.x, v.y, bx, by, px, py)) < req ||
+        Math.sqrt(distPointToSegSq(v.x, v.y, px, py, ex, ey)) < req) return false;
+  }
+  return true;
+}
+
+function applyFineChevronTrim(netObj, totalDeltaMm) {
+  const nid = netObj.netId;
+  const segs = netEmittedSegs.get(nid) || [];
+  let added = 0;
+  // Pairs of (halfBase, amp) with apex angle >= 86 deg (smooth 45-deg mitered serpentine!)
+  const shapes = [
+    [0.24, 0.24], [0.19, 0.19], [0.15, 0.15], [0.12, 0.12],
+    [0.095, 0.095], [0.075, 0.075], [0.060, 0.060], [0.048, 0.048], [0.038, 0.038],
+  ];
+  for (let bump = 0; bump < 160 && totalDeltaMm - added >= 0.03; bump++) {
+    const rem = totalDeltaMm - added;
+    let placed = false;
+    for (const [hw, amp] of shapes) {
+      const gain = 2 * Math.hypot(hw, amp) - 2 * hw;
+      if (gain > rem + 0.025 || gain < 0.015) continue;
+      for (let idx = 0; idx < segs.length && !placed; idx++) {
+        const seg = segs[idx];
+        const dx = seg.x2 - seg.x1, dy = seg.y2 - seg.y1;
+        const L = Math.hypot(dx, dy);
+        const minPos = hw + 0.008;
+        if (L < 2 * minPos) continue;
+        const ux = dx / L, uy = dy / L;
+        const mid = L * 0.5;
+        const posList = [mid];
+        for (let off = 0.025; mid - off >= minPos || mid + off <= L - minPos; off += 0.025) {
+          if (mid - off >= minPos) posList.push(mid - off);
+          if (mid + off <= L - minPos) posList.push(mid + off);
+        }
+        for (const pos of posList) {
+          const bx = +(seg.x1 + ux * (pos - hw)).toFixed(4);
+          const by = +(seg.y1 + uy * (pos - hw)).toFixed(4);
+          const ex = +(seg.x1 + ux * (pos + hw)).toFixed(4);
+          const ey = +(seg.y1 + uy * (pos + hw)).toFixed(4);
+          const mx = (bx + ex) * 0.5, my = (by + ey) * 0.5;
+          for (const sign of [1, -1]) {
+            const px = +(mx - uy * sign * amp).toFixed(4);
+            const py = +(my + ux * sign * amp).toFixed(4);
+            if (isChevronLegal(seg.layer, bx, by, px, py, ex, ey, seg.width, nid, segs, seg)) {
+              const origX2 = seg.x2, origY2 = seg.y2;
+              seg.x2 = bx; seg.y2 = by;
+              const sA = registerSeg(seg.layer, bx, by, px, py, seg.width, nid);
+              const sB = registerSeg(seg.layer, px, py, ex, ey, seg.width, nid);
+              const sC = registerSeg(seg.layer, ex, ey, origX2, origY2, seg.width, nid);
+              if (sC) segs.push(sC);
+              if (sA) segs.push(sA);
+              if (sB) segs.push(sB);
+              innerSegCount += 3;
+              fineTrims++;
+              added += gain;
               placed = true;
               break;
             }
@@ -6004,8 +6156,10 @@ for (let trimRound = 0; trimRound < 3; trimRound++) {
     const tgt = Math.max(...routedObjs.map((o) => measureFinalEffLengthMm(o)));
     const sorted = routedObjs.slice().sort((a, b) => measureFinalEffLengthMm(a) - measureFinalEffLengthMm(b));
     for (const o of sorted) {
-      const def = tgt - measureFinalEffLengthMm(o);
+      let def = tgt - measureFinalEffLengthMm(o);
       if (def >= 0.03) applyFineContinuousTrim(o, def);
+      def = tgt - measureFinalEffLengthMm(o);
+      if (def >= 0.05) applyFineChevronTrim(o, def);
     }
   }
 }
@@ -6071,6 +6225,72 @@ const maxPairSkew = Math.max(0, ...hsPairs.map((x) => x.afterSkewMm));
 const worstPair = hsPairs.find((x) => x.afterSkewMm === maxPairSkew);
 console.log(`  Diff Pairs (${hsPairs.length} total): worst intra-pair skew = ${maxPairSkew.toFixed(3)}mm (${(maxPairSkew * TPD_PS_PER_MM).toFixed(2)}ps) on ${worstPair?.group || 'none'}`);
 
+// ============================================================================
+// 9B. STAGE 3.6 — HIGH-CURRENT PDN COPPER WIDENING & MULTI-VIA STITCHING (REV 5.0 EVT!)
+// ============================================================================
+const HIGH_CURRENT_PDN_NETS = new Set([
+  'VDD_CPU_BIG0_S0', 'VDD_CPU_BIG1_S0', 'VDD_CPU_LIT_S0', 'VDD_GPU_S0',
+  'VDD_NPU_S0', 'VDD_LOG_S0', 'VDD_DDR_S0', 'VDD2_DDR_S3', 'VDDQ_DDR_S0',
+  'VDD2L_0V9_DDR_S3', 'VSYS_3V87', 'VBAT_6000MAH', 'VBUS_PD_12V', 'VBUS_OVP_OUT',
+]);
+const highCurrentIds = new Set([...HIGH_CURRENT_PDN_NETS].map((n) => netNameToId.get(n)).filter(Boolean));
+let pdnSegsWidened = 0, pdnExtraVias = 0;
+
+// 1. Widen existing high-current power segments in-place to max DRC-clean width (up to 0.65mm, 1oz Cu!)
+for (const layer of LAYER_ORDER) {
+  for (const s of layerSegs[layer]) {
+    if (!highCurrentIds.has(s.netId)) continue;
+    for (const wCand of [0.65, 0.50, 0.40, 0.30, 0.22, 0.16, 0.12]) {
+      if (wCand <= s.width + 0.005) break;
+      if (isLayerSegLegal(layer, s.x1, s.y1, s.x2, s.y2, wCand, s.netId)) {
+        s.width = wCand;
+        const hw2 = wCand * 0.5;
+        layerSegHash[layer].insertBox(
+          s,
+          Math.min(s.x1, s.x2) - hw2, Math.min(s.y1, s.y2) - hw2,
+          Math.max(s.x1, s.x2) + hw2, Math.max(s.y1, s.y2) + hw2
+        );
+        pdnSegsWidened++;
+        break;
+      }
+    }
+  }
+}
+
+// 2. Stitch parallel multi-via arrays next to VRM inductors / FETs / BTBs / high-current pads
+//    so every high-current rail has 8..24 parallel low-resistance vias into its 1oz copper pour zones!
+const PDN_SOURCE_REFS = new Set([
+  'L201', 'L211', 'L212', 'L213', 'L214', 'L215', 'L216', 'L219',
+  'L221', 'L222', 'L223', 'L225', 'Q201A', 'Q201B', 'J201', 'J601',
+  'U202', 'U206', 'U207', 'U208', 'U209', 'J901A_MB', 'J901B_MB',
+]);
+for (const p of allPads) {
+  if (!highCurrentIds.has(p.netId)) continue;
+  if (!PDN_SOURCE_REFS.has(p.ref) && p.ref !== 'U101' && p.ref !== 'U301') continue;
+  const surf = p.side === 'top' ? 'F.Cu' : 'B.Cu';
+  const gx0 = xToGx(p.wx), gy0 = yToGy(p.wy);
+  const maxAdd = PDN_SOURCE_REFS.has(p.ref) ? 3 : 1;
+  let added = 0;
+  for (let rad = 1; rad <= 5 && added < maxAdd; rad++) {
+    for (let dy = -rad; dy <= rad && added < maxAdd; dy++) {
+      for (let dx = -rad; dx <= rad && added < maxAdd; dx++) {
+        if (Math.max(Math.abs(dx), Math.abs(dy)) !== rad) continue;
+        const gx = gx0 + dx, gy = gy0 + dy;
+        if (gx < 2 || gx >= NX - 2 || gy < 2 || gy >= NY - 2 || !validInnerCell[cellKey(gx, gy)]) continue;
+        const vx = gxToX(gx), vy = gyToY(gy);
+        if (isViaStrictlyLegal('through', vx, vy, RULES.thDia, RULES.thDrill, 'F.Cu', 'B.Cu', p.netId, false) &&
+            isLayerSegLegal(surf, p.wx, p.wy, vx, vy, 0.20, p.netId)) {
+          registerSeg(surf, p.wx, p.wy, vx, vy, 0.20, p.netId);
+          registerVia('through', vx, vy, RULES.thDia, RULES.thDrill, 'F.Cu', 'B.Cu', p.netId);
+          pdnExtraVias++;
+          added++;
+        }
+      }
+    }
+  }
+}
+console.log(`Stage 3.6 (Rev 5.0 High-Current PDN Reinforcement): widenedSegs=${pdnSegsWidened}, extraPowerVias=${pdnExtraVias}`);
+
 // Add clean GND Through-Hole Stitching Vias uniting In1.Cu + In4.Cu + In8.Cu + In12.Cu!
 let gndStitchCount = 0;
 for (let gy = 4; gy < NY - 4; gy += 10) {
@@ -6086,7 +6306,7 @@ for (let gy = 4; gy < NY - 4; gy += 10) {
 console.log(`Committed: innerSegs=${innerSegCount} (neckDown=${neckDownSegs}), dynMicro23=${dynViaCounts[0]}, dynBuriedCore=${dynViaCounts[1]}, dynMicro1011=${dynViaCounts[2]}, gndStitchTH=${gndStitchCount}, totalVias=${allVias.length}`);
 
 // ============================================================================
-// 10. EMIT 14-LAYER 1.200mm 3+8+3 STAGGERED HDI .kicad_pro AND .kicad_pcb
+// 10. EMIT 14-LAYER 1.200mm 3+8+3 STAGGERED HDI .kicad_pro AND .kicad_pcb (REV 5.0 EVT)
 // ============================================================================
 const basePro = JSON.parse(fs.readFileSync(PRO_PATH, 'utf8'));
 basePro.board.design_settings.rules = {
@@ -6137,6 +6357,7 @@ basePro.net_settings.netclass_patterns = [
   { netclass: 'POWER_WIDE',    pattern: 'VDD_*' },
   { netclass: 'POWER_WIDE',    pattern: 'VSYS_*' },
   { netclass: 'POWER_WIDE',    pattern: 'VBAT_*' },
+  { netclass: 'POWER_WIDE',    pattern: 'VBUS_*' },
 ];
 fs.writeFileSync(PRO_PATH, JSON.stringify(basePro, null, 2));
 
@@ -6146,11 +6367,11 @@ const kbY = (y) => +(-y).toFixed(4);
 const out = [];
 out.push(`(kicad_pcb`);
 out.push(`  (version 20241229)`);
-out.push(`  (generator "rk_t4_rev4_14l_staggered_hdi_router")`);
+out.push(`  (generator "rk_t4_rev5_evt_14l_staggered_hdi_router")`);
 out.push(`  (generator_version "9.0")`);
 out.push(`  (general (thickness 1.20) (legacy_teardrops no))`);
 out.push(`  (paper "A4")`);
-out.push(`  (title_block (title "RK T4 Smartphone Mainboard Rev 4.0 — 14L 1.20mm 3+8+3 Staggered HDI (JLCPCB 1oz/1oz)") (date "2026-11-22") (rev "4.0"))`);
+out.push(`  (title_block (title "RK T4 Smartphone Mainboard Rev 5.0 EVT — 14L 1.20mm 3+8+3 Staggered HDI (1oz/1oz, 100% Datasheet Pinmaps)") (date "2026-11-24") (rev "5.0"))`);
 out.push(`  (layers`);
 out.push(`    (0 "F.Cu" signal)`);
 out.push(`    (4 "In1.Cu" power "GND")`);
@@ -6178,7 +6399,6 @@ out.push(`      (layer "F.SilkS" (type "Top Silk Screen"))`);
 out.push(`      (layer "F.Paste" (type "Top Solder Paste"))`);
 out.push(`      (layer "F.Mask" (type "Top Solder Mask") (thickness 0.014))`);
 // Exact 14-Layer 1.200mm 3+8+3 JLCPCB 1oz/1oz (35um) S1000-2M TG170 Stackup: 14*0.035 (0.490) + 0.710 Diel = 1.200mm!
-// Top 3 laser buildups (F/In1/In2/In3) + 8-layer core (In3..In10, 0.722mm, AR 4.81:1) + Bot 3 laser buildups (In10/In11/In12/B)
 const dielSpecs = [
   ['prepreg', 0.038], ['prepreg', 0.048], ['prepreg', 0.056],
   ['core',    0.048], ['prepreg', 0.083], ['core',    0.092], ['prepreg', 0.083],
@@ -6248,33 +6468,88 @@ for (const v of allVias) {
   out.push(`  (via${typeTok} (at ${kbX(v.x)} ${kbY(v.y)}) (size ${v.dia}) (drill ${v.drill}) (layers "${v.l1}" "${v.l2}")${nfpTok} (net ${v.netId}) (uuid "${deterministicUuid(++uuidSeq)}"))`);
 }
 
-// 5 Solid Copper Reference/Power Planes:
-//   In1.Cu (GND1), In4.Cu (GND2), In7.Cu (Split Zone A VDD2L + Zone B VSYS), In8.Cu (GND3), In12.Cu (GND4)
+// 5 Solid Reference/Power Planes + Dedicated High-Current 1oz PDN Copper Pour Islands!
 const fullZonePoly = insetOrthoPolygon(OUTLINE_POLY, 0.35);
-const emitZone = (layer, netId, netName, poly) => {
+const rectPoly = (x0, y0, x1, y1) => [[x0, y1], [x1, y1], [x1, y0], [x0, y0]];
+const emitZone = (layer, netId, netName, poly, { clearance = 0.07, islandMode = 0, minThk = 0.05 } = {}) => {
+  if (!netId) return;
   const pts = poly.map(([px, py]) => `(xy ${kbX(px)} ${kbY(py)})`).join(' ');
   out.push(`  (zone (net ${netId}) (net_name "${netName}") (layer "${layer}") (uuid "${deterministicUuid(++uuidSeq)}")`);
   out.push(`    (hatch edge 0.5)`);
-  out.push(`    (connect_pads yes (clearance 0.07))`);
-  out.push(`    (min_thickness 0.05)`);
+  out.push(`    (connect_pads yes (clearance ${clearance}))`);
+  out.push(`    (min_thickness ${minThk})`);
   out.push(`    (filled_areas_thickness no)`);
-  out.push(`    (fill yes (thermal_gap 0.07) (thermal_bridge_width 0.12) (island_removal_mode 0))`);
+  out.push(`    (fill yes (thermal_gap ${clearance}) (thermal_bridge_width 0.14) (island_removal_mode ${islandMode}))`);
   out.push(`    (polygon (pts ${pts}))`);
   out.push(`  )`);
 };
+// Primary solid planes
 emitZone('In1.Cu',  GND_ID,   'GND',              fullZonePoly);
 emitZone('In4.Cu',  GND_ID,   'GND',              fullZonePoly);
 emitZone('In7.Cu',  VDD2L_ID, 'VDD2L_0V9_DDR_S3', VDD2L_ZONE_POLY);
 emitZone('In7.Cu',  VSYS_ID,  'VSYS_3V87',        VSYS_ZONE_POLY);
 emitZone('In8.Cu',  GND_ID,   'GND',              fullZonePoly);
 emitZone('In12.Cu', GND_ID,   'GND',              fullZonePoly);
+
+// Dedicated Rev 5.0 High-Current 1oz (35um) Copper Pour Zones on NFP-immune layers (In11, In2, B.Cu, F.Cu)
+// island_removal_mode=0 (ALWAYS remove disconnected islands -> 0 isolated_copper DRC!) & 0.14mm HS clearance!
+// Outer F.Cu/B.Cu pours also unlock IPC-2152 external-copper cooling (k=0.032) for every high-current SoC/VBUS/VBAT rail!
+const pdnPours = [
+  // In11.Cu (Bottom HDI signal layer — 100% immune to In3-In10 NFP buried vias!)
+  ['In11.Cu', 'VDD_CPU_BIG0_S0', rectPoly(3.0,  32.0, 16.0, 47.5)],
+  ['In11.Cu', 'VDD_CPU_BIG1_S0', rectPoly(3.0,  22.0, 16.0, 31.5)],
+  ['In11.Cu', 'VDD_NPU_S0',      rectPoly(4.8,  17.5, 16.0, 21.5)],
+  ['In11.Cu', 'VDD_GPU_S0',      rectPoly(-4.5, 11.0,  2.5, 29.5)],
+  ['In11.Cu', 'VDD_LOG_S0',      rectPoly(2.8,  10.5,  8.8, 17.2)],
+  ['In11.Cu', 'VDD_DDR_S0',      rectPoly(-0.5,  3.5, 11.0, 10.0)],
+  ['In11.Cu', 'VDD2_DDR_S3',     rectPoly(-18.0, 16.5, -5.0, 36.0)],
+  ['In11.Cu', 'VBAT_6000MAH',    rectPoly(8.0, -11.5, 16.1, -0.5)],
+  ['In11.Cu', 'VBUS_OVP_OUT',    rectPoly(8.0, -26.5, 16.1, -12.0)],
+  // In2.Cu (Top HDI signal layer — 100% immune to In3-In10 NFP buried vias!)
+  ['In2.Cu',  'VDD_CPU_BIG0_S0', rectPoly(3.5,  41.5, 16.0, 47.5)],
+  ['In2.Cu',  'VDD_NPU_S0',      rectPoly(3.5,  24.5, 16.0, 41.0)],
+  ['In2.Cu',  'VDD_CPU_LIT_S0',  rectPoly(-3.5,  9.5,  4.5, 24.0)],
+  ['In2.Cu',  'VDD_LOG_S0',      rectPoly(-3.5,  7.5, 11.5,  9.2)],
+  ['In2.Cu',  'VDD_LOG_S0',      rectPoly(4.8,   9.5, 11.5, 24.0)],
+  ['In2.Cu',  'VDD_DDR_S0',      rectPoly(-0.8,  3.5,  9.5,  7.0)],
+  ['In2.Cu',  'VDDQ_DDR_S0',     rectPoly(-18.0, 16.5, -4.0, 36.0)],
+  ['In2.Cu',  'VBAT_6000MAH',    rectPoly(8.0, -12.5, 16.1, -0.5)],
+  ['In2.Cu',  'VBUS_OVP_OUT',    rectPoly(8.0, -26.5, 16.1, -13.0)],
+  ['In2.Cu',  'VBUS_PD_12V',     rectPoly(8.0, -68.5, 16.1, -27.0)],
+  // B.Cu (Outer 1oz bottom copper — IPC-2152 external cooling k=0.032 & 100% immune to buried vias!)
+  ['B.Cu',    'VDD_CPU_BIG0_S0', rectPoly(3.5,  36.0, 16.0, 47.5)],
+  ['B.Cu',    'VDD_CPU_BIG1_S0', rectPoly(3.5,  26.5, 16.0, 35.5)],
+  ['B.Cu',    'VDD_NPU_S0',      rectPoly(5.0,  18.5, 16.0, 26.0)],
+  ['B.Cu',    'VDD_CPU_LIT_S0',  rectPoly(0.8,  20.5,  4.5, 29.5)],
+  ['B.Cu',    'VDD_GPU_S0',      rectPoly(-4.5, 11.0,  1.7, 20.0)],
+  ['B.Cu',    'VDD_LOG_S0',      rectPoly(2.0,  10.8,  8.2, 18.2)],
+  ['B.Cu',    'VDD_DDR_S0',      rectPoly(-0.5,  4.2, 10.8, 10.5)],
+  ['B.Cu',    'VDD2_DDR_S3',     rectPoly(-18.0, 16.5, -5.0, 36.0)],
+  ['B.Cu',    'VBAT_6000MAH',    rectPoly(8.0, -11.5, 16.1, -0.5)],
+  ['B.Cu',    'VBUS_OVP_OUT',    rectPoly(8.0, -26.5, 16.1, -12.0)],
+  // F.Cu (Outer 1oz top copper — connects directly to VRM inductors/pads & IPC-2152 k=0.032!)
+  ['F.Cu',    'VDD_CPU_BIG0_S0', rectPoly(8.5,  42.5, 16.0, 47.5)],
+  ['F.Cu',    'VDD_CPU_BIG1_S0', rectPoly(8.5,  38.5, 16.0, 42.0)],
+  ['F.Cu',    'VDD_NPU_S0',      rectPoly(8.5,  33.5, 16.0, 38.0)],
+  ['F.Cu',    'VDD_GPU_S0',      rectPoly(-4.5, 11.2,  3.5, 16.0)],
+  ['F.Cu',    'VDD_CPU_LIT_S0',  rectPoly(-4.5,  9.2,  3.5, 10.8)],
+  ['F.Cu',    'VDD_LOG_S0',      rectPoly(-4.5,  7.2,  3.5,  8.8)],
+  ['F.Cu',    'VDD_DDR_S0',      rectPoly(-0.8,  3.5,  8.5,  6.8)],
+  ['F.Cu',    'VDDQ_DDR_S0',     rectPoly(-18.0, 32.0, -4.0, 40.0)],
+  ['F.Cu',    'VBAT_6000MAH',    rectPoly(8.0, -11.5, 16.1, -0.5)],
+  ['F.Cu',    'VBUS_OVP_OUT',    rectPoly(8.0, -26.5, 16.1, -12.0)],
+  ['F.Cu',    'VBUS_PD_12V',     rectPoly(8.0, -68.5, 16.1, -27.0)],
+];
+for (const [layer, netName, poly] of pdnPours) {
+  emitZone(layer, netNameToId.get(netName), netName, poly, { clearance: 0.14, islandMode: 0, minThk: 0.12 });
+}
 out.push(`)`);
 
 fs.writeFileSync(PCB_PATH, out.join('\n') + '\n');
 console.log(`Wrote ${PCB_PATH} (${(fs.statSync(PCB_PATH).size / 1024).toFixed(1)} KB)`);
 
 // ============================================================================
-// 11. STAGE 4 — NATIVE KICAD 9.0.8 pcbnew.ZONE_FILLER ON ALL 6 ZONES (5 PLANES)!
+// 11. STAGE 4 — NATIVE KICAD 9.0.8 pcbnew.ZONE_FILLER ON ALL PLANES & PDN POURS!
 // ============================================================================
 const kicadRoot = '/home/antigravity/.local/kicad-root';
 const env = fs.existsSync(kicadRoot)
@@ -6284,7 +6559,7 @@ const env = fs.existsSync(kicadRoot)
       LD_LIBRARY_PATH: `${kicadRoot}/usr/lib/x86_64-linux-gnu:${kicadRoot}/usr/lib/x86_64-linux-gnu/kicad:${kicadRoot}/lib/x86_64-linux-gnu:${kicadRoot}/usr/lib:${process.env.LD_LIBRARY_PATH || ''}`,
     }
   : { ...process.env };
-console.log('Running native KiCad 9.0.8 pcbnew.ZONE_FILLER on all 6 copper plane zones (0.07mm/0.075mm HDI rules)...');
+console.log(`Running native KiCad 9.0.8 pcbnew.ZONE_FILLER on ${6 + pdnPours.length} copper plane & high-current PDN zones...`);
 execFileSync('python3', [
   '-c',
   `import pcbnew; b = pcbnew.LoadBoard(${JSON.stringify(PCB_PATH)}); ` +
@@ -6297,5 +6572,5 @@ execFileSync('python3', [
 
 basePro.net_settings.classes = buildClasses();
 fs.writeFileSync(PRO_PATH, JSON.stringify(basePro, null, 2));
-console.log(`Restored Rev 4.0 14L 1oz 8-netclass HDI rules in ${PRO_PATH}`);
-console.log(`Total Rev 4.0 14L 1.20mm 3+8+3 Staggered HDI build time: ${((Date.now() - t0) / 1000).toFixed(2)}s`);
+console.log(`Restored Rev 5.0 14L 1oz 8-netclass HDI rules in ${PRO_PATH}`);
+console.log(`Total Rev 5.0 14L 1.20mm 3+8+3 Staggered HDI build time: ${((Date.now() - t0) / 1000).toFixed(2)}s`);

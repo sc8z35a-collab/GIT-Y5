@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "RK_T4")(type "KiCad")(uri "${KIPRJMOD}/RK_T4.pretty")(options "")(descr "RK T4 Rev 5.0 EVT Datasheet-Verified Footprints"))
+)

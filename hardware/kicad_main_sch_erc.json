@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-24T12:44:51+0000",
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "9.0.8",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/ffba303c-65ec-4ef9-8ced-abe341844219",
+            "violations": []
+        },
+        {
+            "path": "/01_SoC_LPDDR5X_eMMC_Clocks/",
+            "uuid_path": "/ffba303c-65ec-4ef9-8ced-abe341844219/dc6c6238-18da-4d01-8f3b-f9e73cb2c1e1",
+            "violations": []
+        },
+        {
+            "path": "/02_PMIC_Charging_Battery_Qi/",
+            "uuid_path": "/ffba303c-65ec-4ef9-8ced-abe341844219/0f42cb6e-1d93-49f9-8c15-50b139fbf519",
+            "violations": []
+        },
+        {
+            "path": "/03_Display_Camera_USBC_BTB/",
+            "uuid_path": "/ffba303c-65ec-4ef9-8ced-abe341844219/a326058c-c71f-4740-8071-9e53e377dba0",
+            "violations": []
+        },
+        {
+            "path": "/04_Audio_Sensors_Haptic_IO/",
+            "uuid_path": "/ffba303c-65ec-4ef9-8ced-abe341844219/c4d30ef9-a65d-440a-8784-95268235e8ea",
+            "violations": []
+        }
+    ],
+    "source": "rk_t4_mainboard.kicad_sch"
+}

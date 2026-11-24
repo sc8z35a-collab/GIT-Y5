@@ -23,6 +23,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { getVerifiedFootprintPads } from './ic_pinmaps/index.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const NETLIST_PATH = path.join(__dirname, 'rk_t4_netlist.json');
@@ -43,13 +44,13 @@ const RULES = {
   rfGap: 0.150,          // Coplanar GND gap G = 0.150 mm
   pcieWidth: 0.115,      // 86.2 ohm diff stripline on In2/In5 (W=0.115mm, S=0.135mm on 0.25mm grid)
   pwrWidth: 0.140,       // Power distribution on 0.25mm grid (0.25 - 0.14 = 0.110 >= 0.100mm clearance!)
-  sigWidth: 0.100,       // Digital control (RFFE/SPMI/PCM/SIM/I2C/SPI/UART)
+  sigWidth: 0.100,       // Digital control (PCM/SIM/I2C/UART/USB2)
   viaDia: 0.250,         // JLCPCB Standard 8L 0.8mm Epoxy POFV through-hole via (AR = 0.80/0.15 = 5.33:1)
   viaDrill: 0.150,
   holeToHole: 0.160,
   holeClearance: 0.120,
   copperEdgeClearance: 0.250,
-  fenceSpacing: 0.800,   // lambda/35 at 6 GHz (Wi-Fi 6E / 5G n77/n79)
+  fenceSpacing: 0.800,   // lambda/35 at 6 GHz (Wi-Fi 6E)
   fenceOffset: 0.430,    // Normal offset from RF centerline: 0.045 + 0.150 + 0.125 + 0.110 guard
 };
 
@@ -62,27 +63,18 @@ const NETCLASS_SPECS = {
 };
 
 const RF_CPWG_NETS = new Set([
-  'RF_PATH_LB', 'RF_PATH_MHB', 'RF_PATH_UHB', 'RF_PATH_DRX', 'RF_DRX_LNA_IN',
-  'RF_ANT_MAIN_50', 'RF_ANT_DIV_50', 'RF_ANT_UHB0_50', 'RF_ANT_UHB1_50',
-  'MMW0_IF_50', 'MMW1_IF_50',
-  'WIFI_ANT0_50', 'WIFI_ANT1_50',
-  'GNSS_ANT_50', 'GNSS_SAW_OUT', 'GNSS_LNA_OUT',
+  'LTE_ANT_RF_RAW', 'RF_ANT_MAIN_50',
+  'WIFI_ANT0_RAW', 'WIFI_ANT0_50', 'WIFI_ANT1_RAW', 'WIFI_ANT1_50',
+  'GNSS_ANT_50',
   'NFC_TX1', 'NFC_TX2', 'NFC_ANT_P', 'NFC_ANT_N',
-]);
-
-// RF Shunt Pi-Match Inductor/Capacitor pairs oriented vertically (pin 1 north=RF, pin 2 south=GND)
-const VERTICAL_SHUNT_REFS = new Set([
-  'L1001','L1002','L1003','L1004','L1005','L1006','L1007',
-  'C1395','C1396','C1397','C1398','C1399','C1400','C1401',
-  'RT701','C1359',
 ]);
 
 function classifyMezzNet(name) {
   if (!name) return 'Default';
   if (name === 'GND') return 'GND';
   if (RF_CPWG_NETS.has(name)) return 'RF_CPWG_50';
-  if (name.startsWith('PCIE_')) return 'PCIE_DIFF_85';
-  if (/^(VSYS|VPA|VDD|VCC|SW_)/.test(name)) return 'POWER_RF';
+  if (name.startsWith('PCIE_') || name.startsWith('MODEM_USB_')) return 'PCIE_DIFF_85';
+  if (/^(VSYS|VDD|VCC|WIFI_CBUCK|WIFI_ABUCK|WIFI_CSR|WIFI_ASR|NFC_VDD)/.test(name)) return 'POWER_RF';
   return 'Default';
 }
 
@@ -92,14 +84,6 @@ const OUTLINE_POLY = [
   [ 14.4, 40.7],
   [ -9.8, 40.7],
   [-15.5, 39.5],
-];
-
-// Exact 4 component-free Interposer Bars (1:1 with Mainboard F.Cu & 3D Assembly!)
-const INTERPOSER_BARS = [
-  { name: 'NORTH',      cx:  0.60, cy: 40.00, w: 20.0, h: 0.70, horiz: true,  count: 20 },
-  { name: 'MID_WEST',   cx: -9.60, cy: 16.60, w: 10.4, h: 0.70, horiz: true,  count: 11 },
-  { name: 'SOUTH_WEST', cx: -8.70, cy:  6.80, w:  9.8, h: 0.70, horiz: true,  count: 10 },
-  { name: 'SOUTH_EAST', cx: 13.30, cy:  9.50, w: 0.70, h:  5.2, horiz: false, count:  7 },
 ];
 
 const SIG_LAYERS = ['In2.Cu', 'In3.Cu', 'In4.Cu', 'In5.Cu'];
@@ -250,7 +234,7 @@ class MinHeap {
 }
 
 // ============================================================================
-// 3. BUILD MEZZANINE FOOTPRINTS & NET TABLE (ALL 140 PARTS, 461 PADS)
+// 3. BUILD 100% OFFICIAL MANUFACTURER DATASHEET 1:1 MEZZANINE FOOTPRINTS
 // ============================================================================
 const netNameToId = new Map([['', 0]]);
 const idToNetName = [''];
@@ -260,201 +244,35 @@ function getNetId(name) {
   return netNameToId.get(name);
 }
 
-function buildMezzSlots(c, pinNames) {
-  const pkg = c.pkg || '';
-  const w = c.w, h = c.h;
-  const n = pinNames.length;
-
-  // MHF4 Micro-Coax RF Receptacle (I-PEX 20449-001E, 2.0x2.0mm)
-  if (pkg === 'MHF4-RECEPT') {
-    return [
-      { lx:  0.00, ly: +0.62, pw: 0.42, ph: 0.48, shape: 'roundrect' },
-      { lx:  0.00, ly: -0.58, pw: 1.40, ph: 0.56, shape: 'roundrect' },
-    ];
-  }
-  if (pkg === 'PAD-2P') {
-    return [
-      { lx: -0.68, ly: 0, pw: 0.80, ph: 0.88, shape: 'roundrect' },
-      { lx: +0.68, ly: 0, pw: 0.80, ph: 0.88, shape: 'roundrect' },
-    ];
-  }
-  // True Murata SAFEA1G58KA0F00 SMD-1109 SAW filter (1.1x0.9mm, 3-pin: IN, OUT, GND)
-  if (pkg === 'SMD-1109') {
-    return [
-      { lx: -0.40, ly: +0.28, pw: 0.24, ph: 0.24, shape: 'roundrect' },
-      { lx: +0.40, ly: +0.28, pw: 0.24, ph: 0.24, shape: 'roundrect' },
-      { lx:  0.00, ly: -0.28, pw: 0.30, ph: 0.24, shape: 'roundrect' },
-    ];
-  }
-  // Vertical RF shunt pi-match orientation (pin 1 north = RF line, pin 2 south = GND!)
-  if (VERTICAL_SHUNT_REFS.has(c.ref)) {
-    if (pkg === '01005') {
-      return [
-        { lx: 0, ly: +0.20, pw: 0.18, ph: 0.15, shape: 'roundrect' },
-        { lx: 0, ly: -0.20, pw: 0.18, ph: 0.15, shape: 'roundrect' },
-      ];
-    }
-    return [
-      { lx: 0, ly: +0.23, pw: 0.24, ph: 0.19, shape: 'roundrect' },
-      { lx: 0, ly: -0.23, pw: 0.24, ph: 0.19, shape: 'roundrect' },
-    ];
-  }
-  // True IPC-7351B 01005 / 0201 / 0402 land patterns
-  if (pkg === '01005') {
-    return w >= h
-      ? [{ lx: -0.20, ly: 0, pw: 0.15, ph: 0.18, shape: 'roundrect' }, { lx: +0.20, ly: 0, pw: 0.15, ph: 0.18, shape: 'roundrect' }]
-      : [{ lx: 0, ly: +0.20, pw: 0.18, ph: 0.15, shape: 'roundrect' }, { lx: 0, ly: -0.20, pw: 0.18, ph: 0.15, shape: 'roundrect' }];
-  }
-  if (pkg === '0201') {
-    return w >= h
-      ? [{ lx: -0.22, ly: 0, pw: 0.20, ph: 0.26, shape: 'roundrect' }, { lx: +0.22, ly: 0, pw: 0.20, ph: 0.26, shape: 'roundrect' }]
-      : [{ lx: 0, ly: +0.22, pw: 0.26, ph: 0.20, shape: 'roundrect' }, { lx: 0, ly: -0.22, pw: 0.26, ph: 0.20, shape: 'roundrect' }];
-  }
-  if (pkg === '0402') {
-    return w >= h
-      ? [{ lx: -0.45, ly: 0, pw: 0.44, ph: 0.48, shape: 'roundrect' }, { lx: +0.45, ly: 0, pw: 0.44, ph: 0.48, shape: 'roundrect' }]
-      : [{ lx: 0, ly: +0.45, pw: 0.48, ph: 0.44, shape: 'roundrect' }, { lx: 0, ly: -0.45, pw: 0.48, ph: 0.44, shape: 'roundrect' }];
-  }
-  if (n === 2) {
-    const horiz = w >= h;
-    const major = Math.max(w, h), minor = Math.min(w, h);
-    const pw = +(Math.max(0.24, Math.min(0.85, major * 0.28))).toFixed(3);
-    const ph = +(Math.max(0.24, Math.min(1.40, minor * 0.78))).toFixed(3);
-    const off = +(major * 0.5 - pw * 0.5 - 0.08).toFixed(3);
-    return horiz
-      ? [{ lx: -off, ly: 0, pw, ph, shape: 'roundrect' }, { lx: +off, ly: 0, pw, ph, shape: 'roundrect' }]
-      : [{ lx: 0, ly: +off, pw: ph, ph: pw, shape: 'roundrect' }, { lx: 0, ly: -off, pw: ph, ph: pw, shape: 'roundrect' }];
-  }
-  if (n === 3) {
-    const inset = +(Math.min(0.10, Math.min(w, h) * 0.08)).toFixed(3);
-    const pw = +(Math.min(0.50, w * 0.25)).toFixed(3);
-    const ph = +(Math.min(0.48, h * 0.26)).toFixed(3);
-    const ox = +(w * 0.5 - pw * 0.5 - inset).toFixed(3);
-    const oy = +(h * 0.5 - ph * 0.5 - inset).toFixed(3);
-    return [
-      { lx: -ox, ly: +oy, pw, ph, shape: 'roundrect' },
-      { lx: +ox, ly: +oy, pw, ph, shape: 'roundrect' },
-      { lx: 0,   ly: -oy, pw, ph, shape: 'roundrect' },
-    ];
-  }
-  if (n === 4) {
-    const insetX = Math.min(0.10, w * 0.08), insetY = Math.min(0.10, h * 0.08);
-    const uW = w - 2 * insetX, uH = h - 2 * insetY;
-    const pw = +(Math.max(0.18, Math.min(0.46, (uW - 0.18) * 0.5))).toFixed(3);
-    const ph = +(Math.max(0.18, Math.min(0.46, (uH - 0.18) * 0.5))).toFixed(3);
-    const ox = +((uW - pw) * 0.5).toFixed(3), oy = +((uH - ph) * 0.5).toFixed(3);
-    return [
-      { lx: -ox, ly: +oy, pw, ph, shape: 'roundrect' },
-      { lx: +ox, ly: +oy, pw, ph, shape: 'roundrect' },
-      { lx: -ox, ly: -oy, pw, ph, shape: 'roundrect' },
-      { lx: +ox, ly: -oy, pw, ph, shape: 'roundrect' },
-    ];
-  }
-  if (pkg.includes('BGA') || pkg.includes('CSP') || pkg.includes('WLP') || pkg.includes('WLNSP')) {
-    let cols = Math.ceil(Math.sqrt((n * w) / h));
-    let rows = Math.ceil(n / cols);
-    while (cols * rows < n) cols++;
-    const mX = Math.min(0.75, Math.max(0.28, w * 0.12));
-    const mY = Math.min(0.75, Math.max(0.28, h * 0.12));
-    const spanX = w - 2 * mX, spanY = h - 2 * mY;
-    const pX = cols > 1 ? spanX / (cols - 1) : 0.6;
-    const pY = rows > 1 ? spanY / (rows - 1) : 0.6;
-    const dia = +(Math.max(0.22, Math.min(0.36, Math.min(pX, pY) - 0.18))).toFixed(3);
-    const slots = [];
-    for (let r = 0; r < rows; r++) for (let col = 0; col < cols; col++) {
-      slots.push({
-        lx: +(cols > 1 ? -spanX * 0.5 + col * pX : 0).toFixed(4),
-        ly: +(rows > 1 ? spanY * 0.5 - r * pY : 0).toFixed(4),
-        pw: dia, ph: dia, shape: 'circle',
-        isInterior: r > 0 && r < rows - 1 && col > 0 && col < cols - 1,
-      });
-    }
-    const perim = slots.filter((s) => !s.isInterior);
-    const inner = slots.filter((s) => s.isInterior);
-    return perim.length >= n ? perim : [...perim, ...inner];
-  }
-  // LGA / QFN / LCC perimeter footprint with guaranteed >= 0.16 mm pad clearance
-  const totalP = 2 * (w + h);
-  let nH = Math.max(1, Math.round((n * w) / totalP));
-  let nV = Math.max(0, Math.ceil((n - 2 * nH) / 2));
-  while (2 * nH + 2 * nV < n) { if (w >= h) nH++; else nV++; }
-  const nT = nH, nB = nH, nL = nV, nR = Math.max(0, n - nT - nB - nL);
-  const edgeInset = 0.10;
-  const padLen = +(Math.max(0.24, Math.min(0.46, Math.min(w, h) * 0.12))).toFixed(3);
-  const maxPW = 0.24;
-  const cClear = +(edgeInset + padLen + maxPW * 0.5 + 0.18).toFixed(3);
-  const sX = Math.max(0.25, w - 2 * cClear), sY = Math.max(0.25, h - 2 * cClear);
-  const pX = nT > 1 ? sX / (nT - 1) : 0.8, pY = nL > 1 ? sY / (nL - 1) : 0.8;
-  const padW = +(Math.max(0.16, Math.min(maxPW, Math.min(pX, pY) - 0.16))).toFixed(3);
-  const ox = +(w * 0.5 - padLen * 0.5 - edgeInset).toFixed(3);
-  const oy = +(h * 0.5 - padLen * 0.5 - edgeInset).toFixed(3);
-  const slots = [];
-  for (let i = 0; i < nT; i++) slots.push({ lx: +(nT > 1 ? -sX * 0.5 + i * pX : 0).toFixed(4), ly: +oy, pw: padW, ph: padLen, shape: 'roundrect' });
-  for (let i = 0; i < nB; i++) slots.push({ lx: +(nB > 1 ? -sX * 0.5 + i * pX : 0).toFixed(4), ly: -oy, pw: padW, ph: padLen, shape: 'roundrect' });
-  for (let i = 0; i < nL; i++) slots.push({ lx: -ox, ly: +(nL > 1 ? sY * 0.5 - i * pY : 0).toFixed(4), pw: padLen, ph: padW, shape: 'roundrect' });
-  for (let i = 0; i < nR; i++) slots.push({ lx: +ox, ly: +(nR > 1 ? sY * 0.5 - i * (sY / Math.max(1, nR - 1)) : 0).toFixed(4), pw: padLen, ph: padW, shape: 'roundrect' });
-  return slots;
-}
-
 const footprints = [];
 const allPads = [];
 
 for (const c of mezzComps) {
-  if (c.ref === 'J901') continue;
-  const pinEntries = Object.entries(c.pins || {});
-  const pinNames = pinEntries.map(([k]) => k);
-  const slots = buildMezzSlots(c, pinNames);
+  // STRICT ZERO-FALLBACK OFFICIAL DATASHEET PINMAP: throws if any IC/module/connector is unverified!
+  const verifiedPads = getVerifiedFootprintPads(c);
+  const rot = c.rot || 0;
+  const rad = (rot * Math.PI) / 180, cos = Math.cos(rad), sin = Math.sin(rad);
+  const isRot90 = Math.abs(rot % 180) === 90;
   const layer = c.side === 'top' ? 'F.Cu' : 'B.Cu';
   const fpPads = [];
-  pinEntries.forEach(([pinName, netName], idx) => {
-    const sl = slots[idx] || slots[slots.length - 1];
-    const wx = +(c.x + sl.lx).toFixed(4);
-    const wy = +(c.y + sl.ly).toFixed(4);
+  for (const sl of verifiedPads) {
+    const wx = +(c.x + sl.lx * cos - sl.ly * sin).toFixed(4);
+    const wy = +(c.y + sl.lx * sin + sl.ly * cos).toFixed(4);
+    const netName = sl.netName || '';
     const padObj = {
-      id: allPads.length, ref: c.ref, padNum: String(idx + 1), pinName, netName,
-      netId: getNetId(netName), side: c.side, layer,
-      lx: sl.lx, ly: sl.ly, wx, wy, pw: sl.pw, ph: sl.ph, shape: sl.shape,
+      id: allPads.length, ref: c.ref, padNum: String(sl.padNum), pinName: sl.pinName || String(sl.padNum),
+      netName, netId: getNetId(netName), side: c.side, layer,
+      lx: sl.lx, ly: sl.ly, wx, wy,
+      pw: isRot90 ? sl.ph : sl.pw, ph: isRot90 ? sl.pw : sl.ph,
+      origPw: sl.pw, origPh: sl.ph, shape: sl.shape,
       isRfPad: RF_CPWG_NETS.has(netName),
     };
     fpPads.push(padObj);
     allPads.push(padObj);
-  });
-  footprints.push({
-    ref: c.ref, mpn: c.mpn, pkg: c.pkg, value: c.value,
-    side: c.side, x: c.x, y: c.y, w: c.w, h: c.h, pads: fpPads, isInterposer: false,
-  });
-}
-
-// Add J901 4-Bar Interposer on Mezzanine Bottom (B.Cu) at EXACT 1:1 Mainboard coordinates!
-{
-  const j901 = mezzComps.find((c) => c.ref === 'J901');
-  const pinEntries = Object.entries(j901.pins || {});
-  const j901Slots = [];
-  for (const bar of INTERPOSER_BARS) {
-    const n = bar.count;
-    for (let i = 0; i < n; i++) {
-      const frac = n > 1 ? (i / (n - 1)) - 0.5 : 0;
-      const wx = bar.horiz ? +(bar.cx + frac * (bar.w - 0.60)).toFixed(4) : bar.cx;
-      const wy = bar.horiz ? bar.cy : +(bar.cy + frac * (bar.h - 0.60)).toFixed(4);
-      j901Slots.push({ wx, wy, pw: 0.28, ph: 0.28, shape: 'circle' });
-    }
   }
-  const fpPads = [];
-  pinEntries.forEach(([pinName, netName], idx) => {
-    const sl = j901Slots[idx];
-    const padObj = {
-      id: allPads.length, ref: 'J901', padNum: String(idx + 1), pinName, netName,
-      netId: getNetId(netName), side: 'bot', layer: 'B.Cu',
-      lx: +(sl.wx - j901.x).toFixed(4), ly: +(sl.wy - j901.y).toFixed(4),
-      wx: sl.wx, wy: sl.wy, pw: sl.pw, ph: sl.ph, shape: sl.shape,
-      isRfPad: false,
-    };
-    fpPads.push(padObj);
-    allPads.push(padObj);
-  });
   footprints.push({
-    ref: 'J901', mpn: j901.mpn, pkg: j901.pkg, value: j901.value,
-    side: 'bot', x: j901.x, y: j901.y, w: j901.w, h: j901.h, pads: fpPads, isInterposer: true,
+    ref: c.ref, mpn: c.mpn, pkg: c.pkg, value: c.value, rot,
+    side: c.side, x: c.x, y: c.y, w: c.w, h: c.h, pads: fpPads, isInterposer: false,
   });
 }
 
@@ -865,9 +683,28 @@ for (const [netId, pads] of padsByNet.entries()) {
       }
     }
     if (placed) continue;
+    const hasInnerEscape = (gx, gy, netId) => {
+      for (const [edx, edy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const nx = gx + edx, ny = gy + edy;
+        if (nx < 2 || nx >= NX - 2 || ny < 2 || ny >= NY - 2 || !validIn[cellKey(nx, ny)]) continue;
+        const x1 = gxToX(gx), y1 = gyToY(gy), x2 = gxToX(nx), y2 = gyToY(ny);
+        const hw = width * 0.5;
+        let blocked = false;
+        for (const ov of viaHash.queryBox(Math.min(x1,x2)-0.42, Math.min(y1,y2)-0.42, Math.max(x1,x2)+0.42, Math.max(y1,y2)+0.42)) {
+          if (ov.netId === netId) continue;
+          const d = Math.sqrt(distPointToSegSq(ov.x, ov.y, x1, y1, x2, y2));
+          if (d < RULES.viaDia * 0.5 + hw + netClearance(netId, ov.netId) + 0.008 ||
+              d < RULES.viaDrill * 0.5 + hw + RULES.holeClearance + 0.008) { blocked = true; break; }
+        }
+        if (!blocked) return true;
+      }
+      return false;
+    };
     for (const p of cluster) {
       const surf = p.side === 'top' ? 'F.Cu' : 'B.Cu';
       const gx0 = xToGx(p.wx), gy0 = yToGy(p.wy);
+      // Avoid crowding the very top board edge (Y > 40.0) where J901B pins can box each other in!
+      const maxAllowY = p.wy > 38.0 ? 39.80 : 40.35;
       for (let rad = 0; rad <= 14 && !placed; rad++) {
         for (let dy = -rad; dy <= rad && !placed; dy++) for (let dx = -rad; dx <= rad && !placed; dx++) {
           if (Math.max(Math.abs(dx), Math.abs(dy)) !== rad) continue;
@@ -875,6 +712,8 @@ for (const [netId, pads] of padsByNet.entries()) {
           if (gx < 2 || gx >= NX - 2 || gy < 2 || gy >= NY - 2 || !validIn[cellKey(gx, gy)]) continue;
           if (fixedViaGrid[cellKey(gx, gy)] !== 0) continue;
           const vx = gxToX(gx), vy = gyToY(gy);
+          if (vy > maxAllowY) continue;
+          if (!hasInnerEscape(gx, gy, netId)) continue;
           const onOwnPad = Math.hypot(vx - p.wx, vy - p.wy) < Math.min(p.pw, p.ph) * 0.45;
           if (isThroughViaLegal(vx, vy, netId, onOwnPad) && isSegLegal(surf, p.wx, p.wy, vx, vy, width, netId)) {
             registerSeg(surf, p.wx, p.wy, vx, vy, width, netId);
@@ -1145,13 +984,28 @@ function routePair(netId, startStates, goalStates, goalGx, goalGy, pf, strict) {
     }
     const vc = dynViaCost(cur.gx, cur.gy, netId, pf, strict);
     if (vc < Infinity) {
-      for (let ns = 0; ns < NUM_SIG; ns++) {
-        if (ns === cur.s) continue;
-        const nst = ns * STRIDE + cellKey(cur.gx, cur.gy);
-        const ng = cg + vc;
-        if (stmp[nst] !== curStamp || ng < gSc[nst]) {
-          stmp[nst] = curStamp; gSc[nst] = ng; cFr[nst] = cur.st;
-          heap.push({ f: ng + (Math.abs(cur.gx - goalGx) + Math.abs(cur.gy - goalGy)) * 1.2, s: ns, gx: cur.gx, gy: cur.gy, st: nst });
+      // Prevent placing two dynamic vias within 1 grid cell (0.25mm) on the same A* path (0.10mm < 0.16mm hole-to-hole!)
+      let nearPriorVia = false;
+      let tCheck = cur.st, stepsBack = 0;
+      while (tCheck !== -1 && stepsBack < 4) {
+        const pCheck = cFr[tCheck];
+        if (pCheck !== -1 && Math.floor(pCheck / STRIDE) !== Math.floor(tCheck / STRIDE)) {
+          const pk = tCheck % STRIDE;
+          if (Math.max(Math.abs((pk % NX) - cur.gx), Math.abs(Math.floor(pk / NX) - cur.gy)) <= 1) {
+            nearPriorVia = true; break;
+          }
+        }
+        tCheck = pCheck; stepsBack++;
+      }
+      if (!nearPriorVia) {
+        for (let ns = 0; ns < NUM_SIG; ns++) {
+          if (ns === cur.s) continue;
+          const nst = ns * STRIDE + cellKey(cur.gx, cur.gy);
+          const ng = cg + vc;
+          if (stmp[nst] !== curStamp || ng < gSc[nst]) {
+            stmp[nst] = curStamp; gSc[nst] = ng; cFr[nst] = cur.st;
+            heap.push({ f: ng + (Math.abs(cur.gx - goalGx) + Math.abs(cur.gy - goalGy)) * 1.2, s: ns, gx: cur.gx, gy: cur.gy, st: nst });
+          }
         }
       }
     }
@@ -1184,8 +1038,13 @@ function routeNet(n, pf, strict) {
       const s = Math.floor(st / STRIDE), k = st % STRIDE;
       allNodes.push([s, k % NX, Math.floor(k / NX)]);
     }
-    for (const v of res.vias) allNetVias.push(v);
+    for (const v of res.vias) {
+      // Also record immediately in viaOcc during multi-branch routing so later branches of same net keep >= 2-cell via spacing!
+      addO(viaOcc, cellKey(v[0], v[1]), n.netId);
+      allNetVias.push(v);
+    }
   }
+  for (const v of allNetVias) delO(viaOcc, cellKey(v[0], v[1]), n.netId);
   n.nodes = allNodes; n.vias = allNetVias; n.paths = paths;
   commitNet(n);
   return true;
@@ -1388,11 +1247,11 @@ fs.writeFileSync(PRO_OUT, JSON.stringify(mezzPro, null, 2));
 const out = [];
 out.push(`(kicad_pcb`);
 out.push(`  (version 20241229)`);
-out.push(`  (generator "rk_t4_mezzanine_rf_rev4")`);
-out.push(`  (generator_version "4.0")`);
+out.push(`  (generator "rk_t4_mezzanine_rf_rev5_evt")`);
+out.push(`  (generator_version "5.0")`);
 out.push(`  (general (thickness 0.800) (legacy_teardrops no))`);
 out.push(`  (paper "A4")`);
-out.push(`  (title_block (title "RK T4 8-Layer 0.80mm JLC08081H-1080A 5G NR / Wi-Fi 6E / GNSS / NFC RF Mezzanine PCB (Rev 4.0)") (date "2026-11-21") (rev "4.0") (company "RK Hardware Engineering"))`);
+out.push(`  (title_block (title "RK T4 8-Layer 0.80mm JLC08081H-1080A LTE / Wi-Fi 6E / GNSS / NFC RF Mezzanine PCB (Rev 5.0 EVT)") (date "2026-11-24") (rev "5.0") (company "RK Hardware Engineering"))`);
 out.push(`  (layers`);
 out.push(`    (0 "F.Cu" signal)`);
 out.push(`    (4 "In1.Cu" power)`);
@@ -1450,14 +1309,14 @@ for (const fp of footprints) {
   const paste = fp.side === 'top' ? 'F.Paste' : 'B.Paste';
   const mask = fp.side === 'top' ? 'F.Mask' : 'B.Mask';
   out.push(`  (footprint "RF_${fp.pkg.replace(/[^A-Za-z0-9_.-]/g, '_')}" (layer "${fl}") (uuid "${uuid()}")`);
-  out.push(`    (at ${fmt(fp.x)} ${fmt(toKiCadY(fp.y))})`);
+  out.push(`    (at ${fmt(fp.x)} ${fmt(toKiCadY(fp.y))} ${fp.rot || 0})`);
   out.push(`    (property "Reference" "${fp.ref}" (at 0 0 0) (layer "${fab}") (hide yes) (uuid "${uuid()}") (effects (font (size 0.5 0.5) (thickness 0.08))))`);
   out.push(`    (property "Value" "${(fp.mpn || fp.value).replace(/"/g, '')}" (at 0 0.7 0) (layer "${fab}") (hide yes) (uuid "${uuid()}") (effects (font (size 0.5 0.5) (thickness 0.08))))`);
   out.push(`    (attr smd)`);
   for (const p of fp.pads) {
     const rrr = p.shape === 'roundrect' ? ' (roundrect_rratio 0.25)' : '';
     const netAttr = p.netId > 0 ? ` (net ${p.netId} "${p.netName}")` : '';
-    out.push(`    (pad "${p.padNum}" smd ${p.shape} (at ${fmt(p.lx)} ${fmt(-p.ly)}) (size ${fmt(p.pw)} ${fmt(p.ph)}) (layers "${fl}" "${paste}" "${mask}")${rrr}${netAttr} (uuid "${uuid()}"))`);
+    out.push(`    (pad "${p.padNum}" smd ${p.shape} (at ${fmt(p.lx)} ${fmt(-p.ly)}) (size ${fmt(p.origPw ?? p.pw)} ${fmt(p.origPh ?? p.ph)}) (layers "${fl}" "${paste}" "${mask}")${rrr}${netAttr} (uuid "${uuid()}"))`);
   }
   out.push(`  )`);
 }

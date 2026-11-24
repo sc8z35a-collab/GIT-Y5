@@ -1,0 +1,83 @@
+(kicad_sch
+  (version 20231120)
+  (generator "rk_t4_rev5_sch_generator")
+  (generator_version "9.0")
+  (uuid "ffba303c-65ec-4ef9-8ced-abe341844219")
+  (paper "A3")
+  (title_block
+    (title "RK T4 Flagship Smartphone Mainboard — Rev 5.0 True EVT (Hierarchical Top Sheet)")
+    (date "2026-11-24")
+    (rev "5.0 EVT")
+    (company "RK Hardware Engineering")
+    (comment 1 "617 Components | 3,999 Physical Pads | 100% Official Datasheet Pinmaps")
+    (comment 2 "RK3588S2 (1253B) + LPDDR5X (496B) + eMMC (153B) + Dual TAS2562 (36B x 2)")
+  )
+  (lib_symbols)
+  (sheet (at 38.10 38.10) (size 114.30 63.50)
+    (fields_autoplaced yes)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 245 248 255 1.0))
+    (uuid "dc6c6238-18da-4d01-8f3b-f9e73cb2c1e1")
+    (property "Sheetname" "01_SoC_LPDDR5X_eMMC_Clocks" (at 38.10 36.83 0) (effects (font (size 1.778 1.778)) (justify left bottom)))
+    (property "Sheetfile" "soc_ddr_emmc.kicad_sch" (at 38.10 102.87 0) (effects (font (size 1.27 1.27)) (justify left top)))
+    (instances
+      (project "rk_t4_mainboard"
+        (path "/ffba303c-65ec-4ef9-8ced-abe341844219"
+          (page "2")
+        )
+      )
+    )
+  )
+  (sheet (at 177.80 38.10) (size 114.30 63.50)
+    (fields_autoplaced yes)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 245 248 255 1.0))
+    (uuid "0f42cb6e-1d93-49f9-8c15-50b139fbf519")
+    (property "Sheetname" "02_PMIC_Charging_Battery_Qi" (at 177.80 36.83 0) (effects (font (size 1.778 1.778)) (justify left bottom)))
+    (property "Sheetfile" "pmic_charging.kicad_sch" (at 177.80 102.87 0) (effects (font (size 1.27 1.27)) (justify left top)))
+    (instances
+      (project "rk_t4_mainboard"
+        (path "/ffba303c-65ec-4ef9-8ced-abe341844219"
+          (page "3")
+        )
+      )
+    )
+  )
+  (sheet (at 38.10 127.00) (size 114.30 63.50)
+    (fields_autoplaced yes)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 245 248 255 1.0))
+    (uuid "a326058c-c71f-4740-8071-9e53e377dba0")
+    (property "Sheetname" "03_Display_Camera_USBC_BTB" (at 38.10 125.73 0) (effects (font (size 1.778 1.778)) (justify left bottom)))
+    (property "Sheetfile" "display_camera_usb.kicad_sch" (at 38.10 191.77 0) (effects (font (size 1.27 1.27)) (justify left top)))
+    (instances
+      (project "rk_t4_mainboard"
+        (path "/ffba303c-65ec-4ef9-8ced-abe341844219"
+          (page "4")
+        )
+      )
+    )
+  )
+  (sheet (at 177.80 127.00) (size 114.30 63.50)
+    (fields_autoplaced yes)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 245 248 255 1.0))
+    (uuid "c4d30ef9-a65d-440a-8784-95268235e8ea")
+    (property "Sheetname" "04_Audio_Sensors_Haptic_IO" (at 177.80 125.73 0) (effects (font (size 1.778 1.778)) (justify left bottom)))
+    (property "Sheetfile" "audio_sensors_io.kicad_sch" (at 177.80 191.77 0) (effects (font (size 1.27 1.27)) (justify left top)))
+    (instances
+      (project "rk_t4_mainboard"
+        (path "/ffba303c-65ec-4ef9-8ced-abe341844219"
+          (page "5")
+        )
+      )
+    )
+  )
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/dc6c6238-18da-4d01-8f3b-f9e73cb2c1e1" (page "2"))
+    (path "/0f42cb6e-1d93-49f9-8c15-50b139fbf519" (page "3"))
+    (path "/a326058c-c71f-4740-8071-9e53e377dba0" (page "4"))
+    (path "/c4d30ef9-a65d-440a-8784-95268235e8ea" (page "5"))
+  )
+)
