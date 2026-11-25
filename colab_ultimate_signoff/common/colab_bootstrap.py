@@ -405,12 +405,31 @@ def mount_drive_and_prepare(
         if str(root).startswith("/content/drive") and not Path("/content/drive/MyDrive").exists():
             try:
                 from google.colab import drive  # type: ignore
-
-                drive.mount("/content/drive", force_remount=False)
             except ImportError as exc:
                 raise RuntimeError(
                     "google.colab not available and RK_T4_LOCAL_OUT_DIR is not set."
                 ) from exc
+
+            last_err: Exception | None = None
+            for attempt in range(2):
+                try:
+                    drive.mount("/content/drive", force_remount=False)
+                    last_err = None
+                    break
+                except Exception as exc:
+                    last_err = exc
+                    if attempt == 0:
+                        time.sleep(3.0)
+            if last_err is not None and not Path("/content/drive/MyDrive").exists():
+                raise RuntimeError(
+                    f"Google Drive mount failed ({type(last_err).__name__}: {last_err}).\n"
+                    "【解決手順 / How to fix in Google Colab】\n"
+                    "  1. 左サイドバーの 📁（ファイル）→「ドライブをマウント」ボタンを先にクリックし、認証画面で\n"
+                    "     『Google ドライブのすべてのファイルの参照、編集、作成、削除』にチェックを入れて許可してから再実行してください。\n"
+                    "  2. 複数タブを同時に開いた場合は OAuth ポップアップが競合するため、1 タブずつマウント完了後に次タブを実行してください。\n"
+                    "  3. シークレットモードや広告/CookieブロッカーがサードパーティCookie・ポップアップを遮断している場合は許可してください。\n"
+                    "  4. Drive を使わずローカル単体実行したい場合はセル 1 の DRIVE_ROOT を '/content/RK_T4_VirtualLab' に変更してください。"
+                ) from last_err
     for sub in ("bundles", "reports", "handoff", "checkpoints", "figures"):
         (root / sub).mkdir(parents=True, exist_ok=True)
     return root
