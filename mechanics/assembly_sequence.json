@@ -1,0 +1,667 @@
+{
+  "schema_version": "1.0.0",
+  "project": "RK T4 Rev 5.0 EVT",
+  "model_fidelity": "verified_datasheet_or_geometry",
+  "coordinate_frame": {
+    "units": "mm",
+    "origin": "phone_center_xy_midframe_z_ref",
+    "axes": "+X=Right, +Y=Top, +Z=Front(Display), -Z=Rear(Camera/BackGlass)",
+    "threejs_scale_factor_mm_per_unit": 10.0,
+    "mainboard_anchor_world_mm": [17.6, 28.5, 0.0]
+  },
+  "chassis_envelope_mm": {
+    "width_x": 75.0,
+    "height_y": 162.0,
+    "body_thickness_z": 10.90,
+    "z_min_rear_glass": -6.20,
+    "z_max_front_glass": 4.70,
+    "corner_radius": 9.20,
+    "ti_rail_wall_thickness": 2.40,
+    "antenna_peek_slits": [
+      {"id": "SLIT_UL", "edge": "left", "center_xyz_mm": [-36.3, 64.0, -0.75], "size_xyz_mm": [2.58, 1.10, 8.80]},
+      {"id": "SLIT_UR", "edge": "right", "center_xyz_mm": [36.3, 64.0, -0.75], "size_xyz_mm": [2.58, 1.10, 8.80]},
+      {"id": "SLIT_LL", "edge": "left", "center_xyz_mm": [-36.3, -64.0, -0.75], "size_xyz_mm": [2.58, 1.10, 8.80]},
+      {"id": "SLIT_LR", "edge": "right", "center_xyz_mm": [36.3, -64.0, -0.75], "size_xyz_mm": [2.58, 1.10, 8.80]},
+      {"id": "SLIT_TOP", "edge": "top", "center_xyz_mm": [-20.5, 79.8, -0.75], "size_xyz_mm": [1.10, 2.58, 8.80]},
+      {"id": "SLIT_BOT", "edge": "bottom", "center_xyz_mm": [20.5, -79.8, -0.75], "size_xyz_mm": [1.10, 2.58, 8.80]}
+    ]
+  },
+  "fastener_spec": {
+    "thread": "M1.2x0.25",
+    "material": "Ti-6Al-4V_Grade5",
+    "head_type": "Torx_T2",
+    "head_diameter_mm": 1.04,
+    "head_height_mm": 0.24,
+    "nominal_torque_nm": 0.065,
+    "torque_tolerance_pct": 10.0,
+    "driver_bit_clearance_dia_mm": 2.40,
+    "driver_approach_axis": "-Z",
+    "screws": [
+      {"id": "SCR_01", "xy_mm": [-33.2, 72.5], "z_head_mm": 1.66, "secures": "unibody_perimeter_UL"},
+      {"id": "SCR_02", "xy_mm": [33.2, 72.5], "z_head_mm": 1.66, "secures": "unibody_perimeter_UR"},
+      {"id": "SCR_03", "xy_mm": [33.2, -59.45], "z_head_mm": 1.66, "secures": "bottom_rib_R"},
+      {"id": "SCR_04", "xy_mm": [-33.2, -59.45], "z_head_mm": 1.66, "secures": "bottom_rib_L"},
+      {"id": "SCR_05", "xy_mm": [33.2, -73.5], "z_head_mm": 1.66, "secures": "bottom_bay_R"},
+      {"id": "SCR_06", "xy_mm": [-33.2, -73.5], "z_head_mm": 1.66, "secures": "bottom_bay_L"},
+      {"id": "SCR_07", "xy_mm": [-1.8, 68.6], "z_head_mm": 1.66, "secures": "mainboard_upper_boss"},
+      {"id": "SCR_08", "xy_mm": [-1.8, 31.6], "z_head_mm": 1.66, "secures": "mainboard_cam_divider"},
+      {"id": "SCR_09", "xy_mm": [25.05, 30.8], "z_head_mm": 1.66, "secures": "mainboard_spine_upper"},
+      {"id": "SCR_10", "xy_mm": [7.8, -59.5], "z_head_mm": 1.66, "secures": "usbc_speaker_rib"},
+      {"id": "SCR_11", "xy_mm": [-7.8, -59.5], "z_head_mm": 1.66, "secures": "haptic_usbc_rib"},
+      {"id": "SCR_12", "xy_mm": [-33.2, 31.6], "z_head_mm": 1.66, "secures": "camera_bay_left"}
+    ]
+  },
+  "assembly_steps": [
+    {
+      "step": 1,
+      "part_id": "unibody_chassis",
+      "description": "CNC Grade-5 Titanium Unibody Midframe with 6 PEEK Antenna Slits",
+      "insertion_axis": "FIXED_BASE",
+      "sweep_distance_mm": 0.0,
+      "bbox_min_mm": [-37.5, -81.0, -5.44],
+      "bbox_max_mm": [37.5, 81.0, 3.94],
+      "tolerance_z_mm": 0.03,
+      "tolerance_xy_mm": 0.05
+    },
+    {
+      "step": 2,
+      "part_id": "cooling_vc_and_graphite",
+      "description": "Pure-Copper Sintered-Wick Vapor Chamber + Pyrolytic Graphite Sheet",
+      "insertion_axis": "+Z",
+      "sweep_distance_mm": 15.0,
+      "bbox_min_mm": [-27.3, -43.0, 2.26],
+      "bbox_max_mm": [27.0, 59.0, 2.86],
+      "tolerance_z_mm": 0.03,
+      "tolerance_xy_mm": 0.15
+    },
+    {
+      "step": 3,
+      "part_id": "display_assembly",
+      "description": "6.78-inch LTPO AMOLED + Ceramic Shield Glass + COF DDIC + Ultrasonic FP",
+      "insertion_axis": "+Z",
+      "sweep_distance_mm": 20.0,
+      "bbox_min_mm": [-35.9, -79.4, 3.01],
+      "bbox_max_mm": [35.9, 79.4, 4.70],
+      "tolerance_z_mm": 0.05,
+      "tolerance_xy_mm": 0.10,
+      "mated_connectors": ["J501", "J502"]
+    },
+    {
+      "step": 4,
+      "part_id": "side_buttons_and_flex",
+      "description": "Power/Volume Titanium Keycaps + Silicone IP68 Boots + Side Switch Flex",
+      "insertion_axis": "+X",
+      "sweep_distance_mm": 10.0,
+      "bbox_min_mm": [34.37, -2.25, -1.25],
+      "bbox_max_mm": [39.35, 39.25, 1.25],
+      "tolerance_z_mm": 0.04,
+      "tolerance_xy_mm": 0.05,
+      "mated_connectors": ["J801"]
+    },
+    {
+      "step": 5,
+      "part_id": "selfie_and_earpiece",
+      "description": "32MP Sony IMX615 Front Selfie Camera + Top Linear Earpiece Module",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 15.0,
+      "bbox_min_mm": [-8.7, 71.3, -0.28],
+      "bbox_max_mm": [11.8, 77.6, 2.75],
+      "tolerance_z_mm": 0.04,
+      "tolerance_xy_mm": 0.08,
+      "mated_connectors": ["J403", "J802A", "J802B"]
+    },
+    {
+      "step": 6,
+      "part_id": "mainboard_14l_hdi",
+      "description": "14-Layer 1.20mm Staggered HDI Mainboard (RK3588S2 + 16GB LPDDR5X + 256GB eMMC)",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 20.0,
+      "bbox_min_mm": [-0.6, -40.4, -1.39],
+      "bbox_max_mm": [34.2, 76.6, 1.67],
+      "tolerance_z_mm": 0.10,
+      "tolerance_xy_mm": 0.08,
+      "fastener_ids": ["SCR_07", "SCR_08", "SCR_09"]
+    },
+    {
+      "step": 7,
+      "part_id": "bottom_usbc_subpcb",
+      "description": "USB-C 3.2 Shroud + IP68 Red O-Ring + Bottom Charging/SIM Sub-PCB",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 18.0,
+      "bbox_min_mm": [-6.5, -78.4, -1.75],
+      "bbox_max_mm": [6.5, -60.6, 1.05],
+      "tolerance_z_mm": 0.05,
+      "tolerance_xy_mm": 0.08,
+      "mated_connectors": ["J601"],
+      "fastener_ids": ["SCR_10", "SCR_11"]
+    },
+    {
+      "step": 8,
+      "part_id": "bottom_haptic_lra",
+      "description": "X-Axis Linear Resonant Actuator (Haptic Engine)",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 18.0,
+      "bbox_min_mm": [-30.7, -77.0, -2.27],
+      "bbox_max_mm": [-10.5, -65.4, 0.95],
+      "tolerance_z_mm": 0.05,
+      "tolerance_xy_mm": 0.08,
+      "fastener_ids": ["SCR_04", "SCR_06"]
+    },
+    {
+      "step": 9,
+      "part_id": "bottom_speaker_box",
+      "description": "Bottom Stereo Acoustic Speaker Enclosure with Bass Damping Chamber",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 18.0,
+      "bbox_min_mm": [9.1, -77.2, -2.35],
+      "bbox_max_mm": [32.1, -60.0, 1.19],
+      "tolerance_z_mm": 0.06,
+      "tolerance_xy_mm": 0.08,
+      "fastener_ids": ["SCR_03", "SCR_05"]
+    },
+    {
+      "step": 10,
+      "part_id": "rear_camera_modules",
+      "description": "45MP Sony LYT-818 1G+6P OIS/CLAF + 16MP IMX355 UW + Flash/dToF/Zoom-Mic",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 20.0,
+      "bbox_min_mm": [-32.5, 30.8, -5.10],
+      "bbox_max_mm": [-3.1, 73.6, 1.55],
+      "tolerance_z_mm": 0.06,
+      "tolerance_xy_mm": 0.06,
+      "mated_connectors": ["J401", "J402", "J404"],
+      "fastener_ids": ["SCR_12"]
+    },
+    {
+      "step": 11,
+      "part_id": "rf_mezzanine_8l",
+      "description": "8-Layer 0.80mm RF Mezzanine (EG25-G + AP6275P + MIA-M10Q + PN7160) via Dual DF40C",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 18.0,
+      "bbox_min_mm": [-0.4, 14.9, -5.18],
+      "bbox_max_mm": [33.4, 75.7, -1.41],
+      "tolerance_z_mm": 0.08,
+      "tolerance_xy_mm": 0.06,
+      "mated_connectors": ["J901A", "J901B"],
+      "fastener_ids": ["SCR_01", "SCR_02"]
+    },
+    {
+      "step": 12,
+      "part_id": "battery_6000mah_sic",
+      "description": "6000mAh (23.22Wh) Dual-Cell 10% Si-C Battery Pack + Stretch-Release Pull Tabs",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 22.0,
+      "bbox_min_mm": [-34.7, -59.0, -2.97],
+      "bbox_max_mm": [24.9, 30.6, 2.21],
+      "tolerance_z_mm": 0.12,
+      "tolerance_xy_mm": 0.15,
+      "mated_connectors": ["J201"]
+    },
+    {
+      "step": 13,
+      "part_id": "rf_coax_harnesses",
+      "description": "5x 0.81mm Micro-Coaxial RF Cables with I-PEX MHF4 Plugs",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 12.0,
+      "bbox_min_mm": [13.0, -37.0, -4.0],
+      "bbox_max_mm": [35.0, 74.0, -2.7],
+      "tolerance_z_mm": 0.08,
+      "tolerance_xy_mm": 0.15,
+      "mated_connectors": ["J701", "J702", "J705", "J706", "J707"]
+    },
+    {
+      "step": 14,
+      "part_id": "wireless_nfc_mag_sheet",
+      "description": "Nanocrystalline Ferrite + 14-Turn Qi Coil + 3-Turn NFC Loop + 18-Magnet Ring",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 18.0,
+      "bbox_min_mm": [-27.3, -44.2, -5.38],
+      "bbox_max_mm": [28.4, 57.8, -2.99],
+      "tolerance_z_mm": 0.05,
+      "tolerance_xy_mm": 0.15
+    },
+    {
+      "step": 15,
+      "part_id": "rear_ceramic_glass_and_plateau",
+      "description": "0.72mm Matte Ceramic Rear Glass + IP68 Rear Seal + Titanium Camera Plateau",
+      "insertion_axis": "-Z",
+      "sweep_distance_mm": 25.0,
+      "bbox_min_mm": [-36.0, -79.5, -6.20],
+      "bbox_max_mm": [36.0, 79.5, -5.44],
+      "tolerance_z_mm": 0.06,
+      "tolerance_xy_mm": 0.08
+    },
+    {
+      "step": 16,
+      "part_id": "sim_tray_assembly",
+      "description": "Dual-SIM Machined Titanium Tray + Red Silicone IP68 O-Ring",
+      "insertion_axis": "-X",
+      "sweep_distance_mm": 16.0,
+      "bbox_min_mm": [-39.35, -67.0, -1.00],
+      "bbox_max_mm": [-20.0, -58.2, 1.00],
+      "tolerance_z_mm": 0.04,
+      "tolerance_xy_mm": 0.05
+    }
+  ],
+  "mhf4_coax_harnesses": {
+    "plug_mpn": "I-PEX 20448-001R-081",
+    "receptacle_mpn": "20449-001E",
+    "cable_od_mm": 0.81,
+    "mated_height_max_mm": 1.20,
+    "mated_height_nominal_mm": 1.12,
+    "min_bend_radius_mm": 3.0,
+    "mating_retention_force_n": 10.0,
+    "connector_il_db_at_1ghz": 0.08,
+    "connector_il_db_at_6ghz": 0.22,
+    "cable_loss_db_per_m_coeff": {
+      "model": "alpha_db_per_m = k1 * sqrt(f_ghz) + k2 * f_ghz",
+      "k1_conductor": 2.45,
+      "k2_dielectric": 0.28
+    },
+    "cables": [
+      {
+        "id": "COAX_LTE_MAIN",
+        "receptacle_refdes": "J701",
+        "board": "mezz",
+        "net": "RF_LTE_ANT_MAIN",
+        "target_antenna_zone": "BOTTOM_MAIN_SLIT_LR",
+        "start_world_xyz_mm": [27.8, 27.1, -2.78],
+        "waypoints_world_xyz_mm": [
+          [27.8, 27.1, -2.78],
+          [32.8, 26.0, -1.80],
+          [33.1, 1.5, -0.87],
+          [33.1, -26.0, -0.87],
+          [33.0, -64.0, -0.87]
+        ],
+        "physical_length_mm": 98.5,
+        "available_z_clearance_mm": 2.65
+      },
+      {
+        "id": "COAX_LTE_DIV",
+        "receptacle_refdes": "J702",
+        "board": "mezz",
+        "net": "RF_LTE_ANT_DIV",
+        "target_antenna_zone": "TOP_RIGHT_SLIT_UR",
+        "start_world_xyz_mm": [31.4, 27.1, -2.78],
+        "waypoints_world_xyz_mm": [
+          [31.4, 27.1, -2.78],
+          [33.8, 30.0, -2.78],
+          [34.2, 52.0, -2.10],
+          [34.2, 64.0, -1.20]
+        ],
+        "physical_length_mm": 41.2,
+        "available_z_clearance_mm": 2.65
+      },
+      {
+        "id": "COAX_WIFI_ANT0",
+        "receptacle_refdes": "J705",
+        "board": "mezz",
+        "net": "RF_WIFI_ANT0",
+        "target_antenna_zone": "TOP_SLIT_TOP",
+        "start_world_xyz_mm": [14.2, 72.7, -2.78],
+        "waypoints_world_xyz_mm": [
+          [14.2, 72.7, -2.78],
+          [14.2, 76.5, -2.50],
+          [0.0, 77.5, -1.50],
+          [-18.0, 78.2, -1.10]
+        ],
+        "physical_length_mm": 38.4,
+        "available_z_clearance_mm": 2.65
+      },
+      {
+        "id": "COAX_WIFI_ANT1",
+        "receptacle_refdes": "J706",
+        "board": "mezz",
+        "net": "RF_WIFI_ANT1",
+        "target_antenna_zone": "UPPER_RIGHT_FRAME",
+        "start_world_xyz_mm": [14.2, 67.7, -2.78],
+        "waypoints_world_xyz_mm": [
+          [14.2, 67.7, -2.78],
+          [22.0, 70.0, -2.78],
+          [33.8, 69.5, -1.80],
+          [34.5, 65.5, -1.20]
+        ],
+        "physical_length_mm": 28.6,
+        "available_z_clearance_mm": 2.65
+      },
+      {
+        "id": "COAX_GNSS_L1",
+        "receptacle_refdes": "J707",
+        "board": "mezz",
+        "net": "RF_GNSS_L1",
+        "target_antenna_zone": "TOP_LEFT_SLIT_UL",
+        "start_world_xyz_mm": [14.2, 62.9, -2.78],
+        "waypoints_world_xyz_mm": [
+          [14.2, 62.9, -2.78],
+          [12.0, 75.0, -2.60],
+          [-26.0, 76.5, -1.60],
+          [-34.2, 65.5, -1.10]
+        ],
+        "physical_length_mm": 64.8,
+        "available_z_clearance_mm": 2.65
+      }
+    ]
+  },
+  "spring_contacts": [
+    {
+      "id": "SPR_QI_P",
+      "refdes": "J202A",
+      "mpn": "2329497-2",
+      "subsystem": "Wireless_Qi",
+      "board": "main",
+      "side": "top",
+      "world_xy_mm": [26.2, 5.5],
+      "pcb_surface_z_mm": -0.46,
+      "target_pad_z_mm": -3.18,
+      "nominal_gap_mm": 2.72,
+      "free_height_mm": 1.60,
+      "working_height_min_mm": 0.90,
+      "working_height_max_mm": 1.35,
+      "bottom_out_limit_mm": 0.70,
+      "nominal_contact_force_n": 0.65,
+      "notes": "Mainboard spine top (-0.46mm) to Qi coil pad (-3.18mm) requires bridge riser or taller spring if gap exceeds 1.35mm; notebook 08 audits actual tolerance stack."
+    },
+    {
+      "id": "SPR_QI_N",
+      "refdes": "J202B",
+      "mpn": "2329497-2",
+      "subsystem": "Wireless_Qi",
+      "board": "main",
+      "side": "top",
+      "world_xy_mm": [26.2, 2.3],
+      "pcb_surface_z_mm": -0.46,
+      "target_pad_z_mm": -3.18,
+      "nominal_gap_mm": 2.72,
+      "free_height_mm": 1.60,
+      "working_height_min_mm": 0.90,
+      "working_height_max_mm": 1.35,
+      "bottom_out_limit_mm": 0.70,
+      "nominal_contact_force_n": 0.65
+    },
+    {
+      "id": "SPR_EAR_P",
+      "refdes": "J802A",
+      "mpn": "2329497-2",
+      "subsystem": "Top_Earpiece",
+      "board": "main",
+      "side": "top",
+      "world_xy_mm": [15.8, 75.3],
+      "pcb_surface_z_mm": -0.46,
+      "target_pad_z_mm": -1.56,
+      "nominal_gap_mm": 1.10,
+      "free_height_mm": 1.60,
+      "working_height_min_mm": 0.90,
+      "working_height_max_mm": 1.35,
+      "bottom_out_limit_mm": 0.70,
+      "nominal_contact_force_n": 0.72
+    },
+    {
+      "id": "SPR_EAR_N",
+      "refdes": "J802B",
+      "mpn": "2329497-2",
+      "subsystem": "Top_Earpiece",
+      "board": "main",
+      "side": "top",
+      "world_xy_mm": [22.0, 75.3],
+      "pcb_surface_z_mm": -0.46,
+      "target_pad_z_mm": -1.56,
+      "nominal_gap_mm": 1.10,
+      "free_height_mm": 1.60,
+      "working_height_min_mm": 0.90,
+      "working_height_max_mm": 1.35,
+      "bottom_out_limit_mm": 0.70,
+      "nominal_contact_force_n": 0.72
+    },
+    {
+      "id": "SPR_NFC_P",
+      "refdes": "J708A",
+      "mpn": "2329497-2",
+      "subsystem": "NFC_Loop",
+      "board": "mezz",
+      "side": "top",
+      "world_xy_mm": [29.8, 17.7],
+      "pcb_surface_z_mm": -2.77,
+      "target_pad_z_mm": -3.92,
+      "nominal_gap_mm": 1.15,
+      "free_height_mm": 1.60,
+      "working_height_min_mm": 0.90,
+      "working_height_max_mm": 1.35,
+      "bottom_out_limit_mm": 0.70,
+      "nominal_contact_force_n": 0.68
+    },
+    {
+      "id": "SPR_NFC_N",
+      "refdes": "J708B",
+      "mpn": "2329497-2",
+      "subsystem": "NFC_Loop",
+      "board": "mezz",
+      "side": "top",
+      "world_xy_mm": [29.8, 16.3],
+      "pcb_surface_z_mm": -2.77,
+      "target_pad_z_mm": -3.92,
+      "nominal_gap_mm": 1.15,
+      "free_height_mm": 1.60,
+      "working_height_min_mm": 0.90,
+      "working_height_max_mm": 1.35,
+      "bottom_out_limit_mm": 0.70,
+      "nominal_contact_force_n": 0.68
+    },
+    {
+      "id": "SPR_EMI_FRAME_1",
+      "refdes": "EMI_GND_1",
+      "mpn": "2329497-2",
+      "subsystem": "EMI_Ground_Frame",
+      "board": "main",
+      "side": "bot",
+      "world_xy_mm": [32.8, 60.0],
+      "pcb_surface_z_mm": 0.74,
+      "target_pad_z_mm": 1.71,
+      "nominal_gap_mm": 0.97,
+      "free_height_mm": 1.40,
+      "working_height_min_mm": 0.80,
+      "working_height_max_mm": 1.20,
+      "bottom_out_limit_mm": 0.60,
+      "nominal_contact_force_n": 0.70
+    },
+    {
+      "id": "SPR_EMI_FRAME_2",
+      "refdes": "EMI_GND_2",
+      "mpn": "2329497-2",
+      "subsystem": "EMI_Ground_Frame",
+      "board": "main",
+      "side": "bot",
+      "world_xy_mm": [32.8, 25.0],
+      "pcb_surface_z_mm": 0.74,
+      "target_pad_z_mm": 1.71,
+      "nominal_gap_mm": 0.97,
+      "free_height_mm": 1.40,
+      "working_height_min_mm": 0.80,
+      "working_height_max_mm": 1.20,
+      "bottom_out_limit_mm": 0.60,
+      "nominal_contact_force_n": 0.70
+    },
+    {
+      "id": "SPR_EMI_FRAME_3",
+      "refdes": "EMI_GND_3",
+      "mpn": "2329497-2",
+      "subsystem": "EMI_Ground_Frame",
+      "board": "main",
+      "side": "bot",
+      "world_xy_mm": [32.8, -10.0],
+      "pcb_surface_z_mm": 0.74,
+      "target_pad_z_mm": 1.71,
+      "nominal_gap_mm": 0.97,
+      "free_height_mm": 1.40,
+      "working_height_min_mm": 0.80,
+      "working_height_max_mm": 1.20,
+      "bottom_out_limit_mm": 0.60,
+      "nominal_contact_force_n": 0.70
+    },
+    {
+      "id": "SPR_EMI_FRAME_4",
+      "refdes": "EMI_GND_4",
+      "mpn": "2329497-2",
+      "subsystem": "EMI_Ground_Frame",
+      "board": "main",
+      "side": "bot",
+      "world_xy_mm": [32.8, -35.0],
+      "pcb_surface_z_mm": 0.74,
+      "target_pad_z_mm": 1.71,
+      "nominal_gap_mm": 0.97,
+      "free_height_mm": 1.40,
+      "working_height_min_mm": 0.80,
+      "working_height_max_mm": 1.20,
+      "bottom_out_limit_mm": 0.60,
+      "nominal_contact_force_n": 0.70
+    }
+  ],
+  "btb_retention_and_poron": {
+    "df40c_mezzanine_pair": {
+      "connectors": ["J901A_MB/J901A", "J901B_MB/J901B"],
+      "nominal_mated_height_mm": 1.50,
+      "effective_contact_wipe_mm": 0.45,
+      "min_required_wipe_mm": 0.25,
+      "unmating_retention_force_n_per_conn": 12.0,
+      "mezzanine_assembled_mass_g": 6.8,
+      "hold_down_poron": {
+        "material": "Rogers_PORON_LE20",
+        "free_thickness_mm": 0.80,
+        "nominal_compressed_thickness_mm": 0.52,
+        "target_compression_min_pct": 20.0,
+        "target_compression_max_pct": 50.0,
+        "preload_force_n": 3.5
+      }
+    },
+    "bm28_fpc_connectors": [
+      {"refdes": "J401", "pins": 40, "retention_force_n": 18.0, "poron_backed": true},
+      {"refdes": "J402", "pins": 30, "retention_force_n": 14.0, "poron_backed": true},
+      {"refdes": "J403", "pins": 24, "retention_force_n": 11.5, "poron_backed": true},
+      {"refdes": "J404", "pins": 20, "retention_force_n": 9.8, "poron_backed": true},
+      {"refdes": "J501", "pins": 40, "retention_force_n": 18.0, "poron_backed": true},
+      {"refdes": "J502", "pins": 16, "retention_force_n": 8.2, "poron_backed": true},
+      {"refdes": "J601", "pins": 40, "retention_force_n": 18.0, "poron_backed": true},
+      {"refdes": "J801", "pins": 6, "retention_force_n": 4.2, "poron_backed": true}
+    ],
+    "bm25_battery_connector": {
+      "refdes": "J201",
+      "rated_current_a": 10.0,
+      "retention_force_n": 16.0,
+      "bracket_secured": true
+    }
+  },
+  "dynamic_envelopes_and_fpc": {
+    "main_camera_ois_claf": {
+      "world_center_xyz_mm": [-20.8, 60.6, -2.33],
+      "max_stroke_xy_mm": 0.25,
+      "max_stroke_z_mm": 0.35,
+      "static_clearance_to_yoke_xy_mm": 0.48,
+      "static_clearance_to_ir_z_mm": 0.55
+    },
+    "aux_camera_af": {
+      "world_center_xyz_mm": [-20.8, 40.2, -2.50],
+      "max_stroke_z_mm": 0.22,
+      "static_clearance_z_mm": 0.42
+    },
+    "bottom_speaker_diaphragm": {
+      "world_center_xyz_mm": [23.8, -68.2, -1.50],
+      "xmax_mm": 0.45,
+      "clearance_to_mesh_mm": 0.65
+    },
+    "top_earpiece_diaphragm": {
+      "world_center_xyz_mm": [0.0, 76.8, 1.20],
+      "xmax_mm": 0.25,
+      "clearance_to_mesh_mm": 0.45
+    },
+    "haptic_lra_mass": {
+      "world_center_xyz_mm": [-20.6, -71.2, -1.00],
+      "axis": "X",
+      "max_stroke_x_mm": 0.65,
+      "resonant_freq_hz": 175.0,
+      "internal_clearance_x_mm": 1.15
+    },
+    "oled_bottom_cof_bend": {
+      "location_y_mm": -72.6,
+      "nominal_teardrop_bend_radius_mm": 0.45,
+      "min_allowed_bend_radius_mm": 0.35,
+      "fpc_thickness_mm": 0.08,
+      "copper_thickness_um": 12.0,
+      "available_chin_cavity_z_mm": 1.10
+    },
+    "fpc_flex_circuits": [
+      {
+        "id": "FPC_OLED_COF",
+        "connector": "J501",
+        "layers": 2,
+        "total_thickness_mm": 0.08,
+        "cu_thickness_um": 12.0,
+        "bend_radius_mm": 0.45,
+        "min_bend_radius_mm": 0.35,
+        "bend_angle_deg": 180.0,
+        "target_cycles": 10000
+      },
+      {
+        "id": "FPC_MAIN_CAM_MIPI",
+        "connector": "J401",
+        "layers": 4,
+        "total_thickness_mm": 0.14,
+        "cu_thickness_um": 12.0,
+        "bend_radius_mm": 0.90,
+        "min_bend_radius_mm": 0.70,
+        "bend_angle_deg": 90.0,
+        "target_cycles": 10000
+      },
+      {
+        "id": "FPC_BOTTOM_SUB_INTERCONNECT",
+        "connector": "J601",
+        "layers": 4,
+        "total_thickness_mm": 0.15,
+        "cu_thickness_um": 18.0,
+        "bend_radius_mm": 1.20,
+        "min_bend_radius_mm": 0.90,
+        "bend_angle_deg": 90.0,
+        "target_cycles": 10000
+      },
+      {
+        "id": "FPC_SIDE_BUTTONS",
+        "connector": "J801",
+        "layers": 2,
+        "total_thickness_mm": 0.10,
+        "cu_thickness_um": 18.0,
+        "bend_radius_mm": 0.85,
+        "min_bend_radius_mm": 0.60,
+        "bend_angle_deg": 90.0,
+        "target_cycles": 10000
+      }
+    ]
+  },
+  "ip68_oring_gaskets": {
+    "rear_cover_seal": {
+      "material": "Silicone_Shore50A_VMQ",
+      "mooney_rivlin_c10_mpa": 0.38,
+      "mooney_rivlin_c01_mpa": 0.095,
+      "incompressibility_d1_1_per_mpa": 0.002,
+      "cord_diameter_mm": 0.80,
+      "groove_width_mm": 1.15,
+      "groove_depth_nominal_mm": 0.60,
+      "groove_depth_min_mm": 0.54,
+      "groove_depth_max_mm": 0.66,
+      "aged_compression_set_pct": 18.0,
+      "ip68_hydrostatic_2m_kpa": 19.62,
+      "ip69k_jet_pressure_kpa": 800.0
+    },
+    "usbc_port_seal": {
+      "material": "LSR_Shore50A_Red",
+      "mooney_rivlin_c10_mpa": 0.40,
+      "mooney_rivlin_c01_mpa": 0.10,
+      "incompressibility_d1_1_per_mpa": 0.002,
+      "cord_diameter_mm": 0.50,
+      "groove_width_mm": 0.72,
+      "groove_depth_nominal_mm": 0.37,
+      "groove_depth_min_mm": 0.33,
+      "groove_depth_max_mm": 0.41,
+      "aged_compression_set_pct": 15.0,
+      "ip68_hydrostatic_2m_kpa": 19.62,
+      "ip69k_jet_pressure_kpa": 800.0
+    }
+  }
+}

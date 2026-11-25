@@ -8,3 +8,7 @@ hardware/mfg/gerbers_mezz/
 hardware/.stage3_routed_cache.json
 hardware/.stage35_p12_cache.json
 hardware/.stage35_final_cache.json
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
