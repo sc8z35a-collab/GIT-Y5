@@ -73,12 +73,12 @@ function createRealRoutedPcbTexture(boardName, mode = 'outer') {
     ctx.fillStyle = '#33281b'; // Shengyi S1000-2M TG170 translucent core dielectric
     ctx.fillRect(0, 0, w, h);
 
-    // Split heavy 1oz (35um) copper power pour islands (VDD2L Zone A, RK3588S2 Core, RK806-1, 6000mAh VSYS/VBAT)
+    // Split copper power pour islands (0.5oz Inner / 1oz Outer HDI: VDD2L Zone A, RK3588S2 Core, RK806-1, 6000mAh VSYS/VBAT)
     const pours = [
       [-18.1, 15.5, 17.6, 20.0, '#b86c3b'], // In7.Cu Zone A: LPDDR5X VDD2L_0V9_DDR_S3 solid island
       [  0.2, 15.5, 15.9, 20.0, '#c87742'], // In7.Cu Zone B: RK3588S2 Core / VSYS pour (0.60mm moat)
       [ -3.2,  4.0, 18.8, 10.5, '#b46838'], // RK806-1 Buck power plane
-      [  8.4,-22.0,  7.6, 24.0, '#d28048'], // 6000mAh VBAT / VSYS heavy 1oz copper plane
+      [  8.4,-22.0,  7.6, 24.0, '#d28048'], // 6000mAh VBAT / VSYS power copper plane (0.5oz inner + 1oz outer)
       [  8.4,-67.5,  7.6, 44.0, '#a65f33'], // Spine 3.3V / 1.8V / OLED split planes
     ];
     pours.forEach(([px, py, pw, ph, col]) => {
@@ -363,7 +363,7 @@ function populateRealComponents(targetGroup, boardName, sideFilter, zSurface, zD
  *   3. Dual Mated Hirose DF40C(1.5)-40DS/DP 0.40mm Pitch BTB Connectors (J901A / J901B, 1.50mm mated height)
  *   4. Primary 14-Layer 1.20mm HDI Mainboard Top Component Strata (RK3588S2 1253-ball, 16GB LPDDR5X 496-ball, 3.10mm DDR corridor,
  *      RK806-1 + 10 Buck Inductors, 3x RK860 6A Bucks, TI BQ25895 + BQ27Z561-R2, TUSB546-DCI + FUSB302B, ES8388 + Dual TAS2562YFPR 36-ball SmartPA)
- *   5. Exposed Inner 14-Layer 1oz/1oz Copper Routing & In7.Cu Split Power Plane Core (Zone A VDD2L + Zone B VSYS + 22 PDN Pours)
+ *   5. Exposed Inner 14-Layer 0.5oz Inner / 1oz Outer Copper Routing & In7.Cu Split Power Plane Core (Zone A VDD2L + Zone B VSYS + PDN Pours)
  *   6. Primary Mainboard Bottom Component Strata (256GB eMMC 5.1 153-FBGA, W25Q128JWPIQ, Dual SY8089, AW8697, ICM-42688-P, VCNL4040, MP34DT05)
  */
 export function buildMotherboardSystem(textures) {

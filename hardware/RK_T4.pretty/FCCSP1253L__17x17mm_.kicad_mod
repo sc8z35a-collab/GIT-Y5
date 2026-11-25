@@ -3,7 +3,7 @@
   (generator "rk_t4_rev5_sch_generator")
   (layer "F.Cu")
   (attr smd)
-  (fp_rect (start -8.5 -8.5) (end 8.5 8.5) (stroke (width 0.08) (type solid)) (fill none) (layer "F.Fab"))
+  (fp_rect (start -8.41 -8.41) (end 8.41 8.41) (stroke (width 0.08) (type solid)) (fill none) (layer "F.Fab"))
   (pad "A1" smd circle (at -8.2000 -8.2000) (size 0.22 0.22) (layers "F.Cu" "F.Paste" "F.Mask"))
   (pad "A2" smd circle (at -7.8000 -8.2000) (size 0.22 0.22) (layers "F.Cu" "F.Paste" "F.Mask"))
   (pad "A3" smd circle (at -7.4000 -8.2000) (size 0.22 0.22) (layers "F.Cu" "F.Paste" "F.Mask"))

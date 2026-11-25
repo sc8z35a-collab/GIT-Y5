@@ -14,11 +14,11 @@
     }
   },
   "summary": {
-    "totalComponents": 743,
-    "uniqueMPNs": 124,
-    "totalNets": 625,
-    "totalPhysicalPads": 4753,
-    "mainPhysicalPads": 3999,
+    "totalComponents": 748,
+    "uniqueMPNs": 127,
+    "totalNets": 629,
+    "totalPhysicalPads": 4769,
+    "mainPhysicalPads": 4015,
     "mezzPhysicalPads": 611,
     "bgaFullBallCounts": {
       "U101_RK3588S2": 1253,
@@ -26,7 +26,7 @@
       "U302_eMMC51": 153
     },
     "totalRoutes": 63,
-    "mainBoardParts": 617,
+    "mainBoardParts": 622,
     "mezzBoardParts": 111,
     "cameraModParts": 15
   },
@@ -1961,8 +1961,8 @@
       "pkg": "TP_0.8MM",
       "board": "main",
       "side": "bot",
-      "x": -4.2,
-      "y": 15.2,
+      "x": 15.2,
+      "y": 22.8,
       "w": 0.75,
       "h": 0.75,
       "t": 0.08,
@@ -1982,8 +1982,8 @@
       "pkg": "TP_0.8MM",
       "board": "main",
       "side": "bot",
-      "x": -3,
-      "y": 15.2,
+      "x": 15.2,
+      "y": 21.6,
       "w": 0.75,
       "h": 0.75,
       "t": 0.08,
@@ -7777,6 +7777,121 @@
       }
     },
     {
+      "ref": "U204",
+      "mpn": "LTC4365ITS8#TRPBF",
+      "manufacturer": "Analog Devices",
+      "category": "OVP-Ctrl",
+      "kind": "ic",
+      "value": "VBUS-Powered Autonomous OVP/UVP Gate Controller (3.84-13.63V)",
+      "pkg": "TSOT-23-8",
+      "board": "main",
+      "side": "top",
+      "x": 14.7,
+      "y": -19.2,
+      "w": 2.9,
+      "h": 2.8,
+      "t": 0.8,
+      "rot": 0,
+      "subsystem": "Charging",
+      "pins": {
+        "1": "VBUS_PD_12V",
+        "2": "OVP_UV",
+        "3": "OVP_OV",
+        "4": "GND",
+        "5": "OVP_SHDN",
+        "7": "VBUS_OVP_OUT",
+        "8": "VBUS_OVP_GATE"
+      }
+    },
+    {
+      "ref": "R241",
+      "mpn": "RC0201FR-07237ML",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "2.37M 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "top",
+      "x": 8.6,
+      "y": -14,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Charging",
+      "pins": {
+        "1": "VBUS_PD_12V",
+        "2": "OVP_UV"
+      }
+    },
+    {
+      "ref": "R242",
+      "mpn": "RC0201FR-07255KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "255K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "top",
+      "x": 8.6,
+      "y": -15,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Charging",
+      "pins": {
+        "1": "OVP_UV",
+        "2": "OVP_OV"
+      }
+    },
+    {
+      "ref": "R243",
+      "mpn": "RC0201FR-07100KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "top",
+      "x": 8.6,
+      "y": -16,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Charging",
+      "pins": {
+        "1": "OVP_OV",
+        "2": "GND"
+      }
+    },
+    {
+      "ref": "R244",
+      "mpn": "RC0201FR-07100KL",
+      "manufacturer": "Yageo",
+      "category": "Resistor",
+      "kind": "res",
+      "value": "100K 1%",
+      "pkg": "0201",
+      "board": "main",
+      "side": "top",
+      "x": 8.6,
+      "y": -17,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "Charging",
+      "pins": {
+        "1": "VBUS_PD_12V",
+        "2": "OVP_SHDN"
+      }
+    },
+    {
       "ref": "R205",
       "mpn": "RC0201FR-07510KL",
       "manufacturer": "Yageo",
@@ -7840,28 +7955,6 @@
       "pins": {
         "1": "VBUS_VDC_DET",
         "2": "GND"
-      }
-    },
-    {
-      "ref": "R207",
-      "mpn": "RC0201FR-07100KL",
-      "manufacturer": "Yageo",
-      "category": "Resistor",
-      "kind": "res",
-      "value": "100K 1%",
-      "pkg": "0201",
-      "board": "main",
-      "side": "top",
-      "x": 14.5,
-      "y": -18.2,
-      "w": 0.6,
-      "h": 0.3,
-      "t": 0.26,
-      "rot": 0,
-      "subsystem": "Charging",
-      "pins": {
-        "1": "VBUS_OVP_GATE",
-        "2": "VBUS_OVP_MID"
       }
     },
     {
@@ -10409,8 +10502,8 @@
       "pkg": "0201",
       "board": "main",
       "side": "bot",
-      "x": -4.2,
-      "y": 12.8,
+      "x": 15.2,
+      "y": 24.2,
       "w": 0.6,
       "h": 0.3,
       "t": 0.26,
@@ -12839,7 +12932,7 @@
       "manufacturer": "Texas Instruments",
       "category": "USB-OVP",
       "kind": "ic",
-      "value": "USB-C 48V EPR CC/SBU OVP + Gate Driver (RUKR)",
+      "value": "USB-C 48V EPR CC/SBU OVP + Dead-Battery Rd (RUKR)",
       "pkg": "WQFN-20 (3x3mm)",
       "board": "main",
       "side": "top",
@@ -12866,9 +12959,8 @@
         "14": "USB_SBU2",
         "15": "USB_SBU1",
         "16": "GND",
-        "17": "VBUS_OVP_GATE",
         "18": "GND",
-        "19": "VBUS_OVP_OUT",
+        "19": "VBUS_PD_SENSE",
         "20": "VBUS_PD_12V",
         "21": "GND"
       }
@@ -12896,6 +12988,28 @@
       }
     },
     {
+      "ref": "C608",
+      "mpn": "GRM033R61A104KE15D",
+      "manufacturer": "Murata",
+      "category": "Capacitor",
+      "kind": "cap",
+      "value": "100nF 25V X7R",
+      "pkg": "0201",
+      "board": "main",
+      "side": "top",
+      "x": 11.4,
+      "y": -50.8,
+      "w": 0.6,
+      "h": 0.3,
+      "t": 0.26,
+      "rot": 0,
+      "subsystem": "USB-C",
+      "pins": {
+        "1": "VBUS_PD_SENSE",
+        "2": "GND"
+      }
+    },
+    {
       "ref": "U601",
       "mpn": "FUSB302BMPX",
       "manufacturer": "onsemi",
@@ -12914,7 +13028,7 @@
       "subsystem": "USB-C",
       "pins": {
         "1": "USB_CC2",
-        "2": "VBUS_PD_12V",
+        "2": "VBUS_PD_SENSE",
         "3": "VCC_3V3_S3",
         "4": "VCC_3V3_S3",
         "5": "USB_CC_INT_N",
@@ -20356,6 +20470,8 @@
       "C203.2",
       "C204.2",
       "C205.2",
+      "U204.4",
+      "R243.2",
       "R206.2",
       "C1180.2",
       "U205.1",
@@ -20797,6 +20913,7 @@
       "U603.18",
       "U603.21",
       "C607.2",
+      "C608.2",
       "U601.8",
       "U601.9",
       "U601.15",
@@ -24046,10 +24163,10 @@
       "Q201B.7",
       "Q201B.8",
       "Q201B.9",
+      "U204.7",
       "R205.1",
       "U205.4",
       "C1190.1",
-      "U603.19",
       "C1396.1",
       "C1404.1",
       "C1412.1",
@@ -24091,14 +24208,12 @@
       "Q201A.3",
       "Q201B.1",
       "Q201B.2",
-      "Q201B.3",
-      "R207.2"
+      "Q201B.3"
     ],
     "VBUS_OVP_GATE": [
       "Q201A.4",
       "Q201B.4",
-      "R207.1",
-      "U603.17"
+      "U204.8"
     ],
     "VBUS_PD_12V": [
       "Q201A.5",
@@ -24106,15 +24221,31 @@
       "Q201A.7",
       "Q201A.8",
       "Q201A.9",
+      "U204.1",
+      "R241.1",
+      "R244.1",
       "U205.9",
       "U603.20",
-      "U601.2",
       "D603.1",
       "J601.1",
       "J601.2",
       "J601.3",
       "J601.4",
       "J601.P1"
+    ],
+    "OVP_UV": [
+      "U204.2",
+      "R241.2",
+      "R242.1"
+    ],
+    "OVP_OV": [
+      "U204.3",
+      "R242.2",
+      "R243.1"
+    ],
+    "OVP_SHDN": [
+      "U204.5",
+      "R244.2"
     ],
     "WPC_AC1": [
       "U205.2",
@@ -24523,6 +24654,11 @@
     "USB_SBU1": [
       "U603.15",
       "U602.27"
+    ],
+    "VBUS_PD_SENSE": [
+      "U603.19",
+      "C608.1",
+      "U601.2"
     ],
     "USBC_RX1_P": [
       "U602.30",

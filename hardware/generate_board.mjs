@@ -258,9 +258,9 @@ addRes({ ref: 'R603', value: '200R', tol: '1%', pkg: '0201', side: 'bot', x: 5.8
 addRes({ ref: 'R604', value: '200R', tol: '1%', pkg: '0201', side: 'bot', x: 6.8,  y: 34.0, subsystem: 'USB-C',  net1: 'USB20_HOST1_REXT',  net2: 'GND' });
 addRes({ ref: 'R605', value: '200R', tol: '1%', pkg: '0201', side: 'bot', x: 7.8,  y: 34.0, subsystem: 'USB-C',  net1: 'HDMI_EDP_TX0_REXT', net2: 'GND' });
 
-// MaskROM shorting pair (TP101/TP102) + UART2 Debug + Un-swapped SWD Test Points
-addTestPoint({ ref: 'TP101', net: 'EMMC_CLK_LINE', side: 'bot', x: -4.2, y: 15.2, subsystem: 'Boot' });
-addTestPoint({ ref: 'TP102', net: 'GND',           side: 'bot', x: -3.0, y: 15.2, subsystem: 'Boot' });
+// MaskROM shorting pair (TP101/TP102) placed directly beside R303 (15.2, 24.2) on B.Cu (zero-stub inline EMMC_CLK_LINE!) + UART2 Debug + Un-swapped SWD Test Points
+addTestPoint({ ref: 'TP101', net: 'EMMC_CLK_LINE', side: 'bot', x: 15.2, y: 22.8, subsystem: 'Boot' });
+addTestPoint({ ref: 'TP102', net: 'GND',           side: 'bot', x: 15.2, y: 21.6, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP103', net: 'UART2_DBG_TX',  x: 8.6, y: 34.8, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP104', net: 'UART2_DBG_RX',  x: 9.7, y: 34.8, subsystem: 'Boot' });
 addTestPoint({ ref: 'TP105', net: 'JTAG_SWDIO',    x: 8.6, y: 35.9, subsystem: 'Boot' });
@@ -538,7 +538,8 @@ addCap({ ref: 'C203', value: '22uF',  voltage: '25V', pkg: '0603', x: 8.6,  y: -
 addCap({ ref: 'C204', value: '22uF',  voltage: '10V', pkg: '0402', x: 14.8, y: -10.2, subsystem: 'Charging', netP: 'VSYS_3V87' });
 addCap({ ref: 'C205', value: '22uF',  voltage: '10V', pkg: '0402', x: 13.4, y: -10.2, subsystem: 'Charging', netP: 'VBAT_6000MAH' });
 
-// True Back-to-Back N-MOSFET VBUS OVP Blocking Switch (Q201A + Q201B SiSA14DN driven by TPD4S480RUKR EPR_BLK_G!)
+// True Back-to-Back N-MOSFET VBUS OVP Blocking Switch (Q201A + Q201B SiSA14DN)
+// driven AUTONOMOUSLY from VBUS_PD_12V by Analog Devices U204 (LTC4365ITS8#TRPBF) even at Battery=0% / VSYS=0V!
 addPart({
   ref: 'Q201A', mpn: 'SISA14DN-T1-GE3', manufacturer: 'Vishay',
   category: 'MOSFET', kind: 'ic', value: '30V 18A Back-to-Back VBUS OVP FET A', pkg: 'PowerPAK-1212-8',
@@ -559,11 +560,28 @@ addPart({
     '5': 'VBUS_OVP_OUT', '6': 'VBUS_OVP_OUT', '7': 'VBUS_OVP_OUT', '8': 'VBUS_OVP_OUT', '9': 'VBUS_OVP_OUT',
   },
 });
-// VBUS_VDC_DET Voltage Divider (12V * 150 / (510+150) = 2.73V <= 3.0V safe for RK3588S2 VBUSDET & RK806 VDC!)
+// Autonomous VBUS-Powered OVP/UVP/Reverse Gate Controller (Analog Devices LTC4365ITS8#TRPBF, 2.5-34V op, -40..+60V prot)
+// Dead-Battery 0% Boot: powered DIRECTLY from VBUS_PD_12V (no VSYS/3V3/CPU dependency!); internal +8.4V charge pump
+// enhances Q201A/Q201B whenever 3.84V < VBUS < 13.63V (USB-C 5V/9V/12V pass; >13.63V OVP trips in 1us to protect BQ25895!).
+addPart({
+  ref: 'U204', mpn: 'LTC4365ITS8#TRPBF', manufacturer: 'Analog Devices',
+  category: 'OVP-Ctrl', kind: 'ic', value: 'VBUS-Powered Autonomous OVP/UVP Gate Controller (3.84-13.63V)', pkg: 'TSOT-23-8',
+  board: 'main', side: 'top', x: 14.7, y: -19.2, w: 2.9, h: 2.8, t: 0.80,
+  subsystem: 'Charging',
+  pins: {
+    '1': 'VBUS_PD_12V', '2': 'OVP_UV', '3': 'OVP_OV', '4': 'GND',
+    '5': 'OVP_SHDN', '7': 'VBUS_OVP_OUT', '8': 'VBUS_OVP_GATE',
+  },
+});
+// Precision Window Divider for U204 LTC4365 (V_UV = 0.5V*(2370+255+100)/(255+100) = 3.838V, V_OV = 0.5V*2725/100 = 13.625V)
+addRes({ ref: 'R241', value: '2.37M', tol: '1%', pkg: '0201', x: 8.6, y: -14.0, subsystem: 'Charging', net1: 'VBUS_PD_12V', net2: 'OVP_UV' });
+addRes({ ref: 'R242', value: '255K',  tol: '1%', pkg: '0201', x: 8.6, y: -15.0, subsystem: 'Charging', net1: 'OVP_UV',      net2: 'OVP_OV' });
+addRes({ ref: 'R243', value: '100K',  tol: '1%', pkg: '0201', x: 8.6, y: -16.0, subsystem: 'Charging', net1: 'OVP_OV',      net2: 'GND' });
+addRes({ ref: 'R244', value: '100K',  tol: '1%', pkg: '0201', x: 8.6, y: -17.0, subsystem: 'Charging', net1: 'VBUS_PD_12V', net2: 'OVP_SHDN' });
+// VBUS_VDC_DET Voltage Divider (5V -> 1.136V > 0.8V RK806 VDC boot; 12V -> 2.727V <= 3.0V safe for RK3588S2 VBUSDET & RK806 VDC!)
 addRes({ ref: 'R205', value: '510K', pkg: '0201', x: 14.5, y: -14.0, subsystem: 'Charging', net1: 'VBUS_OVP_OUT', net2: 'VBUS_VDC_DET' });
 addRes({ ref: 'R206', value: '150K', pkg: '0201', x: 14.5, y: -14.8, subsystem: 'Charging', net1: 'VBUS_VDC_DET', net2: 'GND' });
 addCap({ value: '100nF', voltage: '10V', pkg: '0201', x: 14.5, y: -15.6, subsystem: 'Charging', netP: 'VBUS_VDC_DET' });
-addRes({ ref: 'R207', value: '100K', pkg: '0201', x: 14.5, y: -18.2, subsystem: 'Charging', net1: 'VBUS_OVP_GATE', net2: 'VBUS_OVP_MID' });
 
 // 5W Qi Wireless Power Receiver (TI BQ51013BRHLR — Replaces NDA P9222-R! Complete TI SLUSB62D circuit!)
 addPart({
@@ -656,7 +674,8 @@ addPart({
   subsystem: 'Storage',
   pins: emmcFull.pins,
 });
-addRes({ ref: 'R303', value: '22R', pkg: '0201', side: 'bot', x: -4.2, y: 12.8, subsystem: 'Storage', net1: 'EMMC_CLK_SOC', net2: 'EMMC_CLK_LINE' });
+// Textbook source-termination placement: R303 (22R) placed directly beneath U101.AB41 (14.20, 24.30) on B.Cu!
+addRes({ ref: 'R303', value: '22R', pkg: '0201', side: 'bot', x: 15.2, y: 24.2, subsystem: 'Storage', net1: 'EMMC_CLK_SOC', net2: 'EMMC_CLK_LINE' });
 addRes({ ref: 'R304', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 11.8, subsystem: 'Storage', net1: 'EMMC_DATA_STROBE', net2: 'GND' });
 addRes({ ref: 'R305', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 10.8, subsystem: 'Storage', net1: 'EMMC_RSTN', net2: 'VCC_1V8_S3' });
 addRes({ ref: 'R306', value: '10K', pkg: '0201', side: 'bot', x: -4.2, y: 9.8,  subsystem: 'Storage', net1: 'EMMC_CMD',  net2: 'VCC_1V8_S3' });
@@ -923,18 +942,19 @@ addPart({
 // ============================================================================
 addPart({
   ref: 'U603', mpn: 'TPD4S480RUKR', manufacturer: 'Texas Instruments',
-  category: 'USB-OVP', kind: 'ic', value: 'USB-C 48V EPR CC/SBU OVP + Gate Driver (RUKR)', pkg: 'WQFN-20 (3x3mm)',
+  category: 'USB-OVP', kind: 'ic', value: 'USB-C 48V EPR CC/SBU OVP + Dead-Battery Rd (RUKR)', pkg: 'WQFN-20 (3x3mm)',
   board: 'main', side: 'top', x: 14.2, y: -49.8, w: 3.0, h: 3.0, t: 0.75,
   subsystem: 'USB-C',
   pins: {
     '1': 'USB_SBU1_EXT', '2': 'USB_SBU2_EXT', '3': 'TPD_VBIAS', '4': 'USB_CC1_EXT', '5': 'USB_CC2_EXT',
     '6': 'USB_CC2_EXT', '7': 'USB_CC1_EXT', '8': 'GND', '10': 'VCC_3V3_S3',
     '11': 'USB_CC2', '12': 'USB_CC1', '13': 'GND', '14': 'USB_SBU2', '15': 'USB_SBU1',
-    '16': 'GND', '17': 'VBUS_OVP_GATE', '18': 'GND', '19': 'VBUS_OVP_OUT', '20': 'VBUS_PD_12V', '21': 'GND',
+    '16': 'GND', '18': 'GND', '19': 'VBUS_PD_SENSE', '20': 'VBUS_PD_12V', '21': 'GND',
   },
 });
-// Mandatory 0.1uF 100V VBIAS capacitor for TPD4S480RUKR! (Rev 5.0 FIX!)
+// Mandatory 0.1uF 100V VBIAS capacitor + 0.1uF 25V VBUS_LV sense bypass capacitor for TPD4S480RUKR!
 addCap({ ref: 'C607', value: '100nF', voltage: '100V', diel: 'X7R', pkg: '0402', x: 11.4, y: -49.8, subsystem: 'USB-C', netP: 'TPD_VBIAS' });
+addCap({ ref: 'C608', value: '100nF', voltage: '25V',  diel: 'X7R', pkg: '0201', x: 11.4, y: -50.8, subsystem: 'USB-C', netP: 'VBUS_PD_SENSE' });
 
 addPart({
   ref: 'U601', mpn: 'FUSB302BMPX', manufacturer: 'onsemi',
@@ -942,7 +962,7 @@ addPart({
   board: 'main', side: 'top', x: 9.6, y: -53.2, w: 2.5, h: 2.5, t: 0.58,
   subsystem: 'USB-C',
   pins: {
-    '1': 'USB_CC2', '2': 'VBUS_PD_12V', '3': 'VCC_3V3_S3', '4': 'VCC_3V3_S3',
+    '1': 'USB_CC2', '2': 'VBUS_PD_SENSE', '3': 'VCC_3V3_S3', '4': 'VCC_3V3_S3',
     '5': 'USB_CC_INT_N', '6': 'I2C4_SCL', '7': 'I2C4_SDA', '8': 'GND', '9': 'GND',
     '10': 'USB_CC1', '11': 'USB_CC1', '12': 'VCC5V0_OTG_HOST', '13': 'VCC5V0_OTG_HOST', '14': 'USB_CC2', '15': 'GND',
   },

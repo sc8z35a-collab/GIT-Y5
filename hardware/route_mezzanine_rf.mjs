@@ -259,16 +259,20 @@ for (const c of mezzComps) {
   const rot = c.rot || 0;
   const rad = (rot * Math.PI) / 180, cos = Math.cos(rad), sin = Math.sin(rad);
   const isRot90 = Math.abs(rot % 180) === 90;
-  const layer = c.side === 'top' ? 'F.Cu' : 'B.Cu';
+  const isBot = c.side === 'bot';
+  const layer = isBot ? 'B.Cu' : 'F.Cu';
   const fpPads = [];
   for (const sl of verifiedPads) {
-    const wx = +(c.x + sl.lx * cos - sl.ly * sin).toFixed(4);
-    const wy = +(c.y + sl.lx * sin + sl.ly * cos).toFixed(4);
+    // KiCad B.Cu placement mirrors footprint X across Y-axis (lx -> -lx) in board-top-view coordinates!
+    // Combined with Hirose DF40C-40DP's mirrored mating-face land pattern, J901A/J901B Pin k mates 1:1 with Mainboard DF40C-40DS Pin k!
+    const mlx = isBot ? -sl.lx : sl.lx;
+    const wx = +(c.x + mlx * cos - sl.ly * sin).toFixed(4);
+    const wy = +(c.y + mlx * sin + sl.ly * cos).toFixed(4);
     const netName = sl.netName || '';
     const padObj = {
       id: allPads.length, ref: c.ref, padNum: String(sl.padNum), pinName: sl.pinName || String(sl.padNum),
       netName, netId: getNetId(netName), side: c.side, layer,
-      lx: sl.lx, ly: sl.ly, wx, wy,
+      lx: +mlx.toFixed(4), ly: sl.ly, origLx: +sl.lx.toFixed(4), origLy: +sl.ly.toFixed(4), wx, wy,
       pw: isRot90 ? sl.ph : sl.pw, ph: isRot90 ? sl.pw : sl.ph,
       origPw: sl.pw, origPh: sl.ph, shape: sl.shape,
       isRfPad: RF_CPWG_NETS.has(netName),
@@ -1248,7 +1252,26 @@ for (let i = 1; i < idToNetName.length; i++) {
   const nc = classifyMezzNet(idToNetName[i]);
   if (nc !== 'Default') mezzPro.net_settings.netclass_assignments[idToNetName[i]] = nc;
 }
+if (mezzPro.board?.design_settings?.rule_severities) {
+  mezzPro.board.design_settings.rule_severities.isolated_copper = 'error';
+}
 fs.writeFileSync(PRO_OUT, JSON.stringify(mezzPro, null, 2));
+
+// Assign KiCad 9 schematic-parity synthetic net names to NC/unconnected pads (0 ratsnest, 100% --schematic-parity!)
+const pcbNetNames = idToNetName.slice();
+const padEmitNet = new Map();
+for (const fp of footprints) {
+  for (const p of fp.pads) {
+    if (p.netId > 0) {
+      padEmitNet.set(p.id, { id: p.netId, name: p.netName });
+    } else {
+      const uncName = `unconnected-(${fp.ref}-${p.pinName}-Pad${p.padNum})`;
+      const uncId = pcbNetNames.length;
+      pcbNetNames.push(uncName);
+      padEmitNet.set(p.id, { id: uncId, name: uncName });
+    }
+  }
+}
 
 const out = [];
 out.push(`(kicad_pcb`);
@@ -1302,7 +1325,7 @@ out.push(`    )`);
 out.push(`    (pad_to_mask_clearance 0.0) (allow_soldermask_bridges_in_footprints no)`);
 out.push(`  )`);
 
-for (let i = 0; i < idToNetName.length; i++) out.push(`  (net ${i} "${idToNetName[i]}")`);
+for (let i = 0; i < pcbNetNames.length; i++) out.push(`  (net ${i} "${pcbNetNames[i]}")`);
 
 for (let i = 0; i < OUTLINE_POLY.length; i++) {
   const [x1, y1] = OUTLINE_POLY[i], [x2, y2] = OUTLINE_POLY[(i + 1) % OUTLINE_POLY.length];
@@ -1310,20 +1333,37 @@ for (let i = 0; i < OUTLINE_POLY.length; i++) {
 }
 
 for (const fp of footprints) {
-  const fl = fp.side === 'top' ? 'F.Cu' : 'B.Cu';
-  const fab = fp.side === 'top' ? 'F.Fab' : 'B.Fab';
-  const paste = fp.side === 'top' ? 'F.Paste' : 'B.Paste';
-  const mask = fp.side === 'top' ? 'F.Mask' : 'B.Mask';
-  out.push(`  (footprint "RF_${fp.pkg.replace(/[^A-Za-z0-9_.-]/g, '_')}" (layer "${fl}") (uuid "${uuid()}")`);
-  out.push(`    (at ${fmt(fp.x)} ${fmt(toKiCadY(fp.y))} ${fp.rot || 0})`);
+  const isBot = fp.side === 'bot';
+  const fl = isBot ? 'B.Cu' : 'F.Cu';
+  const fab = isBot ? 'B.Fab' : 'F.Fab';
+  const paste = isBot ? 'B.Paste' : 'F.Paste';
+  const mask = isBot ? 'B.Mask' : 'F.Mask';
+  // KiCad canonical B.Cu Y-axis mirror: (rot + 180) % 360 with local pad (origLx, +origLy)
+  const emitRot = isBot ? ((fp.rot || 0) + 180) % 360 : (fp.rot || 0);
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  for (const p of fp.pads) {
+    const px = p.origLx;
+    const py = isBot ? p.origLy : -p.origLy;
+    const pw0 = p.origPw ?? p.pw, ph0 = p.origPh ?? p.ph;
+    minX = Math.min(minX, px - pw0 * 0.5); maxX = Math.max(maxX, px + pw0 * 0.5);
+    minY = Math.min(minY, py - ph0 * 0.5); maxY = Math.max(maxY, py + ph0 * 0.5);
+  }
+  const rx0 = +(minX - 0.1).toFixed(4), rx1 = +(maxX + 0.1).toFixed(4);
+  const ry0 = +(minY - 0.1).toFixed(4), ry1 = +(maxY + 0.1).toFixed(4);
+  out.push(`  (footprint "RK_T4:${fp.pkg.replace(/[^A-Za-z0-9_.-]/g, '_')}" (layer "${fl}") (uuid "${uuid()}")`);
+  out.push(`    (at ${fmt(fp.x)} ${fmt(toKiCadY(fp.y))} ${emitRot})`);
   out.push(`    (property "Reference" "${fp.ref}" (at 0 0 0) (layer "${fab}") (hide yes) (uuid "${uuid()}") (effects (font (size 0.5 0.5) (thickness 0.08))))`);
   out.push(`    (property "Value" "${(fp.mpn || fp.value).replace(/"/g, '')}" (at 0 0.7 0) (layer "${fab}") (hide yes) (uuid "${uuid()}") (effects (font (size 0.5 0.5) (thickness 0.08))))`);
   out.push(`    (attr smd)`);
+  out.push(`    (fp_rect (start ${rx0} ${ry0}) (end ${rx1} ${ry1}) (stroke (width 0.08) (type solid)) (fill none) (layer "${fab}") (uuid "${uuid()}"))`);
   for (const p of fp.pads) {
-    const rrr = p.shape === 'roundrect' ? ' (roundrect_rratio 0.25)' : '';
-    const netAttr = p.netId > 0 ? ` (net ${p.netId} "${p.netName}")` : '';
-    const padRot = fp.rot ? ` ${fp.rot}` : '';
-    out.push(`    (pad "${p.padNum}" smd ${p.shape} (at ${fmt(p.lx)} ${fmt(-p.ly)}${padRot}) (size ${fmt(p.origPw ?? p.pw)} ${fmt(p.origPh ?? p.ph)}) (layers "${fl}" "${paste}" "${mask}")${rrr}${netAttr} (uuid "${uuid()}"))`);
+    const rrr = p.shape === 'roundrect' ? ' (roundrect_rratio 0.2)' : '';
+    const pn = padEmitNet.get(p.id);
+    const netAttr = pn && pn.id > 0 ? ` (net ${pn.id} "${pn.name}")` : '';
+    const padRot = emitRot ? ` ${emitRot}` : '';
+    const klx = p.origLx;
+    const kly = isBot ? p.origLy : -p.origLy;
+    out.push(`    (pad "${p.padNum}" smd ${p.shape} (at ${fmt(klx)} ${fmt(kly)}${padRot}) (size ${fmt(p.origPw ?? p.pw)} ${fmt(p.origPh ?? p.ph)}) (layers "${fl}" "${paste}" "${mask}")${rrr}${netAttr} (uuid "${uuid()}"))`);
   }
   out.push(`  )`);
 }
@@ -1337,7 +1377,9 @@ for (const v of allVias) {
   out.push(`  (via (at ${fmt(v.x)} ${fmt(toKiCadY(v.y))}) (size ${fmt(v.dia)}) (drill ${fmt(v.drill)}) (layers "F.Cu" "B.Cu") (net ${v.netId}) (uuid "${uuid()}"))`);
 }
 
-// Solid RF Reference GND Planes (In1.Cu, In6.Cu) + Coplanar GND Copper Pours (F.Cu, B.Cu, remove ALL unconnected islands!)
+// Solid RF Reference GND Planes (In1.Cu, In6.Cu) + Coplanar GND Copper Pours (F.Cu, B.Cu)
+// KiCad 9 enum: ISLAND_REMOVAL_MODE_ALWAYS = 0 (removes ALL isolated floating copper islands -> 0 isolated_copper DRC;
+// note: mode 1 in KiCad C++ is ISLAND_REMOVAL_MODE_NEVER which keeps floating islands!)
 const zonePts = [
   [-17.70,   2.70],
   [  8.70,   2.70],
@@ -1366,15 +1408,19 @@ for (const [zLayer, zClr, minThk, islMode] of [
 out.push(`)`);
 
 fs.writeFileSync(PCB_OUT, out.join('\n'));
-console.log(`Wrote ${PCB_OUT} (${(fs.statSync(PCB_OUT).size / 1024).toFixed(1)} KB). Running native KiCad 9.0.8 ZONE_FILLER...`);
+console.log(`Wrote ${PCB_OUT} (${(fs.statSync(PCB_OUT).size / 1024).toFixed(1)} KB). Running native KiCad 9 ZONE_FILLER...`);
 
 const pyFill = `
 import pcbnew, sys
 b = pcbnew.LoadBoard(sys.argv[1])
+for z in b.Zones():
+    z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS)
 zf = pcbnew.ZONE_FILLER(b)
 zf.Fill(b.Zones())
 pcbnew.SaveBoard(sys.argv[1], b)
-print("Filled", len(b.Zones()), "GND/CPWG zones natively via pcbnew.ZONE_FILLER")
+modes = [z.GetIslandRemovalMode() for z in b.Zones()]
+assert all(m == pcbnew.ISLAND_REMOVAL_MODE_ALWAYS for m in modes), f"Unexpected island modes: {modes}"
+print("Filled", len(b.Zones()), "GND/CPWG zones natively via pcbnew.ZONE_FILLER (ISLAND_REMOVAL_MODE_ALWAYS=0, 0 floating islands)")
 `;
 const kicadRoot = '/home/antigravity/.local/kicad-root';
 const env = fs.existsSync(kicadRoot)

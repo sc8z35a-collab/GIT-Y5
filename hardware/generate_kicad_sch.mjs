@@ -425,14 +425,21 @@ for (const c of [...mainComps, ...mezzComps]) {
   } else {
     pads = getVerifiedFootprintPads(c);
   }
-  const hw = +(c.w * 0.5).toFixed(3), hh = +(c.h * 0.5).toFixed(3);
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  for (const p of pads) {
+    const px = +p.lx, py = -p.ly;
+    minX = Math.min(minX, px - p.pw * 0.5); maxX = Math.max(maxX, px + p.pw * 0.5);
+    minY = Math.min(minY, py - p.ph * 0.5); maxY = Math.max(maxY, py + p.ph * 0.5);
+  }
+  const rx0 = +(minX - 0.1).toFixed(4), rx1 = +(maxX + 0.1).toFixed(4);
+  const ry0 = +(minY - 0.1).toFixed(4), ry1 = +(maxY + 0.1).toFixed(4);
   const modLines = [
     `(footprint "${esc(fpName)}"`,
     `  (version 20240108)`,
     `  (generator "rk_t4_rev5_sch_generator")`,
     `  (layer "F.Cu")`,
     `  (attr smd)`,
-    `  (fp_rect (start ${-hw} ${-hh}) (end ${hw} ${hh}) (stroke (width 0.08) (type solid)) (fill none) (layer "F.Fab"))`,
+    `  (fp_rect (start ${rx0} ${ry0}) (end ${rx1} ${ry1}) (stroke (width 0.08) (type solid)) (fill none) (layer "F.Fab"))`,
     ...pads.map((p) => {
       const sh = p.shape === 'circle' ? 'circle' : 'roundrect';
       const rr = sh === 'roundrect' ? ' (roundrect_rratio 0.2)' : '';

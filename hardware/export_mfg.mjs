@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 /**
- * RK T4 Rev 4.0 — Dual-Board Native KiCad 9.0.8 Manufacturing Package Exporter
- * ============================================================================
+ * RK T4 Rev 5.0 (True EVT) — Dual-Board Native KiCad 9 Manufacturing Package Exporter
+ * ===================================================================================
  * Supports exporting either or both verified boards:
- *   - Mainboard (`--board main`): 14-Layer 1.200 mm 3+8+3 Staggered HDI (21 Gerbers + 8 sequential Excellon drills)
+ *   - Mainboard (`--board main`): 14-Layer 1.200 mm 3+8+3 Staggered HDI (Inner 0.5oz / Outer 1oz, S1000-2M 1067/1078)
  *   - Mezzanine (`--board mezz`): 8-Layer 0.800 mm JLC08081H-1080A 5G RF CPWG (15 Gerbers + POFV Excellon drill)
  *   - Default (no flag): exports BOTH boards!
  *
- * Strictly gates EVERY board through official native `kicad-cli pcb drc --severity-all --all-track-errors --exit-code-violations`
+ * Strictly gates EVERY board through official native
+ * `kicad-cli pcb drc --severity-all --all-track-errors --schematic-parity --exit-code-violations`
  * (pass `--allow-drc-report-only` ONLY if inspecting partial/diagnostic builds — never for release!).
  */
 
@@ -44,7 +45,7 @@ if (fs.existsSync(AUDIT_PATH)) {
 const BOARDS = {
   main: {
     key: 'main',
-    title: 'RK T4 Mainboard (14-Layer 1.200mm 3+8+3 Staggered HDI, Rev 5.0 EVT)',
+    title: 'RK T4 Mainboard (14-Layer 1.200mm 3+8+3 HDI, Inner 0.5oz / Outer 1oz, Spread-Glass 1067/1078)',
     pcbPath: path.join(HW_DIR, 'rk_t4_mainboard.kicad_pcb'),
     drcPath: path.join(HW_DIR, 'kicad_drc_report.json'),
     gerberDir: path.join(MFG_DIR, 'gerbers'),
@@ -93,16 +94,24 @@ function exportBoard(cfg) {
   fs.rmSync(cfg.gerberDir, { recursive: true, force: true });
   fs.mkdirSync(cfg.gerberDir, { recursive: true });
 
-  // 1. Native KiCad 9.0.8 DRC Gate
-  console.log('1) Running native KiCad 9.0.8 DRC (--severity-all --all-track-errors)...');
+  // 1. Native KiCad 9 DRC Gate (including --schematic-parity and isolated_copper=error)
+  console.log('1) Running native KiCad 9 DRC (--severity-all --all-track-errors --schematic-parity)...');
   const drcArgs = [
-    'pcb', 'drc', '--format', 'json', '--severity-all', '--all-track-errors', '--units', 'mm',
+    'pcb', 'drc', '--format', 'json', '--severity-all', '--all-track-errors', '--schematic-parity', '--units', 'mm',
     '-o', cfg.drcPath, cfg.pcbPath,
   ];
-  if (!allowNonZeroDrc) drcArgs.splice(6, 0, '--exit-code-violations');
+  if (!allowNonZeroDrc) drcArgs.splice(7, 0, '--exit-code-violations');
   execFileSync(KICAD_CLI, drcArgs, { stdio: 'inherit' });
   const drc = JSON.parse(fs.readFileSync(cfg.drcPath, 'utf8'));
-  console.log(`   DRC Result: violations=${drc.violations.length}, unconnected=${drc.unconnected_items.length}`);
+  const parityCount = (drc.schematic_parity || []).length;
+  const isoCopperCount = (drc.violations || []).filter((v) => v.type === 'isolated_copper').length;
+  console.log(
+    `   DRC Result: violations=${drc.violations.length}, unconnected=${drc.unconnected_items.length}, ` +
+    `schematic_parity=${parityCount}, isolated_copper=${isoCopperCount}`
+  );
+  if (!allowNonZeroDrc && (drc.violations.length || drc.unconnected_items.length || parityCount || isoCopperCount)) {
+    throw new Error(`KiCad 9 DRC/parity gate failed on ${cfg.key}`);
+  }
 
   // 2. Export Gerbers (Protel + RS-274X)
   console.log(`2) Exporting ${cfg.layers.length} Gerber layers via kicad-cli...`);

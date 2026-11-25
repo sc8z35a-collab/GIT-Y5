@@ -1,5 +1,5 @@
 Drill report for rk_t4_mainboard.kicad_pcb
-Created on 2026-11-24T13:20:17+0000
+Created on 2026-11-25T11:30:43+0000
 
 Copper Layer Stackup:
     =============================================================
@@ -22,49 +22,49 @@ Copper Layer Stackup:
 Drill file 'rk_t4_mainboard.drl' contains
     plated through holes:
     =============================================================
-    T1  0.150mm  0.0059"  (109 holes)
+    T1  0.150mm  0.0059"  (100 holes)
 
-    Total plated holes count 109
+    Total plated holes count 100
 
 
 Drill file 'rk_t4_mainboard-front-in1.drl' contains
     holes connecting layer pair: 'F.Cu and GND' (blind vias):
     =============================================================
-    T1  0.075mm  0.0030"  (2579 holes)
+    T1  0.075mm  0.0030"  (2588 holes)
 
-    Total plated holes count 2579
+    Total plated holes count 2588
 
 
 Drill file 'rk_t4_mainboard-in1-in2.drl' contains
     holes connecting layer pair: 'GND and In2.Cu' (buried vias):
     =============================================================
-    T1  0.075mm  0.0030"  (1328 holes)
+    T1  0.075mm  0.0030"  (1334 holes)
 
-    Total plated holes count 1328
+    Total plated holes count 1334
 
 
 Drill file 'rk_t4_mainboard-in2-in3.drl' contains
     holes connecting layer pair: 'In2.Cu and In3.Cu' (buried vias):
     =============================================================
-    T1  0.075mm  0.0030"  (2435 holes)
+    T1  0.075mm  0.0030"  (2307 holes)
 
-    Total plated holes count 2435
+    Total plated holes count 2307
 
 
 Drill file 'rk_t4_mainboard-in3-in10.drl' contains
     holes connecting layer pair: 'In3.Cu and In10.Cu' (buried vias):
     =============================================================
-    T1  0.150mm  0.0059"  (1519 holes)
+    T1  0.150mm  0.0059"  (1453 holes)
 
-    Total plated holes count 1519
+    Total plated holes count 1453
 
 
 Drill file 'rk_t4_mainboard-in10-in11.drl' contains
     holes connecting layer pair: 'In10.Cu and In11.Cu' (buried vias):
     =============================================================
-    T1  0.075mm  0.0030"  (1944 holes)
+    T1  0.075mm  0.0030"  (1733 holes)
 
-    Total plated holes count 1944
+    Total plated holes count 1733
 
 
 Drill file 'rk_t4_mainboard-in11-in12.drl' contains

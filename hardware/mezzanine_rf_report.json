@@ -32,10 +32,10 @@
     "footprints": 111,
     "pads": 611,
     "activeNets": 99,
-    "totalSegments": 1808,
-    "totalVias": 714,
-    "rfCpwgFenceVias": 98,
-    "rfShieldPerimeterVias": 98,
+    "totalSegments": 1726,
+    "totalVias": 699,
+    "rfCpwgFenceVias": 103,
+    "rfShieldPerimeterVias": 84,
     "unroutedInnerNets": 0
   },
   "rfPaths": [

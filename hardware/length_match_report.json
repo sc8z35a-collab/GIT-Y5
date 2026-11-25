@@ -1,54 +1,74 @@
 {
-  "stackup": "14-Layer 1.200mm 3+8+3 STAGGERED HDI (Shengyi S1000-2M TG170, Er=3.95, 1oz/1oz 35um Cu)",
+  "stackup": "14-Layer 1.200mm 3+8+3 STAGGERED HDI (Shengyi S1000-2M TG170 Spread-Glass 1067/1078, Er=3.95, Inner 0.5oz 17.5um / Outer 1oz 35um Cu)",
   "propagationDelayPsPerMm": 6.629,
+  "fiberWeaveMitigation": {
+    "glassStyle": "Spread-Glass 1067 (58-66um) & 1078 (72-96um) mechanically flattened low-skew weave",
+    "panelRotationDeg": 10,
+    "unmitigated1080SkewPsPerMm": 1.8,
+    "spreadGlassSkewPsPerMm": 0.08,
+    "spreadGlassPlus10DegSkewPsPerMm": 0.02,
+    "worstLpddr5xTraceMm": 54.23,
+    "worstCaseFiberWeaveSkewPs": 1.08,
+    "lpddr5x6400UiPs": 156.25,
+    "status": "PASS (0.69% UI <= 1.0% UI with 1067/1078 Spread-Glass + 10 deg panel rotation)"
+  },
+  "lpddr5xPackagePinDelay": {
+    "socPackage": "Rockchip RK3588S2 FCCSP1253L (17x17mm, intra-byte substrate skew <= 10 ps per RK3588 HDG V1.5)",
+    "dramPackage": "Samsung K3LK7K70BM-BGCP FBGA-496 (12.4x14.0mm, intra-byte package skew <= 10 ps per JEDEC JESD209-5B)",
+    "combinedPackageIntraByteBudgetPs": 18,
+    "phyTrainingDeskewRangePs": 55,
+    "intraPairDiffLimitPs": 1,
+    "dvtAction": "Import Rockchip RK3588S2 PinDelay CSV + Samsung K3LK7K70BM IBIS package delay table for DVT fine-trim sign-off; EVT relies on <=16.8ps PCB byte skew + <=1.0ps diff pair skew + RK3588S2 per-bit WCK/RDQS/CA training",
+    "status": "VERIFIED_EVT_MARGIN"
+  },
   "netclasses": {
     "Default": {
       "width": 0.075,
       "clearance": 0.07,
       "diffGap": 0.125,
-      "zTarget": "General (1oz Cu)"
+      "zTarget": "General (0.5oz Inner / 1oz Outer Cu)"
     },
     "DDR_SE_40": {
-      "width": 0.077,
+      "width": 0.091,
       "clearance": 0.07,
-      "diffGap": 0.123,
-      "zTarget": "40.0 Ohm SE (Cavity A, 1oz)"
+      "diffGap": 0.109,
+      "zTarget": "40.3 Ohm SE (Cavity A, 0.5oz 17.5um, 1067/1078)"
     },
     "DDR_DIFF_80": {
-      "width": 0.07,
+      "width": 0.084,
       "clearance": 0.07,
-      "diffGap": 0.13,
-      "zTarget": "79.8 Ohm Diff (Cavity A, 1oz)"
+      "diffGap": 0.116,
+      "zTarget": "80.0 Ohm Diff (Cavity A, 0.5oz 17.5um, 1067/1078)"
     },
     "EMMC_SE_50": {
-      "width": 0.089,
+      "width": 0.09,
       "clearance": 0.07,
-      "diffGap": 0.111,
-      "zTarget": "50.0 Ohm SE (Cavity B, 1oz)"
+      "diffGap": 0.11,
+      "zTarget": "50.1 Ohm SE (Cavity B, 0.5oz 17.5um, 1078)"
     },
     "PCIE_DIFF_85": {
-      "width": 0.095,
+      "width": 0.098,
       "clearance": 0.07,
-      "diffGap": 0.105,
-      "zTarget": "85.1 Ohm Diff (Cavity B, 1oz)"
+      "diffGap": 0.102,
+      "zTarget": "85.8 Ohm Diff (Cavity B, 0.5oz 17.5um, 1078)"
     },
     "USB3_DIFF_90": {
-      "width": 0.087,
+      "width": 0.09,
       "clearance": 0.07,
-      "diffGap": 0.113,
-      "zTarget": "90.0 Ohm Diff (Cavity B, 1oz)"
+      "diffGap": 0.11,
+      "zTarget": "90.6 Ohm Diff (Cavity B, 0.5oz 17.5um, 1078)"
     },
     "MIPI_DIFF_100": {
-      "width": 0.071,
+      "width": 0.075,
       "clearance": 0.07,
-      "diffGap": 0.129,
-      "zTarget": "99.6 Ohm Diff (Cavity B, 1oz)"
+      "diffGap": 0.125,
+      "zTarget": "100.6 Ohm Diff (Cavity B, 0.5oz 17.5um, 1078)"
     },
     "POWER_WIDE": {
       "width": 0.098,
       "clearance": 0.07,
       "diffGap": 0.102,
-      "zTarget": "Low-R Power (1oz Cu, 35um)"
+      "zTarget": "Low-R Power (0.5oz Inner / 1oz Outer Cu)"
     }
   },
   "groups": [
@@ -58,11 +78,11 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 6.842,
-      "beforeMaxMm": 81.166,
-      "beforeSkewMm": 74.324,
-      "afterMinMm": 23.332,
-      "afterMaxMm": 23.332,
+      "beforeMinMm": 7.092,
+      "beforeMaxMm": 22.585,
+      "beforeSkewMm": 15.493,
+      "afterMinMm": 16.25,
+      "afterMaxMm": 16.25,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -70,67 +90,67 @@
         {
           "name": "LPDDR5X_CH0A_DQ0",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_DQ1",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_DQ2",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_DQ3",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_DQ4",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_DQ5",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_DQ6",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_DQ7",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_DMI0",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_RDQS0_P",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_RDQS0_N",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_WCK0_P",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_WCK0_N",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         }
       ]
     },
@@ -140,79 +160,79 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 9.46,
-      "beforeMaxMm": 32.834,
-      "beforeSkewMm": 23.374,
-      "afterMinMm": 15.345,
-      "afterMaxMm": 17.642,
-      "afterSkewMm": 2.297,
-      "afterSkewPs": 15.23,
+      "beforeMinMm": 9.092,
+      "beforeMaxMm": 17.092,
+      "beforeSkewMm": 8,
+      "afterMinMm": 19.05,
+      "afterMaxMm": 19.05,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "LPDDR5X_CH0A_DQ8",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_DQ9",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_DQ10",
           "routed": true,
-          "len": 17.634
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_DQ11",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_DQ12",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_DQ13",
           "routed": true,
-          "len": 17.634
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_DQ14",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_DQ15",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_DMI1",
           "routed": true,
-          "len": 15.345
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_RDQS1_P",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_RDQS1_N",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_WCK1_P",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_WCK1_N",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         }
       ]
     },
@@ -222,69 +242,69 @@
       "netCount": 11,
       "routedCount": 11,
       "unroutedNets": [],
-      "beforeMinMm": 7.46,
-      "beforeMaxMm": 31.316,
-      "beforeSkewMm": 23.856,
-      "afterMinMm": 13.641,
-      "afterMaxMm": 15.242,
-      "afterSkewMm": 1.601,
-      "afterSkewPs": 10.61,
+      "beforeMinMm": 7.892,
+      "beforeMaxMm": 17.581,
+      "beforeSkewMm": 9.689,
+      "afterMinMm": 16.892,
+      "afterMaxMm": 17.442,
+      "afterSkewMm": 0.55,
+      "afterSkewPs": 3.65,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "LPDDR5X_CH0A_CA0",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CA1",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CA2",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CA3",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CA4",
           "routed": true,
-          "len": 13.641
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CA5",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CA6",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CS0",
           "routed": true,
-          "len": 15.198
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CS1",
           "routed": true,
-          "len": 15.242
+          "len": 16.892
         },
         {
           "name": "LPDDR5X_CH0A_CK_P",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CK_N",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         }
       ]
     },
@@ -294,79 +314,79 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 21,
-      "beforeMaxMm": 34.964,
-      "beforeSkewMm": 13.964,
-      "afterMinMm": 32.464,
-      "afterMaxMm": 32.48,
-      "afterSkewMm": 0.016,
-      "afterSkewPs": 0.11,
+      "beforeMinMm": 20.202,
+      "beforeMaxMm": 31.006,
+      "beforeSkewMm": 10.804,
+      "afterMinMm": 36.698,
+      "afterMaxMm": 36.698,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "LPDDR5X_CH0B_DQ0",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_DQ1",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_DQ2",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_DQ3",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_DQ4",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_DQ5",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_DQ6",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_DQ7",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_DMI0",
           "routed": true,
-          "len": 32.464
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_RDQS0_P",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_RDQS0_N",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_WCK0_P",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_WCK0_N",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         }
       ]
     },
@@ -376,11 +396,11 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 25.052,
-      "beforeMaxMm": 52.396,
-      "beforeSkewMm": 27.344,
-      "afterMinMm": 41.016,
-      "afterMaxMm": 41.016,
+      "beforeMinMm": 25.536,
+      "beforeMaxMm": 40.381,
+      "beforeSkewMm": 14.845,
+      "afterMinMm": 33.936,
+      "afterMaxMm": 33.936,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -388,67 +408,67 @@
         {
           "name": "LPDDR5X_CH0B_DQ8",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_DQ9",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_DQ10",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_DQ11",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_DQ12",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_DQ13",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_DQ14",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_DQ15",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_DMI1",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_RDQS1_P",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_RDQS1_N",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_WCK1_P",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_WCK1_N",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         }
       ]
     },
@@ -458,11 +478,11 @@
       "netCount": 11,
       "routedCount": 11,
       "unroutedNets": [],
-      "beforeMinMm": 20.6,
-      "beforeMaxMm": 46.6,
-      "beforeSkewMm": 26,
-      "afterMinMm": 34.012,
-      "afterMaxMm": 34.012,
+      "beforeMinMm": 20.602,
+      "beforeMaxMm": 32.16,
+      "beforeSkewMm": 11.558,
+      "afterMinMm": 36.738,
+      "afterMaxMm": 36.738,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -470,57 +490,57 @@
         {
           "name": "LPDDR5X_CH0B_CA0",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CA1",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CA2",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CA3",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CA4",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CA5",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CA6",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CS0",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CS1",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CK_P",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CK_N",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         }
       ]
     },
@@ -530,79 +550,79 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 18.624,
-      "beforeMaxMm": 46.942,
-      "beforeSkewMm": 28.318,
-      "afterMinMm": 24.932,
-      "afterMaxMm": 24.932,
-      "afterSkewMm": 0,
-      "afterSkewPs": 0,
+      "beforeMinMm": 17.05,
+      "beforeMaxMm": 25.85,
+      "beforeSkewMm": 8.8,
+      "afterMinMm": 24.585,
+      "afterMaxMm": 24.602,
+      "afterSkewMm": 0.017,
+      "afterSkewPs": 0.11,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "LPDDR5X_CH1C_DQ0",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_DQ1",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_DQ2",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_DQ3",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_DQ4",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_DQ5",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_DQ6",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_DQ7",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_DMI0",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_RDQS0_P",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_RDQS0_N",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_WCK0_P",
           "routed": true,
-          "len": 24.932
+          "len": 24.585
         },
         {
           "name": "LPDDR5X_CH1C_WCK0_N",
           "routed": true,
-          "len": 24.932
+          "len": 24.585
         }
       ]
     },
@@ -612,11 +632,11 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 11.06,
-      "beforeMaxMm": 30.434,
-      "beforeSkewMm": 19.374,
-      "afterMinMm": 23.97,
-      "afterMaxMm": 23.97,
+      "beforeMinMm": 10.292,
+      "beforeMaxMm": 22.871,
+      "beforeSkewMm": 12.579,
+      "afterMinMm": 22.428,
+      "afterMaxMm": 22.428,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -624,67 +644,67 @@
         {
           "name": "LPDDR5X_CH1C_DQ8",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_DQ9",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_DQ10",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_DQ11",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_DQ12",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_DQ13",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_DQ14",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_DQ15",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_DMI1",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_RDQS1_P",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_RDQS1_N",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_WCK1_P",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_WCK1_N",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         }
       ]
     },
@@ -694,11 +714,11 @@
       "netCount": 11,
       "routedCount": 11,
       "unroutedNets": [],
-      "beforeMinMm": 13.024,
-      "beforeMaxMm": 36.444,
-      "beforeSkewMm": 23.42,
-      "afterMinMm": 31.198,
-      "afterMaxMm": 31.206,
+      "beforeMinMm": 13.85,
+      "beforeMaxMm": 25.402,
+      "beforeSkewMm": 11.552,
+      "afterMinMm": 24.642,
+      "afterMaxMm": 24.65,
       "afterSkewMm": 0.008,
       "afterSkewPs": 0.05,
       "meanderBumps": 0,
@@ -706,57 +726,57 @@
         {
           "name": "LPDDR5X_CH1C_CA0",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CA1",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CA2",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CA3",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CA4",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CA5",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CA6",
           "routed": true,
-          "len": 31.198
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CS0",
           "routed": true,
-          "len": 31.206
+          "len": 24.642
         },
         {
           "name": "LPDDR5X_CH1C_CS1",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CK_P",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CK_N",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         }
       ]
     },
@@ -766,79 +786,79 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 28.262,
-      "beforeMaxMm": 59.844,
-      "beforeSkewMm": 31.582,
-      "afterMinMm": 43.046,
-      "afterMaxMm": 43.052,
-      "afterSkewMm": 0.006,
-      "afterSkewPs": 0.04,
+      "beforeMinMm": 30.834,
+      "beforeMaxMm": 49.002,
+      "beforeSkewMm": 18.168,
+      "afterMinMm": 48.339,
+      "afterMaxMm": 48.339,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "LPDDR5X_CH1D_DQ0",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_DQ1",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_DQ2",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_DQ3",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_DQ4",
           "routed": true,
-          "len": 43.046
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_DQ5",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_DQ6",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_DQ7",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_DMI0",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_RDQS0_P",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_RDQS0_N",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_WCK0_P",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_WCK0_N",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         }
       ]
     },
@@ -848,79 +868,79 @@
       "netCount": 13,
       "routedCount": 13,
       "unroutedNets": [],
-      "beforeMinMm": 34.034,
-      "beforeMaxMm": 52.434,
-      "beforeSkewMm": 18.4,
-      "afterMinMm": 44.21,
-      "afterMaxMm": 44.23,
-      "afterSkewMm": 0.02,
-      "afterSkewPs": 0.13,
+      "beforeMinMm": 35.581,
+      "beforeMaxMm": 54.532,
+      "beforeSkewMm": 18.951,
+      "afterMinMm": 54.232,
+      "afterMaxMm": 54.232,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "LPDDR5X_CH1D_DQ8",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_DQ9",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_DQ10",
           "routed": true,
-          "len": 44.216
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_DQ11",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_DQ12",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_DQ13",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_DQ14",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_DQ15",
           "routed": true,
-          "len": 44.21
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_DMI1",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_RDQS1_P",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_RDQS1_N",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_WCK1_P",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_WCK1_N",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         }
       ]
     },
@@ -930,69 +950,69 @@
       "netCount": 11,
       "routedCount": 11,
       "unroutedNets": [],
-      "beforeMinMm": 28.662,
-      "beforeMaxMm": 48.096,
-      "beforeSkewMm": 19.434,
-      "afterMinMm": 46.224,
-      "afterMaxMm": 46.252,
-      "afterSkewMm": 0.028,
-      "afterSkewPs": 0.19,
+      "beforeMinMm": 33.179,
+      "beforeMaxMm": 57.096,
+      "beforeSkewMm": 23.918,
+      "afterMinMm": 50.65,
+      "afterMaxMm": 50.65,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "LPDDR5X_CH1D_CA0",
           "routed": true,
-          "len": 46.252
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CA1",
           "routed": true,
-          "len": 46.252
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CA2",
           "routed": true,
-          "len": 46.252
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CA3",
           "routed": true,
-          "len": 46.252
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CA4",
           "routed": true,
-          "len": 46.252
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CA5",
           "routed": true,
-          "len": 46.224
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CA6",
           "routed": true,
-          "len": 46.242
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CS0",
           "routed": true,
-          "len": 46.252
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CS1",
           "routed": true,
-          "len": 46.252
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CK_P",
           "routed": true,
-          "len": 46.226
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CK_N",
           "routed": true,
-          "len": 46.252
+          "len": 50.65
         }
       ]
     },
@@ -1002,71 +1022,71 @@
       "netCount": 11,
       "routedCount": 11,
       "unroutedNets": [],
-      "beforeMinMm": 37.367,
-      "beforeMaxMm": 98.962,
-      "beforeSkewMm": 61.594,
-      "afterMinMm": 87.691,
-      "afterMaxMm": 87.691,
-      "afterSkewMm": 0,
-      "afterSkewPs": 0,
+      "beforeMinMm": 37.654,
+      "beforeMaxMm": 47.652,
+      "beforeSkewMm": 9.997,
+      "afterMinMm": 47.426,
+      "afterMaxMm": 47.445,
+      "afterSkewMm": 0.019,
+      "afterSkewPs": 0.13,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "EMMC_D0",
           "routed": true,
-          "len": 87.691
+          "len": 47.445
         },
         {
           "name": "EMMC_D1",
           "routed": true,
-          "len": 87.691
+          "len": 47.445
         },
         {
           "name": "EMMC_D2",
           "routed": true,
-          "len": 87.691
+          "len": 47.445
         },
         {
           "name": "EMMC_D3",
           "routed": true,
-          "len": 87.691
+          "len": 47.445
         },
         {
           "name": "EMMC_D4",
           "routed": true,
-          "len": 87.691
+          "len": 47.445
         },
         {
           "name": "EMMC_D5",
           "routed": true,
-          "len": 87.691
+          "len": 47.445
         },
         {
           "name": "EMMC_D6",
           "routed": true,
-          "len": 87.691
+          "len": 47.445
         },
         {
           "name": "EMMC_D7",
           "routed": true,
-          "len": 87.691
+          "len": 47.445
         },
         {
           "name": "EMMC_CMD",
           "routed": true,
-          "len": 87.691
+          "len": 47.445
         },
         {
           "name": "EMMC_DATA_STROBE",
           "routed": true,
-          "len": 87.691
+          "len": 47.426
         },
         {
           "name": "EMMC_CLK_LINE",
           "routed": true,
-          "len": 87.691,
-          "rawClkLineMm": 52.798,
-          "clkSocPlusR303Mm": 34.893
+          "len": 47.445,
+          "rawClkLineMm": 42.623,
+          "clkSocPlusR303Mm": 4.822
         }
       ]
     },
@@ -1076,11 +1096,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 30.553,
-      "beforeMaxMm": 32.637,
-      "beforeSkewMm": 2.084,
-      "afterMinMm": 30.809,
-      "afterMaxMm": 30.809,
+      "beforeMinMm": 26.507,
+      "beforeMaxMm": 28.639,
+      "beforeSkewMm": 2.133,
+      "afterMinMm": 27.885,
+      "afterMaxMm": 27.885,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1088,12 +1108,12 @@
         {
           "name": "PCIE_WIFI_CLK_P",
           "routed": true,
-          "len": 30.809
+          "len": 27.885
         },
         {
           "name": "PCIE_WIFI_CLK_N",
           "routed": true,
-          "len": 30.809
+          "len": 27.885
         }
       ]
     },
@@ -1103,11 +1123,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 27.889,
-      "beforeMaxMm": 28.289,
-      "beforeSkewMm": 0.4,
-      "afterMinMm": 28.335,
-      "afterMaxMm": 28.335,
+      "beforeMinMm": 28.458,
+      "beforeMaxMm": 29.439,
+      "beforeSkewMm": 0.981,
+      "afterMinMm": 29.439,
+      "afterMaxMm": 29.439,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1115,12 +1135,12 @@
         {
           "name": "PCIE_WIFI_RX_P",
           "routed": true,
-          "len": 28.335
+          "len": 29.439
         },
         {
           "name": "PCIE_WIFI_RX_N",
           "routed": true,
-          "len": 28.335
+          "len": 29.439
         }
       ]
     },
@@ -1130,11 +1150,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 27.889,
-      "beforeMaxMm": 29.089,
-      "beforeSkewMm": 1.2,
-      "afterMinMm": 29.661,
-      "afterMaxMm": 29.661,
+      "beforeMinMm": 25.258,
+      "beforeMaxMm": 29.48,
+      "beforeSkewMm": 4.221,
+      "afterMinMm": 25.48,
+      "afterMaxMm": 25.48,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1142,12 +1162,12 @@
         {
           "name": "PCIE_WIFI_TX_P",
           "routed": true,
-          "len": 29.661
+          "len": 25.48
         },
         {
           "name": "PCIE_WIFI_TX_N",
           "routed": true,
-          "len": 29.661
+          "len": 25.48
         }
       ]
     },
@@ -1157,24 +1177,24 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 57.593,
-      "beforeMaxMm": 58.538,
-      "beforeSkewMm": 0.945,
-      "afterMinMm": 58.575,
-      "afterMaxMm": 58.575,
-      "afterSkewMm": 0,
-      "afterSkewPs": 0,
+      "beforeMinMm": 46.405,
+      "beforeMaxMm": 60.43,
+      "beforeSkewMm": 14.025,
+      "afterMinMm": 46.401,
+      "afterMaxMm": 46.405,
+      "afterSkewMm": 0.004,
+      "afterSkewPs": 0.03,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "MIPI_CSI0_CLK_P",
           "routed": true,
-          "len": 58.575
+          "len": 46.401
         },
         {
           "name": "MIPI_CSI0_CLK_N",
           "routed": true,
-          "len": 58.575
+          "len": 46.405
         }
       ]
     },
@@ -1184,11 +1204,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 37.992,
-      "beforeMaxMm": 43.184,
-      "beforeSkewMm": 5.192,
-      "afterMinMm": 42.621,
-      "afterMaxMm": 42.621,
+      "beforeMinMm": 44.398,
+      "beforeMaxMm": 44.927,
+      "beforeSkewMm": 0.529,
+      "afterMinMm": 44.927,
+      "afterMaxMm": 44.927,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1196,12 +1216,12 @@
         {
           "name": "MIPI_CSI0_D0_P",
           "routed": true,
-          "len": 42.621
+          "len": 44.927
         },
         {
           "name": "MIPI_CSI0_D0_N",
           "routed": true,
-          "len": 42.621
+          "len": 44.927
         }
       ]
     },
@@ -1211,24 +1231,24 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 35.692,
-      "beforeMaxMm": 39.419,
-      "beforeSkewMm": 3.727,
-      "afterMinMm": 39.419,
-      "afterMaxMm": 39.438,
-      "afterSkewMm": 0.019,
-      "afterSkewPs": 0.13,
+      "beforeMinMm": 37.103,
+      "beforeMaxMm": 50.314,
+      "beforeSkewMm": 13.212,
+      "afterMinMm": 38.029,
+      "afterMaxMm": 38.032,
+      "afterSkewMm": 0.003,
+      "afterSkewPs": 0.02,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "MIPI_CSI0_D1_P",
           "routed": true,
-          "len": 39.419
+          "len": 38.029
         },
         {
           "name": "MIPI_CSI0_D1_N",
           "routed": true,
-          "len": 39.438
+          "len": 38.032
         }
       ]
     },
@@ -1238,11 +1258,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 46.619,
-      "beforeMaxMm": 48.519,
-      "beforeSkewMm": 1.9,
-      "afterMinMm": 48.119,
-      "afterMaxMm": 48.119,
+      "beforeMinMm": 41.789,
+      "beforeMaxMm": 44.5,
+      "beforeSkewMm": 2.711,
+      "afterMinMm": 46.675,
+      "afterMaxMm": 46.675,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1250,12 +1270,12 @@
         {
           "name": "MIPI_CSI0_D2_P",
           "routed": true,
-          "len": 48.119
+          "len": 46.675
         },
         {
           "name": "MIPI_CSI0_D2_N",
           "routed": true,
-          "len": 48.119
+          "len": 46.675
         }
       ]
     },
@@ -1265,11 +1285,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 48.702,
-      "beforeMaxMm": 49.786,
-      "beforeSkewMm": 1.084,
-      "afterMinMm": 56.322,
-      "afterMaxMm": 56.322,
+      "beforeMinMm": 49.973,
+      "beforeMaxMm": 52.799,
+      "beforeSkewMm": 2.825,
+      "afterMinMm": 52.931,
+      "afterMaxMm": 52.931,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1277,12 +1297,12 @@
         {
           "name": "MIPI_CSI0_D3_P",
           "routed": true,
-          "len": 56.322
+          "len": 52.931
         },
         {
           "name": "MIPI_CSI0_D3_N",
           "routed": true,
-          "len": 56.322
+          "len": 52.931
         }
       ]
     },
@@ -1292,11 +1312,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 28.44,
-      "beforeMaxMm": 29.721,
-      "beforeSkewMm": 1.28,
-      "afterMinMm": 29.721,
-      "afterMaxMm": 29.721,
+      "beforeMinMm": 28.106,
+      "beforeMaxMm": 33.882,
+      "beforeSkewMm": 5.777,
+      "afterMinMm": 32.863,
+      "afterMaxMm": 32.863,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1304,12 +1324,12 @@
         {
           "name": "MIPI_CSI1_CLK_P",
           "routed": true,
-          "len": 29.721
+          "len": 32.863
         },
         {
           "name": "MIPI_CSI1_CLK_N",
           "routed": true,
-          "len": 29.721
+          "len": 32.863
         }
       ]
     },
@@ -1319,11 +1339,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 28.638,
-      "beforeMaxMm": 31.137,
-      "beforeSkewMm": 2.499,
-      "afterMinMm": 31.137,
-      "afterMaxMm": 31.137,
+      "beforeMinMm": 29.064,
+      "beforeMaxMm": 30.82,
+      "beforeSkewMm": 1.756,
+      "afterMinMm": 31.022,
+      "afterMaxMm": 31.022,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1331,12 +1351,12 @@
         {
           "name": "MIPI_CSI1_D0_P",
           "routed": true,
-          "len": 31.137
+          "len": 31.022
         },
         {
           "name": "MIPI_CSI1_D0_N",
           "routed": true,
-          "len": 31.137
+          "len": 31.022
         }
       ]
     },
@@ -1346,24 +1366,24 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 31.907,
-      "beforeMaxMm": 33.486,
-      "beforeSkewMm": 1.579,
-      "afterMinMm": 31.886,
-      "afterMaxMm": 31.907,
-      "afterSkewMm": 0.021,
-      "afterSkewPs": 0.14,
+      "beforeMinMm": 27.706,
+      "beforeMaxMm": 30.362,
+      "beforeSkewMm": 2.657,
+      "afterMinMm": 30.362,
+      "afterMaxMm": 30.362,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "MIPI_CSI1_D1_P",
           "routed": true,
-          "len": 31.886
+          "len": 30.362
         },
         {
           "name": "MIPI_CSI1_D1_N",
           "routed": true,
-          "len": 31.907
+          "len": 30.362
         }
       ]
     },
@@ -1373,11 +1393,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 36.951,
-      "beforeMaxMm": 43.721,
-      "beforeSkewMm": 6.77,
-      "afterMinMm": 36.951,
-      "afterMaxMm": 36.951,
+      "beforeMinMm": 28.342,
+      "beforeMaxMm": 30.799,
+      "beforeSkewMm": 2.457,
+      "afterMinMm": 30.799,
+      "afterMaxMm": 30.799,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1385,12 +1405,12 @@
         {
           "name": "MIPI_CSI1_D2_P",
           "routed": true,
-          "len": 36.951
+          "len": 30.799
         },
         {
           "name": "MIPI_CSI1_D2_N",
           "routed": true,
-          "len": 36.951
+          "len": 30.799
         }
       ]
     },
@@ -1400,11 +1420,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 28.924,
-      "beforeMaxMm": 31.393,
-      "beforeSkewMm": 2.469,
-      "afterMinMm": 31.393,
-      "afterMaxMm": 31.393,
+      "beforeMinMm": 29.368,
+      "beforeMaxMm": 32.419,
+      "beforeSkewMm": 3.051,
+      "afterMinMm": 31.619,
+      "afterMaxMm": 31.619,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1412,12 +1432,12 @@
         {
           "name": "MIPI_CSI1_D3_P",
           "routed": true,
-          "len": 31.393
+          "len": 31.619
         },
         {
           "name": "MIPI_CSI1_D3_N",
           "routed": true,
-          "len": 31.393
+          "len": 31.619
         }
       ]
     },
@@ -1427,11 +1447,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 52.792,
-      "beforeMaxMm": 57.457,
-      "beforeSkewMm": 4.665,
-      "afterMinMm": 53.057,
-      "afterMaxMm": 53.057,
+      "beforeMinMm": 51.307,
+      "beforeMaxMm": 97.045,
+      "beforeSkewMm": 45.738,
+      "afterMinMm": 97.184,
+      "afterMaxMm": 97.184,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1439,12 +1459,12 @@
         {
           "name": "MIPI_CSI2_CLK_P",
           "routed": true,
-          "len": 53.057
+          "len": 97.184
         },
         {
           "name": "MIPI_CSI2_CLK_N",
           "routed": true,
-          "len": 53.057
+          "len": 97.184
         }
       ]
     },
@@ -1454,11 +1474,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 67.171,
-      "beforeMaxMm": 71.146,
-      "beforeSkewMm": 3.975,
-      "afterMinMm": 68.98,
-      "afterMaxMm": 68.98,
+      "beforeMinMm": 64.457,
+      "beforeMaxMm": 107.23,
+      "beforeSkewMm": 42.773,
+      "afterMinMm": 87.167,
+      "afterMaxMm": 87.167,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1466,12 +1486,12 @@
         {
           "name": "MIPI_CSI2_D0_P",
           "routed": true,
-          "len": 68.98
+          "len": 87.167
         },
         {
           "name": "MIPI_CSI2_D0_N",
           "routed": true,
-          "len": 68.98
+          "len": 87.167
         }
       ]
     },
@@ -1481,11 +1501,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 55.564,
-      "beforeMaxMm": 60.499,
-      "beforeSkewMm": 4.935,
-      "afterMinMm": 53.436,
-      "afterMaxMm": 53.436,
+      "beforeMinMm": 60.167,
+      "beforeMaxMm": 63.569,
+      "beforeSkewMm": 3.402,
+      "afterMinMm": 55.969,
+      "afterMaxMm": 55.969,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1493,12 +1513,12 @@
         {
           "name": "MIPI_CSI2_D1_P",
           "routed": true,
-          "len": 53.436
+          "len": 55.969
         },
         {
           "name": "MIPI_CSI2_D1_N",
           "routed": true,
-          "len": 53.436
+          "len": 55.969
         }
       ]
     },
@@ -1508,24 +1528,24 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 56.464,
-      "beforeMaxMm": 99.729,
-      "beforeSkewMm": 43.265,
-      "afterMinMm": 97.651,
-      "afterMaxMm": 97.651,
-      "afterSkewMm": 0,
-      "afterSkewPs": 0,
+      "beforeMinMm": 54.093,
+      "beforeMaxMm": 56.304,
+      "beforeSkewMm": 2.211,
+      "afterMinMm": 55.252,
+      "afterMaxMm": 55.264,
+      "afterSkewMm": 0.012,
+      "afterSkewPs": 0.08,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "MIPI_CSI2_D2_P",
           "routed": true,
-          "len": 97.651
+          "len": 55.264
         },
         {
           "name": "MIPI_CSI2_D2_N",
           "routed": true,
-          "len": 97.651
+          "len": 55.252
         }
       ]
     },
@@ -1535,11 +1555,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 55.609,
-      "beforeMaxMm": 70.032,
-      "beforeSkewMm": 14.424,
-      "afterMinMm": 57.878,
-      "afterMaxMm": 57.878,
+      "beforeMinMm": 54.949,
+      "beforeMaxMm": 57.077,
+      "beforeSkewMm": 2.128,
+      "afterMinMm": 55.477,
+      "afterMaxMm": 55.477,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1547,12 +1567,12 @@
         {
           "name": "MIPI_CSI2_D3_P",
           "routed": true,
-          "len": 57.878
+          "len": 55.477
         },
         {
           "name": "MIPI_CSI2_D3_N",
           "routed": true,
-          "len": 57.878
+          "len": 55.477
         }
       ]
     },
@@ -1562,11 +1582,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 59.349,
-      "beforeMaxMm": 59.485,
-      "beforeSkewMm": 0.136,
-      "afterMinMm": 59.485,
-      "afterMaxMm": 59.485,
+      "beforeMinMm": 57.265,
+      "beforeMaxMm": 57.416,
+      "beforeSkewMm": 0.151,
+      "afterMinMm": 57.416,
+      "afterMaxMm": 57.416,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1574,12 +1594,12 @@
         {
           "name": "MIPI_DSI0_CLK_P",
           "routed": true,
-          "len": 59.485
+          "len": 57.416
         },
         {
           "name": "MIPI_DSI0_CLK_N",
           "routed": true,
-          "len": 59.485
+          "len": 57.416
         }
       ]
     },
@@ -1589,11 +1609,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 53.333,
-      "beforeMaxMm": 58.305,
-      "beforeSkewMm": 4.972,
-      "afterMinMm": 55.821,
-      "afterMaxMm": 55.821,
+      "beforeMinMm": 53.444,
+      "beforeMaxMm": 54.216,
+      "beforeSkewMm": 0.772,
+      "afterMinMm": 54.423,
+      "afterMaxMm": 54.423,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1601,12 +1621,12 @@
         {
           "name": "MIPI_DSI0_D0_P",
           "routed": true,
-          "len": 55.821
+          "len": 54.423
         },
         {
           "name": "MIPI_DSI0_D0_N",
           "routed": true,
-          "len": 55.821
+          "len": 54.423
         }
       ]
     },
@@ -1616,11 +1636,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 52.333,
-      "beforeMaxMm": 57.563,
-      "beforeSkewMm": 5.23,
-      "afterMinMm": 55.631,
-      "afterMaxMm": 55.631,
+      "beforeMinMm": 55.395,
+      "beforeMaxMm": 57.576,
+      "beforeSkewMm": 2.181,
+      "afterMinMm": 55.395,
+      "afterMaxMm": 55.395,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1628,12 +1648,12 @@
         {
           "name": "MIPI_DSI0_D1_P",
           "routed": true,
-          "len": 55.631
+          "len": 55.395
         },
         {
           "name": "MIPI_DSI0_D1_N",
           "routed": true,
-          "len": 55.631
+          "len": 55.395
         }
       ]
     },
@@ -1643,11 +1663,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 54.367,
-      "beforeMaxMm": 57.613,
-      "beforeSkewMm": 3.246,
-      "afterMinMm": 57.613,
-      "afterMaxMm": 57.613,
+      "beforeMinMm": 54.465,
+      "beforeMaxMm": 57.265,
+      "beforeSkewMm": 2.8,
+      "afterMinMm": 57.265,
+      "afterMaxMm": 57.265,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1655,12 +1675,12 @@
         {
           "name": "MIPI_DSI0_D2_P",
           "routed": true,
-          "len": 57.613
+          "len": 57.265
         },
         {
           "name": "MIPI_DSI0_D2_N",
           "routed": true,
-          "len": 57.613
+          "len": 57.265
         }
       ]
     },
@@ -1670,11 +1690,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 62.421,
-      "beforeMaxMm": 66.135,
-      "beforeSkewMm": 3.714,
-      "afterMinMm": 65.005,
-      "afterMaxMm": 65.005,
+      "beforeMinMm": 61.465,
+      "beforeMaxMm": 65.292,
+      "beforeSkewMm": 3.827,
+      "afterMinMm": 61.465,
+      "afterMaxMm": 61.465,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1682,12 +1702,12 @@
         {
           "name": "MIPI_DSI0_D3_P",
           "routed": true,
-          "len": 65.005
+          "len": 61.465
         },
         {
           "name": "MIPI_DSI0_D3_N",
           "routed": true,
-          "len": 65.005
+          "len": 61.465
         }
       ]
     },
@@ -1697,11 +1717,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 83.147,
-      "beforeMaxMm": 83.403,
-      "beforeSkewMm": 0.256,
-      "afterMinMm": 83.403,
-      "afterMaxMm": 83.403,
+      "beforeMinMm": 83.791,
+      "beforeMaxMm": 93.213,
+      "beforeSkewMm": 9.422,
+      "afterMinMm": 93.306,
+      "afterMaxMm": 93.306,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1709,12 +1729,12 @@
         {
           "name": "USB3_SOC_RX0_P",
           "routed": true,
-          "len": 83.403
+          "len": 93.306
         },
         {
           "name": "USB3_SOC_RX0_N",
           "routed": true,
-          "len": 83.403
+          "len": 93.306
         }
       ]
     },
@@ -1724,11 +1744,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 89.08,
-      "beforeMaxMm": 92.747,
-      "beforeSkewMm": 3.667,
-      "afterMinMm": 95.496,
-      "afterMaxMm": 95.496,
+      "beforeMinMm": 85.471,
+      "beforeMaxMm": 89.168,
+      "beforeSkewMm": 3.697,
+      "afterMinMm": 89.168,
+      "afterMaxMm": 89.168,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1736,12 +1756,12 @@
         {
           "name": "USB3_SOC_RX1_P",
           "routed": true,
-          "len": 95.496
+          "len": 89.168
         },
         {
           "name": "USB3_SOC_RX1_N",
           "routed": true,
-          "len": 95.496
+          "len": 89.168
         }
       ]
     },
@@ -1751,11 +1771,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 87.257,
-      "beforeMaxMm": 123.357,
-      "beforeSkewMm": 36.1,
-      "afterMinMm": 95.527,
-      "afterMaxMm": 95.527,
+      "beforeMinMm": 86.99,
+      "beforeMaxMm": 88.19,
+      "beforeSkewMm": 1.2,
+      "afterMinMm": 88.368,
+      "afterMaxMm": 88.368,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1763,12 +1783,12 @@
         {
           "name": "USB3_SOC_TX0_P",
           "routed": true,
-          "len": 95.527
+          "len": 88.368
         },
         {
           "name": "USB3_SOC_TX0_N",
           "routed": true,
-          "len": 95.527
+          "len": 88.368
         }
       ]
     },
@@ -1778,11 +1798,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 83.183,
-      "beforeMaxMm": 94.161,
-      "beforeSkewMm": 10.978,
-      "afterMinMm": 94.349,
-      "afterMaxMm": 94.349,
+      "beforeMinMm": 86.59,
+      "beforeMaxMm": 89.211,
+      "beforeSkewMm": 2.621,
+      "afterMinMm": 89.211,
+      "afterMaxMm": 89.211,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1790,12 +1810,12 @@
         {
           "name": "USB3_SOC_TX1_P",
           "routed": true,
-          "len": 94.349
+          "len": 89.211
         },
         {
           "name": "USB3_SOC_TX1_N",
           "routed": true,
-          "len": 94.349
+          "len": 89.211
         }
       ]
     },
@@ -1805,11 +1825,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 19.506,
-      "beforeMaxMm": 22.003,
-      "beforeSkewMm": 2.497,
-      "afterMinMm": 22.003,
-      "afterMaxMm": 22.003,
+      "beforeMinMm": 19.555,
+      "beforeMaxMm": 22.049,
+      "beforeSkewMm": 2.494,
+      "afterMinMm": 22.049,
+      "afterMaxMm": 22.049,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1817,12 +1837,12 @@
         {
           "name": "USBC_RX1_P",
           "routed": true,
-          "len": 22.003
+          "len": 22.049
         },
         {
           "name": "USBC_RX1_N",
           "routed": true,
-          "len": 22.003
+          "len": 22.049
         }
       ]
     },
@@ -1832,11 +1852,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 22.585,
-      "beforeMaxMm": 22.921,
-      "beforeSkewMm": 0.336,
-      "afterMinMm": 22.921,
-      "afterMaxMm": 22.921,
+      "beforeMinMm": 22.628,
+      "beforeMaxMm": 23.368,
+      "beforeSkewMm": 0.741,
+      "afterMinMm": 23.606,
+      "afterMaxMm": 23.606,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1844,12 +1864,12 @@
         {
           "name": "USBC_RX2_P",
           "routed": true,
-          "len": 22.921
+          "len": 23.606
         },
         {
           "name": "USBC_RX2_N",
           "routed": true,
-          "len": 22.921
+          "len": 23.606
         }
       ]
     },
@@ -1859,11 +1879,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 11.405,
-      "beforeMaxMm": 12.042,
-      "beforeSkewMm": 0.637,
-      "afterMinMm": 12.042,
-      "afterMaxMm": 12.042,
+      "beforeMinMm": 11.454,
+      "beforeMaxMm": 12.089,
+      "beforeSkewMm": 0.635,
+      "afterMinMm": 12.089,
+      "afterMaxMm": 12.089,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1871,12 +1891,12 @@
         {
           "name": "USBC_TX1_P",
           "routed": true,
-          "len": 12.042
+          "len": 12.089
         },
         {
           "name": "USBC_TX1_N",
           "routed": true,
-          "len": 12.042
+          "len": 12.089
         }
       ]
     },
@@ -1886,11 +1906,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 13.106,
-      "beforeMaxMm": 14.324,
-      "beforeSkewMm": 1.218,
-      "afterMinMm": 14.324,
-      "afterMaxMm": 14.324,
+      "beforeMinMm": 13.314,
+      "beforeMaxMm": 14.357,
+      "beforeSkewMm": 1.042,
+      "afterMinMm": 14.357,
+      "afterMaxMm": 14.357,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1898,12 +1918,12 @@
         {
           "name": "USBC_TX1_AC_P",
           "routed": true,
-          "len": 14.324
+          "len": 14.357
         },
         {
           "name": "USBC_TX1_AC_N",
           "routed": true,
-          "len": 14.324
+          "len": 14.357
         }
       ]
     },
@@ -1913,24 +1933,24 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 15.343,
-      "beforeMaxMm": 16.753,
-      "beforeSkewMm": 1.41,
-      "afterMinMm": 16.725,
-      "afterMaxMm": 16.753,
-      "afterSkewMm": 0.028,
-      "afterSkewPs": 0.19,
+      "beforeMinMm": 16.478,
+      "beforeMaxMm": 16.719,
+      "beforeSkewMm": 0.242,
+      "afterMinMm": 16.719,
+      "afterMaxMm": 16.719,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "USBC_TX2_P",
           "routed": true,
-          "len": 16.725
+          "len": 16.719
         },
         {
           "name": "USBC_TX2_N",
           "routed": true,
-          "len": 16.753
+          "len": 16.719
         }
       ]
     },
@@ -1940,11 +1960,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 10.124,
-      "beforeMaxMm": 10.724,
+      "beforeMinMm": 10.157,
+      "beforeMaxMm": 10.757,
       "beforeSkewMm": 0.6,
-      "afterMinMm": 10.724,
-      "afterMaxMm": 10.724,
+      "afterMinMm": 10.757,
+      "afterMaxMm": 10.757,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1952,12 +1972,12 @@
         {
           "name": "USBC_TX2_AC_P",
           "routed": true,
-          "len": 10.724
+          "len": 10.757
         },
         {
           "name": "USBC_TX2_AC_N",
           "routed": true,
-          "len": 10.724
+          "len": 10.757
         }
       ]
     },
@@ -1967,11 +1987,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 13,
-      "beforeMaxMm": 15.8,
-      "beforeSkewMm": 2.8,
-      "afterMinMm": 15.242,
-      "afterMaxMm": 15.242,
+      "beforeMinMm": 13.883,
+      "beforeMaxMm": 14.781,
+      "beforeSkewMm": 0.898,
+      "afterMinMm": 17.442,
+      "afterMaxMm": 17.442,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -1979,12 +1999,12 @@
         {
           "name": "LPDDR5X_CH0A_CK_P",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         },
         {
           "name": "LPDDR5X_CH0A_CK_N",
           "routed": true,
-          "len": 15.242
+          "len": 17.442
         }
       ]
     },
@@ -1994,11 +2014,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 6.842,
-      "beforeMaxMm": 8.078,
-      "beforeSkewMm": 1.236,
-      "afterMinMm": 23.332,
-      "afterMaxMm": 23.332,
+      "beforeMinMm": 7.092,
+      "beforeMaxMm": 8.292,
+      "beforeSkewMm": 1.2,
+      "afterMinMm": 16.25,
+      "afterMaxMm": 16.25,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2006,12 +2026,12 @@
         {
           "name": "LPDDR5X_CH0A_RDQS0_P",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_RDQS0_N",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         }
       ]
     },
@@ -2021,11 +2041,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 15.852,
-      "beforeMaxMm": 25.364,
-      "beforeSkewMm": 9.512,
-      "afterMinMm": 17.642,
-      "afterMaxMm": 17.642,
+      "beforeMinMm": 13.671,
+      "beforeMaxMm": 15.29,
+      "beforeSkewMm": 1.619,
+      "afterMinMm": 19.05,
+      "afterMaxMm": 19.05,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2033,12 +2053,12 @@
         {
           "name": "LPDDR5X_CH0A_RDQS1_P",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_RDQS1_N",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         }
       ]
     },
@@ -2048,11 +2068,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 12.224,
-      "beforeMaxMm": 12.442,
-      "beforeSkewMm": 0.218,
-      "afterMinMm": 23.332,
-      "afterMaxMm": 23.332,
+      "beforeMinMm": 11.892,
+      "beforeMaxMm": 13.332,
+      "beforeSkewMm": 1.44,
+      "afterMinMm": 16.25,
+      "afterMaxMm": 16.25,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2060,12 +2080,12 @@
         {
           "name": "LPDDR5X_CH0A_WCK0_P",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         },
         {
           "name": "LPDDR5X_CH0A_WCK0_N",
           "routed": true,
-          "len": 23.332
+          "len": 16.25
         }
       ]
     },
@@ -2075,11 +2095,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 16.842,
-      "beforeMaxMm": 18.26,
-      "beforeSkewMm": 1.418,
-      "afterMinMm": 17.642,
-      "afterMaxMm": 17.642,
+      "beforeMinMm": 15.181,
+      "beforeMaxMm": 17.092,
+      "beforeSkewMm": 1.911,
+      "afterMinMm": 19.05,
+      "afterMaxMm": 19.05,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2087,12 +2107,12 @@
         {
           "name": "LPDDR5X_CH0A_WCK1_P",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         },
         {
           "name": "LPDDR5X_CH0A_WCK1_N",
           "routed": true,
-          "len": 17.642
+          "len": 19.05
         }
       ]
     },
@@ -2102,11 +2122,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 20.6,
-      "beforeMaxMm": 21.052,
-      "beforeSkewMm": 0.452,
-      "afterMinMm": 34.012,
-      "afterMaxMm": 34.012,
+      "beforeMinMm": 20.602,
+      "beforeMaxMm": 21.634,
+      "beforeSkewMm": 1.032,
+      "afterMinMm": 36.738,
+      "afterMaxMm": 36.738,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2114,12 +2134,12 @@
         {
           "name": "LPDDR5X_CH0B_CK_P",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         },
         {
           "name": "LPDDR5X_CH0B_CK_N",
           "routed": true,
-          "len": 34.012
+          "len": 36.738
         }
       ]
     },
@@ -2129,11 +2149,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 30.382,
-      "beforeMaxMm": 34.964,
-      "beforeSkewMm": 4.582,
-      "afterMinMm": 32.48,
-      "afterMaxMm": 32.48,
+      "beforeMinMm": 27.29,
+      "beforeMaxMm": 31.006,
+      "beforeSkewMm": 3.716,
+      "afterMinMm": 36.698,
+      "afterMaxMm": 36.698,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2141,12 +2161,12 @@
         {
           "name": "LPDDR5X_CH0B_RDQS0_P",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_RDQS0_N",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         }
       ]
     },
@@ -2156,11 +2176,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 28.252,
-      "beforeMaxMm": 30.964,
-      "beforeSkewMm": 2.712,
-      "afterMinMm": 41.016,
-      "afterMaxMm": 41.016,
+      "beforeMinMm": 27.221,
+      "beforeMaxMm": 27.848,
+      "beforeSkewMm": 0.627,
+      "afterMinMm": 33.936,
+      "afterMaxMm": 33.936,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2168,12 +2188,12 @@
         {
           "name": "LPDDR5X_CH0B_RDQS1_P",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_RDQS1_N",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         }
       ]
     },
@@ -2183,11 +2203,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 26.434,
-      "beforeMaxMm": 34.512,
-      "beforeSkewMm": 8.078,
-      "afterMinMm": 32.48,
-      "afterMaxMm": 32.48,
+      "beforeMinMm": 24.25,
+      "beforeMaxMm": 27.634,
+      "beforeSkewMm": 3.384,
+      "afterMinMm": 36.698,
+      "afterMaxMm": 36.698,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2195,12 +2215,12 @@
         {
           "name": "LPDDR5X_CH0B_WCK0_P",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         },
         {
           "name": "LPDDR5X_CH0B_WCK0_N",
           "routed": true,
-          "len": 32.48
+          "len": 36.698
         }
       ]
     },
@@ -2210,11 +2230,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 32.714,
-      "beforeMaxMm": 42.698,
-      "beforeSkewMm": 9.984,
-      "afterMinMm": 41.016,
-      "afterMaxMm": 41.016,
+      "beforeMinMm": 27.002,
+      "beforeMaxMm": 30.532,
+      "beforeSkewMm": 3.53,
+      "afterMinMm": 33.936,
+      "afterMaxMm": 33.936,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2222,12 +2242,12 @@
         {
           "name": "LPDDR5X_CH0B_WCK1_P",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         },
         {
           "name": "LPDDR5X_CH0B_WCK1_N",
           "routed": true,
-          "len": 41.016
+          "len": 33.936
         }
       ]
     },
@@ -2237,11 +2257,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 25,
-      "beforeMaxMm": 27.634,
-      "beforeSkewMm": 2.634,
-      "afterMinMm": 31.206,
-      "afterMaxMm": 31.206,
+      "beforeMinMm": 24.162,
+      "beforeMaxMm": 25.402,
+      "beforeSkewMm": 1.24,
+      "afterMinMm": 24.65,
+      "afterMaxMm": 24.65,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2249,12 +2269,12 @@
         {
           "name": "LPDDR5X_CH1C_CK_P",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         },
         {
           "name": "LPDDR5X_CH1C_CK_N",
           "routed": true,
-          "len": 31.206
+          "len": 24.65
         }
       ]
     },
@@ -2264,11 +2284,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 19.824,
-      "beforeMaxMm": 23.498,
-      "beforeSkewMm": 3.674,
-      "afterMinMm": 24.932,
-      "afterMaxMm": 24.932,
+      "beforeMinMm": 17.05,
+      "beforeMaxMm": 19.45,
+      "beforeSkewMm": 2.4,
+      "afterMinMm": 24.602,
+      "afterMaxMm": 24.602,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2276,12 +2296,12 @@
         {
           "name": "LPDDR5X_CH1C_RDQS0_P",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         },
         {
           "name": "LPDDR5X_CH1C_RDQS0_N",
           "routed": true,
-          "len": 24.932
+          "len": 24.602
         }
       ]
     },
@@ -2291,11 +2311,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 11.06,
-      "beforeMaxMm": 14.078,
-      "beforeSkewMm": 3.018,
-      "afterMinMm": 23.97,
-      "afterMaxMm": 23.97,
+      "beforeMinMm": 10.292,
+      "beforeMaxMm": 14.532,
+      "beforeSkewMm": 4.24,
+      "afterMinMm": 22.428,
+      "afterMaxMm": 22.428,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2303,12 +2323,12 @@
         {
           "name": "LPDDR5X_CH1C_RDQS1_P",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_RDQS1_N",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         }
       ]
     },
@@ -2318,11 +2338,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 22.366,
-      "beforeMaxMm": 22.444,
-      "beforeSkewMm": 0.078,
-      "afterMinMm": 24.932,
-      "afterMaxMm": 24.932,
+      "beforeMinMm": 20.434,
+      "beforeMaxMm": 20.683,
+      "beforeSkewMm": 0.249,
+      "afterMinMm": 24.585,
+      "afterMaxMm": 24.585,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2330,12 +2350,12 @@
         {
           "name": "LPDDR5X_CH1C_WCK0_P",
           "routed": true,
-          "len": 24.932
+          "len": 24.585
         },
         {
           "name": "LPDDR5X_CH1C_WCK0_N",
           "routed": true,
-          "len": 24.932
+          "len": 24.585
         }
       ]
     },
@@ -2345,11 +2365,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 16.652,
-      "beforeMaxMm": 20.37,
-      "beforeSkewMm": 3.718,
-      "afterMinMm": 23.97,
-      "afterMaxMm": 23.97,
+      "beforeMinMm": 15.402,
+      "beforeMaxMm": 15.671,
+      "beforeSkewMm": 0.269,
+      "afterMinMm": 22.428,
+      "afterMaxMm": 22.428,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2357,12 +2377,12 @@
         {
           "name": "LPDDR5X_CH1C_WCK1_P",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         },
         {
           "name": "LPDDR5X_CH1C_WCK1_N",
           "routed": true,
-          "len": 23.97
+          "len": 22.428
         }
       ]
     },
@@ -2372,24 +2392,24 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 28.662,
-      "beforeMaxMm": 33.348,
-      "beforeSkewMm": 4.686,
-      "afterMinMm": 46.226,
-      "afterMaxMm": 46.252,
-      "afterSkewMm": 0.026,
-      "afterSkewPs": 0.17,
+      "beforeMinMm": 34.462,
+      "beforeMaxMm": 46.17,
+      "beforeSkewMm": 11.709,
+      "afterMinMm": 50.65,
+      "afterMaxMm": 50.65,
+      "afterSkewMm": 0,
+      "afterSkewPs": 0,
       "meanderBumps": 0,
       "nets": [
         {
           "name": "LPDDR5X_CH1D_CK_P",
           "routed": true,
-          "len": 46.226
+          "len": 50.65
         },
         {
           "name": "LPDDR5X_CH1D_CK_N",
           "routed": true,
-          "len": 46.252
+          "len": 50.65
         }
       ]
     },
@@ -2399,11 +2419,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 49.052,
-      "beforeMaxMm": 51.998,
-      "beforeSkewMm": 2.946,
-      "afterMinMm": 43.052,
-      "afterMaxMm": 43.052,
+      "beforeMinMm": 40.428,
+      "beforeMaxMm": 49.002,
+      "beforeSkewMm": 8.574,
+      "afterMinMm": 48.339,
+      "afterMaxMm": 48.339,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2411,12 +2431,12 @@
         {
           "name": "LPDDR5X_CH1D_RDQS0_P",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_RDQS0_N",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         }
       ]
     },
@@ -2426,11 +2446,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 43.792,
-      "beforeMaxMm": 44.064,
-      "beforeSkewMm": 0.272,
-      "afterMinMm": 44.23,
-      "afterMaxMm": 44.23,
+      "beforeMinMm": 48.834,
+      "beforeMaxMm": 54.532,
+      "beforeSkewMm": 5.698,
+      "afterMinMm": 54.232,
+      "afterMaxMm": 54.232,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2438,12 +2458,12 @@
         {
           "name": "LPDDR5X_CH1D_RDQS1_P",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_RDQS1_N",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         }
       ]
     },
@@ -2453,11 +2473,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 43.982,
-      "beforeMaxMm": 53.416,
-      "beforeSkewMm": 9.434,
-      "afterMinMm": 43.052,
-      "afterMaxMm": 43.052,
+      "beforeMinMm": 37.483,
+      "beforeMaxMm": 40.202,
+      "beforeSkewMm": 2.719,
+      "afterMinMm": 48.339,
+      "afterMaxMm": 48.339,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2465,12 +2485,12 @@
         {
           "name": "LPDDR5X_CH1D_WCK0_P",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         },
         {
           "name": "LPDDR5X_CH1D_WCK0_N",
           "routed": true,
-          "len": 43.052
+          "len": 48.339
         }
       ]
     },
@@ -2480,11 +2500,11 @@
       "netCount": 2,
       "routedCount": 2,
       "unroutedNets": [],
-      "beforeMinMm": 37.8,
-      "beforeMaxMm": 38.532,
-      "beforeSkewMm": 0.732,
-      "afterMinMm": 44.23,
-      "afterMaxMm": 44.23,
+      "beforeMinMm": 38.379,
+      "beforeMaxMm": 43.441,
+      "beforeSkewMm": 5.062,
+      "afterMinMm": 54.232,
+      "afterMaxMm": 54.232,
       "afterSkewMm": 0,
       "afterSkewPs": 0,
       "meanderBumps": 0,
@@ -2492,20 +2512,20 @@
         {
           "name": "LPDDR5X_CH1D_WCK1_P",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         },
         {
           "name": "LPDDR5X_CH1D_WCK1_N",
           "routed": true,
-          "len": 44.23
+          "len": 54.232
         }
       ]
     }
   ],
   "emmcClockBreakdown": {
-    "clkSocMm": 34.293,
+    "clkSocMm": 4.223,
     "r303BodyMm": 0.6,
-    "clkLineMm": 52.798,
-    "totalClkFlightMm": 87.691
+    "clkLineMm": 42.623,
+    "totalClkFlightMm": 47.445
   }
 }

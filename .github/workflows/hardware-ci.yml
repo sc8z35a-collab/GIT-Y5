@@ -28,10 +28,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Run Rev 5.0 Real-Silicon 102-Check ERC & Pinmap Coverage Suite
+      - name: Run Rev 5.0 Real-Silicon ERC, 80-Pin 3D BTB Mating & Dead-Battery 5V Boot Audit
         run: |
           node hardware/verify_erc.mjs
-      - name: Run Real-Copper PDN DC IR-Drop & IPC-2152 Thermal Ampacity Audit
+      - name: Run Real-Copper 16-Rail PDN DC IR-Drop & IPC-2152 Thermal Audit (0.5oz Inner / 1oz Outer + OLED PMIC)
         run: |
           node hardware/verify_pdn_ir_drop.mjs
       - name: Validate Pin-Accurate Linux Device Tree (RK3588S2)
@@ -51,14 +51,14 @@ jobs:
             }
             console.log("DTS structural & peripheral audit PASSED:", dts.split("\n").length, "lines.");
           '
-      - name: Audit High-Speed Timing Closure Report (Rockchip RK3588S2 / JEDEC Real-Silicon Gate)
+      - name: Audit High-Speed Timing Closure Report (Rockchip RK3588S2 / JEDEC / Fiber Weave Gate)
         run: |
           node -e '
             const fs = require("fs");
             const r = JSON.parse(fs.readFileSync("hardware/length_match_report.json", "utf8"));
-            let md = "### High-Speed Timing Closure (Rev 5.0 EVT — Rockchip RK3588S2 / JEDEC Gate)\n\n";
-            md += "| Group | Type | Routed | Min (mm) | Max (mm) | Skew (mm) | Skew (ps) | Limit (ps) | Status |\n|---|---|---:|---:|---:|---:|---:|---:|---|\n";
-            let worstByte = 0, worstCa = 0, worstEmmc = 0, worstPair = 0;
+            let md = "### High-Speed Timing Closure (Rev 5.0 EVT — Rockchip RK3588S2 / JEDEC / Spread-Glass 1067/1078 Gate)\n\n";
+            md += "| Group | Type | Routed | Min (mm) | Max (mm) | Skew (mm) | Skew (ps) | Limit | Status |\n|---|---|---:|---:|---:|---:|---:|---:|---|\n";
+            let worstByte = 0, worstCa = 0, worstEmmc = 0, worstEmmcMaxMm = 0, worstPair = 0;
             const failures = [];
             for (const g of r.groups) {
               if (g.routedCount !== g.netCount) failures.push(`${g.group}: routed ${g.routedCount}/${g.netCount}`);
@@ -66,23 +66,32 @@ jobs:
                 worstByte = Math.max(worstByte, g.afterSkewPs);
                 const pass = g.afterSkewPs <= 16.8;
                 if (!pass) failures.push(`${g.group}: ${g.afterSkewPs}ps > 16.8ps`);
-                md += `| ${g.group} | ${g.type} | ${g.routedCount}/${g.netCount} | ${g.afterMinMm} | ${g.afterMaxMm} | ${g.afterSkewMm} | **${g.afterSkewPs}** | <=16.8 | ${pass ? "PASS" : "FAIL"} |\n`;
+                md += `| ${g.group} | ${g.type} | ${g.routedCount}/${g.netCount} | ${g.afterMinMm} | ${g.afterMaxMm} | ${g.afterSkewMm} | **${g.afterSkewPs}** | <=16.8ps | ${pass ? "PASS" : "FAIL"} |\n`;
               } else if (g.type === "LPDDR5X-CA") {
                 worstCa = Math.max(worstCa, g.afterSkewPs);
                 const pass = g.afterSkewPs <= 25.0;
                 if (!pass) failures.push(`${g.group}: ${g.afterSkewPs}ps > 25.0ps`);
-                md += `| ${g.group} | ${g.type} | ${g.routedCount}/${g.netCount} | ${g.afterMinMm} | ${g.afterMaxMm} | ${g.afterSkewMm} | **${g.afterSkewPs}** | <=25.0 | ${pass ? "PASS" : "FAIL"} |\n`;
+                md += `| ${g.group} | ${g.type} | ${g.routedCount}/${g.netCount} | ${g.afterMinMm} | ${g.afterMaxMm} | ${g.afterSkewMm} | **${g.afterSkewPs}** | <=25.0ps | ${pass ? "PASS" : "FAIL"} |\n`;
               } else if (g.type === "eMMC-5.1") {
                 worstEmmc = Math.max(worstEmmc, g.afterSkewPs);
-                const pass = g.afterSkewPs <= 5.0;
-                if (!pass) failures.push(`${g.group}: ${g.afterSkewPs}ps > 5.0ps`);
-                md += `| ${g.group} | ${g.type} | ${g.routedCount}/${g.netCount} | ${g.afterMinMm} | ${g.afterMaxMm} | ${g.afterSkewMm} | **${g.afterSkewPs}** | <=5.0 | ${pass ? "PASS" : "FAIL"} |\n`;
+                worstEmmcMaxMm = Math.max(worstEmmcMaxMm, g.afterMaxMm);
+                const pass = g.afterSkewPs <= 5.0 && g.afterMaxMm <= 55.0;
+                if (g.afterSkewPs > 5.0) failures.push(`${g.group}: skew ${g.afterSkewPs}ps > 5.0ps`);
+                if (g.afterMaxMm > 55.0) failures.push(`${g.group}: abs length ${g.afterMaxMm}mm > 55.0mm`);
+                md += `| ${g.group} | ${g.type} | ${g.routedCount}/${g.netCount} | ${g.afterMinMm} | **${g.afterMaxMm}** | ${g.afterSkewMm} | **${g.afterSkewPs}** | <=5.0ps & <=55mm | ${pass ? "PASS" : "FAIL"} |\n`;
               } else {
                 worstPair = Math.max(worstPair, g.afterSkewPs);
                 if (g.afterSkewPs > 1.0) failures.push(`${g.group}: ${g.afterSkewPs}ps > 1.0ps`);
               }
             }
-            md += `\n**Worst Byte Skew:** ${worstByte.toFixed(2)} ps (<=16.8) | **Worst CA/CK Skew:** ${worstCa.toFixed(2)} ps (<=25.0) | **eMMC HS400:** ${worstEmmc.toFixed(2)} ps (<=5.0) | **Worst Diff-Pair:** ${worstPair.toFixed(2)} ps (<=1.0)\n`;
+            if (!r.fiberWeaveMitigation || !/1067|1078/.test(JSON.stringify(r.fiberWeaveMitigation))) {
+              failures.push("Missing Spread-Glass 1067/1078 Fiber Weave Effect mitigation spec in length_match_report.json");
+            }
+            if (!r.lpddr5xPackagePinDelay || !r.lpddr5xPackagePinDelay.status) {
+              failures.push("Missing LPDDR5X package pin-delay budget verification in length_match_report.json");
+            }
+            md += `\n**Worst Byte Skew:** ${worstByte.toFixed(2)} ps (<=16.8) | **Worst CA/CK Skew:** ${worstCa.toFixed(2)} ps (<=25.0) | **eMMC HS400:** ${worstEmmcMaxMm.toFixed(2)} mm (<=55.0 mm) / ${worstEmmc.toFixed(2)} ps (<=5.0 ps) | **Worst Diff-Pair:** ${worstPair.toFixed(2)} ps (<=1.0)\n`;
+            md += `**Fiber Weave Mitigation:** ${r.fiberWeaveMitigation?.glassStyle || "N/A"} | **LPDDR5X Package Pin-Delay Budget:** ${r.lpddr5xPackagePinDelay?.status || "N/A"}\n`;
             fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, md);
             console.log(md);
             if (failures.length > 0) {
@@ -92,7 +101,7 @@ jobs:
           '
 
   kicad9-native-sch-pcb-drc-and-mfg:
-    name: 2. KiCad 9 Native Sch ERC, PCB DRC & Gerber/Drill Export (14L HDI + 8L RF)
+    name: 2. KiCad 9 Native Sch ERC, PCB DRC (--schematic-parity) & Gerber/Drill Export (14L HDI + 8L RF)
     runs-on: ubuntu-latest
     container:
       image: kicad/kicad:9.0
@@ -116,9 +125,19 @@ jobs:
         run: |
           node hardware/route_hdi_rev4.mjs
           node hardware/route_mezzanine_rf.mjs
-      - name: Strict Native KiCad 9 PCB DRC & Manufacturing Export (Mainboard 14L + Mezzanine 8L)
+      - name: Strict Native KiCad 9 PCB DRC (--schematic-parity), Zone Island-Removal Audit & Manufacturing Export
         run: |
           node hardware/export_mfg.mjs
+          python3 -c '
+          import pcbnew, sys
+          for path in ["hardware/rk_t4_mainboard.kicad_pcb", "hardware/rk_t4_mezzanine.kicad_pcb"]:
+              b = pcbnew.LoadBoard(path)
+              zones = list(b.Zones())
+              bad = [z.GetNetname() for z in zones if z.GetIslandRemovalMode() != pcbnew.ISLAND_REMOVAL_MODE_ALWAYS]
+              print(f"{path}: {len(zones)} copper zones verified ISLAND_REMOVAL_MODE_ALWAYS (0 = remove all floating islands), bad={len(bad)}")
+              if bad:
+                  sys.exit(f"Zone island removal mode error on {path}: {bad}")
+          '
           node -e '
             const fs = require("fs");
             const m = JSON.parse(fs.readFileSync("hardware/kicad_drc_report.json", "utf8"));
@@ -127,16 +146,20 @@ jobs:
             const zs = JSON.parse(fs.readFileSync("hardware/kicad_mezz_sch_erc.json", "utf8"));
             const mainSchViol = (ms.sheets || []).reduce((a, s) => a + (s.violations || []).length, 0);
             const mezzSchViol = (zs.sheets || []).reduce((a, s) => a + (s.violations || []).length, 0);
+            const mParity = (m.schematic_parity || []).length;
+            const zParity = (z.schematic_parity || []).length;
+            const mIso = (m.violations || []).filter((v) => v.type === "isolated_copper").length;
+            const zIso = (z.violations || []).filter((v) => v.type === "isolated_copper").length;
             const summary = [
-              "### Official KiCad 9 Native Verification Results (`--severity-all`)",
+              "### Official KiCad 9 Native Verification Results (`--severity-all --all-track-errors --schematic-parity`)",
               `- **Mainboard Hierarchical Schematic ERC:** violations=${mainSchViol}`,
               `- **Mezzanine Schematic ERC:** violations=${mezzSchViol}`,
-              `- **Mainboard PCB DRC (14L 1.20mm 3+8+3 Staggered HDI):** violations=${m.violations.length}, unconnected=${m.unconnected_items.length}`,
-              `- **Mezzanine PCB DRC (8L 0.80mm JLC08081H-1080A RF):** violations=${z.violations.length}, unconnected=${z.unconnected_items.length}`,
+              `- **Mainboard PCB DRC (14L 1.20mm 0.5oz Inner / 1oz Outer HDI):** violations=${m.violations.length}, unconnected=${m.unconnected_items.length}, schematic_parity=${mParity}, isolated_copper=${mIso}`,
+              `- **Mezzanine PCB DRC (8L 0.80mm JLC08081H-1080A RF):** violations=${z.violations.length}, unconnected=${z.unconnected_items.length}, schematic_parity=${zParity}, isolated_copper=${zIso}`,
             ].join("\n") + "\n";
             fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
             console.log(summary);
-            if (mainSchViol || mezzSchViol || m.violations.length || m.unconnected_items.length || z.violations.length || z.unconnected_items.length) {
+            if (mainSchViol || mezzSchViol || m.violations.length || m.unconnected_items.length || mParity || mIso || z.violations.length || z.unconnected_items.length || zParity || zIso) {
               process.exit(1);
             }
           '

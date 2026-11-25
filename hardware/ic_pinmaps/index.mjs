@@ -152,7 +152,12 @@ function makeGridBga({ rows, cols, pitch, dia, pinNames = {}, skipBalls = null }
   return pads;
 }
 
-/** Hirose DF40C-40DS / DF40C-40DP (40-pin, 0.40mm pitch, odd pins Top row, even pins Bottom row). */
+/** Hirose DF40C-40DS / DF40C-40DP (40-pin, 0.40mm pitch, odd pins Top row, even pins Bottom row).
+ *  Note: Component-side (F.Cu mounting face) land pattern!
+ *    - DF40C-40DS Receptacle (Mainboard F.Cu): Pin 1 Top-Left (-3.80, +1.15), Pin 2 Bot-Left (-3.80, -1.15).
+ *    - DF40C-40DP Plug (Mezzanine B.Cu): Mirrored in X in component-side view (+3.80 -> -3.80) per Hirose DF40
+ *      mating drawing so that when flipped onto Mezzanine B.Cu (x_board = cx - lx_fp), Pin k of DP physically
+ *      mates 1:1 with Pin k of DS across all 40 contacts with ZERO mirror inversion! */
 function makeHiroseDf40_40(isPlug = false) {
   const pads = [];
   const nPerRow = 20;
@@ -161,7 +166,8 @@ function makeHiroseDf40_40(isPlug = false) {
   const oy = isPlug ? 1.05 : 1.15;    // Aligned closely so 1:1 mating coordinates overlap cleanly
   const pw = 0.20, ph = 0.62;
   for (let i = 0; i < nPerRow; i++) {
-    const x = +(-span * 0.5 + i * pitch).toFixed(4);
+    const xRaw = -span * 0.5 + i * pitch;
+    const x = +(isPlug ? -xRaw : xRaw).toFixed(4);
     const odd = String(2 * i + 1);
     const even = String(2 * i + 2);
     pads.push({ padNum: odd,  pinName: `P${odd}`,  lx: x, ly: +oy, pw, ph, shape: 'roundrect' });
@@ -553,6 +559,21 @@ export const VERIFIED_PINMAPS = {
       { padNum: '7', pinName: 'D3', lx: -0.325, ly: +1.32, pw: 0.38, ph: 0.52, shape: 'roundrect' },
       { padNum: '8', pinName: 'D4', lx: -0.975, ly: +1.32, pw: 0.38, ph: 0.52, shape: 'roundrect' },
       { padNum: '9', pinName: 'EP_D', lx: 0, ly: +0.20, pw: 2.20, ph: 1.40, shape: 'roundrect', thermal: true },
+    ],
+  },
+
+  // 13B. Analog Devices LTC4365ITS8#TRPBF Autonomous VBUS-Powered OVP/UVP/Reverse Controller (TSOT-23-8, Rev B)
+  'LTC4365ITS8#TRPBF': {
+    datasheet: 'Analog Devices LTC4365 Rev B (TS8 8-Lead TSOT-23 2.9x2.8mm, 0.65mm pitch, 2.5-34V op / -40..+60V prot)',
+    pads: [
+      { padNum: '1', pinName: 'VIN',   lx: -0.975, ly: -1.25, pw: 0.38, ph: 0.70, shape: 'roundrect' },
+      { padNum: '2', pinName: 'UV',    lx: -0.325, ly: -1.25, pw: 0.38, ph: 0.70, shape: 'roundrect' },
+      { padNum: '3', pinName: 'OV',    lx: +0.325, ly: -1.25, pw: 0.38, ph: 0.70, shape: 'roundrect' },
+      { padNum: '4', pinName: 'GND',   lx: +0.975, ly: -1.25, pw: 0.38, ph: 0.70, shape: 'roundrect' },
+      { padNum: '5', pinName: 'SHDN',  lx: +0.975, ly: +1.25, pw: 0.38, ph: 0.70, shape: 'roundrect' },
+      { padNum: '6', pinName: 'FAULT', lx: +0.325, ly: +1.25, pw: 0.38, ph: 0.70, shape: 'roundrect' },
+      { padNum: '7', pinName: 'VOUT',  lx: -0.325, ly: +1.25, pw: 0.38, ph: 0.70, shape: 'roundrect' },
+      { padNum: '8', pinName: 'GATE',  lx: -0.975, ly: +1.25, pw: 0.38, ph: 0.70, shape: 'roundrect' },
     ],
   },
 

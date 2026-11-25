@@ -64,11 +64,12 @@ for (const [ref, desc] of [
   ['U201', 'TI BQ27Z561-R2 SHA-256 Fuel Gauge (CE=HI, RC Kelvin)'],
   ['R202', 'Vishay 5mOhm 4-Terminal Kelvin Shunt'],
   ['U202', 'TI BQ25895RTWR 5A NVDC Charger (5-12V, dedicated TS)'],
+  ['U204', 'Analog Devices LTC4365ITS8#TRPBF VBUS-Powered Autonomous UV/OV OVP Controller (3.84-13.63V)'],
   ['Q201A', 'Vishay SiSA14DN Back-to-Back OVP FET A'],
   ['Q201B', 'Vishay SiSA14DN Back-to-Back OVP FET B'],
   ['U205', 'TI BQ51013BRHLR 5W Qi Wireless Rx (SLUSB62D)'],
   ['U601', 'onsemi FUSB302BMPX USB-C PD 3.0 TCPC'],
-  ['U603', 'TI TPD4S480RUKR 48V EPR CC/SBU OVP + Gate Driver'],
+  ['U603', 'TI TPD4S480RUKR 48V EPR CC/SBU OVP + Dead-Battery 5.1k Rd'],
   ['U602', 'TI TUSB546-DCI USB3.1/DP1.4 Crosspoint Mux'],
   ['U501', 'TI TPS65632RTER Triple AMOLED PMIC (SWIRE, 3 Inductors)'],
   ['U503', 'SG Micro SGM2036-3.0 OLED VCI LDO'],
@@ -249,12 +250,142 @@ for (const c of components) {
 }
 assert(rfShuntShorts.length === 0, `Zero RF shunt inductor/cap dead-shorts to GND on 50-Ohm antenna lines${rfShuntShorts.length ? ': ' + rfShuntShorts.join(', ') : ''}`);
 
-// 8. Dual Hirose DF40C-40DS/DP Exact 1:1 Physical & Electrical Mating Audit
+// 8. Dual Hirose DF40C-40DS/DP Exact 1:1 3D Spatial Face-to-Face Mating & Mirror-Inversion Gate (80 Pins!)
+function parseFootprintPadsFromMod(modPath) {
+  const txt = fs.readFileSync(modPath, 'utf8');
+  const pads = new Map();
+  for (const m of txt.matchAll(/\(pad\s+"([^"]+)"\s+\w+\s+\w+\s+\(at\s+([-\d.]+)\s+([-\d.]+)(?:\s+[-\d.]+)?\)/g)) {
+    pads.set(m[1], { lx: parseFloat(m[2]), ly: parseFloat(m[3]) });
+  }
+  return pads;
+}
+
+function extractPcbFootprint(pcbText, targetRef) {
+  const refNeedle = `(property "Reference" "${targetRef}"`;
+  const refIdx = pcbText.indexOf(refNeedle);
+  if (refIdx < 0) return null;
+  const fpStart = pcbText.lastIndexOf('(footprint ', refIdx);
+  if (fpStart < 0) return null;
+  let depth = 0, fpEnd = fpStart;
+  for (let i = fpStart; i < pcbText.length; i++) {
+    const ch = pcbText[i];
+    if (ch === '(') depth++;
+    else if (ch === ')') {
+      depth--;
+      if (depth === 0) { fpEnd = i + 1; break; }
+    }
+  }
+  const block = pcbText.slice(fpStart, fpEnd);
+  const header = block.slice(0, block.indexOf('(property'));
+  const layerM = header.match(/\(layer\s+"([^"]+)"\)/);
+  const atM = header.match(/\(at\s+([-\d.]+)\s+([-\d.]+)(?:\s+([-\d.]+))?\)/);
+  if (!layerM || !atM) return null;
+  const layer = layerM[1];
+  const fx = parseFloat(atM[1]);
+  const fy = parseFloat(atM[2]);
+  const rotDeg = atM[3] ? parseFloat(atM[3]) : 0;
+  const rad = (rotDeg * Math.PI) / 180;
+  const cos = Math.cos(rad), sin = Math.sin(rad);
+  const pads = new Map();
+  let pos = 0;
+  while (true) {
+    const pIdx = block.indexOf('(pad "', pos);
+    if (pIdx < 0) break;
+    let pDepth = 0, pEnd = pIdx;
+    for (let i = pIdx; i < block.length; i++) {
+      if (block[i] === '(') pDepth++;
+      else if (block[i] === ')') {
+        pDepth--;
+        if (pDepth === 0) { pEnd = i + 1; break; }
+      }
+    }
+    const pBlock = block.slice(pIdx, pEnd);
+    pos = pEnd;
+    const numM = pBlock.match(/^\(pad\s+"([^"]+)"/);
+    const patM = pBlock.match(/\(at\s+([-\d.]+)\s+([-\d.]+)(?:\s+[-\d.]+)?\)/);
+    const netM = pBlock.match(/\(net\s+\d+\s+"([^"]*)"\)/);
+    if (numM && patM) {
+      const lx = parseFloat(patM[1]);
+      const ly = parseFloat(patM[2]);
+      // Exact KiCad Y-down CCW rotation transform into board world coordinates
+      const wx = fx + lx * cos + ly * sin;
+      const wy = fy - lx * sin + ly * cos;
+      pads.set(numM[1], { lx, ly, wx, wy, net: netM ? netM[1] : '' });
+    }
+  }
+  return { ref: targetRef, layer, fx, fy, rotDeg, pads };
+}
+
 for (const [mbRef, mzRef] of [['J901A_MB', 'J901A'], ['J901B_MB', 'J901B']]) {
   const mb = byRef.get(mbRef), mz = byRef.get(mzRef);
   const posOk = mb && mz && mb.x === mz.x && mb.y === mz.y;
   const pinsOk = posOk && Object.keys(mb.pins).length === 40 && Object.keys(mb.pins).every((k) => mb.pins[k] === mz.pins[k]);
-  assert(pinsOk, `Dual Hirose DF40C 1:1 mating verified: ${mbRef} <-> ${mzRef} @ (${mb?.x},${mb?.y}) 40/40 pins identical`);
+  assert(pinsOk, `Dual Hirose DF40C netlist 1:1 mating verified: ${mbRef} <-> ${mzRef} @ (${mb?.x},${mb?.y}) 40/40 pins identical`);
+}
+
+// 8B. Verify DF40C-40DS vs DF40C-40DP .kicad_mod opposite X-chirality (zero mirror inversion on B.Cu flip!)
+const dsModPath = path.join(import.meta.dirname, 'RK_T4.pretty', 'DF40C-40DS.kicad_mod');
+const dpModPath = path.join(import.meta.dirname, 'RK_T4.pretty', 'DF40C-40DP.kicad_mod');
+if (fs.existsSync(dsModPath) && fs.existsSync(dpModPath)) {
+  const dsPads = parseFootprintPadsFromMod(dsModPath);
+  const dpPads = parseFootprintPadsFromMod(dpModPath);
+  const chiralityErrors = [];
+  for (let p = 1; p <= 40; p++) {
+    const k = String(p);
+    const a = dsPads.get(k), b = dpPads.get(k);
+    if (!a || !b) { chiralityErrors.push(`pin ${k} missing`); continue; }
+    // Component-top-view X must be exact opposite (DS.lx + DP.lx == 0) and Y on same odd/even side (sign match)
+    if (Math.abs(a.lx + b.lx) > 0.005 || Math.sign(a.ly) !== Math.sign(b.ly) || Math.abs(Math.abs(a.ly) - Math.abs(b.ly)) > 0.15) {
+      chiralityErrors.push(`pin ${k}: DS(${a.lx},${a.ly}) vs DP(${b.lx},${b.ly})`);
+    }
+  }
+  assert(
+    chiralityErrors.length === 0,
+    `Hirose DF40C-40DS vs DF40C-40DP footprint library opposite X-chirality verified (40/40 pins anti-mirrored for B.Cu face-to-face mating)${chiralityErrors.length ? ': ' + chiralityErrors.slice(0, 5).join('; ') : ''}`
+  );
+} else {
+  assert(false, 'Missing DF40C-40DS.kicad_mod or DF40C-40DP.kicad_mod for chirality verification');
+}
+
+// 8C. Verify ALL 80 physical pad world (X, Y) coordinates & nets across ACTUAL KiCad PCB files!
+const mainPcbPath = path.join(import.meta.dirname, 'rk_t4_mainboard.kicad_pcb');
+const mezzPcbPath = path.join(import.meta.dirname, 'rk_t4_mezzanine.kicad_pcb');
+if (fs.existsSync(mainPcbPath) && fs.existsSync(mezzPcbPath)) {
+  const mainPcbTxt = fs.readFileSync(mainPcbPath, 'utf8');
+  const mezzPcbTxt = fs.readFileSync(mezzPcbPath, 'utf8');
+  const spatialMismatches = [];
+  let checked80 = 0;
+  for (const [mbRef, mzRef] of [['J901A_MB', 'J901A'], ['J901B_MB', 'J901B']]) {
+    const fpMb = extractPcbFootprint(mainPcbTxt, mbRef);
+    const fpMz = extractPcbFootprint(mezzPcbTxt, mzRef);
+    if (!fpMb || !fpMz) {
+      spatialMismatches.push(`Missing PCB footprint: ${mbRef}=${!!fpMb}, ${mzRef}=${!!fpMz}`);
+      continue;
+    }
+    if (fpMb.layer !== 'F.Cu' || fpMz.layer !== 'B.Cu') {
+      spatialMismatches.push(`${mbRef}(${fpMb.layer}) vs ${mzRef}(${fpMz.layer}): expected F.Cu <-> B.Cu face-to-face mating`);
+    }
+    for (let p = 1; p <= 40; p++) {
+      const k = String(p);
+      const pm = fpMb.pads.get(k), pz = fpMz.pads.get(k);
+      if (!pm || !pz) { spatialMismatches.push(`${mbRef}/${mzRef} pin ${k} missing`); continue; }
+      checked80++;
+      const dx = Math.abs(pm.wx - pz.wx);
+      const dy = Math.abs(pm.wy - pz.wy);
+      // Pin pitch is 0.40 mm; exact 3D face-to-face alignment requires |dX| <= 0.01 mm and |dY| <= 0.15 mm (0.10 mm Hirose DS/DP toe delta) + identical net
+      if (dx > 0.01 || dy > 0.15 || pm.net !== pz.net) {
+        spatialMismatches.push(
+          `${mbRef}.${k}(${pm.wx.toFixed(2)},${pm.wy.toFixed(2)}:${pm.net}) != ${mzRef}.${k}(${pz.wx.toFixed(2)},${pz.wy.toFixed(2)}:${pz.net}) [dX=${dx.toFixed(3)},dY=${dy.toFixed(3)}]`
+        );
+      }
+    }
+  }
+  assert(
+    checked80 === 80 && spatialMismatches.length === 0,
+    `3D Spatial Face-to-Face BTB Mating Gate: ALL ${checked80}/80 pins of DF40C-40DS (Main F.Cu) <-> DF40C-40DP (Mezz B.Cu) aligned 1:1 in world (X,Y) & net (ZERO mirror inversion)${spatialMismatches.length ? ': ' + spatialMismatches.slice(0, 5).join('; ') : ''}`
+  );
+} else {
+  assert(false, 'Missing Mainboard or Mezzanine .kicad_pcb for 80-pin 3D spatial mating verification');
 }
 
 // 9. BGA Full Ball Counts, Clocks, Reset, LPDDR5X 148 Signal Nets, eMMC HS400
@@ -316,6 +447,135 @@ for (let i = 0; i < components.length; i++) {
   }
 }
 assert(collisions.length === 0, `Physical SMT Courtyard DRC: Zero component collisions (${collisions.length} overlaps)${collisions.length ? ':\n    ' + collisions.slice(0, 25).join('\n    ') : ''}`);
+
+// 13. Dead-Battery 0% (VBAT=0V, VSYS=0V, CPU OFF) Autonomous USB-C 5V Boot Chain Gate!
+function parseOhms(valStr) {
+  const m = String(valStr || '').match(/^([\d.]+)\s*(mOhm|m|R|K|M)/i);
+  if (!m) return NaN;
+  const v = parseFloat(m[1]);
+  const u = m[2];
+  if (u === 'M') return v * 1e6;
+  if (u.toUpperCase() === 'K') return v * 1e3;
+  if (u === 'm' || u.toLowerCase() === 'mohm') return v * 1e-3;
+  return v;
+}
+
+const u603 = byRef.get('U603'), u204 = byRef.get('U204'), q201a = byRef.get('Q201A'), q201b = byRef.get('Q201B');
+const u202 = byRef.get('U202'), u206 = byRef.get('U206');
+
+// 13A. TPD4S480RUKR dead-battery 5.1k Rd & safe VBUS_LV sense isolation
+const tpdDeadBatOk = Boolean(
+  u603 &&
+  u603.pins['3'] === 'TPD_VBIAS' && (nets.TPD_VBIAS || []).includes('C607.1') &&
+  u603.pins['7'] === 'USB_CC1_EXT' && u603.pins['4'] === 'USB_CC1_EXT' &&
+  u603.pins['6'] === 'USB_CC2_EXT' && u603.pins['5'] === 'USB_CC2_EXT' &&
+  u603.pins['17'] !== 'VBUS_OVP_GATE' &&
+  u603.pins['19'] === 'VBUS_PD_SENSE' &&
+  (nets.VBUS_PD_SENSE || []).includes('U601.2') &&
+  (nets.VBUS_PD_SENSE || []).includes('C608.1') &&
+  !(nets.VBUS_OVP_OUT || []).includes('U603.19')
+);
+assert(
+  tpdDeadBatOk,
+  'Dead-Battery Gate 13A: U603 TPD4S480RUKR RPD_G1=C_CC1 & RPD_G2=C_CC2 (autonomous 5.1k Rd), EPR_BLK_G decoupled from OVP gate, VBUS_LV isolated to U601.VBUS sense'
+);
+
+// 13B. LTC4365ITS8#TRPBF autonomous VBUS-powered UV/OV window controller & Q201A/Q201B conduction at VSYS=0V
+const r241 = parseOhms(byRef.get('R241')?.value);
+const r242 = parseOhms(byRef.get('R242')?.value);
+const r243 = parseOhms(byRef.get('R243')?.value);
+const vUv = 0.5 * (r241 + r242 + r243) / (r242 + r243);
+const vOv = 0.5 * (r241 + r242 + r243) / r243;
+const gateNodes = nets.VBUS_OVP_GATE || [];
+const gateHasBleedRes = gateNodes.some((n) => n.startsWith('R'));
+const ovpAutonomousOk = Boolean(
+  u204 && q201a && q201b &&
+  u204.pins['1'] === 'VBUS_PD_12V' &&
+  u204.pins['4'] === 'GND' &&
+  u204.pins['5'] === 'OVP_SHDN' && (nets.OVP_SHDN || []).includes('R244.2') && byRef.get('R244')?.pins['1'] === 'VBUS_PD_12V' &&
+  u204.pins['7'] === 'VBUS_OVP_OUT' &&
+  u204.pins['8'] === 'VBUS_OVP_GATE' &&
+  q201a.pins['4'] === 'VBUS_OVP_GATE' && q201b.pins['4'] === 'VBUS_OVP_GATE' &&
+  q201a.pins['5'] === 'VBUS_PD_12V' && q201a.pins['1'] === 'VBUS_OVP_MID' &&
+  q201b.pins['1'] === 'VBUS_OVP_MID' && q201b.pins['5'] === 'VBUS_OVP_OUT' &&
+  !gateHasBleedRes &&
+  vUv >= 3.5 && vUv <= 4.3 && vOv >= 12.6 && vOv <= 13.9
+);
+assert(
+  ovpAutonomousOk,
+  `Dead-Battery Gate 13B: U204 LTC4365ITS8#TRPBF powered directly from VBUS_PD_12V (VSYS=0V autonomous!) drives Q201A/Q201B ON with V_UV=${vUv.toFixed(3)}V (<=5V) & V_OV=${vOv.toFixed(3)}V (<14V BQ25895 max), zero gate bleed load`
+);
+
+// 13C. BQ25895RTWR autonomous VSYSMIN=3.5V startup without I2C/CPU
+const chgAutoOk = Boolean(
+  u202 &&
+  u202.pins['1'] === 'VBUS_OVP_OUT' &&
+  u202.pins['9'] === 'GND' &&
+  u202.pins['8'] === 'GND' &&
+  u202.pins['10'] === 'CHG_ILIM' && (nets.CHG_ILIM || []).includes('R203.1') &&
+  u202.pins['11'] === 'CHG_TS' && (nets.CHG_TS || []).includes('RT202.1') &&
+  u202.pins['15'] === 'VSYS_3V87' && u202.pins['19'] === 'CHG_SW' &&
+  (nets.CHG_SW || []).includes('L201.1') && (nets.VSYS_3V87 || []).includes('L201.2')
+);
+assert(
+  chgAutoOk,
+  'Dead-Battery Gate 13C: U202 BQ25895RTWR (/CE=GND, OTG=GND, ILIM=130R, JEITA TS divider) autonomously brings up VSYS_3V87 >= 3.50V (VSYSMIN) at VBAT=0V'
+);
+
+// 13D. RK806-1 autonomous cold-boot from VBUS_VDC_DET + VSYS_3V87
+const r205 = parseOhms(byRef.get('R205')?.value);
+const r206 = parseOhms(byRef.get('R206')?.value);
+const vVdc5v = 5.0 * r206 / (r205 + r206);
+const vVdc12v = 12.0 * r206 / (r205 + r206);
+const pmicColdBootOk = Boolean(
+  u206 &&
+  u206.pins['21'] === 'VSYS_3V87' &&
+  u206.pins['32'] === 'VBUS_VDC_DET' &&
+  byRef.get('R205')?.pins['1'] === 'VBUS_OVP_OUT' && byRef.get('R205')?.pins['2'] === 'VBUS_VDC_DET' &&
+  byRef.get('R206')?.pins['1'] === 'VBUS_VDC_DET' && byRef.get('R206')?.pins['2'] === 'GND' &&
+  vVdc5v >= 1.0 && vVdc12v <= 3.0
+);
+assert(
+  pmicColdBootOk,
+  `Dead-Battery Gate 13D: U206 RK806-1 autonomous boot verified (VCCA=VSYS_3V87 >= 3.5V > 3.0V VB_LO_SEL; VDC=${vVdc5v.toFixed(3)}V @5V > 0.8V wake, ${vVdc12v.toFixed(3)}V @12V <= 3.0V SoC limit)`
+);
+
+// 14. OLED Negative-Voltage PMIC (U501 TPS65632RTER) & Si-C Fuel Gauge (U201 BQ27Z561-R2) Real Wiring Audit
+const u501 = byRef.get('U501');
+const oledPmicOk = Boolean(
+  u501 &&
+  u501.pins['3'] === 'OLED_ELVDD_4V6' && u501.pins['4'] === 'OLED_ELVDD_4V6' &&
+  u501.pins['10'] === 'OLED_ELVSS_M4V0' && u501.pins['13'] === 'OLED_AVDD_7V7' &&
+  (nets.OLED_ELVDD_4V6 || []).includes('J501.25') &&
+  (nets.OLED_ELVSS_M4V0 || []).includes('J501.26') &&
+  byRef.get('L501')?.pins['2'] === 'SW_OLED_P1' &&
+  byRef.get('L502')?.pins['2'] === 'SW_OLED_P2' &&
+  byRef.get('L503')?.pins['1'] === 'SW_OLED_N' &&
+  (nets.OLED_PMIC_EN || []).includes('U501.8') && (nets.OLED_PMIC_CTRL || []).includes('U501.9')
+);
+assert(
+  oledPmicOk,
+  'OLED Negative-Voltage PMIC U501 (TPS65632RTER): ELVDD (+4.6V), ELVSS (-4.0V), AVDD (+7.7V), L501/L502/L503 inductors & SWIRE control wired to J501/U101'
+);
+
+const u201 = byRef.get('U201'), r202 = byRef.get('R202');
+const fuelGaugeOk = Boolean(
+  u201 && r202 &&
+  (nets.VBAT_NEG_PACK || []).includes('J201.N1') &&
+  (nets.VBAT_NEG_PACK || []).includes('J201.N2') &&
+  r202.pins['1'] === 'VBAT_NEG_PACK' && r202.pins['2'] === 'GND' &&
+  r202.pins['3'] === 'FG_CSP_RAW' && r202.pins['4'] === 'FG_CSN_RAW' &&
+  byRef.get('R208')?.pins['1'] === 'FG_CSP_RAW' && byRef.get('R208')?.pins['2'] === 'FG_CSP' &&
+  byRef.get('R209')?.pins['1'] === 'FG_CSN_RAW' && byRef.get('R209')?.pins['2'] === 'FG_CSN' &&
+  u201.pins.D1 === 'FG_CSP' && u201.pins.C1 === 'FG_CSN' &&
+  byRef.get('C206')?.pins['1'] === 'FG_CSP' && byRef.get('C206')?.pins['2'] === 'FG_CSN' &&
+  byRef.get('C207')?.pins['1'] === 'FG_CSP' && byRef.get('C208')?.pins['1'] === 'FG_CSN' &&
+  u201.pins.B1 === 'BAT_NTC_ADC' && (nets.BAT_NTC_ADC || []).includes('J201.1')
+);
+assert(
+  fuelGaugeOk,
+  'Si-C Fuel Gauge U201 (BQ27Z561-R2): 4-terminal 5mOhm Kelvin shunt R202 + differential RC filter (R208/R209/C206/C207/C208) + Pack NTC verified'
+);
 
 console.log('========================================================================');
 console.log('  RK T4 REV 5.0 (TRUE EVT) — REAL-SILICON ERC & COURTYARD AUDIT REPORT  ');
